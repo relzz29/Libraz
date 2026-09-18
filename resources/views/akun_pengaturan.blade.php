@@ -280,10 +280,13 @@
 <span class="material-symbols-outlined text-[22px]">check_circle</span>
 <span>Simpan Perubahan</span>
 </button>
-<button class="w-full h-12 rounded-2xl bg-surface-container-low hover:bg-error-container/20 text-error font-title-md text-title-md flex items-center justify-center gap-space-xs active:scale-98 transition-colors" type="button">
+<form method="POST" action="{{ route('logout') }}" class="w-full">
+@csrf
+<button class="w-full h-12 rounded-2xl bg-surface-container-low hover:bg-error-container/20 text-error font-title-md text-title-md flex items-center justify-center gap-space-xs active:scale-98 transition-colors" type="submit">
 <span class="material-symbols-outlined text-[20px]">logout</span>
 <span>Keluar dari Akun (Logout)</span>
 </button>
+</form>
 <!-- Version & Identity Footer -->
 <div class="pt-space-md text-center">
 <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">

@@ -47,8 +47,8 @@ body { min-height: max(884px, 100dvh); }
 </style>
 </head>
 <body class="bg-background font-body-md text-body-md text-on-surface pt-safe pb-safe flex flex-col min-h-screen">
-<main class="flex flex-col relative w-full bg-surface min-h-screen">
-<div class="flex flex-col w-full px-margin pb-space-xl">
+<main class="flex flex-col relative w-full bg-surface min-h-screen items-center">
+<div class="flex flex-col w-full max-w-md px-margin pb-space-xl">
 <!-- Brand Mascot & Top Intro Banner -->
 <div class="relative w-full overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-sm mt-space-sm mb-space-lg">
 <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>

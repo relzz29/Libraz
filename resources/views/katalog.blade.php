@@ -109,10 +109,10 @@
 <span class="material-symbols-outlined text-[18px]">touch_app</span>
         Pinjam Mandiri
       </button>
-<button class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+<a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
 <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
         Baca E-Book (PDF)
-      </button>
+      </a>
 </div>
 </article>
 <!-- Book Card 2: Bumi Manusia -->
@@ -191,10 +191,10 @@
 </div>
 <!-- Action Button: E-Reader -->
 <div class="w-full pt-space-xs">
-<button class="w-full h-10 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+<a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" class="w-full h-10 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
 <span class="material-symbols-outlined text-[18px]">chrome_reader_mode</span>
         Buka Reader Langsung
-      </button>
+      </a>
 </div>
 </article>
 <!-- Book Card 4: Laskar Pelangi -->
