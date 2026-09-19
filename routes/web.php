@@ -10,6 +10,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/login/qr', [AuthController::class, 'qrLogin'])->name('login.qr');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/bantuan', function () { return view('bantuan'); })->name('bantuan');
 
 Route::middleware('auth')->group(function () {
     Route::get('/katalog', [LibraryController::class, 'katalog'])->name('katalog');

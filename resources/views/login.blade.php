@@ -258,10 +258,10 @@ body { min-height: max(884px, 100dvh); }
 <!-- Help & Support Desk Link -->
 <div class="flex items-center justify-center gap-1 pt-space-xs text-center">
 <span class="font-body-sm text-body-sm text-on-surface-variant">Butuh bantuan akun?</span>
-<button class="font-title-md text-title-md text-primary hover:underline flex items-center gap-0.5" type="button">
+<a href="{{ route('bantuan') }}" class="font-title-md text-title-md text-primary hover:underline flex items-center gap-0.5">
 <span>Hubungi Pustakawan</span>
 <span class="material-symbols-outlined text-[16px]">support_agent</span>
-</button>
+</a>
 </div>
 </div>
 </div>
