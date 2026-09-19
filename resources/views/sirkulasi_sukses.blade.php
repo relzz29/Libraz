@@ -15,7 +15,7 @@
 <span class="material-symbols-outlined text-[18px]">verified</span>
 <span class="font-label-sm text-label-sm uppercase tracking-wider">RFID Desensitized</span>
 </div>
-<button aria-label="Tutup dan kembali ke katalog" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-transform active:scale-95 shadow-sm" id="btn-close">
+<button aria-label="Tutup dan kembali ke katalog" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-transform active:scale-95 shadow-sm" id="btn-close" onclick="window.location.href='/katalog'">
 <span class="material-symbols-outlined text-[20px]">close</span>
 </button>
 </div>

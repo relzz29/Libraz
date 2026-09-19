@@ -16,12 +16,12 @@
     <header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
         <div class="h-16 px-margin flex items-center justify-between gap-space-sm">
             <div class="flex items-center gap-space-sm min-w-0">
-                <a aria-label="Kembali ke Akun" class="w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:text-primary transition-colors focus:outline-none flex-shrink-0" data-path="akun" href="{{ route('akun') }}">
+                <a aria-label="Kembali ke Katalog" class="w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:text-primary transition-colors focus:outline-none flex-shrink-0" href="/katalog">
                     <span class="material-symbols-outlined text-[24px]">arrow_back</span>
                 </a>
                 <div class="flex flex-col min-w-0">
-                    <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">Akun &amp; Pengaturan</span>
-                    <span class="font-title-md text-title-md text-on-surface truncate">Edit Profil &amp; Pengaturan Akun</span>
+                    <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">PEMBERITAHUAN</span>
+                    <span class="font-title-md text-title-md text-on-surface truncate">Notifikasi</span>
                 </div>
             </div>
             <div class="flex items-center gap-space-xs flex-shrink-0">

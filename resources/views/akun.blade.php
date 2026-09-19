@@ -20,9 +20,9 @@
 </div>
 <div class="flex flex-col min-w-0">
 <div class="flex items-center gap-1.5 flex-wrap">
-<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">{{ Auth::user()->name }}</h2>
+<h2 id="profile-name" class="font-headline-sm text-headline-sm text-on-surface truncate">Nama Siswa</h2>
 </div>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">NIS: {{ Auth::user()->nis }} • {{ Auth::user()->school_name ?? 'XII MIPA 2' }}</p>
+<p id="profile-nis" class="font-body-sm text-body-sm text-on-surface-variant truncate">NIS: 1234567890 • XII MIPA 2</p>
 <p class="font-label-sm text-label-sm text-primary tracking-wide uppercase mt-0.5">SMAN 1 Garudapura</p>
 </div>
 </div>
@@ -93,7 +93,7 @@
 <span class="w-2.5 h-full bg-on-surface"></span>
 <span class="w-1 h-full bg-on-surface"></span>
 </div>
-<span class="font-label-sm text-label-sm tracking-widest text-on-surface-variant mt-1">{{ Auth::user()->nis }}-BIBLIOZ-GATE</span>
+<span id="profile-gate-id" class="font-label-sm text-label-sm tracking-widest text-on-surface-variant mt-1">1234567890-BIBLIOZ-GATE</span>
 </div>
 <p class="font-body-sm text-body-sm text-center text-on-surface-variant">Arahkan ke scanner turnstile gerbang perpustakaan atau meja sirkulasi mandiri</p>
 </div>
@@ -494,4 +494,36 @@
       lockedItems.forEach(el => el.classList.add('flex'));
     });
   }
+
+  // Fetch User Data from API
+  document.addEventListener('DOMContentLoaded', async () => {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      window.location.href = '/login';
+      return;
+    }
+    try {
+      const response = await fetch('/api/user', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json'
+        }
+      });
+      if (response.ok) {
+        const user = await response.json();
+        const elName = document.getElementById('profile-name');
+        const elNis = document.getElementById('profile-nis');
+        const elGate = document.getElementById('profile-gate-id');
+        
+        if (elName) elName.textContent = user.name;
+        if (elNis) elNis.textContent = `NIS: ${user.nis} • ${user.school_name || 'XII MIPA 2'}`;
+        if (elGate) elGate.textContent = `${user.nis}-BIBLIOZ-GATE`;
+      } else {
+        localStorage.removeItem('auth_token');
+        window.location.href = '/login';
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  });
 </script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a></div></nav></body></html>

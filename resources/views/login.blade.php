@@ -164,6 +164,9 @@ body { min-height: max(884px, 100dvh); }
 </div>
 @endif
 
+<!-- JS Custom Alert Container -->
+<div id="js-alert-container" class="hidden p-3 text-sm rounded-lg flex items-center gap-2 mb-3"></div>
+
 <!-- Identifier Input -->
 <div class="flex flex-col gap-1.5">
 <div class="flex items-center justify-between">
@@ -258,7 +261,7 @@ body { min-height: max(884px, 100dvh); }
 <!-- Help & Support Desk Link -->
 <div class="flex items-center justify-center gap-1 pt-space-xs text-center">
 <span class="font-body-sm text-body-sm text-on-surface-variant">Butuh bantuan akun?</span>
-<a href="#" class="font-title-md text-title-md text-primary hover:underline flex items-center gap-0.5">
+<a href="/bantuan" class="font-title-md text-title-md text-primary hover:underline flex items-center gap-0.5">
 <span>Hubungi Pustakawan</span>
 <span class="material-symbols-outlined text-[16px]">support_agent</span>
 </a>
@@ -339,6 +342,26 @@ body { min-height: max(884px, 100dvh); }
       switchToRegister();
     }
 
+    // Custom Alert Helper
+    const alertContainer = document.getElementById('js-alert-container');
+    function showCustomAlert(message, type = 'error') {
+      alertContainer.classList.remove('hidden');
+      if (type === 'success') {
+        alertContainer.style.backgroundColor = '#dcfce7';
+        alertContainer.style.color = '#166534';
+        alertContainer.innerHTML = `<span class="material-symbols-outlined text-[18px]">check_circle</span> <span>${message}</span>`;
+      } else {
+        alertContainer.style.backgroundColor = '#fee2e2';
+        alertContainer.style.color = '#991b1b';
+        alertContainer.innerHTML = `<span class="material-symbols-outlined text-[18px]">error</span> <span>${message}</span>`;
+      }
+      
+      // Auto hide after 5 seconds
+      setTimeout(() => {
+        alertContainer.classList.add('hidden');
+      }, 5000);
+    }
+
     function switchToLogin() {
       if (currentMode === 'login') return;
       currentMode = 'login';
@@ -412,6 +435,7 @@ body { min-height: max(884px, 100dvh); }
 
       submitBtn.disabled = true;
       submitBtn.querySelector('span:first-child').textContent = 'Memproses...';
+      alertContainer.classList.add('hidden'); // Hide any previous alert
 
       try {
         const response = await fetch(apiUrl, {
@@ -428,18 +452,20 @@ body { min-height: max(884px, 100dvh); }
         if (response.ok) {
           // Save token for SPA
           localStorage.setItem('auth_token', data.access_token);
-          alert((isRegister ? 'Registrasi' : 'Login') + ' berhasil!');
+          showCustomAlert((isRegister ? 'Registrasi' : 'Login') + ' berhasil!', 'success');
           // Redirect to /katalog page
-          window.location.href = '/katalog';
+          setTimeout(() => {
+            window.location.href = '/katalog';
+          }, 800);
         } else {
           let errorMessage = data.message || 'Terjadi kesalahan.';
           if (data.errors) {
-            errorMessage = Object.values(data.errors).flat().join('\n');
+            errorMessage = Object.values(data.errors).flat().join('<br>');
           }
-          alert('Gagal: ' + errorMessage);
+          showCustomAlert('Gagal: ' + errorMessage, 'error');
         }
       } catch (error) {
-        alert('Kesalahan jaringan.');
+        showCustomAlert('Kesalahan jaringan. Pastikan koneksi internet aktif.', 'error');
       } finally {
         submitBtn.disabled = false;
         submitBtn.querySelector('span:first-child').textContent = isRegister ? 'Aktivasi Akun Baru' : 'Masuk ke Perpustakaan';
@@ -581,6 +607,9 @@ body { min-height: max(884px, 100dvh); }
         .then(response => response.json())
         .then(data => {
             if(data.success) {
+                if (data.token) {
+                    localStorage.setItem('auth_token', data.token);
+                }
                 window.location.href = data.redirect;
             } else {
                 scannerAlert.className = 'scanner-alert-box scanner-alert-danger';

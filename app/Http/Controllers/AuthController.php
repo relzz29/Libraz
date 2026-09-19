@@ -28,8 +28,8 @@ class AuthController extends Controller
             // Buat token Sanctum
             $token = $user->createToken('auth_token')->plainTextToken;
 
-            // Regenerate session (untuk Cookie-Based SPA)
-            $request->session()->regenerate();
+            // Regenerate session (untuk Cookie-Based SPA) - Dihapus karena pakai token API
+            // $request->session()->regenerate();
 
             return response()->json([
                 'message' => 'Login berhasil',
@@ -97,8 +97,10 @@ class AuthController extends Controller
             ], 404);
         }
 
-        Auth::login($user);
-        $request->session()->regenerate();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // Auth::login($user);
+        // $request->session()->regenerate();
 
         return response()->json([
             'success' => true,
@@ -109,6 +111,7 @@ class AuthController extends Controller
                 'level' => $user->level,
                 'level_name' => $user->level_name,
             ],
+            'token' => $token,
             'redirect' => route('katalog'),
         ]);
     }
@@ -137,14 +140,30 @@ class AuthController extends Controller
         // Buat token Sanctum
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Login untuk Cookie-Based SPA
-        Auth::login($user);
+        // Login untuk Cookie-Based SPA - Dihapus karena pakai API Token
+        // Auth::login($user);
         
         return response()->json([
             'message' => 'Pendaftaran berhasil',
             'user' => $user,
             'token' => $token,
         ], 201);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $user = $request->user();
+        $user->name = $validated['name'];
+        $user->save();
+
+        return response()->json([
+            'message' => 'Profil berhasil diperbarui',
+            'user' => $user
+        ]);
     }
 
     public function logout(Request $request)
@@ -154,10 +173,10 @@ class AuthController extends Controller
             $request->user()->currentAccessToken()->delete();
         }
 
-        // Logout dan hapus sesi (jika pakai Cookie-Based SPA)
-        Auth::guard('web')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // Logout dan hapus sesi (jika pakai Cookie-Based SPA) - Dihapus karena API
+        // Auth::guard('web')->logout();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
         
         return response()->json([
             'message' => 'Logout berhasil'

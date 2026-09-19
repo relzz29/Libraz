@@ -64,7 +64,7 @@
 <div class="flex flex-col space-y-1">
 <label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="student-name">Nama Lengkap Siswa</label>
 <div class="relative flex items-center">
-<input class="w-full bg-surface-container-low rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container transition-colors" id="student-name" type="text" value="{{ Auth::user()->name }}"/>
+<input class="w-full bg-surface-container-low rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container transition-colors" id="student-name" type="text" value="Nama Siswa"/>
 <span class="material-symbols-outlined text-primary absolute right-space-md text-[18px]">edit</span>
 </div>
 </div>
@@ -77,7 +77,7 @@
         </span>
 </div>
 <div class="relative flex items-center">
-<input class="w-full bg-surface-container-high/60 rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface cursor-not-allowed" disabled="" id="student-nisn" type="text" value="{{ Auth::user()->nis }} • {{ Auth::user()->school_name ?? 'XII MIPA 2' }}"/>
+<input class="w-full bg-surface-container-high/60 rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface cursor-not-allowed" disabled="" id="student-nisn" type="text" value="1234567890   XII MIPA 2"/>
 <span class="material-symbols-outlined text-on-surface-variant absolute right-space-md text-[18px]">lock</span>
 </div>
 <span class="font-body-sm text-body-sm text-outline flex items-center gap-1 mt-0.5">
@@ -95,7 +95,7 @@
 <div class="flex items-center bg-surface-container-high/60 rounded-xl px-space-md py-space-sm justify-between">
 <div class="flex items-center gap-space-xs truncate">
 <span class="material-symbols-outlined text-on-surface-variant text-[18px]">mail</span>
-<span class="font-body-md text-body-md text-on-surface truncate">{{ strtolower(str_replace(' ', '.', Auth::user()->name)) }}@garudapura.sch.id</span>
+<span id="profile-email" class="font-body-md text-body-md text-on-surface truncate">nama.siswa@garudapura.sch.id</span>
 </div>
 <span class="px-space-xs py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex-shrink-0">Aktif</span>
 </div>
@@ -276,17 +276,15 @@
 </div>
 <!-- Primary CTA & Action Section -->
 <div class="flex flex-col space-y-space-sm pt-space-xs">
-<button class="w-full h-14 rounded-2xl bg-gradient-to-r from-primary via-primary-container to-surface-tint text-on-primary font-headline-sm text-headline-sm shadow-md flex items-center justify-center gap-space-xs active:scale-98 transition-transform" type="button">
+<button id="btnSimpan" class="w-full h-14 rounded-2xl bg-gradient-to-r from-primary via-primary-container to-surface-tint text-on-primary font-headline-sm text-headline-sm shadow-md flex items-center justify-center gap-space-xs active:scale-98 transition-transform" type="button">
 <span class="material-symbols-outlined text-[22px]">check_circle</span>
 <span>Simpan Perubahan</span>
 </button>
-<form method="POST" action="{{ route('logout') }}" class="w-full">
-@csrf
-<button class="w-full h-12 rounded-2xl bg-surface-container-low hover:bg-error-container/20 text-error font-title-md text-title-md flex items-center justify-center gap-space-xs active:scale-98 transition-colors" type="submit">
+
+<button id="btnLogout" class="w-full h-12 rounded-2xl bg-surface-container-low hover:bg-error-container/20 text-error font-title-md text-title-md flex items-center justify-center gap-space-xs active:scale-98 transition-colors" type="button">
 <span class="material-symbols-outlined text-[20px]">logout</span>
 <span>Keluar dari Akun (Logout)</span>
 </button>
-</form>
 <!-- Version & Identity Footer -->
 <div class="pt-space-md text-center">
 <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
@@ -299,40 +297,132 @@
 </div>
 </div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a></div></nav>
 
-<input type="file" id="fileUpload" class="hidden" accept="image/*" />
+<input type="file" id="fileUpload" style="opacity: 0; position: absolute; z-index: -1;" accept="image/*" />
 <script>
-  const profileImage = document.getElementById('profileImage');
-  const btnGaleri = document.getElementById('btnGaleri');
-  const btnAvatar = document.getElementById('btnAvatar');
-  const btnHapus = document.getElementById('btnHapus');
-  const fileUpload = document.getElementById('fileUpload');
+  // Fetch User Data from API & Initialize Profile Actions
+  document.addEventListener('DOMContentLoaded', async () => {
+    const profileImage = document.getElementById('profileImage');
+    const btnGaleri = document.getElementById('btnGaleri');
+    const btnAvatar = document.getElementById('btnAvatar');
+    const btnHapus = document.getElementById('btnHapus');
+    const fileUpload = document.getElementById('fileUpload');
+    
+    let defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent('Nama Siswa') + '&background=random&color=fff&size=150';
 
-  const defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent('{{ Auth::user()->name }}') + '&background=random&color=fff&size=150';
+    // 1. Fetch data dari API
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      try {
+        const response = await fetch('/api/user', {
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          const user = await response.json();
+          
+          const elName = document.getElementById('student-name');
+          const elNis = document.getElementById('student-nisn');
+          const elEmail = document.getElementById('profile-email');
 
-  // Pilih Galeri
-  btnGaleri.addEventListener('click', () => {
-    fileUpload.click();
-  });
+          if (elName) elName.value = user.name;
+          if (elNis) elNis.value = `${user.nis}   ${user.school_name || 'XII MIPA 2'}`;
+          if (elEmail) {
+             const emailSafeName = user.name.toLowerCase().replace(/\s+/g, '.');
+             elEmail.textContent = `${emailSafeName}@garudapura.sch.id`;
+          }
 
-  fileUpload.addEventListener('change', (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        profileImage.src = e.target.result;
+          defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff&size=150';
+          // Atur gambar profil ke default jika API tidak menyediakan avatar (karena kolom DB belum ada)
+          // profileImage.src = defaultAvatar;
+        }
+      } catch (e) {
+        console.error('Gagal mengambil data user:', e);
       }
-      reader.readAsDataURL(e.target.files[0]);
     }
-  });
 
-  // Pilih Avatar 3D (Menggunakan DiceBear)
-  btnAvatar.addEventListener('click', () => {
-    profileImage.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=' + Math.random() + '&backgroundColor=c0aede,b6e3f4,ffdfbf';
-  });
+    // 2. Event Listeners untuk Tombol Profil
+    if (btnGaleri) {
+      btnGaleri.addEventListener('click', () => {
+        fileUpload.click();
+      });
+    }
 
-  // Hapus Foto
-  btnHapus.addEventListener('click', () => {
-    profileImage.src = defaultAvatar;
-    fileUpload.value = '';
+    if (fileUpload) {
+      fileUpload.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            profileImage.src = evt.target.result;
+          }
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      });
+    }
+
+    if (btnAvatar) {
+      btnAvatar.addEventListener('click', () => {
+        profileImage.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=' + Math.random() + '&backgroundColor=c0aede,b6e3f4,ffdfbf';
+      });
+    }
+
+    if (btnHapus) {
+      btnHapus.addEventListener('click', () => {
+        profileImage.src = defaultAvatar;
+        fileUpload.value = '';
+      });
+    }
+
+    // 3. Tombol Simpan Perubahan
+    const btnSimpan = document.getElementById('btnSimpan');
+    if (btnSimpan) {
+      btnSimpan.addEventListener('click', async () => {
+        const newName = document.getElementById('student-name').value;
+        const btnText = btnSimpan.querySelector('span:last-child');
+        const originalText = btnText.textContent;
+        
+        btnText.textContent = 'Menyimpan...';
+        try {
+          const response = await fetch('/api/user', {
+            method: 'PUT',
+            headers: {
+              'Authorization': 'Bearer ' + token,
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({ name: newName })
+          });
+          if (response.ok) {
+            btnText.textContent = 'Berhasil Disimpan!';
+            setTimeout(() => { btnText.textContent = originalText; }, 2000);
+          } else {
+            btnText.textContent = 'Gagal Menyimpan';
+            setTimeout(() => { btnText.textContent = originalText; }, 2000);
+          }
+        } catch (e) {
+          console.error(e);
+          btnText.textContent = originalText;
+        }
+      });
+    }
+
+    // 4. Tombol Logout
+    const btnLogout = document.getElementById('btnLogout');
+    if (btnLogout) {
+      btnLogout.addEventListener('click', async () => {
+        try {
+          await fetch('/api/logout', {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
+        } catch (e) {} // Abaikan error, tetap paksa logout di frontend
+        
+        localStorage.removeItem('auth_token');
+        window.location.href = '/login';
+      });
+    }
   });
 </script>
 
