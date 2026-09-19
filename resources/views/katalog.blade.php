@@ -351,7 +351,7 @@
 </label>
 <!-- CTA Action Buttons -->
 <div class="flex flex-col gap-1.5">
-<button class="w-full py-3.5 px-4 rounded-2xl bg-[#5b21e6] hover:bg-[#4c17cf] text-white font-bold text-sm shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 transition-all active:scale-[0.99]" onclick="document.getElementById('borrowConfirmationModal').classList.add('hidden')" type="button">
+<button class="w-full py-3.5 px-4 rounded-2xl bg-[#5b21e6] hover:bg-[#4c17cf] text-white font-bold text-sm shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 transition-all active:scale-[0.99]" onclick="window.location.href='{{ route('sirkulasi.sukses') }}'" type="button">
 <span class="material-symbols-outlined text-[18px]">check_circle</span>
         Konfirmasi &amp; Ambil Buku
       </button>
