@@ -18,18 +18,29 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'nis' => ['required'],
+            'nis' => ['required', 'string', 'max:10'],
             'password' => ['required'],
         ]);
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            
+            // Buat token Sanctum
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            // Regenerate session (untuk Cookie-Based SPA)
             $request->session()->regenerate();
-            return redirect()->intended('katalog');
+
+            return response()->json([
+                'message' => 'Login berhasil',
+                'user' => $user,
+                'token' => $token,
+            ]);
         }
 
-        return back()->withErrors([
-            'nis' => 'NIS atau Kata Sandi salah.',
-        ]);
+        return response()->json([
+            'message' => 'NIS atau Kata Sandi salah.'
+        ], 401);
     }
 
     public function qrLogin(Request $request)
@@ -106,7 +117,7 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'nis' => 'required|string|max:255|unique:users',
+            'nis' => 'required|string|max:10|unique:users',
             'school_name' => 'required|string|max:255',
             'password' => 'required|string|min:6',
         ]);
@@ -123,16 +134,33 @@ class AuthController extends Controller
             'max_xp' => 500,
         ]);
 
+        // Buat token Sanctum
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // Login untuk Cookie-Based SPA
         Auth::login($user);
         
-        return redirect()->route('katalog')->with('success', 'Pendaftaran berhasil!');
+        return response()->json([
+            'message' => 'Pendaftaran berhasil',
+            'user' => $user,
+            'token' => $token,
+        ], 201);
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        // Hapus token Sanctum yang sedang aktif (jika pakai token)
+        if ($request->user()) {
+            $request->user()->currentAccessToken()->delete();
+        }
+
+        // Logout dan hapus sesi (jika pakai Cookie-Based SPA)
+        Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        
+        return response()->json([
+            'message' => 'Logout berhasil'
+        ]);
     }
 }

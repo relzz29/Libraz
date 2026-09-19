@@ -1,26 +1,49 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LibraryController;
 
-Route::get('/', [AuthController::class, 'showLogin'])->name('home');
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::post('/login/qr', [AuthController::class, 'qrLogin'])->name('login.qr');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/bantuan', function () { return view('bantuan'); })->name('bantuan');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/katalog', [LibraryController::class, 'katalog'])->name('katalog');
-    Route::get('/sirkulasi', [LibraryController::class, 'sirkulasi'])->name('sirkulasi');
-    Route::post('/sirkulasi/scan-book', [LibraryController::class, 'scanBook'])->name('sirkulasi.scan');
-    Route::get('/sirkulasi/sukses', function () { return view('sirkulasi_sukses'); })->name('sirkulasi.sukses');
-    Route::get('/scanner', function () { return view('scanner'); })->name('scanner');
-    Route::get('/statistik', [LibraryController::class, 'statistik'])->name('statistik');
-    Route::get('/akun', [LibraryController::class, 'akun'])->name('akun');
-    Route::get('/akun/pengaturan', [LibraryController::class, 'akunPengaturan'])->name('akun.pengaturan');
-    Route::get('/notifikasi', function () { return view('notifikasi'); })->name('notifikasi');
+Route::get('/', function () {
+    return redirect('/login');
 });
 
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/katalog', function () {
+    return view('katalog');
+})->name('katalog');
+
+Route::get('/sirkulasi', function () {
+    return view('sirkulasi');
+})->name('sirkulasi');
+
+Route::get('/statistik', function () {
+    return view('statistik');
+})->name('statistik');
+
+Route::get('/akun', function () {
+    return view('akun');
+})->name('akun');
+
+Route::get('/scanner', function () {
+    return view('scanner');
+})->name('scanner');
+
+Route::get('/notifikasi', function () {
+    return view('notifikasi');
+})->name('notifikasi');
+
+Route::get('/sirkulasi-sukses', function () {
+    return view('sirkulasi_sukses');
+})->name('sirkulasi.sukses');
+
+Route::get('/akun-pengaturan', function () {
+    return view('akun_pengaturan');
+})->name('akun.pengaturan');
+
+Route::get('/bantuan', function () {
+    return view('bantuan');
+})->name('bantuan');
+
+require __DIR__.'/auth.php';

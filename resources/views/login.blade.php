@@ -145,7 +145,7 @@ body { min-height: max(884px, 100dvh); }
 <span class="absolute bg-surface px-space-md font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Atau Manual ID</span>
 </div>
 <!-- Authentication Form -->
-<form class="flex flex-col gap-space-md" id="auth-form" method="POST" action="{{ route('login.post') }}">
+<form class="flex flex-col gap-space-md" id="auth-form" method="POST" action="#">
 @csrf
 <input type="hidden" name="is_register" id="is-register" value="0">
 <!-- Dummy school name for registration -->
@@ -178,7 +178,7 @@ body { min-height: max(884px, 100dvh); }
 <div class="absolute left-3.5 flex items-center pointer-events-none text-on-surface-variant">
 <span class="material-symbols-outlined text-[20px]">badge</span>
 </div>
-<input class="w-full pl-11 pr-11 py-3 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary shadow-sm transition-all" id="input-identifier" name="nis" inputmode="numeric" placeholder="Contoh: 2024108827" type="text" value="{{ old('nis') }}" required/>
+<input class="w-full pl-11 pr-11 py-3 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary shadow-sm transition-all" id="input-identifier" name="nis" inputmode="numeric" placeholder="Contoh: 2024108827" type="text" value="{{ old('nis') }}" required maxlength="10" pattern="\d{1,10}" title="NISN harus berupa angka maksimal 10 digit"/>
 <button class="absolute right-2.5 p-1 rounded-lg hover:bg-surface-container text-primary flex items-center justify-center transition-colors" title="Scan Barcode Kartu" type="button" onclick="openScanner()">
 <span class="material-symbols-outlined text-[22px]">barcode_scanner</span>
 </button>
@@ -258,7 +258,7 @@ body { min-height: max(884px, 100dvh); }
 <!-- Help & Support Desk Link -->
 <div class="flex items-center justify-center gap-1 pt-space-xs text-center">
 <span class="font-body-sm text-body-sm text-on-surface-variant">Butuh bantuan akun?</span>
-<a href="{{ route('bantuan') }}" class="font-title-md text-title-md text-primary hover:underline flex items-center gap-0.5">
+<a href="#" class="font-title-md text-title-md text-primary hover:underline flex items-center gap-0.5">
 <span>Hubungi Pustakawan</span>
 <span class="material-symbols-outlined text-[16px]">support_agent</span>
 </a>
@@ -331,9 +331,7 @@ body { min-height: max(884px, 100dvh); }
     let currentMode = 'login';
     let currentRole = 'student';
 
-    // Route URLs
-    const loginUrl = "{{ route('login.post') }}";
-    const registerUrl = "{{ route('register.post') }}";
+    // Route URLs removed (using api explicitly)
 
     // Auto switch if there was an error in register mode
     const oldIsRegister = "{{ old('is_register') }}";
@@ -349,7 +347,6 @@ body { min-height: max(884px, 100dvh); }
       registerField.classList.add('hidden');
       inputFullname.removeAttribute('required');
       submitBtn.querySelector('span:first-child').textContent = 'Masuk ke Perpustakaan';
-      authForm.action = loginUrl;
       isRegisterInput.value = "0";
     }
 
@@ -361,7 +358,6 @@ body { min-height: max(884px, 100dvh); }
       registerField.classList.remove('hidden');
       inputFullname.setAttribute('required', 'required');
       submitBtn.querySelector('span:first-child').textContent = 'Aktivasi Akun Baru';
-      authForm.action = registerUrl;
       isRegisterInput.value = "1";
     }
 
@@ -393,6 +389,61 @@ body { min-height: max(884px, 100dvh); }
       const isPassword = inputPwd.type === 'password';
       inputPwd.type = isPassword ? 'text' : 'password';
       pwdIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
+    });
+
+    // Handle Form Submit via Fetch API
+    authForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const isRegister = isRegisterInput.value === "1";
+      const apiUrl = isRegister ? '/api/register' : '/api/login';
+      
+      const payload = {
+        nis: inputIdentifier.value,
+        password: inputPwd.value,
+      };
+
+      if (isRegister) {
+        payload.name = inputFullname.value;
+        payload.password_confirmation = inputPwd.value; // Assuming no confirm field in UI yet
+        const schoolNameInput = document.querySelector('input[name="school_name"]');
+        payload.school_name = schoolNameInput ? schoolNameInput.value : 'Asal Sekolah Default';
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.querySelector('span:first-child').textContent = 'Memproses...';
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Save token for SPA
+          localStorage.setItem('auth_token', data.access_token);
+          alert((isRegister ? 'Registrasi' : 'Login') + ' berhasil!');
+          // Redirect to /katalog page
+          window.location.href = '/katalog';
+        } else {
+          let errorMessage = data.message || 'Terjadi kesalahan.';
+          if (data.errors) {
+            errorMessage = Object.values(data.errors).flat().join('\n');
+          }
+          alert('Gagal: ' + errorMessage);
+        }
+      } catch (error) {
+        alert('Kesalahan jaringan.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.querySelector('span:first-child').textContent = isRegister ? 'Aktivasi Akun Baru' : 'Masuk ke Perpustakaan';
+      }
     });
 
     // ================= QR SCANNER FAST PASS LOGIC =================
@@ -518,7 +569,7 @@ body { min-height: max(884px, 100dvh); }
 
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-        fetch("{{ route('login.qr') }}", {
+        fetch("/api/qr-login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

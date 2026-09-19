@@ -18,7 +18,7 @@
 <div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col items-center text-center relative">
 <div class="relative group cursor-pointer mb-space-sm">
 <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-primary via-primary-container to-secondary-container shadow-md">
-<img alt="Nadia Amanda Putri Avatar" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W_HPwkc87OKpwQaeF0eeJubnlWQPhTSPnD1rZZPK41OSTbmjD3DCj9VMaFv5iI89642M9ArfJhXsP-j8xnT1QK6eEIXp1wgW97HuOAIfaZlXq7y637TAJRgOjJp7-Ifi3zFqL_Z_0iWsU5b5MFhMfCSTEuLUZKyNd0_UcyXG9_kfHDRBFNjfY1iTOWa-Vf5FOWxjuuElrYWWYbCQmiKIMk_6Yrghz0-cjordSutrRV49P_tnGnc18p4YQ"/>
+<img id="profileImage" alt="Nadia Amanda Putri Avatar" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W_HPwkc87OKpwQaeF0eeJubnlWQPhTSPnD1rZZPK41OSTbmjD3DCj9VMaFv5iI89642M9ArfJhXsP-j8xnT1QK6eEIXp1wgW97HuOAIfaZlXq7y637TAJRgOjJp7-Ifi3zFqL_Z_0iWsU5b5MFhMfCSTEuLUZKyNd0_UcyXG9_kfHDRBFNjfY1iTOWa-Vf5FOWxjuuElrYWWYbCQmiKIMk_6Yrghz0-cjordSutrRV49P_tnGnc18p4YQ"/>
 </div>
 <button aria-label="Ganti Foto Profil" class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md active:scale-95 transition-transform" type="button">
 <span class="material-symbols-outlined text-[18px]">photo_camera</span>
@@ -37,15 +37,15 @@
 </div>
 <!-- Quick Action Pill Buttons -->
 <div class="grid grid-cols-3 gap-space-xs w-full pt-space-xs">
-<button class="flex flex-col items-center justify-center py-space-sm px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-98 transition-all text-on-surface" type="button">
+<button id="btnGaleri" class="flex flex-col items-center justify-center py-space-sm px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-98 transition-all text-on-surface" type="button">
 <span class="material-symbols-outlined text-primary text-[20px] mb-1">image</span>
 <span class="font-label-sm text-label-sm truncate w-full">Pilih Galeri</span>
 </button>
-<button class="flex flex-col items-center justify-center py-space-sm px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-98 transition-all text-on-surface" type="button">
+<button id="btnAvatar" class="flex flex-col items-center justify-center py-space-sm px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-98 transition-all text-on-surface" type="button">
 <span class="material-symbols-outlined text-secondary text-[20px] mb-1">sentiment_very_satisfied</span>
 <span class="font-label-sm text-label-sm truncate w-full">Avatar 3D</span>
 </button>
-<button class="flex flex-col items-center justify-center py-space-sm px-space-xs rounded-xl bg-error-container/40 hover:bg-error-container active:scale-98 transition-all text-on-error-container" type="button">
+<button id="btnHapus" class="flex flex-col items-center justify-center py-space-sm px-space-xs rounded-xl bg-error-container/40 hover:bg-error-container active:scale-98 transition-all text-on-error-container" type="button">
 <span class="material-symbols-outlined text-[20px] mb-1">delete</span>
 <span class="font-label-sm text-label-sm truncate w-full">Hapus Foto</span>
 </button>
@@ -297,4 +297,43 @@
       </p>
 </div>
 </div>
-</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a></div></nav></body></html>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a></div></nav>
+
+<input type="file" id="fileUpload" class="hidden" accept="image/*" />
+<script>
+  const profileImage = document.getElementById('profileImage');
+  const btnGaleri = document.getElementById('btnGaleri');
+  const btnAvatar = document.getElementById('btnAvatar');
+  const btnHapus = document.getElementById('btnHapus');
+  const fileUpload = document.getElementById('fileUpload');
+
+  const defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent('{{ Auth::user()->name }}') + '&background=random&color=fff&size=150';
+
+  // Pilih Galeri
+  btnGaleri.addEventListener('click', () => {
+    fileUpload.click();
+  });
+
+  fileUpload.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        profileImage.src = e.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  });
+
+  // Pilih Avatar 3D (Menggunakan DiceBear)
+  btnAvatar.addEventListener('click', () => {
+    profileImage.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=' + Math.random() + '&backgroundColor=c0aede,b6e3f4,ffdfbf';
+  });
+
+  // Hapus Foto
+  btnHapus.addEventListener('click', () => {
+    profileImage.src = defaultAvatar;
+    fileUpload.value = '';
+  });
+</script>
+
+</body></html>
