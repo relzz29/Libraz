@@ -19,5 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/statistik', [LibraryController::class, 'statistik'])->name('statistik');
     Route::get('/akun', [LibraryController::class, 'akun'])->name('akun');
     Route::get('/akun/pengaturan', [LibraryController::class, 'akunPengaturan'])->name('akun.pengaturan');
+    Route::get('/notifikasi', function () { return view('notifikasi'); })->name('notifikasi');
 });
 
