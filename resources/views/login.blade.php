@@ -437,12 +437,15 @@ body { min-height: max(884px, 100dvh); }
       submitBtn.querySelector('span:first-child').textContent = 'Memproses...';
       alertContainer.classList.add('hidden'); // Hide any previous alert
 
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
       try {
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
           },
           body: JSON.stringify(payload)
         });

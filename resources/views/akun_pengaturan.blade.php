@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<html lang="id"><head><meta charset="utf-8"/><meta name="csrf-token" content="{{ csrf_token() }}"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed": "#1e0060", "on-primary-fixed-variant": "#4c00d3", "surface-container-highest": "#e5e1e8", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container": "#f1ecf4", "surface-container-high": "#ebe6ee", "on-tertiary-fixed": "#40000f", "on-secondary-fixed": "#002112", "secondary-fixed": "#4dffb2", "on-tertiary": "#ffffff", "on-surface": "#1c1b20", "surface-variant": "#e5e1e8", "surface-container-low": "#f7f2f9", "on-primary-container": "#cfc1ff", "on-surface-variant": "#484456", "background": "#fdf8ff", "inverse-primary": "#ccbeff", "inverse-on-surface": "#f4eff6", "tertiary-container": "#ac0036", "error-container": "#ffdad6", "primary": "#4300bb", "on-secondary-container": "#007149", "surface-tint": "#6531f0", "secondary-fixed-dim": "#00e296", "secondary": "#006c46", "surface-dim": "#ddd8e0", "tertiary-fixed-dim": "#ffb2b8", "tertiary-fixed": "#ffdadb", "on-background": "#1c1b20", "secondary-container": "#43fcae", "tertiary": "#800026", "inverse-surface": "#313035", "primary-fixed-dim": "#ccbeff", "primary-fixed": "#e7deff", "on-secondary": "#ffffff", "error": "#ba1a1a", "surface-container-lowest": "#ffffff", "primary-container": "#5b21e6", "surface": "#fdf8ff", "outline": "#797488", "surface-bright": "#fdf8ff", "on-secondary-fixed-variant": "#005234", "on-primary": "#ffffff", "on-tertiary-fixed-variant": "#91002c", "outline-variant": "#cac3d9", "on-tertiary-container": "#ffb7bc" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "gutter-sm": "0.75rem", "space-lg": "1.25rem", "margin": "1.25rem", "gutter": "1rem", "margin-desktop": "2.5rem", "space-md": "0.875rem", "space-sm": "0.5rem", "space-xl": "2rem" }, "fontFamily": { "title-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-md": ["Space Grotesk"] }, "fontSize": { "title-md": ["16px", {"lineHeight": "22px", "fontWeight": "700"}], "headline-lg-mobile": ["26px", {"lineHeight": "32px", "fontWeight": "800"}], "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}], "display-lg": ["38px", {"lineHeight": "44px", "fontWeight": "800"}], "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}], "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "700"}], "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}], "headline-lg": ["30px", {"lineHeight": "36px", "fontWeight": "800"}], "label-lg": ["13px", {"lineHeight": "16px", "fontWeight": "700"}], "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}], "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "700"}] } } } }</script></head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><a aria-label="Kembali ke Akun" class="w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:text-primary transition-colors focus:outline-none flex-shrink-0" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[24px]">arrow_back</span></a><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">Akun &amp; Pengaturan</span><span class="font-title-md text-title-md text-on-surface truncate">Edit Profil &amp; Pengaturan Akun</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Bantuan" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[22px]">help_outline</span></button></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin space-y-space-lg pb-space-xl">
-<!-- Header Intro Card -->
-<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
-<div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-primary/5 blur-xl pointer-events-none"></div>
-<div class="flex items-center gap-space-xs">
-<span class="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wider font-bold">Akun Terverifikasi</span>
-<span class="px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold">SMAN 1 Garudapura</span>
+
+
+<!-- Tab Navigation -->
+<div class="flex p-1 bg-surface-container-low rounded-xl mb-space-sm shadow-sm relative">
+<div id="tab-slider" class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-surface-container-lowest rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-in-out"></div>
+<button id="tab-profil" class="flex-1 py-2.5 font-title-md text-title-md text-primary relative z-10 transition-colors" type="button">Edit Profil</button>
+<button id="tab-pengaturan" class="flex-1 py-2.5 font-title-md text-title-md text-on-surface-variant hover:text-on-surface relative z-10 transition-colors" type="button">Pengaturan</button>
 </div>
-<div>
-<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Pengaturan &amp; Edit Profil</h1>
-<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Kelola akun siswa, minat baca, dan preferensi aplikasi</p>
-</div>
-</div>
+
+<!-- SECTION: PROFIL -->
+<div id="section-profil" class="flex flex-col space-y-space-lg w-full">
 <!-- Avatar Management Section -->
 <div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col items-center text-center relative">
 <div class="relative group cursor-pointer mb-space-sm">
@@ -162,6 +161,18 @@
 </div>
 </div>
 </div>
+
+<!-- Primary CTA & Action Section -->
+<div class="flex flex-col space-y-space-sm pt-space-xs">
+<button id="btnSimpan" class="w-full h-14 rounded-2xl bg-gradient-to-r from-primary via-primary-container to-surface-tint text-on-primary font-headline-sm text-headline-sm shadow-md flex items-center justify-center gap-space-xs active:scale-98 transition-transform" type="button">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+<span>Simpan Perubahan</span>
+</button>
+</div>
+</div>
+
+<!-- SECTION: PENGATURAN -->
+<div id="section-pengaturan" class="hidden flex flex-col space-y-space-lg w-full">
 <!-- Pengaturan Notifikasi & Pengingat Sirkulasi -->
 <div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col space-y-space-md">
 <div class="flex items-center gap-space-xs">
@@ -274,13 +285,8 @@
 </div>
 </div>
 </div>
-<!-- Primary CTA & Action Section -->
-<div class="flex flex-col space-y-space-sm pt-space-xs">
-<button id="btnSimpan" class="w-full h-14 rounded-2xl bg-gradient-to-r from-primary via-primary-container to-surface-tint text-on-primary font-headline-sm text-headline-sm shadow-md flex items-center justify-center gap-space-xs active:scale-98 transition-transform" type="button">
-<span class="material-symbols-outlined text-[22px]">check_circle</span>
-<span>Simpan Perubahan</span>
-</button>
 
+<div class="flex flex-col space-y-space-sm pt-space-xs">
 <button id="btnLogout" class="w-full h-12 rounded-2xl bg-surface-container-low hover:bg-error-container/20 text-error font-title-md text-title-md flex items-center justify-center gap-space-xs active:scale-98 transition-colors" type="button">
 <span class="material-symbols-outlined text-[20px]">logout</span>
 <span>Keluar dari Akun (Logout)</span>
@@ -293,6 +299,7 @@
 <p class="font-body-sm text-body-sm text-outline mt-0.5">
         Terhubung ke Sistem Informasi Literasi Nasional &amp; Kemdikbud
       </p>
+</div>
 </div>
 </div>
 </div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a></div></nav>
@@ -335,8 +342,15 @@
           }
 
           defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff&size=150';
-          // Atur gambar profil ke default jika API tidak menyediakan avatar (karena kolom DB belum ada)
-          // profileImage.src = defaultAvatar;
+          
+          const profileImage = document.getElementById('profileImage');
+          if (profileImage) {
+              if (user.avatar) {
+                  profileImage.src = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
+              } else {
+                  profileImage.src = defaultAvatar;
+              }
+          }
         }
       } catch (e) {
         console.error('Gagal mengambil data user:', e);
@@ -377,6 +391,8 @@
 
     // 3. Tombol Simpan Perubahan
     const btnSimpan = document.getElementById('btnSimpan');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    
     if (btnSimpan) {
       btnSimpan.addEventListener('click', async () => {
         const newName = document.getElementById('student-name').value;
@@ -384,18 +400,41 @@
         const originalText = btnText.textContent;
         
         btnText.textContent = 'Menyimpan...';
+        
+        let avatarData = null;
+        const profileImage = document.getElementById('profileImage');
+        if (profileImage && (profileImage.src.startsWith('data:image') || profileImage.src.includes('dicebear'))) {
+            avatarData = profileImage.src;
+        }
+
         try {
           const response = await fetch('/api/user', {
             method: 'PUT',
             headers: {
               'Authorization': 'Bearer ' + token,
               'Content-Type': 'application/json',
-              'Accept': 'application/json'
+              'Accept': 'application/json',
+              'X-CSRF-TOKEN': csrfToken
             },
-            body: JSON.stringify({ name: newName })
+            body: JSON.stringify({ 
+                name: newName,
+                avatar: avatarData
+            })
           });
           if (response.ok) {
             btnText.textContent = 'Berhasil Disimpan!';
+            
+            // Perbarui UI secara langsung
+            if (profileImage && !avatarData) {
+               profileImage.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(newName) + '&background=random&color=fff&size=150';
+            }
+            
+            const elEmail = document.getElementById('profile-email');
+            if (elEmail) {
+               const emailSafeName = newName.toLowerCase().replace(/\s+/g, '.');
+               elEmail.textContent = `${emailSafeName}@garudapura.sch.id`;
+            }
+
             setTimeout(() => { btnText.textContent = originalText; }, 2000);
           } else {
             btnText.textContent = 'Gagal Menyimpan';
@@ -422,6 +461,54 @@
         localStorage.removeItem('auth_token');
         window.location.href = '/login';
       });
+    }
+
+    // 5. Tab Navigation Logic
+    const tabProfil = document.getElementById('tab-profil');
+    const tabPengaturan = document.getElementById('tab-pengaturan');
+    const sectionProfil = document.getElementById('section-profil');
+    const sectionPengaturan = document.getElementById('section-pengaturan');
+    const tabSlider = document.getElementById('tab-slider');
+
+    if (tabProfil && tabPengaturan) {
+      tabProfil.addEventListener('click', () => {
+        // UI Tab
+        tabProfil.classList.replace('text-on-surface-variant', 'text-primary');
+        tabProfil.classList.remove('hover:text-on-surface');
+        tabPengaturan.classList.replace('text-primary', 'text-on-surface-variant');
+        tabPengaturan.classList.add('hover:text-on-surface');
+        
+        // Slider animation
+        tabSlider.style.transform = 'translateX(0)';
+
+        // Show/Hide section
+        sectionProfil.classList.remove('hidden');
+        sectionPengaturan.classList.add('hidden');
+      });
+
+      tabPengaturan.addEventListener('click', () => {
+        // UI Tab
+        tabPengaturan.classList.replace('text-on-surface-variant', 'text-primary');
+        tabPengaturan.classList.remove('hover:text-on-surface');
+        tabProfil.classList.replace('text-primary', 'text-on-surface-variant');
+        tabProfil.classList.add('hover:text-on-surface');
+        
+        // Slider animation
+        tabSlider.style.transform = 'translateX(100%)';
+
+        // Show/Hide section
+        sectionPengaturan.classList.remove('hidden');
+        sectionProfil.classList.add('hidden');
+      });
+
+      // Buka tab berdasarkan parameter URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const activeTab = urlParams.get('tab');
+      if (activeTab === 'pengaturan') {
+        tabPengaturan.click();
+      } else {
+        tabProfil.click();
+      }
     }
   });
 </script>

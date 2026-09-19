@@ -6,7 +6,7 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-</head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Katalog Buku</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="/notifikasi" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><div class="w-11 h-11 flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeMcIBPpdbR0tPBGiVimgYl-q4p7nL7BcQYJ7IcdLCHLYTkHLDPnk-ayKRKdEev1qD1470u9-ar0rYopea9CJD2dRSAtpNmE2PU7moVedjpoyQR2058LWMVg4TfPJ9zIOuDWFYOIu-SZp6xOG3sT-vR-ZMPYVTpwuh_sxQZWAEviqDVh69xAt-vrz4HngLmA8xJMzVImBkfqVfslHgj4czghqYetb8nPu-LPshUAXXl8phoCVGXn6W"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin pb-space-xl gap-space-lg">
+</head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Katalog Buku</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="/notifikasi" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><div class="w-11 h-11 flex items-center justify-center"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin pb-space-xl gap-space-lg">
 <!-- Micro-Banner Notification: Reservasi Mandiri Status -->
 <div class="relative overflow-hidden rounded-xl bg-secondary-container text-on-secondary-fixed shadow-[3px_3px_0px_#1c1b20] p-space-md flex items-center justify-between gap-space-sm">
 <div class="flex items-center gap-space-sm min-w-0">
@@ -360,4 +360,33 @@
       </button>
 </div>
 </div>
-</div></body></html>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      try {
+        const response = await fetch('/api/user', {
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
+          }
+        });
+        if (response.ok) {
+          const user = await response.json();
+          const elAvatarSmall = document.getElementById('profile-avatar-small');
+          if (elAvatarSmall) {
+            let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff';
+            if (user.avatar) {
+                avatarUrl = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
+            }
+            elAvatarSmall.src = avatarUrl;
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  });
+</script>
+</body></html>

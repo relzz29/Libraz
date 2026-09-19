@@ -154,10 +154,33 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'avatar' => 'nullable|string'
         ]);
 
         $user = $request->user();
         $user->name = $validated['name'];
+        
+        if (!empty($validated['avatar'])) {
+            $avatarData = $validated['avatar'];
+            // Check if it's a data URI
+            if (preg_match('/^data:image\/(\w+);base64,/', $avatarData, $type)) {
+                $avatarData = substr($avatarData, strpos($avatarData, ',') + 1);
+                $type = strtolower($type[1]); // jpg, png, gif
+                
+                if (in_array($type, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                    $avatarData = base64_decode($avatarData);
+                    $filename = 'avatar_' . $user->id . '_' . time() . '.' . $type;
+                    
+                    \Illuminate\Support\Facades\Storage::disk('public')->put('avatars/' . $filename, $avatarData);
+                    
+                    $user->avatar = 'storage/avatars/' . $filename;
+                }
+            } else if (strpos($avatarData, 'api.dicebear.com') !== false) {
+                 // Or if they chose a dicebear avatar, save the URL
+                 $user->avatar = $avatarData;
+            }
+        }
+
         $user->save();
 
         return response()->json([

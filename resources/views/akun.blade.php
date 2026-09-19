@@ -6,14 +6,14 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-  </head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Akun</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="{{ route('notifikasi') }}" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><div class="w-11 h-11 flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeMcIBPpdbR0tPBGiVimgYl-q4p7nL7BcQYJ7IcdLCHLYTkHLDPnk-ayKRKdEev1qD1470u9-ar0rYopea9CJD2dRSAtpNmE2PU7moVedjpoyQR2058LWMVg4TfPJ9zIOuDWFYOIu-SZp6xOG3sT-vR-ZMPYVTpwuh_sxQZWAEviqDVh69xAt-vrz4HngLmA8xJMzVImBkfqVfslHgj4czghqYetb8nPu-LPshUAXXl8phoCVGXn6W"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen items-center"><div class="flex flex-col w-full max-w-md px-margin pb-space-xl gap-space-lg">
+  </head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Akun</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="{{ route('notifikasi') }}" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><div class="w-11 h-11 flex items-center justify-center"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen items-center"><div class="flex flex-col w-full max-w-md px-margin pb-space-xl gap-space-lg">
 <!-- TOP IDENTITY & INTERACTIVE DIGITAL CARD -->
 <section class="flex flex-col w-full gap-space-md">
 <!-- Student Quick Info -->
 <div class="flex items-center justify-between gap-space-sm pt-space-xs">
 <div class="flex items-center gap-space-md min-w-0">
 <div class="relative flex-shrink-0">
-<img class="w-16 h-16 rounded-full object-cover shadow-md" data-alt="Close-up portrait of a cheerful Indonesian high school female student wearing a white school uniform with a stylish navy neck ribbon, bright friendly smile, modern soft-lighting photography, crisp details, natural campus backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCinN8a672FarGplbUbHul7EzSn1ZhDgDnTnKKu8gPHL-i6GP7W5SB76bKb71mCG2LQY7p0wg10Scsi3Bpeg216R0DAKn9sJjn4FPD12K3eEJ_LuDbEcbXKaUSeFVBFBKf9MBVOcGnynfMGn-3tALCmYfzWwVBVC4U1TNXZQ5biLHi_LDCoC5sqsf_RTxp8VYBb_nV3v709GS9vjpuEQwk1KrLL75c4oTwXkCr1Sy2jeiYgCfz1cIyb"/>
+<img id="profile-avatar-large" class="w-16 h-16 rounded-full object-cover shadow-md" alt="Avatar" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/>
 <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shadow-sm">
 <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">verified</span>
 </div>
@@ -27,12 +27,14 @@
 </div>
 </div>
 <!-- Action Icons -->
-<div class="flex items-center gap-1 flex-shrink-0">
-<a aria-label="Edit Profil" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors" href="{{ route('akun.pengaturan') }}">
-<span class="material-symbols-outlined text-[18px]">edit</span>
+<div class="flex items-center gap-1.5 flex-shrink-0">
+<a aria-label="Edit Profil" class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" href="{{ route('akun.pengaturan') }}?tab=profil">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span class="font-label-sm text-label-sm">Edit Profil</span>
 </a>
-<a aria-label="Pengaturan" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors" href="{{ route('akun.pengaturan') }}">
-<span class="material-symbols-outlined text-[18px]">tune</span>
+<a aria-label="Pengaturan" class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" href="{{ route('akun.pengaturan') }}?tab=pengaturan">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span class="font-label-sm text-label-sm">Pengaturan</span>
 </a>
 </div>
 </div>
@@ -518,6 +520,17 @@
         if (elName) elName.textContent = user.name;
         if (elNis) elNis.textContent = `NIS: ${user.nis} • ${user.school_name || 'XII MIPA 2'}`;
         if (elGate) elGate.textContent = `${user.nis}-BIBLIOZ-GATE`;
+        
+        const elAvatarSmall = document.getElementById('profile-avatar-small');
+        const elAvatarLarge = document.getElementById('profile-avatar-large');
+        
+        let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff';
+        if (user.avatar) {
+            avatarUrl = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
+        }
+
+        if (elAvatarSmall) elAvatarSmall.src = avatarUrl;
+        if (elAvatarLarge) elAvatarLarge.src = avatarUrl;
       } else {
         localStorage.removeItem('auth_token');
         window.location.href = '/login';
