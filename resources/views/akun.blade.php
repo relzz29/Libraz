@@ -20,9 +20,9 @@
 </div>
 <div class="flex flex-col min-w-0">
 <div class="flex items-center gap-1.5 flex-wrap">
-<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">Nadia Amanda Putri</h2>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">{{ Auth::user()->name }}</h2>
 </div>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">NIS: 2024108827 • XII MIPA 2</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">NIS: {{ Auth::user()->nis }} • {{ Auth::user()->school_name ?? 'XII MIPA 2' }}</p>
 <p class="font-label-sm text-label-sm text-primary tracking-wide uppercase mt-0.5">SMAN 1 Garudapura</p>
 </div>
 </div>
@@ -93,7 +93,7 @@
 <span class="w-2.5 h-full bg-on-surface"></span>
 <span class="w-1 h-full bg-on-surface"></span>
 </div>
-<span class="font-label-sm text-label-sm tracking-widest text-on-surface-variant mt-1">2024108827-BIBLIOZ-GATE</span>
+<span class="font-label-sm text-label-sm tracking-widest text-on-surface-variant mt-1">{{ Auth::user()->nis }}-BIBLIOZ-GATE</span>
 </div>
 <p class="font-body-sm text-body-sm text-center text-on-surface-variant">Arahkan ke scanner turnstile gerbang perpustakaan atau meja sirkulasi mandiri</p>
 </div>

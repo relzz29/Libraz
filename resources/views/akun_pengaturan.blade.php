@@ -64,7 +64,7 @@
 <div class="flex flex-col space-y-1">
 <label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="student-name">Nama Lengkap Siswa</label>
 <div class="relative flex items-center">
-<input class="w-full bg-surface-container-low rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container transition-colors" id="student-name" type="text" value="Nadia Amanda Putri"/>
+<input class="w-full bg-surface-container-low rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container transition-colors" id="student-name" type="text" value="{{ Auth::user()->name }}"/>
 <span class="material-symbols-outlined text-primary absolute right-space-md text-[18px]">edit</span>
 </div>
 </div>
@@ -77,7 +77,7 @@
         </span>
 </div>
 <div class="relative flex items-center">
-<input class="w-full bg-surface-container-high/60 rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface cursor-not-allowed" disabled="" id="student-nisn" type="text" value="2024108827 • XII MIPA 2"/>
+<input class="w-full bg-surface-container-high/60 rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface cursor-not-allowed" disabled="" id="student-nisn" type="text" value="{{ Auth::user()->nis }} • {{ Auth::user()->school_name ?? 'XII MIPA 2' }}"/>
 <span class="material-symbols-outlined text-on-surface-variant absolute right-space-md text-[18px]">lock</span>
 </div>
 <span class="font-body-sm text-body-sm text-outline flex items-center gap-1 mt-0.5">
@@ -95,7 +95,7 @@
 <div class="flex items-center bg-surface-container-high/60 rounded-xl px-space-md py-space-sm justify-between">
 <div class="flex items-center gap-space-xs truncate">
 <span class="material-symbols-outlined text-on-surface-variant text-[18px]">mail</span>
-<span class="font-body-md text-body-md text-on-surface truncate">nadia.amanda@garudapura.sch.id</span>
+<span class="font-body-md text-body-md text-on-surface truncate">{{ strtolower(str_replace(' ', '.', Auth::user()->name)) }}@garudapura.sch.id</span>
 </div>
 <span class="px-space-xs py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex-shrink-0">Aktif</span>
 </div>
