@@ -19,7 +19,7 @@
 <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-primary via-primary-container to-secondary-container shadow-md">
 <img id="profileImage" alt="Nadia Amanda Putri Avatar" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W_HPwkc87OKpwQaeF0eeJubnlWQPhTSPnD1rZZPK41OSTbmjD3DCj9VMaFv5iI89642M9ArfJhXsP-j8xnT1QK6eEIXp1wgW97HuOAIfaZlXq7y637TAJRgOjJp7-Ifi3zFqL_Z_0iWsU5b5MFhMfCSTEuLUZKyNd0_UcyXG9_kfHDRBFNjfY1iTOWa-Vf5FOWxjuuElrYWWYbCQmiKIMk_6Yrghz0-cjordSutrRV49P_tnGnc18p4YQ"/>
 </div>
-<button aria-label="Ganti Foto Profil" class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md active:scale-95 transition-transform" type="button">
+<button id="btnCamera" aria-label="Ganti Foto Profil" class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md active:scale-95 transition-transform" type="button">
 <span class="material-symbols-outlined text-[18px]">photo_camera</span>
 </button>
 </div>
@@ -312,6 +312,7 @@
     const btnGaleri = document.getElementById('btnGaleri');
     const btnAvatar = document.getElementById('btnAvatar');
     const btnHapus = document.getElementById('btnHapus');
+    const btnCamera = document.getElementById('btnCamera');
     const fileUpload = document.getElementById('fileUpload');
     
     let defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent('Nama Siswa') + '&background=random&color=fff&size=150';
@@ -360,6 +361,12 @@
     // 2. Event Listeners untuk Tombol Profil
     if (btnGaleri) {
       btnGaleri.addEventListener('click', () => {
+        fileUpload.click();
+      });
+    }
+
+    if (btnCamera) {
+      btnCamera.addEventListener('click', () => {
         fileUpload.click();
       });
     }
