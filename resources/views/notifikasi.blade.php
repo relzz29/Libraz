@@ -224,5 +224,30 @@
             </a>
         </div>
     </nav>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      window.location.href = '/login';
+      return;
+    }
+    
+    try {
+      const response = await fetch('/api/user', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        localStorage.removeItem('auth_token');
+        window.location.href = '/login';
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  });
+</script>
 </body>
 </html>

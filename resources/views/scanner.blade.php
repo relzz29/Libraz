@@ -334,28 +334,35 @@
 </div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun-profil" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a></div></nav><script>
   document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('auth_token');
-    if (token) {
-      try {
-        const response = await fetch('/api/user', {
-          headers: {
-            'Authorization': 'Bearer ' + token,
-            'Accept': 'application/json'
-          }
-        });
-        if (response.ok) {
-          const user = await response.json();
-          const elAvatarSmall = document.getElementById('profile-avatar-small');
-          if (elAvatarSmall) {
-            let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff';
-            if (user.avatar) {
-                avatarUrl = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
-            }
-            elAvatarSmall.src = avatarUrl;
-          }
+    if (!token) {
+      window.location.href = '/login';
+      return;
+    }
+    
+    try {
+      const response = await fetch('/api/user', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json'
         }
-      } catch (e) {
-        console.error(e);
+      });
+      
+      if (response.ok) {
+        const user = await response.json();
+        const elAvatarSmall = document.getElementById('profile-avatar-small');
+        if (elAvatarSmall) {
+          let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff';
+          if (user.avatar) {
+              avatarUrl = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
+          }
+          elAvatarSmall.src = avatarUrl;
+        }
+      } else {
+        localStorage.removeItem('auth_token');
+        window.location.href = '/login';
       }
+    } catch (e) {
+      console.error(e);
     }
   });
 </script>

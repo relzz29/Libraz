@@ -364,28 +364,35 @@
 <script>
   document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('auth_token');
-    if (token) {
-      try {
-        const response = await fetch('/api/user', {
-          headers: {
-            'Authorization': 'Bearer ' + token,
-            'Accept': 'application/json'
-          }
-        });
-        if (response.ok) {
-          const user = await response.json();
-          const elAvatarSmall = document.getElementById('profile-avatar-small');
-          if (elAvatarSmall) {
-            let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff';
-            if (user.avatar) {
-                avatarUrl = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
-            }
-            elAvatarSmall.src = avatarUrl;
-          }
+    if (!token) {
+      window.location.href = '/login';
+      return;
+    }
+    
+    try {
+      const response = await fetch('/api/user', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json'
         }
-      } catch (e) {
-        console.error(e);
+      });
+      
+      if (response.ok) {
+        const user = await response.json();
+        const elAvatarSmall = document.getElementById('profile-avatar-small');
+        if (elAvatarSmall) {
+          let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff';
+          if (user.avatar) {
+              avatarUrl = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
+          }
+          elAvatarSmall.src = avatarUrl;
+        }
+      } else {
+        localStorage.removeItem('auth_token');
+        window.location.href = '/login';
       }
+    } catch (e) {
+      console.error(e);
     }
   });
 </script>

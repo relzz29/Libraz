@@ -319,43 +319,49 @@
 
     // 1. Fetch data dari API
     const token = localStorage.getItem('auth_token');
-    if (token) {
-      try {
-        const response = await fetch('/api/user', {
-          headers: {
-            'Authorization': 'Bearer ' + token,
-            'Accept': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          const user = await response.json();
-          
-          const elName = document.getElementById('student-name');
-          const elNis = document.getElementById('student-nisn');
-          const elEmail = document.getElementById('profile-email');
-
-          if (elName) elName.value = user.name;
-          if (elNis) elNis.value = `${user.nis}   ${user.school_name || 'XII MIPA 2'}`;
-          if (elEmail) {
-             const emailSafeName = user.name.toLowerCase().replace(/\s+/g, '.');
-             elEmail.textContent = `${emailSafeName}@garudapura.sch.id`;
-          }
-
-          defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff&size=150';
-          
-          const profileImage = document.getElementById('profileImage');
-          if (profileImage) {
-              if (user.avatar) {
-                  profileImage.src = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
-              } else {
-                  profileImage.src = defaultAvatar;
-              }
-          }
+    if (!token) {
+      window.location.href = '/login';
+      return;
+    }
+    
+    try {
+      const response = await fetch('/api/user', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json'
         }
-      } catch (e) {
-        console.error('Gagal mengambil data user:', e);
+      });
+      
+      if (response.ok) {
+        const user = await response.json();
+        
+        const elName = document.getElementById('student-name');
+        const elNis = document.getElementById('student-nisn');
+        const elEmail = document.getElementById('profile-email');
+
+        if (elName) elName.value = user.name;
+        if (elNis) elNis.value = `${user.nis}   ${user.school_name || 'XII MIPA 2'}`;
+        if (elEmail) {
+           const emailSafeName = user.name.toLowerCase().replace(/\s+/g, '.');
+           elEmail.textContent = `${emailSafeName}@garudapura.sch.id`;
+        }
+
+        defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff&size=150';
+        
+        const profileImage = document.getElementById('profileImage');
+        if (profileImage) {
+            if (user.avatar) {
+                profileImage.src = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
+            } else {
+                profileImage.src = defaultAvatar;
+            }
+        }
+      } else {
+        localStorage.removeItem('auth_token');
+        window.location.href = '/login';
       }
+    } catch (e) {
+      console.error('Gagal mengambil data user:', e);
     }
 
     // 2. Event Listeners untuk Tombol Profil
