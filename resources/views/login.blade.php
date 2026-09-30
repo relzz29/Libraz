@@ -453,13 +453,23 @@ body { min-height: max(884px, 100dvh); }
         const data = await response.json();
 
         if (response.ok) {
-          // Save token for SPA
-          localStorage.setItem('auth_token', data.access_token);
-          showCustomAlert((isRegister ? 'Registrasi' : 'Login') + ' berhasil!', 'success');
-          // Redirect to /katalog page
-          setTimeout(() => {
-            window.location.href = '/katalog';
-          }, 800);
+          if (isRegister) {
+            showCustomAlert('Akun Berhasil Dibuat. Silakan masuk.', 'success');
+            setTimeout(() => {
+              inputIdentifier.value = '';
+              inputPwd.value = '';
+              inputFullname.value = '';
+              switchToLogin();
+            }, 1500);
+          } else {
+            // Save token for SPA
+            localStorage.setItem('auth_token', data.token || data.access_token);
+            showCustomAlert('Login berhasil!', 'success');
+            // Redirect to /katalog page
+            setTimeout(() => {
+              window.location.href = '/katalog';
+            }, 800);
+          }
         } else {
           let errorMessage = data.message || 'Terjadi kesalahan.';
           if (data.errors) {

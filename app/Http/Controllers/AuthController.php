@@ -137,16 +137,9 @@ class AuthController extends Controller
             'max_xp' => 500,
         ]);
 
-        // Buat token Sanctum
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        // Login untuk Cookie-Based SPA - Dihapus karena pakai API Token
-        // Auth::login($user);
-        
         return response()->json([
             'message' => 'Pendaftaran berhasil',
             'user' => $user,
-            'token' => $token,
         ], 201);
     }
 
