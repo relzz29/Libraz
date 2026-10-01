@@ -145,16 +145,17 @@ class AuthController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $user = $request->user();
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'avatar' => 'nullable|string',
-            'email' => 'nullable|email|max:255',
+            'email' => 'nullable|email|max:255|unique:users,email,' . $user->id,
             'school_name' => 'nullable|string|max:255',
             'bio' => 'nullable|string',
             'whatsapp_number' => 'nullable|string|max:20',
         ]);
 
-        $user = $request->user();
         $user->name = $validated['name'];
         if (array_key_exists('email', $validated)) $user->email = $validated['email'];
         if (array_key_exists('school_name', $validated)) $user->school_name = $validated['school_name'];
