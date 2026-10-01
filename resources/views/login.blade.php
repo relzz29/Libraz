@@ -201,7 +201,7 @@ body { min-height: max(884px, 100dvh); }
 <div class="flex flex-col gap-1.5">
 <div class="flex items-center justify-between">
 <label class="font-label-lg text-label-lg text-on-surface" for="input-password">Kata Sandi / PIN</label>
-<a class="font-label-sm text-label-sm text-primary hover:underline" href="#forgot">Lupa PIN?</a>
+<button type="button" class="font-label-sm text-label-sm text-primary hover:underline bg-transparent border-none p-0 cursor-pointer" onclick="openForgotPinModal()">Lupa PIN?</button>
 </div>
 <div class="relative flex items-center">
 <div class="absolute left-3.5 flex items-center pointer-events-none text-on-surface-variant">
@@ -314,6 +314,44 @@ body { min-height: max(884px, 100dvh); }
         </div>
     </div>
 </div>
+
+<!-- Forgot PIN Modal -->
+<div id="forgot-pin-modal" class="scanner-modal-backdrop" style="display: none;">
+    <div class="scanner-modal-card" style="text-align: center; padding: 32px 24px;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: #fff1f2; color: #e11d48; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+            <span class="material-symbols-outlined text-[32px]">lock_reset</span>
+        </div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0 0 8px; font-family: 'Plus Jakarta Sans', sans-serif;">Lupa PIN Anda?</h3>
+        <p style="font-size: 0.875rem; color: #64748b; margin: 0 0 24px; line-height: 1.5; font-family: 'Plus Jakarta Sans', sans-serif;">
+            Untuk alasan keamanan, reset PIN hanya dapat dilakukan oleh Admin Perpustakaan (Tech Support).
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="{{ route('bantuan') }}" style="width: 100%; padding: 12px; border-radius: 12px; background: #4300bb; color: white; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.875rem; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(67, 0, 187, 0.2);">
+                <span>Hubungi Tech Support</span>
+                <span class="material-symbols-outlined text-[18px]">support_agent</span>
+            </a>
+            <button type="button" onclick="closeForgotPinModal()" style="width: 100%; padding: 12px; border-radius: 12px; background: #f1f5f9; color: #64748b; border: none; font-weight: 700; cursor: pointer; font-size: 0.875rem; transition: all 0.2s;">
+                Kembali ke Login
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openForgotPinModal() {
+        document.getElementById('forgot-pin-modal').style.display = 'flex';
+    }
+    
+    function closeForgotPinModal() {
+        document.getElementById('forgot-pin-modal').style.display = 'none';
+    }
+    
+    // Close modal when clicking outside
+    document.getElementById('forgot-pin-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeForgotPinModal();
+    });
+</script>
+
 <script>
   (function() {
     const tabLogin = document.getElementById('tab-login');
