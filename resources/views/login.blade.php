@@ -47,10 +47,68 @@ body { min-height: max(884px, 100dvh); }
 </style>
 </head>
 <body class="bg-background font-body-md text-body-md text-on-surface pt-safe pb-safe flex flex-col min-h-screen">
-<main class="flex flex-col relative w-full bg-surface min-h-screen items-center">
-<div class="flex flex-col w-full max-w-md px-margin pb-space-xl">
-<!-- Brand Mascot & Top Intro Banner -->
-<div class="relative w-full overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-sm mt-space-sm mb-space-lg">
+<main class="flex flex-col lg:flex-row relative w-full min-h-screen items-stretch bg-surface">
+<!-- Desktop Hero Panel (Hidden on Mobile) -->
+<div class="hidden lg:flex flex-col flex-1 bg-gradient-to-br from-primary via-primary-container to-surface-tint p-12 justify-center relative overflow-hidden text-surface-container-lowest">
+    <div class="absolute -right-32 -bottom-32 w-[600px] h-[600px] bg-secondary-fixed/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute -left-16 -top-16 w-96 h-96 bg-primary-fixed/30 rounded-full blur-[100px] pointer-events-none"></div>
+    
+    <div class="relative z-10 max-w-xl mx-auto space-y-12">
+        <div class="flex items-center gap-space-md mb-8">
+            <div class="w-20 h-20 rounded-2xl bg-surface-container-lowest/15 backdrop-blur-2xl flex items-center justify-center border border-surface-container-lowest/20 shadow-2xl">
+                <svg class="w-12 h-12 text-secondary-fixed" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 38V12C10 9.8 11.8 8 14 8H34C36.2 8 38 9.8 38 12V38" stroke="currentColor" stroke-linecap="round" stroke-width="3"></path>
+                    <path d="M6 40C6 38.9 6.9 38 8 38H40C41.1 38 42 38.9 42 40C42 41.1 41.1 42 40 42H8C6.9 42 6 41.1 6 40Z" fill="currentColor"></path>
+                    <path d="M20 18L16 26H23L20 34L32 22H24L28 18H20Z" fill="#FDF8FF"></path>
+                </svg>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-display-lg text-display-lg font-black tracking-tight">LIBRAZ</span>
+                <span class="inline-flex items-center gap-2 font-label-md text-label-md text-secondary-fixed mt-1">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-secondary-fixed"></span>
+                    </span>
+                    Live Library System
+                </span>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <h1 class="font-display-lg text-[44px] leading-[1.1] font-extrabold text-surface-container-lowest drop-shadow-sm">
+                Level up your reading game <span class="inline-block hover:scale-110 transition-transform">⚡📚</span>
+            </h1>
+            <p class="font-body-lg text-xl text-primary-fixed max-w-lg leading-relaxed opacity-95">
+                Bergabunglah dengan ribuan siswa yang telah beralih ke perpustakaan digital masa depan. Cepat, pintar, dan terintegrasi langsung dengan ekosistem sekolah.
+            </p>
+        </div>
+        
+        <div class="p-6 rounded-3xl bg-surface-container-lowest/10 backdrop-blur-xl border border-surface-container-lowest/20 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] mt-12 transform transition-all duration-500 hover:translate-y-[-4px] hover:bg-surface-container-lowest/15 group">
+          <div class="flex items-center justify-between">
+             <div class="flex items-center gap-5">
+                 <div class="flex -space-x-4">
+                    <img class="h-14 w-14 rounded-full border-2 border-primary object-cover transition-transform group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQzfXmgZSTT16nVgs3zYXeYFVha9UtuO6mX1hp7qvhhOE-vbSoydlwo4BCgdzp3ZKFcieM5LTvOfAx5ISVcxV6G0hl60BOgu0dTdELJcm-1l3q_ZsrRd1WG0ZKWs_AecZL1Lr1gBfh6q6YkdrsfmxhpTd2kJOXSdRLzzIb1E-JZH11c0T97_DAmIu35gv3626jGzMSnSlwuwW1JyiQAcIvmJmMDNw_qh38HyvwEuyrZparVJygqW2n" alt="Student"/>
+                    <img class="h-14 w-14 rounded-full border-2 border-primary object-cover transition-transform group-hover:scale-110 delay-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2RqW51uX5zJB5LScJQkH85XQGijKWR_BxMeEuKwwQbqOIxnYClK75RTjKc19CI5y2SaD4bfchJcn6TOos3eXNpTAV154WWDRToiIh9C2EvOUjl-iR_JmJxOHVlXLpBLNeCS-wvYLLgq8ZIT-JvsfkYy0sckAjtYlDAHfqESDEGAwSYO7icd651lzi_qfLGE178w159UiOVhmm_1vFLyqKoSsPCVGVhXoRvQOymBq72nnIyA8aKjve" alt="Student"/>
+                    <img class="h-14 w-14 rounded-full border-2 border-primary object-cover transition-transform group-hover:scale-110 delay-150" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz4SRpw0ZNtsVJIRijssDVH5Ibim9YSI1K_l44QUsStj1MlpSCbSFjAkUBYvsz_oyHo1cS797dibFgBg1iWEiAchwESpB3Mg46DTkdA4IjaIbH5zVQqWdSvRJZR3ADy3Gt8TRtWnRFU8AaLTw1hgojSatls8VOIBo0ZM_siDtLtbrKUBvX2T18M-8hil8YyHZULVxaUG6clDEyyuV3WJDA1HmLVTYZZa8eMHuubbtGZmINMC-t-xQj" alt="Student"/>
+                 </div>
+                 <div>
+                    <p class="font-title-md text-xl font-bold text-surface-container-lowest">1,240+ Siswa</p>
+                    <p class="font-body-sm text-sm text-primary-fixed mt-0.5">Aktif membaca hari ini</p>
+                 </div>
+             </div>
+             <div class="w-14 h-14 rounded-full bg-secondary-fixed/20 flex items-center justify-center text-secondary-fixed">
+                <span class="material-symbols-outlined text-[28px]">trending_up</span>
+             </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- Authentication Form Container (Right Side on Desktop, Full Width on Mobile) -->
+<div class="flex flex-col flex-1 items-center justify-center relative w-full lg:w-1/2 bg-surface min-h-screen overflow-y-auto pt-6 lg:pt-0">
+<div class="flex flex-col w-full max-w-[420px] px-margin pb-space-xl m-auto">
+<!-- Brand Mascot & Top Intro Banner (Mobile Only) -->
+<div class="lg:hidden relative w-full overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-sm mt-space-sm mb-space-lg">
 <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
 <div class="absolute -left-6 -top-6 w-28 h-28 bg-secondary-container/20 rounded-full blur-xl pointer-events-none"></div>
 <div class="relative flex items-center justify-between">
@@ -72,67 +130,68 @@ body { min-height: max(884px, 100dvh); }
 </p>
 </div>
 </div>
-<div class="hidden sm:flex flex-col items-end">
-<span class="inline-flex items-center gap-1 text-secondary font-label-md text-label-md">
-<span class="w-2 h-2 rounded-full bg-secondary-container animate-ping"></span> Live Library
-        </span>
 </div>
 </div>
+<!-- Header text for desktop -->
+<div class="hidden lg:block text-center mb-8">
+  <h2 class="font-display-lg text-3xl font-extrabold text-on-surface mb-2">Selamat Datang</h2>
+  <p class="font-body-md text-on-surface-variant">Silakan masuk ke akun Anda atau daftar baru.</p>
 </div>
+
 <!-- Segmented Tab Navigation: Masuk vs Daftar -->
-<div class="w-full bg-surface-container rounded-xl p-1.5 flex gap-1 mb-space-lg shadow-sm">
-<button class="flex-1 py-2.5 rounded-lg font-title-md text-title-md bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-1.5 transition-all" id="tab-login" type="button">
-<span class="material-symbols-outlined text-[18px]">login</span>
+<div class="w-full bg-surface-container rounded-xl p-1.5 flex gap-1 mb-space-lg shadow-inner">
+<button class="flex-1 py-3 rounded-lg font-title-md text-title-md bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-1.5 transition-all" id="tab-login" type="button">
+<span class="material-symbols-outlined text-[20px]">login</span>
 <span>Masuk Akun</span>
 </button>
-<button class="flex-1 py-2.5 rounded-lg font-title-md text-title-md text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1.5 transition-all" id="tab-register" type="button">
-<span class="material-symbols-outlined text-[18px]">person_add</span>
+<button class="flex-1 py-3 rounded-lg font-title-md text-title-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-lowest/50 flex items-center justify-center gap-1.5 transition-all" id="tab-register" type="button">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
 <span>Daftar Baru</span>
 </button>
 </div>
 <!-- Identity Pill Toggle (Role Switcher) -->
-<div class="flex items-center justify-between bg-surface-container-low rounded-xl px-space-md py-space-sm mb-space-lg shadow-sm">
+<div class="flex items-center justify-between bg-surface-container-low rounded-xl px-space-md py-space-sm mb-space-lg shadow-sm border border-surface-container-highest/50">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-[20px]">badge</span>
-<span class="font-label-lg text-label-lg text-on-surface">Masuk Sebagai:</span>
+<span class="font-label-lg text-label-lg text-on-surface">Sebagai:</span>
 </div>
 <div class="inline-flex bg-surface-container-high rounded-full p-1 shadow-inner" role="group">
-<button class="px-3.5 py-1 rounded-full font-label-md text-label-md bg-primary-container text-surface-container-lowest shadow-sm transition-all" id="role-student" type="button">
+<button class="px-4 py-1.5 rounded-full font-label-md text-label-md bg-primary-container text-surface-container-lowest shadow-sm transition-all" id="role-student" type="button">
         Siswa / Siswi
       </button>
-<button class="px-3.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" id="role-teacher" type="button">
+<button class="px-4 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" id="role-teacher" type="button">
         Pendidik
       </button>
 </div>
 </div>
 <!-- Interactive Quick Scan Feature Card -->
-<div class="relative w-full rounded-xl bg-gradient-to-br from-primary via-primary-container to-surface-tint p-space-lg text-surface-container-lowest shadow-md overflow-hidden mb-space-lg group">
-<div class="absolute -right-8 -top-8 w-36 h-36 bg-secondary-fixed/20 rounded-full blur-xl pointer-events-none"></div>
+<div class="relative w-full rounded-2xl bg-gradient-to-br from-primary via-primary-container to-surface-tint p-space-lg text-surface-container-lowest shadow-xl overflow-hidden mb-space-lg group transform transition-all duration-300 hover:shadow-primary/20 hover:-translate-y-1 cursor-pointer" onclick="openScanner()">
+<div class="absolute -right-8 -top-8 w-40 h-40 bg-secondary-fixed/30 rounded-full blur-2xl pointer-events-none group-hover:bg-secondary-fixed/40 transition-colors"></div>
 <div class="relative z-10 flex flex-col gap-space-md">
 <div class="flex items-start justify-between">
 <div>
-<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm mb-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-bold mb-2 uppercase tracking-wider shadow-sm">
 <span class="material-symbols-outlined text-[14px]">bolt</span> FAST PASS
           </span>
-<h3 class="font-headline-sm text-headline-sm text-on-primary font-bold">Scan Kartu Pelajar</h3>
-<p class="font-body-sm text-body-sm text-on-primary-container">Otomatis deteksi Barcode / QR ID Perpustakaan kamu.</p>
+<h3 class="font-headline-sm text-xl text-on-primary font-bold">Scan Kartu Pelajar</h3>
+<p class="font-body-sm text-sm text-primary-fixed mt-1">Otomatis deteksi QR ID Perpustakaan.</p>
 </div>
-<div class="w-12 h-12 rounded-xl bg-surface-container-lowest/15 flex items-center justify-center backdrop-blur-md">
-<span class="material-symbols-outlined text-secondary-container text-2xl">document_scanner</span>
+<div class="w-14 h-14 rounded-2xl bg-surface-container-lowest/15 flex items-center justify-center backdrop-blur-md border border-surface-container-lowest/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary-container text-3xl">document_scanner</span>
 </div>
 </div>
 <!-- Viewfinder Visual Simulation -->
-<div class="w-full bg-on-background/40 backdrop-blur-md rounded-xl p-space-md flex flex-col items-center justify-center relative overflow-hidden cursor-pointer transition-all hover:bg-on-background/50" id="scanner-box" onclick="openScanner()">
-<div class="w-full h-24 rounded-lg flex items-center justify-center relative overflow-hidden bg-surface-container-lowest/5">
+<div class="w-full bg-on-background/30 backdrop-blur-md rounded-xl p-space-md flex flex-col items-center justify-center relative overflow-hidden group-hover:bg-on-background/40 transition-colors" id="scanner-box">
+<div class="w-full h-28 rounded-lg flex items-center justify-center relative overflow-hidden bg-surface-container-lowest/5">
 <!-- Laser Beam Scan Animation -->
-<div class="absolute left-0 right-0 h-1 bg-secondary-container shadow-[0_0_12px_#43fcae] animate-[bounce_2s_infinite]"></div>
+<div class="absolute left-0 right-0 h-1 bg-secondary-container shadow-[0_0_15px_#43fcae] animate-[bounce_2s_infinite]"></div>
 <!-- Crosshair corners -->
-<div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-secondary-fixed rounded-tl"></div>
-<div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-secondary-fixed rounded-tr"></div>
-<div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-secondary-fixed rounded-bl"></div>
-<div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-secondary-fixed rounded-br"></div>
-<div class="flex flex-col items-center gap-1">
-<span class="material-symbols-outlined text-surface-container-lowest/80 text-3xl">qr_code_scanner</span>
+<div class="absolute top-2 left-2 w-5 h-5 border-t-2 border-l-2 border-secondary-fixed rounded-tl"></div>
+<div class="absolute top-2 right-2 w-5 h-5 border-t-2 border-r-2 border-secondary-fixed rounded-tr"></div>
+<div class="absolute bottom-2 left-2 w-5 h-5 border-b-2 border-l-2 border-secondary-fixed rounded-bl"></div>
+<div class="absolute bottom-2 right-2 w-5 h-5 border-b-2 border-r-2 border-secondary-fixed rounded-br"></div>
+<div class="flex flex-col items-center gap-1.5">
+<span class="material-symbols-outlined text-surface-container-lowest/80 text-4xl">qr_code_scanner</span>
 <span class="font-label-sm text-label-sm text-secondary-fixed tracking-wider uppercase">Ketuk untuk Buka Kamera</span>
 </div>
 </div>
@@ -140,9 +199,9 @@ body { min-height: max(884px, 100dvh); }
 </div>
 </div>
 <!-- Divider with subtle text -->
-<div class="relative flex items-center justify-center my-space-xs mb-space-lg">
+<div class="relative flex items-center justify-center my-space-sm mb-space-lg">
 <div class="w-full h-[1px] bg-surface-container-highest"></div>
-<span class="absolute bg-surface px-space-md font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Atau Manual ID</span>
+<span class="absolute bg-surface px-space-md font-label-md text-[11px] text-on-surface-variant font-bold uppercase tracking-[0.2em]">Atau Manual ID</span>
 </div>
 <!-- Authentication Form -->
 <form class="flex flex-col gap-space-md" id="auth-form" method="POST" action="#">
@@ -152,85 +211,85 @@ body { min-height: max(884px, 100dvh); }
 <input type="hidden" name="school_name" value="Asal Sekolah Default">
 
 @if (session('success'))
-<div class="p-3 text-sm rounded-lg" style="background-color: #dcfce7; color: #166534; display: flex; align-items: center; gap: 8px;">
+<div class="p-3 text-sm rounded-xl" style="background-color: #dcfce7; color: #166534; display: flex; align-items: center; gap: 8px;">
     <span class="material-symbols-outlined text-[18px]">check_circle</span>
     {{ session('success') }}
 </div>
 @endif
 @if ($errors->any())
-<div class="p-3 text-sm rounded-lg" style="background-color: #fee2e2; color: #991b1b; display: flex; align-items: center; gap: 8px;">
+<div class="p-3 text-sm rounded-xl" style="background-color: #fee2e2; color: #991b1b; display: flex; align-items: center; gap: 8px;">
     <span class="material-symbols-outlined text-[18px]">error</span>
     {{ $errors->first() }}
 </div>
 @endif
 
 <!-- JS Custom Alert Container -->
-<div id="js-alert-container" class="hidden p-3 text-sm rounded-lg flex items-center gap-2 mb-3"></div>
+<div id="js-alert-container" class="hidden p-3 text-sm rounded-xl flex items-center gap-2 mb-3"></div>
 
 <!-- Identifier Input -->
 <div class="flex flex-col gap-1.5">
 <div class="flex items-center justify-between">
-<label class="font-label-lg text-label-lg text-on-surface" for="input-identifier" id="label-identifier">
+<label class="font-label-lg text-sm font-bold text-on-surface" for="input-identifier" id="label-identifier">
           Nomor Induk Siswa (NIS)
         </label>
-<span class="font-label-sm text-label-sm text-primary flex items-center gap-0.5 cursor-pointer">
-<span class="material-symbols-outlined text-[13px]">help</span> Cek NIS Online
+<span class="font-label-sm text-xs font-bold text-primary flex items-center gap-0.5 cursor-pointer hover:underline transition-all">
+<span class="material-symbols-outlined text-[14px]">help</span> Cek NIS Online
         </span>
 </div>
-<div class="relative flex items-center">
-<div class="absolute left-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<div class="relative flex items-center group">
+<div class="absolute left-4 flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-primary transition-colors">
 <span class="material-symbols-outlined text-[20px]">badge</span>
 </div>
-<input class="w-full pl-11 pr-11 py-3 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary shadow-sm transition-all" id="input-identifier" name="nis" inputmode="numeric" placeholder="Contoh: 2024108827" type="text" value="{{ old('nis') }}" required maxlength="10" pattern="\d{1,10}" title="NISN harus berupa angka maksimal 10 digit"/>
-<button class="absolute right-2.5 p-1 rounded-lg hover:bg-surface-container text-primary flex items-center justify-center transition-colors" title="Scan Barcode Kartu" type="button" onclick="openScanner()">
+<input class="w-full pl-12 pr-12 py-3.5 bg-surface-container-low rounded-xl font-body-md text-base text-on-surface placeholder:text-outline/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary shadow-sm border border-transparent focus:border-primary/20 transition-all" id="input-identifier" name="nis" inputmode="numeric" placeholder="Contoh: 2024108827" type="text" value="{{ old('nis') }}" required maxlength="10" pattern="\d{1,10}" title="NISN harus berupa angka maksimal 10 digit"/>
+<button class="absolute right-2.5 p-1.5 rounded-lg hover:bg-primary/10 text-primary flex items-center justify-center transition-colors" title="Scan Barcode Kartu" type="button" onclick="openScanner()">
 <span class="material-symbols-outlined text-[22px]">barcode_scanner</span>
 </button>
 </div>
 </div>
 <!-- Register-only Field: Nama Lengkap (Hidden by default for login) -->
 <div class="hidden flex flex-col gap-1.5" id="register-field-name">
-<label class="font-label-lg text-label-lg text-on-surface" for="input-fullname">Nama Lengkap Siswa</label>
-<div class="relative flex items-center">
-<div class="absolute left-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<label class="font-label-lg text-sm font-bold text-on-surface" for="input-fullname">Nama Lengkap Siswa</label>
+<div class="relative flex items-center group">
+<div class="absolute left-4 flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-primary transition-colors">
 <span class="material-symbols-outlined text-[20px]">person</span>
 </div>
-<input class="w-full pl-11 pr-4 py-3 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary shadow-sm transition-all" id="input-fullname" name="name" placeholder="Sesuai Akun Dapodik Sekolah" type="text" value="{{ old('name') }}"/>
+<input class="w-full pl-12 pr-4 py-3.5 bg-surface-container-low rounded-xl font-body-md text-base text-on-surface placeholder:text-outline/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary shadow-sm border border-transparent focus:border-primary/20 transition-all" id="input-fullname" name="name" placeholder="Sesuai Akun Dapodik Sekolah" type="text" value="{{ old('name') }}"/>
 </div>
 </div>
 <!-- Password Input -->
 <div class="flex flex-col gap-1.5">
 <div class="flex items-center justify-between">
-<label class="font-label-lg text-label-lg text-on-surface" for="input-password">Kata Sandi / PIN</label>
-<button type="button" class="font-label-sm text-label-sm text-primary hover:underline bg-transparent border-none p-0 cursor-pointer" onclick="openForgotPinModal()">Lupa PIN?</button>
+<label class="font-label-lg text-sm font-bold text-on-surface" for="input-password">Kata Sandi / PIN</label>
+<button type="button" class="font-label-sm text-xs font-bold text-primary hover:underline bg-transparent border-none p-0 cursor-pointer transition-all" onclick="openForgotPinModal()">Lupa PIN?</button>
 </div>
-<div class="relative flex items-center">
-<div class="absolute left-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<div class="relative flex items-center group">
+<div class="absolute left-4 flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-primary transition-colors">
 <span class="material-symbols-outlined text-[20px]">lock</span>
 </div>
-<input class="w-full pl-11 pr-11 py-3 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary shadow-sm transition-all" id="input-password" name="password" placeholder="••••••••" type="password" required/>
-<button class="absolute right-2.5 p-1 rounded-lg text-on-surface-variant hover:text-on-surface transition-colors" id="toggle-password" type="button">
+<input class="w-full pl-12 pr-12 py-3.5 bg-surface-container-low rounded-xl font-body-md text-base text-on-surface placeholder:text-outline/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary shadow-sm border border-transparent focus:border-primary/20 transition-all" id="input-password" name="password" placeholder="••••••••" type="password" required/>
+<button class="absolute right-2.5 p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" id="toggle-password" type="button">
 <span class="material-symbols-outlined text-[20px]" id="pwd-icon">visibility</span>
 </button>
 </div>
 </div>
 <!-- Quick Remember Device Toggle -->
-<div class="flex items-center justify-between py-1">
-<label class="flex items-center gap-2 cursor-pointer">
-<input checked="" class="w-4 h-4 rounded bg-surface-container-high text-primary accent-primary focus:ring-0" type="checkbox"/>
-<span class="font-body-sm text-body-sm text-on-surface-variant select-none">Ingat perangkat ini di perpustakaan</span>
+<div class="flex items-center justify-between py-2">
+<label class="flex items-center gap-2.5 cursor-pointer group">
+<input checked="" class="w-4 h-4 rounded border-outline-variant bg-surface-container-high text-primary accent-primary focus:ring-primary/30 transition-all" type="checkbox"/>
+<span class="font-body-sm text-sm text-on-surface-variant select-none group-hover:text-on-surface transition-colors">Ingat perangkat ini di perpustakaan</span>
 </label>
-<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary">
+<span class="inline-flex items-center gap-1 font-label-sm text-xs font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">
 <span class="material-symbols-outlined text-[14px]">verified_user</span> Aman
       </span>
 </div>
 <!-- Primary Action Button -->
-<button class="w-full mt-space-xs py-3.5 px-space-lg rounded-xl bg-primary-container text-surface-container-lowest font-title-md text-title-md flex items-center justify-center gap-2 shadow-md hover:opacity-95 active:scale-[0.99] transition-all cursor-pointer" id="submit-button" type="submit">
+<button class="w-full mt-2 py-3.5 px-space-lg rounded-xl bg-primary-container text-surface-container-lowest font-title-md text-lg font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary-container/30 hover:shadow-xl hover:shadow-primary-container/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all cursor-pointer" id="submit-button" type="submit">
 <span>Masuk ke Perpustakaan</span>
-<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
 </button>
 </form>
-<!-- Community Activity Preview Pill -->
-<div class="mt-space-lg p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md shadow-sm">
+<!-- Community Activity Preview Pill (Mobile Only, Desktop has it in Hero) -->
+<div class="lg:hidden mt-space-lg p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md shadow-sm border border-surface-container-highest/50">
 <div class="flex -space-x-2 overflow-hidden flex-shrink-0">
 <div class="inline-block h-8 w-8 rounded-full ring-2 ring-surface bg-surface-container-high overflow-hidden">
 <img class="h-full w-full object-cover" data-alt="Close up portrait photo of a stylish Gen Z high school student with modern haircut smiling indoors at library with warm ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQzfXmgZSTT16nVgs3zYXeYFVha9UtuO6mX1hp7qvhhOE-vbSoydlwo4BCgdzp3ZKFcieM5LTvOfAx5ISVcxV6G0hl60BOgu0dTdELJcm-1l3q_ZsrRd1WG0ZKWs_AecZL1Lr1gBfh6q6YkdrsfmxhpTd2kJOXSdRLzzIb1E-JZH11c0T97_DAmIu35gv3626jGzMSnSlwuwW1JyiQAcIvmJmMDNw_qh38HyvwEuyrZparVJygqW2n"/>
@@ -243,31 +302,33 @@ body { min-height: max(884px, 100dvh); }
 </div>
 </div>
 <div class="min-w-0 flex-1">
-<p class="font-label-md text-label-md text-on-surface truncate">1,240+ Siswa Membaca Hari Ini</p>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Trending: "Atomic Habits", "Filosofi Teras"</p>
+<p class="font-label-md text-label-md text-on-surface truncate">1,240+ Siswa Membaca</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Trending: "Atomic Habits"</p>
 </div>
 <div class="flex items-center text-secondary">
 <span class="material-symbols-outlined text-[18px]">trending_up</span>
 </div>
 </div>
 <!-- Social Proof & Security Badges -->
-<div class="mt-space-lg flex flex-col gap-2.5">
-<div class="flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface-variant">
-<span class="material-symbols-outlined text-secondary text-[20px]">sync_saved_locally</span>
-<span class="font-body-sm text-body-sm leading-tight">
-        Terhubung otomatis dengan <strong>Dapodik Kemendikdasmen</strong> &amp; sistem absensi pintar sekolah.
+<div class="mt-8 flex flex-col gap-4">
+<div class="flex items-center gap-3 px-space-md py-3 rounded-xl bg-surface-container text-on-surface-variant border border-surface-container-highest/50">
+<span class="material-symbols-outlined text-secondary text-[24px]">sync_saved_locally</span>
+<span class="font-body-sm text-sm leading-relaxed">
+        Terhubung dengan <strong>Dapodik Kemendikdasmen</strong> &amp; sistem absensi pintar sekolah.
       </span>
 </div>
 <!-- Help & Support Desk Link -->
-<div class="flex items-center justify-center gap-1 pt-space-xs text-center">
-<span class="font-body-sm text-body-sm text-on-surface-variant">Butuh bantuan akun?</span>
-<a href="/bantuan" class="font-title-md text-title-md text-primary hover:underline flex items-center gap-0.5">
+<div class="flex items-center justify-center gap-1.5 pt-2 text-center">
+<span class="font-body-sm text-sm text-on-surface-variant">Butuh bantuan akun?</span>
+<a href="/bantuan" class="font-title-md text-sm font-bold text-primary hover:text-primary-container hover:underline flex items-center gap-1 transition-colors">
 <span>Hubungi Pustakawan</span>
 <span class="material-symbols-outlined text-[16px]">support_agent</span>
 </a>
 </div>
 </div>
 </div>
+</div>
+
 
 <!-- Scanner Modal -->
 <div id="qr-modal" class="scanner-modal-backdrop" style="display: none;">

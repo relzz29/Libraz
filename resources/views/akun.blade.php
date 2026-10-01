@@ -6,7 +6,8 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-  </head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Akun</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="{{ route('notifikasi') }}" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><div class="w-11 h-11 flex items-center justify-center"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen items-center"><div class="flex flex-col w-full max-w-md px-margin pb-space-xl gap-space-lg">
+  </head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm max-w-5xl mx-auto"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Akun</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="{{ route('notifikasi') }}" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><div class="w-11 h-11 flex items-center justify-center"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen items-center"><div class="flex flex-col lg:grid lg:grid-cols-12 w-full max-w-5xl px-margin pb-space-xl gap-space-lg lg:items-start">
+<div class="lg:col-span-5 flex flex-col gap-space-lg w-full">
 <!-- TOP IDENTITY & INTERACTIVE DIGITAL CARD -->
 <section class="flex flex-col w-full gap-space-md">
 <!-- Student Quick Info -->
@@ -102,6 +103,53 @@
 </div>
 </div>
 </section>
+<!-- QUICK SHORTCUTS & SUPPORT -->
+<section class="flex flex-col w-full gap-space-sm pt-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Layanan &amp; Integrasi</h3>
+<div class="flex flex-col rounded-2xl bg-surface-container-lowest shadow-sm overflow-hidden divide-y divide-surface-container">
+<!-- Fine Status Item -->
+<a class="flex items-center justify-between p-space-md hover:bg-surface-container-low transition-colors" href="#">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-container/40 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Status Denda &amp; Bebas Pinjam</span>
+<span class="font-body-sm text-body-sm text-secondary font-medium">Bebas Denda (Rp 0 • Tidak Ada Tunggakan)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
+</a>
+<!-- Dapodik / School Report Integration -->
+<a class="flex items-center justify-between p-space-md hover:bg-surface-container-low transition-colors" href="#">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">sync</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Sinkronisasi Rapor Literasi</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tersinkron otomatis ke Kemendikdasmen</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
+</a>
+<!-- Librarian Help Desk -->
+<a class="flex items-center justify-between p-space-md hover:bg-surface-container-low transition-colors" href="#">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">support_agent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Tanya Pustakawan</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Konsultasi riset karya ilmiah</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
+</a>
+</div>
+</section>
+</div>
+<div class="lg:col-span-7 flex flex-col gap-space-lg w-full">
 <!-- GAMIFICATION & LEVEL PROGRESSION SECTION -->
 <section class="flex flex-col w-full gap-space-sm">
 <!-- Level Banner Card -->
@@ -409,51 +457,8 @@
 </button>
 </div>
 </section>
-<!-- QUICK SHORTCUTS & SUPPORT -->
-<section class="flex flex-col w-full gap-space-sm pt-space-xs">
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Layanan &amp; Integrasi</h3>
-<div class="flex flex-col rounded-2xl bg-surface-container-lowest shadow-sm overflow-hidden divide-y divide-surface-container">
-<!-- Fine Status Item -->
-<a class="flex items-center justify-between p-space-md hover:bg-surface-container-low transition-colors" href="#">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-secondary-container/40 text-secondary flex items-center justify-center">
-<span class="material-symbols-outlined text-[22px]">verified_user</span>
-</div>
-<div class="flex flex-col">
-<span class="font-title-md text-title-md text-on-surface">Status Denda &amp; Bebas Pinjam</span>
-<span class="font-body-sm text-body-sm text-secondary font-medium">Bebas Denda (Rp 0 • Tidak Ada Tunggakan)</span>
-</div>
-</div>
-<span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
-</a>
-<!-- Dapodik / School Report Integration -->
-<a class="flex items-center justify-between p-space-md hover:bg-surface-container-low transition-colors" href="#">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-[22px]">sync</span>
-</div>
-<div class="flex flex-col">
-<span class="font-title-md text-title-md text-on-surface">Sinkronisasi Rapor Literasi</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Tersinkron otomatis ke Situs Resmi NISN Kemendikdasmen</span>
-</div>
-</div>
-<span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
-</a>
-<!-- Librarian Help Desk -->
-<a class="flex items-center justify-between p-space-md hover:bg-surface-container-low transition-colors" href="#">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-tertiary-fixed text-tertiary flex items-center justify-center">
-<span class="material-symbols-outlined text-[22px]">support_agent</span>
-</div>
-<div class="flex flex-col">
-<span class="font-title-md text-title-md text-on-surface">Tanya Pustakawan Kak Citra</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Konsultasi riset karya ilmiah &amp; koleksi buku</span>
-</div>
-</div>
-<span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
-</a>
-</div>
 </section>
+</div>
 </div>
 <script>
   // Interactive Toggle for Barcode / QR Section
@@ -548,4 +553,4 @@
       console.error(e);
     }
   });
-</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a></div></nav></body></html>
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-5xl mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a></div></nav></body></html>
