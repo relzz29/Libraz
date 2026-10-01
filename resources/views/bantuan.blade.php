@@ -70,7 +70,7 @@
                         </div>
                         <div class="flex flex-col justify-center">
                             <h3 class="font-title-md text-[17px] text-on-surface font-black uppercase tracking-tight leading-tight">Farell Giekady</h3>
-                            <span class="font-label-sm text-[10px] text-on-surface font-bold mt-1.5 bg-primary-container px-2 py-0.5 rounded border border-on-surface w-fit shadow-[1px_1px_0px_#1c1b20]">Kepala Pustakawan 👑</span>
+                            <span class="font-label-sm text-[10px] text-on-surface font-bold mt-1.5 bg-primary-container px-2 py-0.5 rounded border border-on-surface w-fit shadow-[1px_1px_0px_#1c1b20]">Tech Support 💻</span>
                         </div>
                     </div>
                     <div class="w-11 h-11 rounded-full bg-[#25D366] text-white flex items-center justify-center flex-shrink-0 border-[3px] border-on-surface shadow-[2px_2px_0px_#1c1b20] group-hover:scale-110 transition-transform">
@@ -85,11 +85,30 @@
                     </div>
                     <div class="flex items-center gap-4">
                         <div class="w-16 h-16 rounded-xl bg-[#43fcae] flex items-center justify-center border-[3px] border-on-surface overflow-hidden flex-shrink-0">
-                            <img src="{{ asset('images/aryandi.jpg') }}" alt="Foto Aryandi" class="w-full h-full object-cover">
+                            <img src="{{ asset('images/aryandi.png') }}" alt="Foto Aryandi" class="w-full h-full object-cover">
                         </div>
                         <div class="flex flex-col justify-center">
                             <h3 class="font-title-md text-[17px] text-on-surface font-black uppercase tracking-tight leading-tight">Aryandi Ramadani</h3>
                             <span class="font-label-sm text-[10px] text-on-surface font-bold mt-1.5 bg-secondary-container px-2 py-0.5 rounded border border-on-surface w-fit shadow-[1px_1px_0px_#1c1b20]">Tech Support 💻</span>
+                        </div>
+                    </div>
+                    <div class="w-11 h-11 rounded-full bg-[#25D366] text-white flex items-center justify-center flex-shrink-0 border-[3px] border-on-surface shadow-[2px_2px_0px_#1c1b20] group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">send</span>
+                    </div>
+                </div>
+
+                <!-- Kontak 3: Anggun Permatasari -->
+                <div class="group relative bg-surface-container-lowest rounded-2xl p-4 border-[3px] border-on-surface shadow-[4px_4px_0px_#1c1b20] flex items-center justify-between gap-3 cursor-pointer transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none" onclick="window.open('https://wa.me/6285778171094', '_blank')">
+                    <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#ffdadb] flex items-center justify-center text-[#800026] text-[12px] font-black rotate-12 group-hover:rotate-45 transition-transform border-[3px] border-on-surface z-10">
+                        3
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-xl bg-[#ffdadb] flex items-center justify-center border-[3px] border-on-surface overflow-hidden flex-shrink-0">
+                            <img src="{{ asset('images/anggun.png') }}" alt="Foto Anggun" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <h3 class="font-title-md text-[17px] text-on-surface font-black uppercase tracking-tight leading-tight">Anggun Permatasari</h3>
+                            <span class="font-label-sm text-[10px] text-on-surface font-bold mt-1.5 bg-[#ffdadb] px-2 py-0.5 rounded border border-on-surface w-fit shadow-[1px_1px_0px_#1c1b20]">Tech Support 💻</span>
                         </div>
                     </div>
                     <div class="w-11 h-11 rounded-full bg-[#25D366] text-white flex items-center justify-center flex-shrink-0 border-[3px] border-on-surface shadow-[2px_2px_0px_#1c1b20] group-hover:scale-110 transition-transform">
