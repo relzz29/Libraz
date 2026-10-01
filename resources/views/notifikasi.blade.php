@@ -8,9 +8,116 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script id="tailwind-config">
-    tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed": "#1e0060", "on-primary-fixed-variant": "#4c00d3", "surface-container-highest": "#e5e1e8", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container": "#f1ecf4", "surface-container-high": "#ebe6ee", "on-tertiary-fixed": "#40000f", "on-secondary-fixed": "#002112", "secondary-fixed": "#4dffb2", "on-tertiary": "#ffffff", "on-surface": "#1c1b20", "surface-variant": "#e5e1e8", "surface-container-low": "#f7f2f9", "on-primary-container": "#cfc1ff", "on-surface-variant": "#484456", "background": "#fdf8ff", "inverse-primary": "#ccbeff", "inverse-on-surface": "#f4eff6", "tertiary-container": "#ac0036", "error-container": "#ffdad6", "primary": "#4300bb", "on-secondary-container": "#007149", "surface-tint": "#6531f0", "secondary-fixed-dim": "#00e296", "secondary": "#006c46", "surface-dim": "#ddd8e0", "tertiary-fixed-dim": "#ffb2b8", "tertiary-fixed": "#ffdadb", "on-background": "#1c1b20", "secondary-container": "#43fcae", "tertiary": "#800026", "inverse-surface": "#313035", "primary-fixed-dim": "#ccbeff", "primary-fixed": "#e7deff", "on-secondary": "#ffffff", "error": "#ba1a1a", "surface-container-lowest": "#ffffff", "primary-container": "#5b21e6", "surface": "#fdf8ff", "outline": "#797488", "surface-bright": "#fdf8ff", "on-secondary-fixed-variant": "#005234", "on-primary": "#ffffff", "on-tertiary-fixed-variant": "#91002c", "outline-variant": "#cac3d9", "on-tertiary-container": "#ffb7bc" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "gutter-sm": "0.75rem", "space-lg": "1.25rem", "margin": "1.25rem", "gutter": "1rem", "margin-desktop": "2.5rem", "space-md": "0.875rem", "space-sm": "0.5rem", "space-xl": "2rem" }, "fontFamily": { "title-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-md": ["Space Grotesk"] }, "fontSize": { "title-md": ["16px", {"lineHeight": "22px", "fontWeight": "700"}], "headline-lg-mobile": ["26px", {"lineHeight": "32px", "fontWeight": "800"}], "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}], "display-lg": ["38px", {"lineHeight": "44px", "fontWeight": "800"}], "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}], "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "700"}], "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}], "headline-lg": ["30px", {"lineHeight": "36px", "fontWeight": "800"}], "label-lg": ["13px", {"lineHeight": "16px", "fontWeight": "700"}], "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}], "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "700"}] } } } }
-    </script>
+    
+<style>
+:root {
+  --color-on-primary-fixed: 30 0 96;
+  --color-on-primary-fixed-variant: 76 0 211;
+  --color-surface-container-highest: 229 225 232;
+  --color-on-error: 255 255 255;
+  --color-on-error-container: 147 0 10;
+  --color-surface-container: 241 236 244;
+  --color-surface-container-high: 235 230 238;
+  --color-on-tertiary-fixed: 64 0 15;
+  --color-on-secondary-fixed: 0 33 18;
+  --color-secondary-fixed: 77 255 178;
+  --color-on-tertiary: 255 255 255;
+  --color-on-surface: 28 27 32;
+  --color-surface-variant: 229 225 232;
+  --color-surface-container-low: 247 242 249;
+  --color-on-primary-container: 207 193 255;
+  --color-on-surface-variant: 72 68 86;
+  --color-background: 253 248 255;
+  --color-inverse-primary: 204 190 255;
+  --color-inverse-on-surface: 244 239 246;
+  --color-tertiary-container: 172 0 54;
+  --color-error-container: 255 218 214;
+  --color-primary: 67 0 187;
+  --color-on-secondary-container: 0 113 73;
+  --color-surface-tint: 101 49 240;
+  --color-secondary-fixed-dim: 0 226 150;
+  --color-secondary: 0 108 70;
+  --color-surface-dim: 221 216 224;
+  --color-tertiary-fixed-dim: 255 178 184;
+  --color-tertiary-fixed: 255 218 219;
+  --color-on-background: 28 27 32;
+  --color-secondary-container: 67 252 174;
+  --color-tertiary: 128 0 38;
+  --color-inverse-surface: 49 48 53;
+  --color-primary-fixed-dim: 204 190 255;
+  --color-primary-fixed: 231 222 255;
+  --color-on-secondary: 255 255 255;
+  --color-error: 186 26 26;
+  --color-surface-container-lowest: 255 255 255;
+  --color-primary-container: 91 33 230;
+  --color-surface: 253 248 255;
+  --color-outline: 121 116 136;
+  --color-surface-bright: 253 248 255;
+  --color-on-secondary-fixed-variant: 0 82 52;
+  --color-on-primary: 255 255 255;
+  --color-on-tertiary-fixed-variant: 145 0 44;
+  --color-outline-variant: 202 195 217;
+  --color-on-tertiary-container: 255 183 188;
+}
+html.dark {
+  --color-on-primary-fixed: 30 0 96;
+  --color-on-primary-fixed-variant: 76 0 211;
+  --color-surface-container-highest: 33 28 58;
+  --color-on-error: 105 0 5;
+  --color-on-error-container: 255 218 214;
+  --color-surface-container: 21 17 36;
+  --color-surface-container-high: 26 21 46;
+  --color-on-tertiary-fixed: 64 0 15;
+  --color-on-secondary-fixed: 0 33 18;
+  --color-secondary-fixed: 77 255 178;
+  --color-on-tertiary: 104 0 28;
+  --color-on-surface: 229 225 232;
+  --color-surface-variant: 229 225 232;
+  --color-surface-container-low: 15 12 27;
+  --color-on-primary-container: 231 222 255;
+  --color-on-surface-variant: 196 192 206;
+  --color-background: 11 9 20;
+  --color-inverse-primary: 67 0 187;
+  --color-inverse-on-surface: 244 239 246;
+  --color-tertiary-container: 145 0 44;
+  --color-error-container: 147 0 10;
+  --color-primary: 178 140 255;
+  --color-on-secondary-container: 67 252 174;
+  --color-surface-tint: 101 49 240;
+  --color-secondary-fixed-dim: 0 226 150;
+  --color-secondary: 0 226 150;
+  --color-surface-dim: 5 4 10;
+  --color-tertiary-fixed-dim: 255 178 184;
+  --color-tertiary-fixed: 255 218 219;
+  --color-on-background: 229 225 232;
+  --color-secondary-container: 0 82 52;
+  --color-tertiary: 255 178 184;
+  --color-inverse-surface: 49 48 53;
+  --color-primary-fixed-dim: 204 190 255;
+  --color-primary-fixed: 231 222 255;
+  --color-on-secondary: 0 56 35;
+  --color-error: 255 180 171;
+  --color-surface-container-lowest: 6 5 12;
+  --color-primary-container: 69 0 205;
+  --color-surface: 11 9 20;
+  --color-outline: 141 135 156;
+  --color-surface-bright: 31 26 47;
+  --color-on-secondary-fixed-variant: 0 82 52;
+  --color-on-primary: 45 0 135;
+  --color-on-tertiary-fixed-variant: 145 0 44;
+  --color-outline-variant: 64 58 82;
+  --color-on-tertiary-container: 255 218 219;
+}
+</style>
+<script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-primary-fixed":"rgb(var(--color-on-primary-fixed) \/ <alpha-value>)","on-primary-fixed-variant":"rgb(var(--color-on-primary-fixed-variant) \/ <alpha-value>)","surface-container-highest":"rgb(var(--color-surface-container-highest) \/ <alpha-value>)","on-error":"rgb(var(--color-on-error) \/ <alpha-value>)","on-error-container":"rgb(var(--color-on-error-container) \/ <alpha-value>)","surface-container":"rgb(var(--color-surface-container) \/ <alpha-value>)","surface-container-high":"rgb(var(--color-surface-container-high) \/ <alpha-value>)","on-tertiary-fixed":"rgb(var(--color-on-tertiary-fixed) \/ <alpha-value>)","on-secondary-fixed":"rgb(var(--color-on-secondary-fixed) \/ <alpha-value>)","secondary-fixed":"rgb(var(--color-secondary-fixed) \/ <alpha-value>)","on-tertiary":"rgb(var(--color-on-tertiary) \/ <alpha-value>)","on-surface":"rgb(var(--color-on-surface) \/ <alpha-value>)","surface-variant":"rgb(var(--color-surface-variant) \/ <alpha-value>)","surface-container-low":"rgb(var(--color-surface-container-low) \/ <alpha-value>)","on-primary-container":"rgb(var(--color-on-primary-container) \/ <alpha-value>)","on-surface-variant":"rgb(var(--color-on-surface-variant) \/ <alpha-value>)","background":"rgb(var(--color-background) \/ <alpha-value>)","inverse-primary":"rgb(var(--color-inverse-primary) \/ <alpha-value>)","inverse-on-surface":"rgb(var(--color-inverse-on-surface) \/ <alpha-value>)","tertiary-container":"rgb(var(--color-tertiary-container) \/ <alpha-value>)","error-container":"rgb(var(--color-error-container) \/ <alpha-value>)","primary":"rgb(var(--color-primary) \/ <alpha-value>)","on-secondary-container":"rgb(var(--color-on-secondary-container) \/ <alpha-value>)","surface-tint":"rgb(var(--color-surface-tint) \/ <alpha-value>)","secondary-fixed-dim":"rgb(var(--color-secondary-fixed-dim) \/ <alpha-value>)","secondary":"rgb(var(--color-secondary) \/ <alpha-value>)","surface-dim":"rgb(var(--color-surface-dim) \/ <alpha-value>)","tertiary-fixed-dim":"rgb(var(--color-tertiary-fixed-dim) \/ <alpha-value>)","tertiary-fixed":"rgb(var(--color-tertiary-fixed) \/ <alpha-value>)","on-background":"rgb(var(--color-on-background) \/ <alpha-value>)","secondary-container":"rgb(var(--color-secondary-container) \/ <alpha-value>)","tertiary":"rgb(var(--color-tertiary) \/ <alpha-value>)","inverse-surface":"rgb(var(--color-inverse-surface) \/ <alpha-value>)","primary-fixed-dim":"rgb(var(--color-primary-fixed-dim) \/ <alpha-value>)","primary-fixed":"rgb(var(--color-primary-fixed) \/ <alpha-value>)","on-secondary":"rgb(var(--color-on-secondary) \/ <alpha-value>)","error":"rgb(var(--color-error) \/ <alpha-value>)","surface-container-lowest":"rgb(var(--color-surface-container-lowest) \/ <alpha-value>)","primary-container":"rgb(var(--color-primary-container) \/ <alpha-value>)","surface":"rgb(var(--color-surface) \/ <alpha-value>)","outline":"rgb(var(--color-outline) \/ <alpha-value>)","surface-bright":"rgb(var(--color-surface-bright) \/ <alpha-value>)","on-secondary-fixed-variant":"rgb(var(--color-on-secondary-fixed-variant) \/ <alpha-value>)","on-primary":"rgb(var(--color-on-primary) \/ <alpha-value>)","on-tertiary-fixed-variant":"rgb(var(--color-on-tertiary-fixed-variant) \/ <alpha-value>)","outline-variant":"rgb(var(--color-outline-variant) \/ <alpha-value>)","on-tertiary-container":"rgb(var(--color-on-tertiary-container) \/ <alpha-value>)"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","gutter-sm":"0.75rem","space-lg":"1.25rem","margin":"1.25rem","gutter":"1rem","margin-desktop":"2.5rem","space-md":"0.875rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"title-md":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-sm":["Space Grotesk"],"headline-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-lg":["Space Grotesk"],"body-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-md":["Space Grotesk"]},"fontSize":{"title-md":["16px",{"lineHeight":"22px","fontWeight":"700"}],"headline-lg-mobile":["26px",{"lineHeight":"32px","fontWeight":"800"}],"headline-md":["22px",{"lineHeight":"28px","fontWeight":"700"}],"display-lg":["38px",{"lineHeight":"44px","fontWeight":"800"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"label-sm":["10px",{"lineHeight":"12px","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"700"}],"headline-lg":["30px",{"lineHeight":"36px","fontWeight":"800"}],"label-lg":["13px",{"lineHeight":"16px","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"500"}],"label-md":["11px",{"lineHeight":"14px","fontWeight":"700"}]}}}};</script>
+<script>
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) || localStorage.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+</script>
+
 </head>
 <body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen">
     <header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">

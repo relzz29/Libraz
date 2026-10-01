@@ -1,7 +1,116 @@
 <!DOCTYPE html>
 
 <html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed": "#1e0060", "on-primary-fixed-variant": "#4c00d3", "surface-container-highest": "#e5e1e8", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container": "#f1ecf4", "surface-container-high": "#ebe6ee", "on-tertiary-fixed": "#40000f", "on-secondary-fixed": "#002112", "secondary-fixed": "#4dffb2", "on-tertiary": "#ffffff", "on-surface": "#1c1b20", "surface-variant": "#e5e1e8", "surface-container-low": "#f7f2f9", "on-primary-container": "#cfc1ff", "on-surface-variant": "#484456", "background": "#fdf8ff", "inverse-primary": "#ccbeff", "inverse-on-surface": "#f4eff6", "tertiary-container": "#ac0036", "error-container": "#ffdad6", "primary": "#4300bb", "on-secondary-container": "#007149", "surface-tint": "#6531f0", "secondary-fixed-dim": "#00e296", "secondary": "#006c46", "surface-dim": "#ddd8e0", "tertiary-fixed-dim": "#ffb2b8", "tertiary-fixed": "#ffdadb", "on-background": "#1c1b20", "secondary-container": "#43fcae", "tertiary": "#800026", "inverse-surface": "#313035", "primary-fixed-dim": "#ccbeff", "primary-fixed": "#e7deff", "on-secondary": "#ffffff", "error": "#ba1a1a", "surface-container-lowest": "#ffffff", "primary-container": "#5b21e6", "surface": "#fdf8ff", "outline": "#797488", "surface-bright": "#fdf8ff", "on-secondary-fixed-variant": "#005234", "on-primary": "#ffffff", "on-tertiary-fixed-variant": "#91002c", "outline-variant": "#cac3d9", "on-tertiary-container": "#ffb7bc" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "gutter-sm": "0.75rem", "space-lg": "1.25rem", "margin": "1.25rem", "gutter": "1rem", "margin-desktop": "2.5rem", "space-md": "0.875rem", "space-sm": "0.5rem", "space-xl": "2rem" }, "fontFamily": { "title-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-md": ["Space Grotesk"] }, "fontSize": { "title-md": ["16px", {"lineHeight": "22px", "fontWeight": "700"}], "headline-lg-mobile": ["26px", {"lineHeight": "32px", "fontWeight": "800"}], "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}], "display-lg": ["38px", {"lineHeight": "44px", "fontWeight": "800"}], "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}], "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "700"}], "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}], "headline-lg": ["30px", {"lineHeight": "36px", "fontWeight": "800"}], "label-lg": ["13px", {"lineHeight": "16px", "fontWeight": "700"}], "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}], "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "700"}] } } } }</script><style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --color-on-primary-fixed: 30 0 96;
+  --color-on-primary-fixed-variant: 76 0 211;
+  --color-surface-container-highest: 229 225 232;
+  --color-on-error: 255 255 255;
+  --color-on-error-container: 147 0 10;
+  --color-surface-container: 241 236 244;
+  --color-surface-container-high: 235 230 238;
+  --color-on-tertiary-fixed: 64 0 15;
+  --color-on-secondary-fixed: 0 33 18;
+  --color-secondary-fixed: 77 255 178;
+  --color-on-tertiary: 255 255 255;
+  --color-on-surface: 28 27 32;
+  --color-surface-variant: 229 225 232;
+  --color-surface-container-low: 247 242 249;
+  --color-on-primary-container: 207 193 255;
+  --color-on-surface-variant: 72 68 86;
+  --color-background: 253 248 255;
+  --color-inverse-primary: 204 190 255;
+  --color-inverse-on-surface: 244 239 246;
+  --color-tertiary-container: 172 0 54;
+  --color-error-container: 255 218 214;
+  --color-primary: 67 0 187;
+  --color-on-secondary-container: 0 113 73;
+  --color-surface-tint: 101 49 240;
+  --color-secondary-fixed-dim: 0 226 150;
+  --color-secondary: 0 108 70;
+  --color-surface-dim: 221 216 224;
+  --color-tertiary-fixed-dim: 255 178 184;
+  --color-tertiary-fixed: 255 218 219;
+  --color-on-background: 28 27 32;
+  --color-secondary-container: 67 252 174;
+  --color-tertiary: 128 0 38;
+  --color-inverse-surface: 49 48 53;
+  --color-primary-fixed-dim: 204 190 255;
+  --color-primary-fixed: 231 222 255;
+  --color-on-secondary: 255 255 255;
+  --color-error: 186 26 26;
+  --color-surface-container-lowest: 255 255 255;
+  --color-primary-container: 91 33 230;
+  --color-surface: 253 248 255;
+  --color-outline: 121 116 136;
+  --color-surface-bright: 253 248 255;
+  --color-on-secondary-fixed-variant: 0 82 52;
+  --color-on-primary: 255 255 255;
+  --color-on-tertiary-fixed-variant: 145 0 44;
+  --color-outline-variant: 202 195 217;
+  --color-on-tertiary-container: 255 183 188;
+}
+html.dark {
+  --color-on-primary-fixed: 30 0 96;
+  --color-on-primary-fixed-variant: 76 0 211;
+  --color-surface-container-highest: 33 28 58;
+  --color-on-error: 105 0 5;
+  --color-on-error-container: 255 218 214;
+  --color-surface-container: 21 17 36;
+  --color-surface-container-high: 26 21 46;
+  --color-on-tertiary-fixed: 64 0 15;
+  --color-on-secondary-fixed: 0 33 18;
+  --color-secondary-fixed: 77 255 178;
+  --color-on-tertiary: 104 0 28;
+  --color-on-surface: 229 225 232;
+  --color-surface-variant: 229 225 232;
+  --color-surface-container-low: 15 12 27;
+  --color-on-primary-container: 231 222 255;
+  --color-on-surface-variant: 196 192 206;
+  --color-background: 11 9 20;
+  --color-inverse-primary: 67 0 187;
+  --color-inverse-on-surface: 244 239 246;
+  --color-tertiary-container: 145 0 44;
+  --color-error-container: 147 0 10;
+  --color-primary: 178 140 255;
+  --color-on-secondary-container: 67 252 174;
+  --color-surface-tint: 101 49 240;
+  --color-secondary-fixed-dim: 0 226 150;
+  --color-secondary: 0 226 150;
+  --color-surface-dim: 5 4 10;
+  --color-tertiary-fixed-dim: 255 178 184;
+  --color-tertiary-fixed: 255 218 219;
+  --color-on-background: 229 225 232;
+  --color-secondary-container: 0 82 52;
+  --color-tertiary: 255 178 184;
+  --color-inverse-surface: 49 48 53;
+  --color-primary-fixed-dim: 204 190 255;
+  --color-primary-fixed: 231 222 255;
+  --color-on-secondary: 0 56 35;
+  --color-error: 255 180 171;
+  --color-surface-container-lowest: 6 5 12;
+  --color-primary-container: 69 0 205;
+  --color-surface: 11 9 20;
+  --color-outline: 141 135 156;
+  --color-surface-bright: 31 26 47;
+  --color-on-secondary-fixed-variant: 0 82 52;
+  --color-on-primary: 45 0 135;
+  --color-on-tertiary-fixed-variant: 145 0 44;
+  --color-outline-variant: 64 58 82;
+  --color-on-tertiary-container: 255 218 219;
+}
+</style>
+<script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-primary-fixed":"rgb(var(--color-on-primary-fixed) \/ <alpha-value>)","on-primary-fixed-variant":"rgb(var(--color-on-primary-fixed-variant) \/ <alpha-value>)","surface-container-highest":"rgb(var(--color-surface-container-highest) \/ <alpha-value>)","on-error":"rgb(var(--color-on-error) \/ <alpha-value>)","on-error-container":"rgb(var(--color-on-error-container) \/ <alpha-value>)","surface-container":"rgb(var(--color-surface-container) \/ <alpha-value>)","surface-container-high":"rgb(var(--color-surface-container-high) \/ <alpha-value>)","on-tertiary-fixed":"rgb(var(--color-on-tertiary-fixed) \/ <alpha-value>)","on-secondary-fixed":"rgb(var(--color-on-secondary-fixed) \/ <alpha-value>)","secondary-fixed":"rgb(var(--color-secondary-fixed) \/ <alpha-value>)","on-tertiary":"rgb(var(--color-on-tertiary) \/ <alpha-value>)","on-surface":"rgb(var(--color-on-surface) \/ <alpha-value>)","surface-variant":"rgb(var(--color-surface-variant) \/ <alpha-value>)","surface-container-low":"rgb(var(--color-surface-container-low) \/ <alpha-value>)","on-primary-container":"rgb(var(--color-on-primary-container) \/ <alpha-value>)","on-surface-variant":"rgb(var(--color-on-surface-variant) \/ <alpha-value>)","background":"rgb(var(--color-background) \/ <alpha-value>)","inverse-primary":"rgb(var(--color-inverse-primary) \/ <alpha-value>)","inverse-on-surface":"rgb(var(--color-inverse-on-surface) \/ <alpha-value>)","tertiary-container":"rgb(var(--color-tertiary-container) \/ <alpha-value>)","error-container":"rgb(var(--color-error-container) \/ <alpha-value>)","primary":"rgb(var(--color-primary) \/ <alpha-value>)","on-secondary-container":"rgb(var(--color-on-secondary-container) \/ <alpha-value>)","surface-tint":"rgb(var(--color-surface-tint) \/ <alpha-value>)","secondary-fixed-dim":"rgb(var(--color-secondary-fixed-dim) \/ <alpha-value>)","secondary":"rgb(var(--color-secondary) \/ <alpha-value>)","surface-dim":"rgb(var(--color-surface-dim) \/ <alpha-value>)","tertiary-fixed-dim":"rgb(var(--color-tertiary-fixed-dim) \/ <alpha-value>)","tertiary-fixed":"rgb(var(--color-tertiary-fixed) \/ <alpha-value>)","on-background":"rgb(var(--color-on-background) \/ <alpha-value>)","secondary-container":"rgb(var(--color-secondary-container) \/ <alpha-value>)","tertiary":"rgb(var(--color-tertiary) \/ <alpha-value>)","inverse-surface":"rgb(var(--color-inverse-surface) \/ <alpha-value>)","primary-fixed-dim":"rgb(var(--color-primary-fixed-dim) \/ <alpha-value>)","primary-fixed":"rgb(var(--color-primary-fixed) \/ <alpha-value>)","on-secondary":"rgb(var(--color-on-secondary) \/ <alpha-value>)","error":"rgb(var(--color-error) \/ <alpha-value>)","surface-container-lowest":"rgb(var(--color-surface-container-lowest) \/ <alpha-value>)","primary-container":"rgb(var(--color-primary-container) \/ <alpha-value>)","surface":"rgb(var(--color-surface) \/ <alpha-value>)","outline":"rgb(var(--color-outline) \/ <alpha-value>)","surface-bright":"rgb(var(--color-surface-bright) \/ <alpha-value>)","on-secondary-fixed-variant":"rgb(var(--color-on-secondary-fixed-variant) \/ <alpha-value>)","on-primary":"rgb(var(--color-on-primary) \/ <alpha-value>)","on-tertiary-fixed-variant":"rgb(var(--color-on-tertiary-fixed-variant) \/ <alpha-value>)","outline-variant":"rgb(var(--color-outline-variant) \/ <alpha-value>)","on-tertiary-container":"rgb(var(--color-on-tertiary-container) \/ <alpha-value>)"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","gutter-sm":"0.75rem","space-lg":"1.25rem","margin":"1.25rem","gutter":"1rem","margin-desktop":"2.5rem","space-md":"0.875rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"title-md":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-sm":["Space Grotesk"],"headline-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-lg":["Space Grotesk"],"body-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-md":["Space Grotesk"]},"fontSize":{"title-md":["16px",{"lineHeight":"22px","fontWeight":"700"}],"headline-lg-mobile":["26px",{"lineHeight":"32px","fontWeight":"800"}],"headline-md":["22px",{"lineHeight":"28px","fontWeight":"700"}],"display-lg":["38px",{"lineHeight":"44px","fontWeight":"800"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"label-sm":["10px",{"lineHeight":"12px","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"700"}],"headline-lg":["30px",{"lineHeight":"36px","fontWeight":"800"}],"label-lg":["13px",{"lineHeight":"16px","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"500"}],"label-md":["11px",{"lineHeight":"14px","fontWeight":"700"}]}}}};</script>
+<script>
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) || localStorage.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+</script>
+<style>
     body {
       min-height: max(884px, 100dvh);
     }
@@ -156,44 +265,44 @@
 <div class="w-full rounded-2xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm">
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-2.5">
-<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-outline">
 <span class="material-symbols-outlined text-[24px]">workspace_premium</span>
 </div>
 <div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Peringkat Literasi</span>
-<span class="font-title-md text-title-md text-on-surface">Level 14 • Kutu Buku Legendaris</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Peringkat Literasi</span>
+<span class="font-title-md text-title-md text-on-surface" id="profile-level-title">Level 1 • Pembaca Baru</span>
 </div>
 </div>
-<span class="font-label-md text-label-md px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface">
-          Top 2%
+<span class="font-label-md text-label-md px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface" id="profile-top-percent">
+          Top 100%
         </span>
 </div>
 <!-- XP Bar -->
 <div class="flex flex-col gap-1.5 pt-1">
 <div class="flex items-center justify-between text-body-sm font-body-sm">
-<span class="text-on-surface-variant font-label-sm text-label-sm">2.850 / 3.000 XP</span>
-<span class="text-primary font-label-sm text-label-sm">+150 XP ke Level 15 (Grandmaster)</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm" id="profile-xp-text">0 / 100 XP</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm" id="profile-xp-next">+100 XP ke Level 2</span>
 </div>
 <div class="w-full h-3 rounded-full bg-surface-container overflow-hidden p-0.5">
-<div class="h-full rounded-full bg-gradient-to-r from-primary via-primary-container to-secondary-fixed transition-all duration-700" style="width: 95%;"></div>
+<div id="profile-xp-bar" class="h-full rounded-full bg-gradient-to-r from-primary via-primary-container to-secondary-fixed transition-all duration-700" style="width: 0%;"></div>
 </div>
 </div>
 <!-- Daily Streak Mini Widget -->
 <div class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container-low mt-1">
 <div class="flex items-center gap-2">
-<span class="text-xl">🔥</span>
+<span class="text-xl opacity-50 grayscale">🔥</span>
 <div class="flex flex-col">
-<span class="font-label-lg text-label-lg text-on-surface">18 Hari Streak Membaca!</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Target harian 20 menit terpenuhi</span>
+<span class="font-label-lg text-label-lg text-on-surface">0 Hari Streak Membaca</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mulai baca hari ini untuk streak!</span>
 </div>
 </div>
 <!-- 7-day mini streak indicators -->
 <div class="flex items-center gap-1">
-<span class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm">S</span>
-<span class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm">S</span>
-<span class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm">R</span>
-<span class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm">K</span>
-<span class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-label-sm shadow-sm">J</span>
+<span class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-label-sm text-label-sm">S</span>
+<span class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-label-sm text-label-sm">S</span>
+<span class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-label-sm text-label-sm">R</span>
+<span class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-label-sm text-label-sm">K</span>
+<span class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-label-sm text-label-sm">J</span>
 <span class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-label-sm text-label-sm">S</span>
 <span class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-label-sm text-label-sm">M</span>
 </div>
@@ -202,38 +311,38 @@
 <!-- Quick Stat Metrics (2x2 Compact Bento) -->
 <div class="grid grid-cols-2 gap-space-sm">
 <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-secondary-container/40 text-secondary flex items-center justify-center flex-shrink-0">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
 <span class="material-symbols-outlined text-[22px]">auto_stories</span>
 </div>
 <div class="flex flex-col min-w-0">
-<span class="font-headline-sm text-headline-sm text-on-surface">32</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">0</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Buku Selesai</span>
 </div>
 </div>
 <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center flex-shrink-0">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
 <span class="material-symbols-outlined text-[22px]">schedule</span>
 </div>
 <div class="flex flex-col min-w-0">
-<span class="font-headline-sm text-headline-sm text-on-surface">148 Jam</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">0 Jam</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Total Membaca</span>
 </div>
 </div>
 <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-[#fef3c7] text-[#92400e] flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 0;">star</span>
 </div>
 <div class="flex flex-col min-w-0">
-<span class="font-headline-sm text-headline-sm text-on-surface">4.9 / 5</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">0 / 5</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Rating Ulasan</span>
 </div>
 </div>
 <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-tertiary-fixed text-tertiary flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 0;">favorite</span>
 </div>
 <div class="flex flex-col min-w-0">
-<span class="font-headline-sm text-headline-sm text-on-surface">12 Item</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">0 Item</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Koleksi Favorit</span>
 </div>
 </div>
@@ -248,93 +357,105 @@
 </div>
 <!-- Filter Switcher -->
 <div class="flex items-center bg-surface-container rounded-lg p-1 text-label-sm font-label-sm">
-<button class="px-2.5 py-1 rounded-md bg-surface-container-lowest text-primary shadow-xs font-bold transition-all" id="badgeTabUnlocked">Tercapai (8)</button>
-<button class="px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface transition-all" id="badgeTabLocked">Terkunci (4)</button>
+<button class="px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface transition-all" id="badgeTabUnlocked">Tercapai (0)</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container-lowest text-primary shadow-xs font-bold transition-all" id="badgeTabLocked">Terkunci (6)</button>
 </div>
 </div>
 <!-- Badge Showcase Grid -->
 <div class="grid grid-cols-2 gap-space-sm" id="badgeContainer">
-<!-- Badge 1 (Unlocked) -->
-<div class="badge-item unlocked flex flex-col p-space-md rounded-2xl bg-surface-container-lowest shadow-sm gap-2 relative overflow-hidden">
-<div class="flex items-center justify-between">
-<div class="w-11 h-11 rounded-2xl bg-secondary-container/50 text-on-secondary-container flex items-center justify-center">
-<span class="material-symbols-outlined text-[24px]">speed</span>
-</div>
-<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Unlocked</span>
-</div>
-<div class="flex flex-col mt-1">
-<h4 class="font-title-md text-title-md text-on-surface">⚡ Speed Reader</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Selesaikan baca buku &lt; 48 jam</p>
-</div>
-</div>
-<!-- Badge 2 (Unlocked) -->
-<div class="badge-item unlocked flex flex-col p-space-md rounded-2xl bg-surface-container-lowest shadow-sm gap-2 relative overflow-hidden">
-<div class="flex items-center justify-between">
-<div class="w-11 h-11 rounded-2xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
-<span class="material-symbols-outlined text-[24px]">school</span>
-</div>
-<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Unlocked</span>
-</div>
-<div class="flex flex-col mt-1">
-<h4 class="font-title-md text-title-md text-on-surface">📚 Marathon Kurikulum</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Selesaikan 10 modul pelajaran resmi</p>
-</div>
-</div>
-<!-- Badge 3 (Unlocked) -->
-<div class="badge-item unlocked flex flex-col p-space-md rounded-2xl bg-surface-container-lowest shadow-sm gap-2 relative overflow-hidden">
-<div class="flex items-center justify-between">
-<div class="w-11 h-11 rounded-2xl bg-[#ffdad6] text-[#93000a] flex items-center justify-center">
-<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">rate_review</span>
-</div>
-<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Unlocked</span>
-</div>
-<div class="flex flex-col mt-1">
-<h4 class="font-title-md text-title-md text-on-surface">🌟 Reviewer Teladan</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">5 ulasan bermutu di katalog buku</p>
-</div>
-</div>
-<!-- Badge 4 (Unlocked) -->
-<div class="badge-item unlocked flex flex-col p-space-md rounded-2xl bg-surface-container-lowest shadow-sm gap-2 relative overflow-hidden">
-<div class="flex items-center justify-between">
-<div class="w-11 h-11 rounded-2xl bg-surface-container-highest text-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-[24px]">bedtime</span>
-</div>
-<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Unlocked</span>
-</div>
-<div class="flex flex-col mt-1">
-<h4 class="font-title-md text-title-md text-on-surface">🌙 Nocturnal Reader</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Pinjam &amp; baca e-book &gt; jam 19.00</p>
-</div>
-</div>
-<!-- Badge 5 (Locked / Progress) -->
-<div class="badge-item locked hidden flex-col p-space-md rounded-2xl bg-surface-container-low shadow-sm gap-2 relative overflow-hidden opacity-90">
+<!-- Badge 1 (Locked) -->
+<div class="badge-item locked flex flex-col p-space-md rounded-2xl bg-surface-container-low shadow-sm gap-2 relative overflow-hidden opacity-90">
 <div class="flex items-center justify-between">
 <div class="w-11 h-11 rounded-2xl bg-surface-container-highest text-outline flex items-center justify-center">
 <span class="material-symbols-outlined text-[24px]">lock</span>
 </div>
-<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">32 / 50</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">0 / 1</span>
+</div>
+<div class="flex flex-col mt-1">
+<h4 class="font-title-md text-title-md text-on-surface">Speed Reader</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Selesaikan baca buku &lt; 48 jam</p>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest mt-2 overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<!-- Badge 2 (Locked) -->
+<div class="badge-item locked flex flex-col p-space-md rounded-2xl bg-surface-container-low shadow-sm gap-2 relative overflow-hidden opacity-90">
+<div class="flex items-center justify-between">
+<div class="w-11 h-11 rounded-2xl bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">0 / 10</span>
+</div>
+<div class="flex flex-col mt-1">
+<h4 class="font-title-md text-title-md text-on-surface">Marathon Kurikulum</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Selesaikan 10 modul pelajaran resmi</p>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest mt-2 overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<!-- Badge 3 (Locked) -->
+<div class="badge-item locked flex flex-col p-space-md rounded-2xl bg-surface-container-low shadow-sm gap-2 relative overflow-hidden opacity-90">
+<div class="flex items-center justify-between">
+<div class="w-11 h-11 rounded-2xl bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">0 / 5</span>
+</div>
+<div class="flex flex-col mt-1">
+<h4 class="font-title-md text-title-md text-on-surface">Reviewer Teladan</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">5 ulasan bermutu di katalog buku</p>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest mt-2 overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<!-- Badge 4 (Locked) -->
+<div class="badge-item locked flex flex-col p-space-md rounded-2xl bg-surface-container-low shadow-sm gap-2 relative overflow-hidden opacity-90">
+<div class="flex items-center justify-between">
+<div class="w-11 h-11 rounded-2xl bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">0 / 1</span>
+</div>
+<div class="flex flex-col mt-1">
+<h4 class="font-title-md text-title-md text-on-surface">Nocturnal Reader</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Pinjam &amp; baca e-book &gt; jam 19.00</p>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest mt-2 overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<!-- Badge 5 (Locked / Progress) -->
+<div class="badge-item locked flex flex-col p-space-md rounded-2xl bg-surface-container-low shadow-sm gap-2 relative overflow-hidden opacity-90">
+<div class="flex items-center justify-between">
+<div class="w-11 h-11 rounded-2xl bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">0 / 50</span>
 </div>
 <div class="flex flex-col mt-1">
 <h4 class="font-title-md text-title-md text-on-surface">Grand Master</h4>
 <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Baca total 50 judul buku cetak &amp; digital</p>
 <div class="w-full h-1.5 rounded-full bg-surface-container-highest mt-2 overflow-hidden">
-<div class="h-full bg-primary rounded-full" style="width: 64%;"></div>
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
 </div>
 </div>
 </div>
 <!-- Badge 6 (Locked / Progress) -->
-<div class="badge-item locked hidden flex-col p-space-md rounded-2xl bg-surface-container-low shadow-sm gap-2 relative overflow-hidden opacity-90">
+<div class="badge-item locked flex flex-col p-space-md rounded-2xl bg-surface-container-low shadow-sm gap-2 relative overflow-hidden opacity-90">
 <div class="flex items-center justify-between">
 <div class="w-11 h-11 rounded-2xl bg-surface-container-highest text-outline flex items-center justify-center">
 <span class="material-symbols-outlined text-[24px]">lock</span>
 </div>
-<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">85%</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">0%</span>
 </div>
 <div class="flex flex-col mt-1">
 <h4 class="font-title-md text-title-md text-on-surface">Duta Literasi</h4>
 <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Tembus Top 3 peminjam terbanyak sekolah</p>
 <div class="w-full h-1.5 rounded-full bg-surface-container-highest mt-2 overflow-hidden">
-<div class="h-full bg-primary rounded-full" style="width: 85%;"></div>
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
 </div>
 </div>
 </div>
@@ -545,6 +666,56 @@
 
         if (elAvatarSmall) elAvatarSmall.src = avatarUrl;
         if (elAvatarLarge) elAvatarLarge.src = avatarUrl;
+
+        // --- Logic Peringkat Literasi & XP (Gen Z Ranking System) ---
+        // Jika backend belum support, default ke 1.
+        let userLevel = user.level || 1; 
+        let userXp = user.xp || 0;
+        
+        function getLiteracyTitle(level) {
+          if (level >= 100) return 'Dewa Literasi ⚡';
+          if (level >= 90) return 'Penjaga Arsip Sejarah';
+          if (level >= 80) return 'Grandmaster Pustaka';
+          if (level >= 70) return 'Sang Ensiklopedia';
+          if (level >= 60) return 'Kutu Buku Veteran';
+          if (level >= 50) return 'Master Literasi';
+          if (level >= 40) return 'Ahli Pustaka';
+          if (level >= 30) return 'Pengamat Sastra';
+          if (level >= 25) return 'Kolektor Kata';
+          if (level >= 20) return 'Pengejar Ilmu';
+          if (level >= 15) return 'Pelahap Cerita';
+          if (level >= 10) return 'Kutu Buku Junior';
+          if (level >= 6) return 'Penjelajah Halaman';
+          return 'Pembaca Baru';
+        }
+
+        const elLevelTitle = document.getElementById('profile-level-title');
+        const elXpText = document.getElementById('profile-xp-text');
+        const elXpNext = document.getElementById('profile-xp-next');
+        const elXpBar = document.getElementById('profile-xp-bar');
+        const elTopPercent = document.getElementById('profile-top-percent');
+        
+        if (elLevelTitle) {
+          elLevelTitle.textContent = `Level ${userLevel} • ${getLiteracyTitle(userLevel)}`;
+          
+          let xpRequirement = userLevel * 100; // Contoh rumus sederhana (Level 1 butuh 100XP, dsb)
+          if (elXpText) elXpText.textContent = `${userXp} / ${xpRequirement} XP`;
+          
+          let xpLeft = xpRequirement - userXp;
+          let nextLevel = userLevel + 1;
+          if (elXpNext) elXpNext.textContent = `+${xpLeft} XP ke Level ${nextLevel}`;
+          
+          let progressPercent = (userXp / xpRequirement) * 100;
+          if (elXpBar) elXpBar.style.width = `${progressPercent}%`;
+          
+          if (elTopPercent) {
+            let percent = Math.max(1, 100 - (userLevel * 2)); // Rumus kasar
+            elTopPercent.textContent = `Top ${percent}%`;
+            if(userLevel >= 10) {
+               elTopPercent.className = 'font-label-md text-label-md px-2.5 py-1 rounded-full bg-primary/20 text-primary font-bold';
+            }
+          }
+        }
       } else {
         localStorage.removeItem('auth_token');
         window.location.href = '/login';
