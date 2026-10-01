@@ -179,57 +179,12 @@ html.dark {
 </div>
 <span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">4 Menampilkan</span>
 </div>
-<!-- Book Card 1: Fisika Kuantum Populer -->
+<!-- Book Card 1: Dasar-Dasar Teknik Konstruksi Kapal Semester 2 -->
 <article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5">
 <div class="flex gap-space-md">
 <!-- Thumbnail Cover -->
 <div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Book cover mockup titled Fisika Kuantum Populer featuring glowing neon quantum particles, atom orbits, deep indigo background with lime green and electric violet accents, futuristic modern editorial graphic design typography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJLk_W5pZ0_4_R6Gpbw0BJenQVa7HIpuhilBYN7BrjVf6VnCon1NW6tbc3WnhQ8cxYng4ELI0d0mAgRjng3Q8XU6-Mqv4dJe59H3e3jFcLYaPJVp2tpftY8Gz-m-Tkr8g5Z-6BYKbwmOtfAUplUYLSt79a6M1GP7erK-n-EuIrSu6MKPiXrKJgv2QOw3OFs0knRJu7zkTdh1MLxLfOnL4yOjlUyFrgQdbUmXk9KxkQMqvp2FL4SLUB"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          4.9
-        </div>
-</div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">530.12 / FISIKA</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Fisika Kuantum Populer: Menembus Batas Realitas</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Prof. Dr. Aris Danuarta • Balai Pustaka Modern</p>
-</div>
-<!-- Shelf & Availability Status -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Tersedia di Rak 4A (8 Eks.)
-          </span>
-<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">Lantai 2</span>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="document.getElementById('borrowConfirmationModal').classList.remove('hidden')">
-<span class="material-symbols-outlined text-[18px]">touch_app</span>
-        Pinjam Mandiri
-      </button>
-<a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-        Baca E-Book (PDF)
-      </a>
-</div>
-</article>
-<!-- Book Card 2: Bumi Manusia -->
-<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Vintage textured literary novel book cover of Bumi Manusia by Pramoedya Ananta Toer with colonial Javanese silhouette portrait, earth warm tones, classic typography with modern brutalist accent framing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjRGMOkdgKxa0r803QrLSDmd4LTugNC7pLkjGHWDRZRQr_SHhn5pwRQjEXQygwVpEespzBeEkl3gAdpJucAyOUWBpL_tMuj_SH9yG3AogH9mGU13C1AqoyT2bQ2O4EAPZbV_f1q_dEnmS4IhXYE273n42Lr5wJMOnxPTMB7_zCQz-zl03i_w9YRTUHp9dj4WMVnHEQ98sYcAO6W6LIudGxmJfKwxEazu9YKQ15O1DIXW8eZi49keUY"/>
+<img class="w-full h-full object-cover" alt="Dasar-Dasar Teknik Konstruksi Kapal Semester 2" src="{{ asset('buku/sampul/Dasar-Teknik-Konstruksi-Kapal-Semester-2-BS-KLS-X-Cover.png') }}"/>
 <div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
 <span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
           5.0
@@ -239,30 +194,78 @@ html.dark {
 <div class="flex flex-col flex-1 min-w-0 justify-between">
 <div class="flex flex-col gap-1">
 <div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">813.01 / NOVEL</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">623.8 / TEKNIK KAPAL</span>
 <button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
 <span class="material-symbols-outlined text-[20px]">bookmark</span>
 </button>
 </div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Bumi Manusia</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Pramoedya Ananta Toer • Hasta Mitra / Lentera Dipantara</p>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Dasar-Dasar Teknik Konstruksi Kapal Semester 2</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Danang Kurniawan &amp; Lilik Mutiatul</p>
 </div>
-<!-- Shelf & Availability Status: Dipinjam -->
+<!-- Shelf & Availability Status -->
 <div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-amber-100 text-amber-900 font-label-sm text-label-sm font-bold">
-<span class="w-2 h-2 rounded-full bg-amber-500"></span>
-            Dipinjam (2 Antrean)
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            Tersedia di Rak 1A (5 Eks.)
           </span>
-<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">Estimasi: 3 Hari Lagi</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">Lantai 1</span>
 </div>
 </div>
 </div>
-<!-- Action Button: Reservasi -->
-<div class="w-full pt-space-xs">
-<button class="w-full h-10 px-3 rounded-lg bg-tertiary text-on-tertiary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">queue</span>
-        Reservasi Mandiri (Ikut Antre)
+<!-- Action Buttons -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="document.getElementById('borrowConfirmationModal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[18px]">touch_app</span>
+        Pinjam Mandiri
       </button>
+<a href="{{ asset('buku/pdf/Dasar-Teknik-Konstruksi-Kapal-Semester-2-BS-KLS-X (1).pdf') }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+        Baca E-Book (PDF)
+      </a>
+</div>
+</article>
+<!-- Book Card 2: Animasi Kelas XI dan XII -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5">
+<div class="flex gap-space-md">
+<!-- Thumbnail Cover -->
+<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
+<img class="w-full h-full object-cover" alt="Animasi Kelas XI dan XII" src="{{ asset('buku/sampul/Animasi_BS_Kelas_XI_dan_XII_Cover.png') }}"/>
+<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+          4.8
+        </div>
+</div>
+<!-- Info Details -->
+<div class="flex flex-col flex-1 min-w-0 justify-between">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between gap-1">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">006.6 / ANIMASI</span>
+<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+</button>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Animasi Kelas XI dan XII</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kemdikbudristek</p>
+</div>
+<!-- Shelf & Availability Status -->
+<div class="flex flex-wrap items-center gap-1.5 mt-2">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            Tersedia (E-Book &amp; Fisik)
+          </span>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="document.getElementById('borrowConfirmationModal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[18px]">touch_app</span>
+        Pinjam Mandiri
+      </button>
+<a href="{{ asset('buku/pdf/Animasi_BS_XI_dan_XII (1).pdf') }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+        Baca E-Book (PDF)
+      </a>
 </div>
 </article>
 <!-- Book Card 3: Modul Biologi Kelas XII -->
@@ -404,15 +407,15 @@ html.dark {
 </div>
 <!-- Book Summary Card -->
 <div class="bg-purple-50/70 rounded-2xl p-3.5 border border-purple-100 flex gap-3.5 items-center mb-4">
-<img alt="Fisika Kuantum Populer" class="w-14 h-20 rounded-xl object-cover shadow-md flex-shrink-0 bg-purple-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJLk_W5pZ0_4_R6Gpbw0BJenQVa7HIpuhilBYN7BrjVf6VnCon1NW6tbc3WnhQ8cxYng4ELI0d0mAgRjng3Q8XU6-Mqv4dJe59H3e3jFcLYaPJVp2tpftY8Gz-m-Tkr8g5Z-6BYKbwmOtfAUplUYLSt79a6M1GP7erK-n-EuIrSu6MKPiXrKJgv2QOw3OFs0knRJu7zkTdh1MLxLfOnL4yOjlUyFrgQdbUmXk9KxkQMqvp2FL4SLUB"/>
+<img alt="Dasar-Dasar Teknik Konstruksi Kapal Semester 2" class="w-14 h-20 rounded-xl object-cover shadow-md flex-shrink-0 bg-purple-100" src="{{ asset('buku/sampul/Dasar-Teknik-Konstruksi-Kapal-Semester-2-BS-KLS-X-Cover.png') }}"/>
 <div class="flex flex-col flex-1 min-w-0">
 <div class="flex items-center gap-1.5 mb-1">
-<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-200/70 text-purple-900">530.12 • FISIKA</span>
-<span class="text-[10px] font-medium text-purple-700">Rak 4A (Lt. 2)</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-200/70 text-purple-900">623.8 • TEKNIK KAPAL</span>
+<span class="text-[10px] font-medium text-purple-700">Rak 1A (Lt. 1)</span>
 </div>
-<h4 class="font-bold text-slate-900 text-sm leading-snug line-clamp-2">Fisika Kuantum Populer: Menembus Batas Realitas</h4>
-<p class="text-xs text-slate-500 truncate mt-0.5">Prof. Dr. Aris Danuarta • Balai Pustaka</p>
-<span class="text-[10px] text-slate-400 font-mono mt-1 font-semibold">#BZ-2024-0811</span>
+<h4 class="font-bold text-slate-900 text-sm leading-snug line-clamp-2">Dasar-Dasar Teknik Konstruksi Kapal Semester 2</h4>
+<p class="text-xs text-slate-500 truncate mt-0.5">Danang Kurniawan &amp; Lilik Mutiatul</p>
+<span class="text-[10px] text-slate-400 font-mono mt-1 font-semibold">#BZ-2024-0812</span>
 </div>
 </div>
 <!-- Circulation Details Grid -->
