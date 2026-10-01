@@ -23,7 +23,7 @@
 <h2 id="profile-name" class="font-headline-sm text-headline-sm text-on-surface truncate">Nama Siswa</h2>
 </div>
 <p id="profile-nis" class="font-body-sm text-body-sm text-on-surface-variant truncate">NIS: 1234567890 • XII MIPA 2</p>
-<p class="font-label-sm text-label-sm text-primary tracking-wide uppercase mt-0.5">SMAN 1 Garudapura</p>
+<p id="profile-school-name" class="font-label-sm text-label-sm text-primary tracking-wide uppercase mt-0.5">SMAN 1 Garudapura</p>
 </div>
 </div>
 <!-- Action Icons -->
@@ -434,7 +434,7 @@
 </div>
 <div class="flex flex-col">
 <span class="font-title-md text-title-md text-on-surface">Sinkronisasi Rapor Literasi</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Tersinkron otomatis ke Dapodik Kemdikbud</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tersinkron otomatis ke Situs Resmi NISN Kemendikdasmen</span>
 </div>
 </div>
 <span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
@@ -513,12 +513,21 @@
       });
       if (response.ok) {
         const user = await response.json();
+
+        // Cek data diri untuk pengguna baru (wajib mengisi)
+        if (!user.email || !user.school_name || user.school_name === 'Asal Sekolah Default' || !user.whatsapp_number || !user.bio) {
+          window.location.href = '/akun-pengaturan?tab=profil&first_login=1';
+          return;
+        }
+
         const elName = document.getElementById('profile-name');
         const elNis = document.getElementById('profile-nis');
+        const elSchool = document.getElementById('profile-school-name');
         const elGate = document.getElementById('profile-gate-id');
         
         if (elName) elName.textContent = user.name;
-        if (elNis) elNis.textContent = `NIS: ${user.nis} • ${user.school_name || 'XII MIPA 2'}`;
+        if (elNis) elNis.textContent = `NIS: ${user.nis} • XII MIPA 2`;
+        if (elSchool) elSchool.textContent = user.school_name || 'SMAN 1 GARUDAPURA';
         if (elGate) elGate.textContent = `${user.nis}-BIBLIOZ-GATE`;
         
         const elAvatarSmall = document.getElementById('profile-avatar-small');

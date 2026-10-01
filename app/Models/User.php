@@ -34,6 +34,8 @@ class User extends Authenticatable
         'books_read',
         'total_hours_read',
         'email',
+        'bio',
+        'whatsapp_number',
     ];
 
     /**

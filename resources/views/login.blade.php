@@ -255,7 +255,7 @@ body { min-height: max(884px, 100dvh); }
 <div class="flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface-variant">
 <span class="material-symbols-outlined text-secondary text-[20px]">sync_saved_locally</span>
 <span class="font-body-sm text-body-sm leading-tight">
-        Terhubung otomatis dengan <strong>Dapodik Kemendikbud</strong> &amp; sistem absensi pintar sekolah.
+        Terhubung otomatis dengan <strong>Dapodik Kemendikdasmen</strong> &amp; sistem absensi pintar sekolah.
       </span>
 </div>
 <!-- Help & Support Desk Link -->

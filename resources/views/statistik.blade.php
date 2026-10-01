@@ -15,7 +15,7 @@
 </div>
 <div class="flex flex-col min-w-0">
 <span class="font-label-md text-label-md text-primary tracking-wide uppercase truncate">Panel Petugas &amp; Statistik</span>
-<span class="font-headline-sm text-headline-sm text-on-surface truncate">SMAN 1 Garudapustaka</span>
+<span id="stat-school-name" class="font-headline-sm text-headline-sm text-on-surface truncate">SMAN 1 Garudapustaka</span>
 </div>
 </div>
 <div class="flex items-center gap-1.5 bg-secondary-fixed/40 px-2.5 py-1 rounded-full flex-shrink-0">
@@ -283,6 +283,13 @@
       
       if (response.ok) {
         const user = await response.json();
+        
+        // Cek data diri untuk pengguna baru (wajib mengisi)
+        if (!user.email || !user.school_name || user.school_name === 'Asal Sekolah Default' || !user.whatsapp_number || !user.bio) {
+          window.location.href = '/akun-pengaturan?tab=profil&first_login=1';
+          return;
+        }
+
         const elAvatarSmall = document.getElementById('profile-avatar-small');
         if (elAvatarSmall) {
           let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff';
@@ -290,6 +297,11 @@
               avatarUrl = user.avatar.startsWith('http') ? user.avatar : '/' + user.avatar;
           }
           elAvatarSmall.src = avatarUrl;
+        }
+        
+        const elSchool = document.getElementById('stat-school-name');
+        if (elSchool && user.school_name) {
+            elSchool.textContent = user.school_name;
         }
       } else {
         localStorage.removeItem('auth_token');

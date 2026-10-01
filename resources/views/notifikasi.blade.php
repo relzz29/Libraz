@@ -243,6 +243,12 @@
       if (!response.ok) {
         localStorage.removeItem('auth_token');
         window.location.href = '/login';
+      } else {
+        const user = await response.json();
+        if (!user.email || !user.school_name || user.school_name === 'Asal Sekolah Default' || !user.whatsapp_number || !user.bio) {
+          window.location.href = '/akun-pengaturan?tab=profil&first_login=1';
+          return;
+        }
       }
     } catch (e) {
       console.error(e);

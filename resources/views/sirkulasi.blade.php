@@ -365,6 +365,13 @@
       
       if (response.ok) {
         const user = await response.json();
+        
+        // Cek data diri untuk pengguna baru (wajib mengisi)
+        if (!user.email || !user.school_name || user.school_name === 'Asal Sekolah Default' || !user.whatsapp_number || !user.bio) {
+          window.location.href = '/akun-pengaturan?tab=profil&first_login=1';
+          return;
+        }
+
         const elAvatarSmall = document.getElementById('profile-avatar-small');
         if (elAvatarSmall) {
           let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff';

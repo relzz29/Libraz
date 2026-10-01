@@ -147,11 +147,19 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'avatar' => 'nullable|string'
+            'avatar' => 'nullable|string',
+            'email' => 'nullable|email|max:255',
+            'school_name' => 'nullable|string|max:255',
+            'bio' => 'nullable|string',
+            'whatsapp_number' => 'nullable|string|max:20',
         ]);
 
         $user = $request->user();
         $user->name = $validated['name'];
+        if (array_key_exists('email', $validated)) $user->email = $validated['email'];
+        if (array_key_exists('school_name', $validated)) $user->school_name = $validated['school_name'];
+        if (array_key_exists('bio', $validated)) $user->bio = $validated['bio'];
+        if (array_key_exists('whatsapp_number', $validated)) $user->whatsapp_number = $validated['whatsapp_number'];
         
         if (!empty($validated['avatar'])) {
             $avatarData = $validated['avatar'];

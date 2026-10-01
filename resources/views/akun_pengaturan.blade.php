@@ -4,6 +4,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed": "#1e0060", "on-primary-fixed-variant": "#4c00d3", "surface-container-highest": "#e5e1e8", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container": "#f1ecf4", "surface-container-high": "#ebe6ee", "on-tertiary-fixed": "#40000f", "on-secondary-fixed": "#002112", "secondary-fixed": "#4dffb2", "on-tertiary": "#ffffff", "on-surface": "#1c1b20", "surface-variant": "#e5e1e8", "surface-container-low": "#f7f2f9", "on-primary-container": "#cfc1ff", "on-surface-variant": "#484456", "background": "#fdf8ff", "inverse-primary": "#ccbeff", "inverse-on-surface": "#f4eff6", "tertiary-container": "#ac0036", "error-container": "#ffdad6", "primary": "#4300bb", "on-secondary-container": "#007149", "surface-tint": "#6531f0", "secondary-fixed-dim": "#00e296", "secondary": "#006c46", "surface-dim": "#ddd8e0", "tertiary-fixed-dim": "#ffb2b8", "tertiary-fixed": "#ffdadb", "on-background": "#1c1b20", "secondary-container": "#43fcae", "tertiary": "#800026", "inverse-surface": "#313035", "primary-fixed-dim": "#ccbeff", "primary-fixed": "#e7deff", "on-secondary": "#ffffff", "error": "#ba1a1a", "surface-container-lowest": "#ffffff", "primary-container": "#5b21e6", "surface": "#fdf8ff", "outline": "#797488", "surface-bright": "#fdf8ff", "on-secondary-fixed-variant": "#005234", "on-primary": "#ffffff", "on-tertiary-fixed-variant": "#91002c", "outline-variant": "#cac3d9", "on-tertiary-container": "#ffb7bc" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "gutter-sm": "0.75rem", "space-lg": "1.25rem", "margin": "1.25rem", "gutter": "1rem", "margin-desktop": "2.5rem", "space-md": "0.875rem", "space-sm": "0.5rem", "space-xl": "2rem" }, "fontFamily": { "title-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-md": ["Space Grotesk"] }, "fontSize": { "title-md": ["16px", {"lineHeight": "22px", "fontWeight": "700"}], "headline-lg-mobile": ["26px", {"lineHeight": "32px", "fontWeight": "800"}], "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}], "display-lg": ["38px", {"lineHeight": "44px", "fontWeight": "800"}], "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}], "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "700"}], "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}], "headline-lg": ["30px", {"lineHeight": "36px", "fontWeight": "800"}], "label-lg": ["13px", {"lineHeight": "16px", "fontWeight": "700"}], "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}], "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "700"}] } } } }</script></head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><a aria-label="Kembali ke Akun" class="w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:text-primary transition-colors focus:outline-none flex-shrink-0" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[24px]">arrow_back</span></a><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate">Akun &amp; Pengaturan</span><span class="font-title-md text-title-md text-on-surface truncate">Edit Profil &amp; Pengaturan Akun</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Bantuan" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[22px]">help_outline</span></button></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin space-y-space-lg pb-space-xl">
 
 
+<div id="first-login-alert" class="hidden rounded-xl p-space-md bg-error-container text-on-error-container shadow-sm flex items-start gap-space-sm mb-space-sm mt-4">
+    <span class="material-symbols-outlined text-[20px] mt-0.5">warning</span>
+    <div class="flex flex-col min-w-0">
+        <span class="font-title-md text-title-md text-on-error-container">Wajib Lengkapi Profil</span>
+        <span class="font-body-sm text-body-sm mt-0.5 text-on-error-container">Mohon lengkapi email, asal sekolah, bio, dan nomor WhatsApp Anda untuk melanjutkan penggunaan aplikasi perpustakaan.</span>
+    </div>
+</div>
+
 <!-- Tab Navigation -->
 <div class="flex p-1 bg-surface-container-low rounded-xl mb-space-sm shadow-sm relative">
 <div id="tab-slider" class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-surface-container-lowest rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-in-out"></div>
@@ -67,6 +75,14 @@
 <span class="material-symbols-outlined text-primary absolute right-space-md text-[18px]">edit</span>
 </div>
 </div>
+<!-- Field: Asal Sekolah -->
+<div class="flex flex-col space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="student-school">Asal Sekolah</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container transition-colors" id="student-school" type="text" value="SMAN 1 Garudapura"/>
+<span class="material-symbols-outlined text-primary absolute right-space-md text-[18px]">edit</span>
+</div>
+</div>
 <!-- Field: NISN & Kelas (Locked) -->
 <div class="flex flex-col space-y-1">
 <div class="flex items-center justify-between">
@@ -76,11 +92,11 @@
         </span>
 </div>
 <div class="relative flex items-center">
-<input class="w-full bg-surface-container-high/60 rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface cursor-not-allowed" disabled="" id="student-nisn" type="text" value="1234567890   XII MIPA 2"/>
+<input class="w-full bg-surface-container-high/60 rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface cursor-not-allowed" disabled="" id="student-nisn" type="text" value="1238712073 XII MIPA 2"/>
 <span class="material-symbols-outlined text-on-surface-variant absolute right-space-md text-[18px]">lock</span>
 </div>
 <span class="font-body-sm text-body-sm text-outline flex items-center gap-1 mt-0.5">
-<span class="material-symbols-outlined text-[13px]">info</span> Terkunci otomatis via Dapodik Sekolah
+<span class="material-symbols-outlined text-[13px]">info</span> Terkunci otomatis via Situs Resmi NISN Kemendikdasmen
       </span>
 </div>
 <!-- Field: Bio Siswa -->
@@ -91,12 +107,9 @@
 <!-- Field: Email Siswa -->
 <div class="flex flex-col space-y-1">
 <label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="student-email">Email Akun Sekolah</label>
-<div class="flex items-center bg-surface-container-high/60 rounded-xl px-space-md py-space-sm justify-between">
-<div class="flex items-center gap-space-xs truncate">
-<span class="material-symbols-outlined text-on-surface-variant text-[18px]">mail</span>
-<span id="profile-email" class="font-body-md text-body-md text-on-surface truncate">nama.siswa@garudapura.sch.id</span>
-</div>
-<span class="px-space-xs py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex-shrink-0">Aktif</span>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low rounded-xl px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container transition-colors" id="student-email" type="email" value=""/>
+<span class="material-symbols-outlined text-primary absolute right-space-md text-[18px]">edit</span>
 </div>
 </div>
 <!-- Field: WhatsApp / Kontak -->
@@ -297,7 +310,7 @@
         BiblioZ v2.4 • Platform Perpustakaan SMAN 1 Garudapura
       </p>
 <p class="font-body-sm text-body-sm text-outline mt-0.5">
-        Terhubung ke Sistem Informasi Literasi Nasional &amp; Kemdikbud
+        Terhubung ke Sistem Informasi Literasi Nasional &amp; Kemendikdasmen
       </p>
 </div>
 </div>
@@ -316,6 +329,12 @@
     const fileUpload = document.getElementById('fileUpload');
     
     let defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent('Nama Siswa') + '&background=random&color=fff&size=150';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('first_login') === '1') {
+      const alertBox = document.getElementById('first-login-alert');
+      if (alertBox) alertBox.classList.remove('hidden');
+    }
 
     // 1. Fetch data dari API
     const token = localStorage.getItem('auth_token');
@@ -337,14 +356,17 @@
         
         const elName = document.getElementById('student-name');
         const elNis = document.getElementById('student-nisn');
-        const elEmail = document.getElementById('profile-email');
+        const elEmail = document.getElementById('student-email');
+        const elSchool = document.getElementById('student-school');
+        const elBio = document.getElementById('student-bio');
+        const elWa = document.getElementById('student-wa');
 
         if (elName) elName.value = user.name;
-        if (elNis) elNis.value = `${user.nis}   ${user.school_name || 'XII MIPA 2'}`;
-        if (elEmail) {
-           const emailSafeName = user.name.toLowerCase().replace(/\s+/g, '.');
-           elEmail.textContent = `${emailSafeName}@garudapura.sch.id`;
-        }
+        if (elNis) elNis.value = `${user.nis} XII MIPA 2`;
+        if (elSchool) elSchool.value = user.school_name || 'SMAN 1 Garudapura';
+        if (elBio) elBio.value = user.bio || '';
+        if (elWa) elWa.value = user.whatsapp_number || '';
+        if (elEmail) elEmail.value = user.email || '';
 
         defaultAvatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=random&color=fff&size=150';
         
@@ -409,6 +431,11 @@
     if (btnSimpan) {
       btnSimpan.addEventListener('click', async () => {
         const newName = document.getElementById('student-name').value;
+        const newEmail = document.getElementById('student-email').value;
+        const newSchool = document.getElementById('student-school').value;
+        const newBio = document.getElementById('student-bio').value;
+        const newWa = document.getElementById('student-wa').value;
+        
         const btnText = btnSimpan.querySelector('span:last-child');
         const originalText = btnText.textContent;
         
@@ -431,6 +458,10 @@
             },
             body: JSON.stringify({ 
                 name: newName,
+                email: newEmail,
+                school_name: newSchool,
+                bio: newBio,
+                whatsapp_number: newWa,
                 avatar: avatarData
             })
           });
@@ -440,12 +471,6 @@
             // Perbarui UI secara langsung
             if (profileImage && !avatarData) {
                profileImage.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(newName) + '&background=random&color=fff&size=150';
-            }
-            
-            const elEmail = document.getElementById('profile-email');
-            if (elEmail) {
-               const emailSafeName = newName.toLowerCase().replace(/\s+/g, '.');
-               elEmail.textContent = `${emailSafeName}@garudapura.sch.id`;
             }
 
             setTimeout(() => { btnText.textContent = originalText; }, 2000);
