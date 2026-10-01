@@ -152,22 +152,19 @@ html.dark {
 <div class="flex flex-col gap-space-xs">
 <div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-1 -mx-margin px-margin">
 <button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary text-on-primary shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap active:translate-x-0.5 active:translate-y-0.5 transition-all" data-category="all">
-<span>🔥 Paling Hype</span>
+<span>🔥 Semua Buku</span>
 </button>
 <button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="kurikulum">
 <span>Kurikulum Merdeka</span>
 </button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="fiksi">
-<span>Fiksi &amp; Novel</span>
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="teknik">
+<span>Teknik &amp; Rekayasa</span>
 </button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="karya-ilmiah">
-<span>Karya Ilmiah Siswa</span>
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="animasi">
+<span>Seni &amp; Animasi</span>
 </button>
 <button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="ebook">
 <span>E-Book PDF</span>
-</button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="sains">
-<span>Sains &amp; Teknologi</span>
 </button>
 </div>
 </div>
@@ -177,10 +174,10 @@ html.dark {
 <span class="w-3 h-3 rounded-full bg-secondary-fixed-dim inline-block animate-ping"></span>
 <h2 class="font-headline-sm text-headline-sm text-on-surface">Katalog Pilihan Siswa</h2>
 </div>
-<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">4 Menampilkan</span>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">2 Menampilkan</span>
 </div>
 <!-- Book Card 1: Dasar-Dasar Teknik Konstruksi Kapal Semester 2 -->
-<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5">
+<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum teknik ebook">
 <div class="flex gap-space-md">
 <!-- Thumbnail Cover -->
 <div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
@@ -225,7 +222,7 @@ html.dark {
 </div>
 </article>
 <!-- Book Card 2: Animasi Kelas XI dan XII -->
-<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5">
+<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum animasi ebook">
 <div class="flex gap-space-md">
 <!-- Thumbnail Cover -->
 <div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
@@ -268,92 +265,7 @@ html.dark {
       </a>
 </div>
 </article>
-<!-- Book Card 3: Modul Biologi Kelas XII -->
-<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Digital educational module book cover of Biology Grade 12 showing DNA double helix, glowing cells, modern flat minimal 3D design in cyan and deep navy color scheme with crisp scientific vector illustrations" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFQBeglbCMa0SOirbPckaHnQ4l4r1cjnqAW4aS5ovF3xZHuVSEUDqrD6WjCVCE_LZF4IXEeijzIr6O-sueI47f0J2kZdZ5B_VAjlRL4XQjU1r8ZGpNBHtYpsd7tc4QXP5AMVxU83VLtnLBT_TrRl8bPgd-6g9WA0jHwarJJZDo0vWfmBaEPDIT24zIuKX9hycH7PsBdy581HGTk7oPJs-Bo10usanjHWIABi9O-1AX_fme5XUTcY6N"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          4.7
-        </div>
-</div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">570.71 / MODUL SMA</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Modul Praktikum Biologi SMA Kelas XII</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Tim Guru MGMP Biologi • Kurikulum Merdeka</p>
-</div>
-<!-- Shelf & Availability Status: E-Book Only -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-blue-100 text-blue-900 font-label-sm text-label-sm font-bold">
-<span class="material-symbols-outlined text-[14px]">cloud_download</span>
-            E-Book Only (Free Download)
-          </span>
-<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">14.2 MB • PDF Interaktif</span>
-</div>
-</div>
-</div>
-<!-- Action Button: E-Reader -->
-<div class="w-full pt-space-xs">
-<a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" class="w-full h-10 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">chrome_reader_mode</span>
-        Buka Reader Langsung
-      </a>
-</div>
-</article>
-<!-- Book Card 4: Laskar Pelangi -->
-<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Vibrant modern illustrative cover of Laskar Pelangi by Andrea Hirata depicting ten Indonesian schoolchildren on Belitung beach staring at a vivid rainbow sky, energetic graphic brush strokes with deep violet and gold lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBksFLL9lFHbaXijtbJZJmywp72b7QbhukH5lnYL-X8D8NkI6vkUHkfTnosASvjqasmLoe7HvsRsAaZDsUsz7q-hb67Kk3TIdjvlBT7smhsbB9pi5-bDVVOLDdh-gjjaR24oBvK9wzMo0MvlH6VMSz8zwt2vWEHmXmB-lhJoaWxA7psNhvtzWkiHjyunZBUF1dUCSMl2mOIkOQZ9pw55CXh5lED8hduz_eca2fhbZxokb2ICzMZaeAs"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          4.95
-        </div>
-</div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">813.02 / FIKSI INDO</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Laskar Pelangi (Edisi Spesial Pelajar)</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Andrea Hirata • Bentang Pustaka</p>
-</div>
-<!-- Shelf & Availability Status -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Tersedia di Rak 2C
-          </span>
-<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">Sisa 3 Buku</span>
-</div>
-</div>
-</div>
-<!-- Action Button: Pinjam Langsung -->
-<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">qr_code_scanner</span>
-        Pinjam Mandiri
-      </button>
-<button class="h-10 px-3 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">map</span>
-        Denah Rak 2C
-      </button>
-</div>
-</article>
+
 <!-- Interactive Quick Fact Widget -->
 <div class="p-space-md rounded-xl bg-surface-container text-on-surface flex items-start gap-space-sm shadow-[2px_2px_0px_#1c1b20]">
 <div class="w-9 h-9 rounded-lg bg-primary-fixed text-primary flex items-center justify-center flex-shrink-0">
@@ -367,16 +279,39 @@ html.dark {
 </div>
 <!-- Micro-Interactions Client Script -->
 <script>
-  // Filter Pills Toggle Logic
+  // Filter Pills Toggle & Filtering Logic
   const pills = document.querySelectorAll('.filter-pill');
+  const bookCards = document.querySelectorAll('.book-card');
+  const countDisplay = document.querySelector('.flex.items-center.justify-between.pt-space-xs span.font-label-md');
+
   pills.forEach(pill => {
     pill.addEventListener('click', () => {
+      // 1. Update visual active state for buttons
       pills.forEach(p => {
         p.classList.remove('bg-primary', 'text-on-primary');
         p.classList.add('bg-surface-container-lowest', 'text-on-surface');
       });
       pill.classList.remove('bg-surface-container-lowest', 'text-on-surface');
       pill.classList.add('bg-primary', 'text-on-primary');
+
+      // 2. Filter the book cards
+      const selectedCategory = pill.getAttribute('data-category');
+      let visibleCount = 0;
+
+      bookCards.forEach(card => {
+        const cardCategories = card.getAttribute('data-category');
+        if (selectedCategory === 'all' || (cardCategories && cardCategories.includes(selectedCategory))) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // 3. Update the visible count text
+      if (countDisplay) {
+        countDisplay.textContent = `${visibleCount} Menampilkan`;
+      }
     });
   });
 
