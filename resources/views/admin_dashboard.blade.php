@@ -34,27 +34,28 @@
   --color-on-primary: 255 255 255;
 }
 html.dark {
-  --color-surface-container-highest: 33 28 58;
-  --color-on-error: 105 0 5;
-  --color-surface-container: 21 17 36;
-  --color-surface-container-high: 26 21 46;
-  --color-on-surface: 229 225 232;
-  --color-surface-variant: 229 225 232;
-  --color-surface-container-low: 15 12 27;
-  --color-on-surface-variant: 196 192 206;
-  --color-background: 11 9 20;
-  --color-primary: 178 140 255;
-  --color-surface-tint: 101 49 240;
-  --color-secondary: 0 226 150;
-  --color-on-background: 229 225 232;
-  --color-secondary-container: 0 82 52;
-  --color-on-secondary: 0 56 35;
-  --color-error: 255 180 171;
-  --color-surface-container-lowest: 6 5 12;
-  --color-primary-container: 69 0 205;
-  --color-surface: 11 9 20;
-  --color-outline: 141 135 156;
-  --color-on-primary: 45 0 135;
+  --color-surface-container-highest: 63 65 71;
+  --color-on-error: 255 255 255;
+  --color-surface-container: 43 45 49;
+  --color-surface-container-high: 49 51 56;
+  --color-on-surface: 242 243 245;
+  --color-surface-variant: 43 45 49;
+  --color-surface-container-low: 30 31 34;
+  --color-on-surface-variant: 181 186 193;
+  --color-background: 49 51 56;
+  --color-primary: 99 102 241;
+  --color-surface-tint: 79 70 229;
+  --color-secondary: 13 148 136;
+  --color-on-background: 242 243 245;
+  --color-secondary-container: 15 118 110;
+  --color-on-secondary: 255 255 255;
+  --color-error: 218 55 60;
+  --color-surface-container-lowest: 30 31 34;
+  --color-primary-container: 67 56 202;
+  --color-surface: 49 51 56;
+  --color-outline: 63 65 71;
+  --color-on-primary: 255 255 255;
+  --color-outline-variant: 43 45 49;
 }
 </style>
 <script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"surface-container-highest":"rgb(var(--color-surface-container-highest) / <alpha-value>)","surface-container":"rgb(var(--color-surface-container) / <alpha-value>)","surface-container-high":"rgb(var(--color-surface-container-high) / <alpha-value>)","on-surface":"rgb(var(--color-on-surface) / <alpha-value>)","surface-variant":"rgb(var(--color-surface-variant) / <alpha-value>)","surface-container-low":"rgb(var(--color-surface-container-low) / <alpha-value>)","on-surface-variant":"rgb(var(--color-on-surface-variant) / <alpha-value>)","background":"rgb(var(--color-background) / <alpha-value>)","primary":"rgb(var(--color-primary) / <alpha-value>)","surface-tint":"rgb(var(--color-surface-tint) / <alpha-value>)","secondary":"rgb(var(--color-secondary) / <alpha-value>)","on-background":"rgb(var(--color-on-background) / <alpha-value>)","secondary-container":"rgb(var(--color-secondary-container) / <alpha-value>)","on-secondary":"rgb(var(--color-on-secondary) / <alpha-value>)","error":"rgb(var(--color-error) / <alpha-value>)","surface-container-lowest":"rgb(var(--color-surface-container-lowest) / <alpha-value>)","primary-container":"rgb(var(--color-primary-container) / <alpha-value>)","surface":"rgb(var(--color-surface) / <alpha-value>)","outline":"rgb(var(--color-outline) / <alpha-value>)","on-primary":"rgb(var(--color-on-primary) / <alpha-value>)"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","gutter-sm":"0.75rem","space-lg":"1.25rem","margin":"1.25rem","gutter":"1rem","margin-desktop":"2.5rem","space-md":"0.875rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-lg":["Space Grotesk"],"body-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-md":["Space Grotesk"]},"fontSize":{"title-md":["16px",{"lineHeight":"22px","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"700"}],"headline-lg":["30px",{"lineHeight":"36px","fontWeight":"800"}],"label-lg":["13px",{"lineHeight":"16px","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"500"}],"label-md":["11px",{"lineHeight":"14px","fontWeight":"700"}]}}}};</script>
