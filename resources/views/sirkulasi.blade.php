@@ -143,9 +143,9 @@ html.dark {
         <a href="/notifikasi" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none">
           <span class="material-symbols-outlined text-[24px]">notifications</span>
         </a>
-        <div class="w-11 h-11 flex items-center justify-center">
+        <a href="/edit-profil" class="w-11 h-11 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer" title="Edit Profil">
           <img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover border border-surface-container-high" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/>
-        </div>
+        </a>
       </div>
     </div>
   </header>
