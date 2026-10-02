@@ -47,3 +47,7 @@ Route::get('/bantuan', function () {
 })->name('bantuan');
 
 require __DIR__.'/auth.php';
+
+Route::get('/edit-profil', function () {
+    return view('edit_profil');
+})->name('edit.profil');

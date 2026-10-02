@@ -18,6 +18,11 @@ class LibraryController extends Controller
 
     public function sirkulasi()
     {
+        return view('sirkulasi');
+    }
+
+    public function getBorrowings()
+    {
         $user = Auth::user();
         $borrowings = Borrowing::with('book')
             ->where('user_id', $user->id)
@@ -25,7 +30,10 @@ class LibraryController extends Controller
             ->orderBy('due_date', 'asc')
             ->get();
             
-        return view('sirkulasi', compact('borrowings'));
+        return response()->json([
+            'success' => true,
+            'borrowings' => $borrowings
+        ]);
     }
 
     public function statistik()
