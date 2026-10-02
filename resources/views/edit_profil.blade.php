@@ -106,6 +106,39 @@ html.dark {
 </div>
 
 
+<!-- Avatar & Profile Upload -->
+<div class="rounded-[32px] p-space-lg bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container-lowest flex flex-col space-y-space-md mb-space-lg">
+    <div class="flex items-center gap-space-xs mb-2">
+        <span class="text-2xl">📸</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">Avatar &amp; Foto Profil</h2>
+    </div>
+    <div class="flex flex-col items-center space-y-4">
+        <div class="relative">
+            <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container-highest shadow-lg bg-surface-container flex items-center justify-center">
+                <img id="profileImage" src="https://ui-avatars.com/api/?name=User&background=random&color=fff&size=128" alt="Profile" class="w-full h-full object-cover transition-opacity duration-300">
+            </div>
+            <div class="absolute bottom-0 right-0 bg-primary text-on-primary w-9 h-9 rounded-full flex items-center justify-center border-4 border-surface-container-lowest shadow-sm pointer-events-none">
+                <span class="material-symbols-outlined text-[16px]">edit</span>
+            </div>
+        </div>
+        
+        <div class="flex flex-wrap items-center justify-center gap-3 w-full">
+            <button id="btnGaleri" type="button" class="flex-1 min-w-[120px] px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-label-md flex items-center justify-center gap-2 hover:bg-surface-container-high transition-colors border border-surface-container-high active:scale-95">
+                <span class="material-symbols-outlined text-[20px]">photo_library</span> Galeri
+            </button>
+            <button id="btnCamera" type="button" class="flex-1 min-w-[120px] px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-label-md flex items-center justify-center gap-2 hover:bg-surface-container-high transition-colors border border-surface-container-high active:scale-95">
+                <span class="material-symbols-outlined text-[20px]">photo_camera</span> Kamera
+            </button>
+            <button id="btnAvatar" type="button" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-surface-tint text-on-primary font-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-md shadow-primary/20 active:scale-95">
+                <span class="material-symbols-outlined text-[20px]">face_6</span> Avatar 3D
+            </button>
+        </div>
+        <button id="btnHapus" type="button" class="text-error font-label-sm uppercase tracking-wider hover:underline flex items-center gap-1 mt-1 opacity-80 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[16px]">delete</span> Hapus Foto
+        </button>
+    </div>
+</div>
+
 <!-- Form Edit: Informasi Pribadi & Sekolah -->
 <div class="rounded-[32px] p-space-lg bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container-lowest flex flex-col space-y-space-md">
 <div class="flex items-center justify-between mb-2">
