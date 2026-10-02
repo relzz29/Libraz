@@ -51,3 +51,7 @@ require __DIR__.'/auth.php';
 Route::get('/edit-profil', function () {
     return view('edit_profil');
 })->name('edit.profil');
+
+Route::get('/admin', function () {
+    return view('admin_dashboard');
+})->name('admin');

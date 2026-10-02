@@ -670,7 +670,7 @@ html.dark {
 
         // Cek data diri untuk pengguna baru (wajib mengisi)
         if (!user.email || !user.school_name || user.school_name === 'Asal Sekolah Default' || !user.whatsapp_number || !user.bio) {
-          window.location.href = '/akun-pengaturan?tab=profil&first_login=1';
+          window.location.href = '/edit-profil?first_login=1';
           return;
         }
 
