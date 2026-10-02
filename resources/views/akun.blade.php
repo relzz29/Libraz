@@ -246,7 +246,7 @@ html.dark {
 <span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
 </a>
 <!-- Librarian Help Desk -->
-<a class="flex items-center justify-between p-space-md hover:bg-surface-container-low transition-colors" href="#">
+<a class="flex items-center justify-between p-space-md hover:bg-surface-container-low transition-colors" href="/bantuan">
 <div class="flex items-center gap-3">
 <div class="w-10 h-10 rounded-xl bg-tertiary-fixed text-tertiary flex items-center justify-center">
 <span class="material-symbols-outlined text-[22px]">support_agent</span>

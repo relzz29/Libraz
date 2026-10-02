@@ -526,11 +526,17 @@ html.dark {
 
       // 2. Filter the book cards
       const selectedCategory = pill.getAttribute('data-category');
+      const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
       let visibleCount = 0;
 
       bookCards.forEach(card => {
         const cardCategories = card.getAttribute('data-category');
-        if (selectedCategory === 'all' || (cardCategories && cardCategories.includes(selectedCategory))) {
+        const textContent = card.innerText.toLowerCase();
+        
+        const matchesSearch = searchTerm === '' || textContent.includes(searchTerm);
+        const matchesCategory = selectedCategory === 'all' || (cardCategories && cardCategories.includes(selectedCategory));
+        
+        if (matchesSearch && matchesCategory) {
           card.style.display = 'flex';
           visibleCount++;
         } else {
@@ -545,10 +551,40 @@ html.dark {
     });
   });
 
-  // Barcode Scanner Simulator
+  // Search Logic & Barcode Scanner Simulator
   const scanBtn = document.getElementById('scanBarcodeBtn');
   const searchInput = document.getElementById('catalogSearch');
-  if (scanBtn && searchInput) {
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      let visibleCount = 0;
+      
+      const activePill = document.querySelector('.filter-pill.bg-primary');
+      const selectedCategory = activePill ? activePill.getAttribute('data-category') : 'all';
+
+      bookCards.forEach(card => {
+        const textContent = card.innerText.toLowerCase();
+        const cardCategories = card.getAttribute('data-category');
+        
+        const matchesSearch = textContent.includes(searchTerm);
+        const matchesCategory = selectedCategory === 'all' || (cardCategories && cardCategories.includes(selectedCategory));
+        
+        if (matchesSearch && matchesCategory) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      if (countDisplay) {
+        countDisplay.textContent = `${visibleCount} Menampilkan`;
+      }
+    });
+  }
+
+  if (scanBtn) {
     scanBtn.addEventListener('click', () => {
       window.location.href = "/scanner";
     });
