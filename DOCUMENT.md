@@ -85,6 +85,18 @@ Sebelum merilis update baru, QA harus memastikan poin-poin berikut telah terpenu
 ## 📝 5. Riwayat Pembaruan (Update Log)
 *(Silakan catat riwayat rilis / update di bawah ini)*
 
+### [v1.1.0] - *2026-10-03*
+**[Added] (Fitur Baru)**
+- Integrasi CRUD Buku (Admin): Endpoint Store, Update, Destroy di `AdminBookController.php`.
+- Fitur Upload file (Cover Image & PDF E-Book) yang akan disimpan otomatis ke `storage/app/public`.
+- Fitur auto-delete file `storage`: Ketika buku dihapus (destroy) atau diperbarui (update), file lama di dalam `storage` akan ikut dihapus secara otomatis.
+- Form Tambah Buku diubah desainnya menjadi **Modal Popup Mengambang** dengan efek *backdrop-blur*.
+- Data Seeder `RealBooksSeeder.php` ditambahkan untuk mem-populate database dengan buku dan file asli (asset) bawaan.
+
+**[Changed] (Perubahan pada fitur yang sudah ada)**
+- Halaman `admin_tambah_buku.blade.php` sekarang menampilkan tabel daftar buku real dari database.
+- Shortcut form tambah buku di `admin_dashboard.blade.php` telah dihapus agar UI lebih bersih (terpusat di halaman Tambah Buku).
+
 ### [v1.0.1] - *Draft*
 - **Fixed:** Penyesuaian layout di pengaturan akun.
 
@@ -168,10 +180,25 @@ Berikut adalah daftar file antarmuka (`resources/views/*.blade.php`) beserta pen
     - **Workflow:** Halaman depan yang dilihat oleh publik tanpa perlu login.
     - **Sistem:** Dummy.
 
+13. **`admin_tambah_buku.blade.php` (Dan file Admin lainnya)**
+    - **Fitur:** Manajemen katalog perpustakaan oleh admin.
+    - **Workflow:** Admin dapat menambah, melihat, mengedit, dan menghapus data buku dari database. UI dilengkapi popup modal untuk input buku.
+    - **Sistem:** 🟢 **Real DB** (Terhubung dengan `books` table, CRUD beroperasi penuh).
+
 ---
 
 ## ⚠️ 7. Riwayat Error & Kendala Sistem (Error Logs)
 *(Bagian ini berisi rekam jejak error yang terjadi di server, terminal, atau database. Data lama **JANGAN DIHAPUS**, cukup tambahkan error baru di baris paling atas agar menjadi referensi bagi pengembang dalam mengatasi bug berulang).*
+
+### [2026-10-03] - Error 419 Page Expired (CSRF) saat Post Form / Login
+- **Waktu:** 2026-10-03 (Ditemukan saat pengujian submit form Login dan Hapus Buku)
+- **Tipe Error:** `419 Page Expired`
+- **Pesan Log:** Laravel menolak permintaan `POST` karena token CSRF dianggap tidak sah atau kedaluwarsa.
+- **Catatan Pengembang:**
+  - Meskipun tag `@csrf` sudah disisipkan dalam form, validasi token gagal karena domain session tidak cocok di local server (`127.0.0.1:8000`).
+  - **Tindakan Lanjutan (Resolved):** 
+    1. Mengosongkan nilai `SESSION_DOMAIN=` (dihapus string isinya) di dalam file `.env`.
+    2. Menjalankan perintah optimasi config (`php artisan optimize:clear`) untuk menyetel ulang cache sesi, sehingga aplikasi di `127.0.0.1` mengenali token CSRF-nya kembali.
 
 ### [2026-10-03] - Error 422 & 403 saat Update Profil (API /api/user)
 - **Waktu:** 2026-10-03 (Ditemukan saat pengujian edit profil)
