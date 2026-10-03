@@ -189,313 +189,74 @@ html.dark {
 </div>
 <span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">7 Menampilkan</span>
 </div>
-<!-- Book Card 1: Dasar-Dasar Teknik Konstruksi Kapal Semester 2 -->
-<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum teknik ebook">
+@forelse($books as $book)
+<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="{{ strtolower($book->category) }} {{ $book->type }}">
 <div class="flex gap-space-md">
 <!-- Thumbnail Cover -->
 <div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" alt="Dasar-Dasar Teknik Konstruksi Kapal Semester 2" src="{{ asset('buku/sampul/Dasar-Teknik-Konstruksi-Kapal-Semester-2-BS-KLS-X-Cover.png') }}"/>
+@if($book->cover_image_url)
+<img class="w-full h-full object-cover" alt="{{ $book->title }}" src="{{ asset($book->cover_image_url) }}"/>
+@else
+<div class="w-full h-full flex items-center justify-center bg-surface-container-high text-on-surface-variant">
+  <span class="material-symbols-outlined text-[32px]">book</span>
+</div>
+@endif
 <div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
 <span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          5.0
+          {{ $book->rating ?? '0.0' }}
         </div>
 </div>
 <!-- Info Details -->
 <div class="flex flex-col flex-1 min-w-0 justify-between">
 <div class="flex flex-col gap-1">
 <div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">623.8 / TEKNIK KAPAL</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">{{ $book->category }}</span>
 <button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
 <span class="material-symbols-outlined text-[20px]">bookmark</span>
 </button>
 </div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Dasar-Dasar Teknik Konstruksi Kapal Semester 2</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Danang Kurniawan &amp; Lilik Mutiatul</p>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">{{ $book->title }}</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">{{ $book->author }}</p>
 </div>
 <!-- Shelf & Availability Status -->
 <div class="flex flex-wrap items-center gap-1.5 mt-2">
+@if($book->type == 'physical' || $book->type == 'both')
 <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Tersedia di Rak 1A (5 Eks.)
+            Tersedia di {{ $book->rack }} ({{ $book->stock }} Eks.)
           </span>
-<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">Lantai 1</span>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="document.getElementById('borrowConfirmationModal').classList.remove('hidden')">
-<span class="material-symbols-outlined text-[18px]">touch_app</span>
-        Pinjam Mandiri
-      </button>
-<a href="{{ asset('buku/pdf/Dasar-Teknik-Konstruksi-Kapal-Semester-2-BS-KLS-X (1).pdf') }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-        Baca E-Book (PDF)
-      </a>
-</div>
-</article>
-<!-- Book Card 2: Animasi Kelas XI dan XII -->
-<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum animasi ebook">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" alt="Animasi Kelas XI dan XII" src="{{ asset('buku/sampul/Animasi_BS_Kelas_XI_dan_XII_Cover.png') }}"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          4.8
-        </div>
-</div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">006.6 / ANIMASI</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Animasi Kelas XI dan XII</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kemdikbudristek</p>
-</div>
-<!-- Shelf & Availability Status -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Tersedia (E-Book &amp; Fisik)
-          </span>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="document.getElementById('borrowConfirmationModal').classList.remove('hidden')">
-<span class="material-symbols-outlined text-[18px]">touch_app</span>
-        Pinjam Mandiri
-      </button>
-<a href="{{ asset('buku/pdf/Animasi_BS_XI_dan_XII (1).pdf') }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-        Baca E-Book (PDF)
-      </a>
-</div>
-</article>
-
-<!-- Book Card 3: KKA Kelas XI -->
-<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum teknik ebook">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" alt="Buku Siswa Kelas XI KKA" src="{{ asset('buku/sampul/KKA_BS_KLS_11_Cover.png') }}"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          4.7
-        </div>
-</div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">600 / TEKNIK (KKA)</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Buku Siswa Kejuruan KKA Kelas XI</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kemdikbudristek</p>
-</div>
-<!-- Shelf & Availability Status -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Tersedia (E-Book &amp; Fisik)
-          </span>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="document.getElementById('borrowConfirmationModal').classList.remove('hidden')">
-<span class="material-symbols-outlined text-[18px]">touch_app</span>
-        Pinjam Mandiri
-      </button>
-<a href="{{ asset('buku/pdf/KKA_BS_KLS_11.pdf') }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-        Baca E-Book (PDF)
-      </a>
-</div>
-</article>
-
-<!-- Book Card 4: Pengembangan Gim Buku Guru -->
-<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum gim ebook">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" alt="Pengembangan Gim Buku Guru Kelas XI dan XII" src="{{ asset('buku/sampul/Pengembangan_Gim_BG_KLS_XI_XII_Cover.png') }}"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          5.0
-        </div>
-</div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">005.1 / GIM (GURU)</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Pengembangan Gim - Buku Panduan Guru Kelas XI-XII</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kemdikbudristek</p>
-</div>
-<!-- Shelf & Availability Status -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
+@endif
+@if($book->type == 'ebook' || $book->type == 'both')
 <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-blue-100 text-blue-900 font-label-sm text-label-sm font-bold">
 <span class="material-symbols-outlined text-[14px]">cloud_download</span>
-            E-Book Only (Khusus Guru)
+            E-Book
           </span>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="w-full pt-space-xs">
-<a href="{{ asset('buku/pdf/Pengembangan_Gim_BG_KLS_XI_XII.pdf') }}" target="_blank" class="w-full h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-        Baca E-Book (PDF)
-      </a>
-</div>
-</article>
-
-<!-- Book Card 5: Pengembangan Gim Buku Siswa -->
-<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum gim ebook">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" alt="Pengembangan Gim Buku Siswa Kelas XI dan XII" src="{{ asset('buku/sampul/Pengembangan_Gim_BS_KLS_XI_XII_Cover.png') }}"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          4.9
-        </div>
-</div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">005.1 / GIM (SISWA)</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Pengembangan Gim - Buku Siswa Kelas XI-XII</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kemdikbudristek</p>
-</div>
-<!-- Shelf & Availability Status -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Tersedia (E-Book &amp; Fisik)
-          </span>
+@endif
 </div>
 </div>
 </div>
 <!-- Action Buttons -->
 <div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="document.getElementById('borrowConfirmationModal').classList.remove('hidden')">
+@if($book->type == 'physical' || $book->type == 'both')
+<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="openBorrowModal('{{ $book->id }}', '{{ addslashes($book->title) }}', '{{ addslashes($book->author) }}', '{{ $book->cover_image_url ? asset($book->cover_image_url) : '' }}', '{{ $book->rack }}', '{{ $book->category }}')">
 <span class="material-symbols-outlined text-[18px]">touch_app</span>
         Pinjam Mandiri
       </button>
-<a href="{{ asset('buku/pdf/Pengembangan_Gim_BS_KLS_XI_XII.pdf') }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+@endif
+@if($book->type == 'ebook' || $book->type == 'both')
+<a href="{{ asset($book->pdf_path) }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
 <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-        Baca E-Book (PDF)
+        Baca E-Book
       </a>
+@endif
 </div>
 </article>
-
-<!-- Book Card 6: Sejarah Kelas XI -->
-<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum umum ebook">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" alt="Sejarah Buku Siswa Kelas XI" src="{{ asset('buku/sampul/Sejarah_BS_Kelas_XI_Rev_Cover.png') }}"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          4.5
-        </div>
+@empty
+<div class="col-span-full py-8 text-center text-on-surface-variant">
+  <span class="material-symbols-outlined text-[48px] mb-2">menu_book</span>
+  <p>Belum ada buku di katalog.</p>
 </div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">900 / SEJARAH</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Sejarah Kelas XI (Buku Siswa)</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kemdikbudristek</p>
-</div>
-<!-- Shelf & Availability Status -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Tersedia (E-Book &amp; Fisik)
-          </span>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="document.getElementById('borrowConfirmationModal').classList.remove('hidden')">
-<span class="material-symbols-outlined text-[18px]">touch_app</span>
-        Pinjam Mandiri
-      </button>
-<a href="{{ asset('buku/pdf/Sejarah_BS_Kelas_XI_Rev.pdf') }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-        Baca E-Book (PDF)
-      </a>
-</div>
-</article>
-
-<!-- Book Card 7: Seni Tari Buku Guru Kelas X -->
-<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="kurikulum umum ebook">
-<div class="flex gap-space-md">
-<!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
-<img class="w-full h-full object-cover" alt="Seni Tari Buku Guru Kelas X" src="{{ asset('buku/sampul/Seni_Tari_BG_KLS_X_Rev_Cover.png') }}"/>
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          4.8
-        </div>
-</div>
-<!-- Info Details -->
-<div class="flex flex-col flex-1 min-w-0 justify-between">
-<div class="flex flex-col gap-1">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold truncate">793.3 / SENI TARI</span>
-<button class="text-on-surface-variant hover:text-tertiary transition-colors" title="Simpan ke Wishlist">
-<span class="material-symbols-outlined text-[20px]">bookmark</span>
-</button>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Panduan Guru Seni Tari Kelas X</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kemdikbudristek</p>
-</div>
-<!-- Shelf & Availability Status -->
-<div class="flex flex-wrap items-center gap-1.5 mt-2">
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-blue-100 text-blue-900 font-label-sm text-label-sm font-bold">
-<span class="material-symbols-outlined text-[14px]">cloud_download</span>
-            E-Book Only (Khusus Guru)
-          </span>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="w-full pt-space-xs">
-<a href="{{ asset('buku/pdf/Seni_Tari_BG_KLS_X_Rev.pdf') }}" target="_blank" class="w-full h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-        Baca E-Book (PDF)
-      </a>
-</div>
-</article>
-
+@endforelse
 <!-- Interactive Quick Fact Widget -->
 <div class="p-space-md rounded-xl bg-surface-container text-on-surface flex items-start gap-space-sm shadow-[2px_2px_0px_#1c1b20]">
 <div class="w-9 h-9 rounded-lg bg-primary-fixed text-primary flex items-center justify-center flex-shrink-0">
@@ -606,17 +367,19 @@ html.dark {
 <span class="material-symbols-outlined text-[20px]">close</span>
 </button>
 </div>
+<form method="POST" action="{{ route('borrow.store') }}" id="borrowForm">
+@csrf
+<input type="hidden" name="book_id" id="modal_book_id" value="">
 <!-- Book Summary Card -->
 <div class="bg-purple-50/70 rounded-2xl p-3.5 border border-purple-100 flex gap-3.5 items-center mb-4">
-<img alt="Dasar-Dasar Teknik Konstruksi Kapal Semester 2" class="w-14 h-20 rounded-xl object-cover shadow-md flex-shrink-0 bg-purple-100" src="{{ asset('buku/sampul/Dasar-Teknik-Konstruksi-Kapal-Semester-2-BS-KLS-X-Cover.png') }}"/>
+<img id="modal_cover" alt="Cover" class="w-14 h-20 rounded-xl object-cover shadow-md flex-shrink-0 bg-purple-100" src=""/>
 <div class="flex flex-col flex-1 min-w-0">
 <div class="flex items-center gap-1.5 mb-1">
-<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-200/70 text-purple-900">623.8 • TEKNIK KAPAL</span>
-<span class="text-[10px] font-medium text-purple-700">Rak 1A (Lt. 1)</span>
+<span id="modal_category" class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-200/70 text-purple-900"></span>
+<span id="modal_rack" class="text-[10px] font-medium text-purple-700"></span>
 </div>
-<h4 class="font-bold text-slate-900 text-sm leading-snug line-clamp-2">Dasar-Dasar Teknik Konstruksi Kapal Semester 2</h4>
-<p class="text-xs text-slate-500 truncate mt-0.5">Danang Kurniawan &amp; Lilik Mutiatul</p>
-<span class="text-[10px] text-slate-400 font-mono mt-1 font-semibold">#BZ-2024-0812</span>
+<h4 id="modal_title" class="font-bold text-slate-900 text-sm leading-snug line-clamp-2"></h4>
+<p id="modal_author" class="text-xs text-slate-500 truncate mt-0.5"></p>
 </div>
 </div>
 <!-- Circulation Details Grid -->
@@ -664,7 +427,7 @@ html.dark {
 </label>
 <!-- CTA Action Buttons -->
 <div class="flex flex-col gap-1.5">
-<button class="w-full py-3.5 px-4 rounded-2xl bg-[#5b21e6] hover:bg-[#4c17cf] text-white font-bold text-sm shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 transition-all active:scale-[0.99]" onclick="window.location.href='/sirkulasi-sukses'" type="button">
+<button class="w-full py-3.5 px-4 rounded-2xl bg-[#5b21e6] hover:bg-[#4c17cf] text-white font-bold text-sm shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 transition-all active:scale-[0.99]" type="submit">
 <span class="material-symbols-outlined text-[18px]">check_circle</span>
         Konfirmasi &amp; Ambil Buku
       </button>
@@ -672,6 +435,7 @@ html.dark {
         Batal
       </button>
 </div>
+</form>
 </div>
 </div>
 <script>
@@ -716,4 +480,16 @@ html.dark {
     }
   });
 </script>
+<script>
+  function openBorrowModal(id, title, author, cover, rack, category) {
+    document.getElementById('modal_book_id').value = id;
+    document.getElementById('modal_title').innerText = title;
+    document.getElementById('modal_author').innerText = author;
+    document.getElementById('modal_cover').src = cover;
+    document.getElementById('modal_rack').innerText = 'Rak: ' + rack;
+    document.getElementById('modal_category').innerText = category;
+    document.getElementById('borrowConfirmationModal').classList.remove('hidden');
+  }
+</script>
+
 </body></html>

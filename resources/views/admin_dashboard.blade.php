@@ -103,16 +103,27 @@ html.dark {
       <span class="material-symbols-outlined text-[22px]">dashboard</span>
       Dashboard
     </a>
+    <a href="/admin/tambah-buku" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
+      <span class="material-symbols-outlined text-[22px]">add_circle</span>
+      Tambah Buku
+    </a>
+    <a href="/admin/laporan" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
+      <span class="material-symbols-outlined text-[22px]">analytics</span>
+      Laporan
+    </a>
     <a href="/katalog" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
       <span class="material-symbols-outlined text-[22px]">menu_book</span>
       Ke Tampilan User
     </a>
   </nav>
   <div class="p-4 border-t border-surface-container-high">
-    <a href="/login" class="flex items-center gap-3 px-4 py-3 rounded-xl text-error hover:bg-error/10 transition-all font-bold">
-      <span class="material-symbols-outlined text-[22px]">logout</span>
-      Keluar
-    </a>
+    <form action="{{ route('admin.logout') }}" method="POST">
+      @csrf
+      <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-error hover:bg-error/10 transition-all font-bold">
+        <span class="material-symbols-outlined text-[22px]">logout</span>
+        Keluar
+      </button>
+    </form>
   </div>
 </aside>
 
@@ -145,10 +156,6 @@ html.dark {
             <div>
                 <h1 class="font-headline-lg text-headline-lg text-on-surface bg-gradient-to-r from-primary to-surface-tint bg-clip-text text-transparent">Overview Sistem</h1>
             </div>
-            <button onclick="document.getElementById('addBookModal').classList.remove('hidden'); requestAnimationFrame(() => document.getElementById('addBookModal').classList.add('modal-open'));" class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-title-md flex items-center gap-2 hover:bg-surface-tint transition-colors shadow-[0_4px_14px_rgba(67,0,187,0.39)]">
-                <span class="material-symbols-outlined text-[20px]">add_circle</span>
-                Tambah Buku Baru
-            </button>
         </div>
 
         <!-- Quick Stats Cards (Glassmorphism) -->
@@ -161,7 +168,7 @@ html.dark {
                 </div>
                 <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Total Buku</p>
                 <div class="flex items-end gap-3">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface">24,815</h2>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface">{{ number_format($totalBooks) }}</h2>
                     <span class="text-secondary font-label-md flex items-center mb-1 bg-secondary/10 px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">trending_up</span> +3.2%</span>
                 </div>
             </div>
@@ -174,7 +181,7 @@ html.dark {
                 </div>
                 <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Akun Aktif</p>
                 <div class="flex items-end gap-3">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface">18,972</h2>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface">{{ number_format($activeUsers) }}</h2>
                     <span class="text-secondary font-label-md flex items-center mb-1 bg-secondary/10 px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">trending_up</span> +5.8%</span>
                 </div>
             </div>
@@ -187,7 +194,7 @@ html.dark {
                 </div>
                 <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Menunggu Persetujuan</p>
                 <div class="flex items-end gap-3">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface">412</h2>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface">{{ number_format($pendingApprovals) }}</h2>
                     <span class="text-[#d97706] font-label-md flex items-center mb-1 bg-[#d97706]/10 px-2 py-0.5 rounded-full">Perlu Tinjauan</span>
                 </div>
             </div>
@@ -200,11 +207,26 @@ html.dark {
                 </div>
                 <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Peminjaman Bulan Ini</p>
                 <div class="flex items-end gap-3">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface">31,405</h2>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface">{{ number_format($monthlyBorrows) }}</h2>
                     <span class="text-secondary font-label-md flex items-center mb-1 bg-secondary/10 px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">trending_up</span> +12%</span>
                 </div>
             </div>
         </div>
+
+        @if(session('success'))
+        <div class="bg-secondary/10 border-l-4 border-secondary text-secondary p-4 rounded-xl mt-4">
+            <p class="font-body-md">{{ session('success') }}</p>
+        </div>
+        @endif
+        @if($errors->any())
+        <div class="bg-error/10 border-l-4 border-error text-error p-4 rounded-xl mt-4">
+            <ul class="list-disc ml-5 font-body-md">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
         <!-- Recent Borrowings Data Table -->
         <div class="flex flex-col rounded-3xl bg-surface-container-lowest border border-surface-container-highest shadow-sm mt-4 overflow-hidden">
@@ -219,84 +241,30 @@ html.dark {
                     <thead>
                         <tr class="bg-surface-container-low text-on-surface-variant font-label-md uppercase tracking-wider border-b border-surface-container-high">
                             <th class="p-4 font-bold">Judul Buku</th>
-                            <th class="p-4 font-bold">Pengguna</th>
-                            <th class="p-4 font-bold">Tgl Pinjam</th>
-                            <th class="p-4 font-bold">Tenggat Waktu</th>
-                            <th class="p-4 font-bold">Status</th>
+                            <th class="p-4 font-bold">Tipe</th>
+                            <th class="p-4 font-bold">Kategori</th>
+                            <th class="p-4 font-bold">Stok</th>
+                            <th class="p-4 font-bold">ISBN</th>
                             <th class="p-4 font-bold">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-surface-container-high font-body-sm text-on-surface">
+                        @forelse($books as $book)
                         <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 font-title-md">'Crying in H Mart'</td>
-                            <td class="p-4 flex items-center gap-2">
-                                <img src="https://ui-avatars.com/api/?name=Chloe+Kim&background=random" class="w-6 h-6 rounded-full" alt=""> Chloe Kim
-                            </td>
-                            <td class="p-4 text-on-surface-variant">26 Okt 2024</td>
-                            <td class="p-4 text-on-surface-variant">9 Nov 2024</td>
-                            <td class="p-4">
-                                <span class="px-2.5 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm border border-secondary/20">Dipinjam</span>
-                            </td>
+                            <td class="p-4 font-title-md">{{ $book->title }}</td>
+                            <td class="p-4 font-body-md uppercase text-xs">{{ $book->type }}</td>
+                            <td class="p-4 text-on-surface-variant">{{ $book->category }}</td>
+                            <td class="p-4 text-on-surface-variant">{{ $book->stock }}</td>
+                            <td class="p-4 text-on-surface-variant">{{ $book->isbn ?? '-' }}</td>
                             <td class="p-4">
                                 <button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
                             </td>
                         </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 font-title-md">'Dune'</td>
-                            <td class="p-4 flex items-center gap-2">
-                                <img src="https://ui-avatars.com/api/?name=Kai+Thompson&background=random" class="w-6 h-6 rounded-full" alt=""> Kai Thompson
-                            </td>
-                            <td class="p-4 text-on-surface-variant">26 Okt 2024</td>
-                            <td class="p-4 text-on-surface-variant">9 Nov 2024</td>
-                            <td class="p-4">
-                                <span class="px-2.5 py-1 rounded-full bg-[#d97706]/10 text-[#d97706] font-label-sm border border-[#d97706]/20">Pending</span>
-                            </td>
-                            <td class="p-4">
-                                <button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
-                            </td>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="p-4 text-center text-on-surface-variant">Belum ada data buku.</td>
                         </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 font-title-md">'A Little Life'</td>
-                            <td class="p-4 flex items-center gap-2">
-                                <img src="https://ui-avatars.com/api/?name=Maya+Chen&background=random" class="w-6 h-6 rounded-full" alt=""> Maya Chen
-                            </td>
-                            <td class="p-4 text-on-surface-variant">25 Okt 2024</td>
-                            <td class="p-4 text-on-surface-variant">8 Nov 2024</td>
-                            <td class="p-4">
-                                <span class="px-2.5 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm border border-secondary/20">Dipinjam</span>
-                            </td>
-                            <td class="p-4">
-                                <button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 font-title-md">'Educated'</td>
-                            <td class="p-4 flex items-center gap-2">
-                                <img src="https://ui-avatars.com/api/?name=Leo+Rodriguez&background=random" class="w-6 h-6 rounded-full" alt=""> Leo Rodriguez
-                            </td>
-                            <td class="p-4 text-on-surface-variant">25 Okt 2024</td>
-                            <td class="p-4 text-on-surface-variant">8 Nov 2024</td>
-                            <td class="p-4">
-                                <span class="px-2.5 py-1 rounded-full bg-error/10 text-error font-label-sm border border-error/20">Terlambat</span>
-                            </td>
-                            <td class="p-4">
-                                <button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 font-title-md">'Atomic Habits'</td>
-                            <td class="p-4 flex items-center gap-2">
-                                <img src="https://ui-avatars.com/api/?name=Ben+Smith&background=random" class="w-6 h-6 rounded-full" alt=""> Ben Smith
-                            </td>
-                            <td class="p-4 text-on-surface-variant">24 Okt 2024</td>
-                            <td class="p-4 text-on-surface-variant">7 Nov 2024</td>
-                            <td class="p-4">
-                                <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm border border-outline/30">Dikembalikan</span>
-                            </td>
-                            <td class="p-4">
-                                <button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
-                            </td>
-                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -304,75 +272,7 @@ html.dark {
     </div>
 </main>
 
-<!-- Add Book Modal -->
-<div id="addBookModal" class="fixed inset-0 z-50 hidden items-center justify-center">
-    <div class="fixed inset-0 bg-on-surface/50 modal-overlay" onclick="closeModal()"></div>
-    <div class="relative w-full max-w-lg bg-surface-container-lowest rounded-3xl shadow-2xl p-6 mx-4 modal-content border border-surface-container-high z-10 flex flex-col max-h-[90vh]">
-        <div class="flex items-center justify-between mb-4 flex-shrink-0">
-            <h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[28px]">book</span> Tambah Buku Baru</h2>
-            <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface transition-colors">
-                <span class="material-symbols-outlined text-[20px]">close</span>
-            </button>
-        </div>
-        
-        <form class="flex flex-col gap-4 overflow-y-auto pr-2 pb-2">
-            <div class="flex flex-col gap-1.5">
-                <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Judul Buku</label>
-                <input type="text" placeholder="Masukkan judul buku" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-all">
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div class="flex flex-col gap-1.5">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Penulis</label>
-                    <input type="text" placeholder="Nama penulis" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all">
-                </div>
-                <div class="flex flex-col gap-1.5">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Kategori</label>
-                    <select class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all appearance-none">
-                        <option>Sastra & Novel</option>
-                        <option>Sains & Teknologi</option>
-                        <option>Filosofi & Mindset</option>
-                        <option>Sejarah</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div class="flex flex-col gap-1.5">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wide">ISBN</label>
-                    <input type="text" placeholder="Contoh: 978-623-..." class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all">
-                </div>
-                <div class="flex flex-col gap-1.5">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Stok Tersedia</label>
-                    <input type="number" min="1" value="1" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all">
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-1.5 mt-2">
-                <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Upload Cover Buku</label>
-                <div class="w-full border-2 border-dashed border-surface-container-high rounded-xl h-32 flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:border-primary transition-all cursor-pointer group">
-                    <span class="material-symbols-outlined text-[32px] group-hover:text-primary transition-colors">cloud_upload</span>
-                    <span class="font-body-sm mt-2 font-medium">Klik untuk upload atau drag & drop file</span>
-                </div>
-            </div>
-            
-            <div class="pt-4 mt-2 border-t border-surface-container-high flex justify-end gap-3 flex-shrink-0">
-                <button type="button" onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-surface-container text-on-surface font-title-md hover:bg-surface-container-high transition-colors">Batal</button>
-                <button type="button" onclick="closeModal(); alert('Buku berhasil ditambahkan!');" class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-title-md hover:bg-surface-tint transition-colors shadow-md">Simpan Buku</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script>
-    function closeModal() {
-        const modal = document.getElementById('addBookModal');
-        modal.classList.remove('modal-open');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 300);
-    }
-</script>
+<!-- Modal removed -->
 
 </body>
 </html>

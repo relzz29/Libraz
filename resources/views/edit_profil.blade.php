@@ -105,6 +105,13 @@ html.dark {
     </div>
 </div>
 
+<div id="validation-error-alert" class="hidden rounded-xl p-space-md bg-error-container text-on-error-container shadow-sm flex items-start gap-space-sm mb-space-sm mt-4">
+    <span class="material-symbols-outlined text-[20px] mt-0.5">error</span>
+    <div class="flex flex-col min-w-0">
+        <span class="font-title-md text-title-md text-on-error-container">Gagal Menyimpan</span>
+        <span id="validation-error-text" class="font-body-sm text-body-sm mt-0.5 text-on-error-container"></span>
+    </div>
+</div>
 
 <!-- Avatar & Profile Upload -->
 <div class="rounded-[32px] p-space-lg bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container-lowest flex flex-col space-y-space-md mb-space-lg">
@@ -446,6 +453,25 @@ html.dark {
 
             setTimeout(() => { btnText.textContent = originalText; }, 2000);
           } else {
+            const errorData = await response.json();
+            console.error('Validation Error:', errorData);
+            
+            let errorMsg = 'Terjadi kesalahan saat menyimpan profil.';
+            if (errorData.errors) {
+                const firstErrorKey = Object.keys(errorData.errors)[0];
+                errorMsg = errorData.errors[firstErrorKey][0];
+            } else if (errorData.message) {
+                errorMsg = errorData.message;
+            }
+            
+            const alertBox = document.getElementById('validation-error-alert');
+            const alertText = document.getElementById('validation-error-text');
+            if (alertBox && alertText) {
+                alertText.textContent = errorMsg;
+                alertBox.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
             btnText.textContent = 'Gagal Menyimpan';
             setTimeout(() => { btnText.textContent = originalText; }, 2000);
           }

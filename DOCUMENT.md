@@ -173,6 +173,19 @@ Berikut adalah daftar file antarmuka (`resources/views/*.blade.php`) beserta pen
 ## ⚠️ 7. Riwayat Error & Kendala Sistem (Error Logs)
 *(Bagian ini berisi rekam jejak error yang terjadi di server, terminal, atau database. Data lama **JANGAN DIHAPUS**, cukup tambahkan error baru di baris paling atas agar menjadi referensi bagi pengembang dalam mengatasi bug berulang).*
 
+### [2026-10-03] - Error 422 & 403 saat Update Profil (API /api/user)
+- **Waktu:** 2026-10-03 (Ditemukan saat pengujian edit profil)
+- **Tipe Error:** `422 Unprocessable Content` & `403 Forbidden` (Avatar)
+- **Pesan Log:**
+  - `422`: Respons API mengembalikan JSON validation errors (misal: "The email has already been taken") namun frontend tidak menampilkannya ke user.
+  - `403`: Gambar profil tidak bisa dimuat dari `storage/`.
+- **Catatan Pengembang:**
+  - Frontend (`edit_profil.blade.php`) awalnya gagal memberikan *feedback* kepada pengguna apabila data yang di-submit ditolak oleh aturan validasi API. Pengguna hanya melihat tombol "Gagal Menyimpan" tanpa tahu penyebabnya.
+  - Gambar profil dari direktori storage juga tidak bisa diakses karena *symbolic link* public belum dikonfigurasi di server lokal.
+  - **Tindakan Lanjutan (Resolved):** 
+    1. Memodifikasi `edit_profil.blade.php` dengan menambahkan elemen HTML `div#validation-error-alert` dan menangkap respons JSON di JavaScript untuk menampilkannya sebagai *alert*.
+    2. Menjalankan perintah `php artisan storage:link` di terminal untuk menyelesaikan masalah akses aset gambar.
+
 ### [2026-10-02 04:14:38] - Syntax Error di View Pengaturan
 - **Waktu:** 04:14:38 (Berulang sejak 04:14:17) (Ditemukan di `storage/logs/laravel.log`)
 - **Tipe Error:** `Illuminate\View\ViewException`
