@@ -244,7 +244,7 @@ html.dark {
       </button>
 @endif
 @if($book->type == 'ebook' || $book->type == 'both')
-<a href="{{ asset($book->pdf_path) }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+<a href="{{ route('baca.ebook', $book->id) }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
 <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
         Baca E-Book
       </a>
@@ -441,10 +441,6 @@ html.dark {
 <script>
   document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('auth_token');
-    if (!token) {
-      window.location.href = '/login';
-      return;
-    }
     
     try {
       const response = await fetch('/api/user', {
@@ -472,8 +468,7 @@ html.dark {
           elAvatarSmall.src = avatarUrl;
         }
       } else {
-        localStorage.removeItem('auth_token');
-        window.location.href = '/login';
+        console.warn('API /api/user not authorized.');
       }
     } catch (e) {
       console.error(e);

@@ -109,7 +109,6 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'nis' => $user->nis,
                 'level' => $user->level,
-                'level_name' => $user->level_name,
             ],
             'token' => $token,
             'redirect' => route('katalog'),
@@ -132,9 +131,7 @@ class AuthController extends Controller
             'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
             'role' => 'Siswa',
             'level' => 1,
-            'level_name' => 'Pembaca Baru',
             'xp' => 0,
-            'max_xp' => 500,
         ]);
 
         return response()->json([

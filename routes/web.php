@@ -24,8 +24,72 @@ Route::get('/statistik', function () {
 })->name('statistik');
 
 Route::get('/akun', function () {
-    return view('akun');
+    $user = auth()->user() ?? \App\Models\User::first();
+    if (!$user) {
+        $user = \App\Models\User::create([
+            'name' => 'Nama Siswa',
+            'email' => 'siswa@example.com',
+            'password' => bcrypt('password'),
+            'xp' => 120, // initial xp for demo
+            'level' => 2,
+            'read_count' => 1,
+        ]);
+    }
+    
+    // Fetch real borrowing history
+    $borrowings = \App\Models\Borrowing::where('user_id', $user->id)
+                    ->with('book')
+                    ->orderBy('borrowed_at', 'desc')
+                    ->get();
+
+    return view('akun', compact('user', 'borrowings'));
 })->name('akun');
+
+Route::get('/baca-ebook/{id}', function ($id) {
+    $book = \App\Models\Book::findOrFail($id);
+    $user = auth()->user() ?? \App\Models\User::first();
+    
+    if ($user && $book->type != 'physical') {
+        $user->increment('xp', 15);
+        $user->increment('reading_hours', 0.5); // Add 30 mins
+        $user->increment('read_count');
+        
+        // Streak Logic
+        $today = now()->format('Y-m-d');
+        if ($user->last_read_date != $today) {
+            $yesterday = now()->subDay()->format('Y-m-d');
+            if ($user->last_read_date == $yesterday) {
+                $user->increment('current_streak');
+            } else {
+                $user->update(['current_streak' => 1]);
+            }
+            if ($user->current_streak > $user->highest_streak) {
+                $user->update(['highest_streak' => $user->current_streak]);
+            }
+            $user->update(['last_read_date' => $today]);
+        }
+        
+        // Level up
+        $nextLevelXp = $user->level * 100;
+        if ($user->xp >= $nextLevelXp) {
+            $user->increment('level');
+            $user->decrement('xp', $nextLevelXp);
+        }
+        
+        // Ensure a borrowing record exists to show up in "Riwayat Sirkulasi"
+        \App\Models\Borrowing::firstOrCreate([
+            'user_id' => $user->id,
+            'book_id' => $book->id,
+            'status' => 'returned'
+        ], [
+            'borrowed_at' => now(),
+            'due_date' => now(),
+            'returned_at' => now()
+        ]);
+    }
+    
+    return redirect(asset($book->pdf_path));
+})->name('baca.ebook');
 
 Route::get('/scanner', function () {
     return view('scanner');

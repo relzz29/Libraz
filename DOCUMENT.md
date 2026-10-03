@@ -92,10 +92,19 @@ Sebelum merilis update baru, QA harus memastikan poin-poin berikut telah terpenu
 - Fitur auto-delete file `storage`: Ketika buku dihapus (destroy) atau diperbarui (update), file lama di dalam `storage` akan ikut dihapus secara otomatis.
 - Form Tambah Buku diubah desainnya menjadi **Modal Popup Mengambang** dengan efek *backdrop-blur*.
 - Data Seeder `RealBooksSeeder.php` ditambahkan untuk mem-populate database dengan buku dan file asli (asset) bawaan.
+- **[Gamifikasi]** Menambahkan kolom XP, Level, Streak, dan statistik riwayat membaca ke tabel `users` (via Migration).
+- **[Gamifikasi]** Halaman `/akun` sekarang menampilkan Peringkat Literasi, Status Streak Harian, Total XP, Jumlah Buku Selesai, Koleksi Favorit, Rating Ulasan dan Jam Membaca menggunakan data *real* (dinamis) berdasarkan aktivitas *user*.
+- **[Fitur Membaca]** Route baru `/baca-ebook/{id}` yang secara otomatis mendeteksi ketika pengguna membaca E-Book, menambahkan poin XP (15 XP), menjaga Streak Harian, menambah Jam Membaca, lalu mengarahkan ulang (*redirect*) ke file PDF.
+- **[Riwayat Sirkulasi]** Fitur membaca E-Book via `/baca-ebook/{id}` sekarang secara otomatis membuat catatan sirkulasi (*Borrowing Record*) untuk E-Book tersebut.
+- **[Riwayat Sirkulasi]** Halaman `/akun` sekarang memuat daftar Riwayat Sirkulasi (History membaca) yang sepenuhnya mengambil data asli (dinamis) dari database (menggantikan HTML *dummy*). 
 
 **[Changed] (Perubahan pada fitur yang sudah ada)**
 - Halaman `admin_tambah_buku.blade.php` sekarang menampilkan tabel daftar buku real dari database.
 - Shortcut form tambah buku di `admin_dashboard.blade.php` telah dihapus agar UI lebih bersih (terpusat di halaman Tambah Buku).
+- Sistem inisialisasi user di `DatabaseSeeder.php` disesuaikan agar user baru selalu memulai dari Level 1 dengan 0 XP.
+
+**[Fixed] (Perbaikan Bug)**
+- **BUG JS Redirect:** Menghapus paksaan pindah halaman ke `/login` (redirect dari `localStorage` Auth) yang tertanam di halaman `akun.blade.php`, `katalog.blade.php`, dan `edit_profil.blade.php` untuk menghindari *infinite loop* saat pengembangan lokal.
 
 ### [v1.0.1] - *Draft*
 - **Fixed:** Penyesuaian layout di pengaturan akun.

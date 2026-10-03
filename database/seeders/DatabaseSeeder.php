@@ -20,13 +20,15 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password123'),
             'role' => 'Siswa',
             'school_name' => 'SMAN 1 GARUDAPURA',
-            'level' => 14,
-            'level_name' => 'Kutu Buku Legendaris',
-            'xp' => 2850,
-            'max_xp' => 3000,
-            'streak' => 18,
-            'books_read' => 32,
-            'total_hours_read' => 148,
+            'level' => 1,
+            'xp' => 0,
+            'current_streak' => 0,
+            'highest_streak' => 0,
+            'read_count' => 0,
+            'reading_hours' => 0,
+            'reviews_count' => 0,
+            'favorites_count' => 0,
+            'last_read_date' => null,
         ]);
 
         // Create Books

@@ -17,13 +17,7 @@ return new class extends Migration
             $table->string('nis')->unique();
             $table->string('role')->default('Siswa'); // Siswa, Pendidik
             $table->string('school_name')->default('SMAN 1 GARUDAPURA');
-            $table->integer('level')->default(1);
-            $table->string('level_name')->default('Pembaca Pemula');
-            $table->integer('xp')->default(0);
-            $table->integer('max_xp')->default(1000);
-            $table->integer('streak')->default(0);
-            $table->integer('books_read')->default(0);
-            $table->integer('total_hours_read')->default(0);
+
             $table->string('email')->unique()->nullable();
             $table->string('password');
             $table->rememberToken();
