@@ -143,9 +143,9 @@ html.dark {
 </div>
 <div class="text-right">
 <span class="inline-block font-label-sm text-label-sm bg-surface-container-lowest/15 backdrop-blur-sm text-on-primary px-space-sm py-1 rounded-md">
-            27 Nov 2024
+            {{ \Carbon\Carbon::parse($borrowing->borrowed_at)->translatedFormat('d M Y') }}
           </span>
-<p class="font-label-sm text-label-sm text-on-primary-container mt-1">14:32 WIB</p>
+<p class="font-label-sm text-label-sm text-on-primary-container mt-1">{{ \Carbon\Carbon::parse($borrowing->borrowed_at)->format('H:i') }} WIB</p>
 </div>
 </div>
 </div>
@@ -159,6 +159,10 @@ html.dark {
 <span class="material-symbols-outlined text-[13px] text-primary">brightness_high</span> Auto-Bright
       </span>
 </div>
+@php
+    $barcodeId = 'BZ-' . ($borrowing->book->isbn ?? '0000') . '-' . str_pad($borrowing->id ?? rand(100, 999), 4, '0', STR_PAD_LEFT);
+    $qrId = 'RFID-AUTH-SEC-' . str_pad($borrowing->id ?? rand(100, 999), 4, '0', STR_PAD_LEFT);
+@endphp
 <!-- Barcode & QR Code Section with Mode Switcher -->
 <div class="p-space-lg flex flex-col items-center">
 <!-- Interactive Tab Selector for Barcode / QR -->
@@ -176,34 +180,9 @@ html.dark {
 <div class="w-full flex flex-col items-center justify-center py-space-sm" id="view-barcode">
 <div class="w-full max-w-xs bg-surface-container-lowest p-space-sm rounded-xl flex flex-col items-center">
 <!-- Scalable SVG Vector Barcode (Code-128 Mockup with Crisp High-Contrast Bars) -->
-<svg class="w-full h-20 text-on-surface" fill="currentColor" viewbox="0 0 280 80" xmlns="http://www.w3.org/2000/svg">
-<!-- Quiet zone -->
-<rect height="80" width="8" x="0" y="0"></rect>
-<rect height="80" width="4" x="12" y="0"></rect>
-<rect height="80" width="10" x="20" y="0"></rect>
-<rect height="80" width="4" x="34" y="0"></rect>
-<rect height="80" width="12" x="42" y="0"></rect>
-<rect height="80" width="4" x="58" y="0"></rect>
-<rect height="80" width="8" x="66" y="0"></rect>
-<rect height="80" width="14" x="78" y="0"></rect>
-<rect height="80" width="6" x="96" y="0"></rect>
-<rect height="80" width="10" x="106" y="0"></rect>
-<rect height="80" width="4" x="120" y="0"></rect>
-<rect height="80" width="16" x="128" y="0"></rect>
-<rect height="80" width="8" x="148" y="0"></rect>
-<rect height="80" width="6" x="160" y="0"></rect>
-<rect height="80" width="12" x="170" y="0"></rect>
-<rect height="80" width="4" x="186" y="0"></rect>
-<rect height="80" width="10" x="194" y="0"></rect>
-<rect height="80" width="6" x="208" y="0"></rect>
-<rect height="80" width="14" x="218" y="0"></rect>
-<rect height="80" width="6" x="236" y="0"></rect>
-<rect height="80" width="10" x="246" y="0"></rect>
-<rect height="80" width="4" x="260" y="0"></rect>
-<rect height="80" width="12" x="268" y="0"></rect>
-</svg>
+<img src="https://bwipjs-api.metafloor.com/?bcid=code128&text={{ urlencode($barcodeId) }}&scale=3&height=10&includetext=false" alt="Barcode {{ $barcodeId }}" class="w-full h-20 object-contain mix-blend-multiply bg-white rounded p-1" />
 <div class="mt-2 text-center">
-<p class="font-label-lg text-label-lg tracking-[0.25em] text-on-surface font-bold">BZ-2024-0811-9921</p>
+<p class="font-label-lg text-label-lg tracking-[0.25em] text-on-surface font-bold">{{ $barcodeId }}</p>
 <span class="font-body-sm text-body-sm text-on-surface-variant">Scanner Optik Gerbang Barat &amp; Timur</span>
 </div>
 </div>
@@ -211,31 +190,9 @@ html.dark {
 <!-- QR Code Container (Hidden by default, toggled via JS) -->
 <div class="hidden w-full flex-col items-center justify-center py-space-sm" id="view-qrcode">
 <div class="w-48 h-48 bg-surface-container-lowest p-2 rounded-2xl flex items-center justify-center shadow-inner">
-<svg class="w-40 h-40 text-on-surface" fill="currentColor" viewbox="0 0 100 100">
-<!-- Position Detection Patterns (Top Left, Top Right, Bottom Left) -->
-<path d="M5,5 h30 v30 h-30 z M10,10 v20 h20 v-20 z M15,15 h10 v10 h-10 z"></path>
-<path d="M65,5 h30 v30 h-30 z M70,10 v20 h20 v-20 z M75,15 h10 v10 h-10 z"></path>
-<path d="M5,65 h30 v30 h-30 z M10,70 v20 h20 v-20 z M15,75 h10 v10 h-10 z"></path>
-<!-- Data modules simulation -->
-<rect height="6" width="6" x="42" y="8"></rect>
-<rect height="6" width="6" x="52" y="14"></rect>
-<rect height="6" width="10" x="42" y="24"></rect>
-<rect height="8" width="6" x="8" y="42"></rect>
-<rect height="6" width="8" x="20" y="46"></rect>
-<rect height="8" width="8" x="42" y="42"></rect>
-<rect height="6" width="6" x="56" y="44"></rect>
-<rect height="6" width="10" x="68" y="42"></rect>
-<rect height="6" width="8" x="84" y="48"></rect>
-<rect height="12" width="6" x="44" y="58"></rect>
-<rect height="6" width="12" x="56" y="60"></rect>
-<rect height="6" width="8" x="44" y="76"></rect>
-<rect height="10" width="6" x="60" y="74"></rect>
-<rect height="8" width="8" x="74" y="64"></rect>
-<rect height="14" width="6" x="86" y="72"></rect>
-<rect height="6" width="12" x="74" y="86"></rect>
-</svg>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ urlencode($qrId) }}&margin=1" alt="QR Code {{ $qrId }}" class="w-40 h-40 rounded object-contain mix-blend-multiply bg-white p-1" />
 </div>
-<p class="font-label-md text-label-md text-on-surface-variant mt-2 tracking-wide">ID: RFID-AUTH-SEC-8819</p>
+<p class="font-label-md text-label-md text-on-surface-variant mt-2 tracking-wide">ID: {{ $qrId }}</p>
 </div>
 <!-- Brightness & Scanner Assist Notice -->
 <div class="w-full mt-space-sm bg-surface-container-low rounded-2xl p-space-sm flex items-center gap-space-sm">
@@ -272,15 +229,15 @@ html.dark {
 <div class="p-space-lg bg-surface-container-lowest flex flex-col gap-space-md">
 <div class="flex items-center gap-space-md">
 <div class="w-14 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 shadow-md">
-<img class="w-full h-full object-cover" data-alt="Cover of book Fisika Kuantum Populer showing deep purple space nebulae, atomic orbital rings, and bold modern typography with vibrant neon accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvqMcTYaZ2uZR4RIXZufdyh_UOVny0P8QSlf-O8fBqCv2LgwcU-KqXRmRBj6teUTd7fzUySafEAAo3fvNYSe3j6jU0D-IdDFcvBYeN8kIJkJRPLVhKDwLLL4vCW0d3-vEZ05MFnSVjgKGLakv6oWrS83vFv0r7Kh7RQDJu0_r6VsAQxMk4RalhpytjrV10LOR1oU7B0feBcm0pPlKYWWtqdh86NIHUG3PgLOSIjGq5BML573UvTOvG"/>
+<img class="w-full h-full object-cover" alt="Cover of book {{ $borrowing->book->title }}" src="{{ $borrowing->book->cover_image_url ?? 'https://ui-avatars.com/api/?name='.urlencode($borrowing->book->title).'&background=random' }}"/>
 </div>
 <div class="flex flex-col flex-1 min-w-0">
 <span class="font-label-sm text-label-sm uppercase text-primary font-bold">Buku Terpinjam</span>
-<h3 class="font-title-md text-title-md text-on-surface truncate">Fisika Kuantum Populer</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Prof. Dr. Aris Danuarta</p>
+<h3 class="font-title-md text-title-md text-on-surface truncate">{{ $borrowing->book->title }}</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">{{ $borrowing->book->author }}</p>
 <div class="flex items-center gap-2 mt-1">
-<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-1.5 py-0.5 rounded">#BZ-2024-0811</span>
-<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-1.5 py-0.5 rounded">Rak 4A (Lt. 2)</span>
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-1.5 py-0.5 rounded">#{{ $barcodeId }}</span>
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-1.5 py-0.5 rounded">Rak {{ $borrowing->book->rack ?? 'N/A' }}</span>
 </div>
 </div>
 </div>
@@ -288,7 +245,7 @@ html.dark {
 <div class="grid grid-cols-2 gap-space-sm pt-space-xs">
 <div class="bg-surface-container-low p-space-sm rounded-xl">
 <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Tenggat Kembali</span>
-<p class="font-title-md text-title-md text-tertiary font-bold mt-0.5">11 Des 2024</p>
+<p class="font-title-md text-title-md text-tertiary font-bold mt-0.5">{{ \Carbon\Carbon::parse($borrowing->due_date)->translatedFormat('d M Y') }}</p>
 <span class="font-body-sm text-body-sm text-on-surface-variant">Maksimal 14 Hari</span>
 </div>
 <div class="bg-amber-100/50 p-space-sm rounded-xl border border-amber-200">
