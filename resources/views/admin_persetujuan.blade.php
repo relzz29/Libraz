@@ -154,62 +154,7 @@ html.dark {
         <!-- Header Actions -->
         <div class="flex flex-wrap items-center justify-between gap-4 mt-2">
             <div>
-                <h1 class="font-headline-lg text-headline-lg text-on-surface bg-gradient-to-r from-primary to-surface-tint bg-clip-text text-transparent">Overview Sistem</h1>
-            </div>
-        </div>
-
-        <!-- Quick Stats Cards (Comic Style / Neo Brutalism) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Card 1: Total Books -->
-            <div class="p-6 rounded-2xl bg-[#ffde59] border-4 border-on-surface relative overflow-hidden hover:-translate-y-2 hover:translate-x-2 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-200">
-                <div class="absolute -right-4 -top-4 p-4 opacity-20"><span class="material-symbols-outlined text-[100px] text-on-surface">auto_stories</span></div>
-                <div class="w-14 h-14 rounded-xl border-4 border-on-surface bg-white flex items-center justify-center text-on-surface mb-4 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-                    <span class="material-symbols-outlined text-[32px]">library_books</span>
-                </div>
-                <p class="font-label-md text-on-surface uppercase tracking-black font-black mb-2 text-lg">Total Buku</p>
-                <div class="flex items-center gap-3">
-                    <h2 class="font-headline-lg text-5xl text-on-surface font-black drop-shadow-[2px_2px_0px_#fff]">{{ number_format($totalBooks) }}</h2>
-                    <span class="text-on-surface font-label-md flex items-center bg-white px-3 py-1 rounded-lg border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black"><span class="material-symbols-outlined text-[20px] mr-1">trending_up</span>+3.2%</span>
-                </div>
-            </div>
-            
-            <!-- Card 2: Active Users -->
-            <div class="p-6 rounded-2xl bg-[#38b6ff] border-4 border-on-surface relative overflow-hidden hover:-translate-y-2 hover:translate-x-2 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-200">
-                <div class="absolute -right-4 -top-4 p-4 opacity-20"><span class="material-symbols-outlined text-[100px] text-on-surface">group</span></div>
-                <div class="w-14 h-14 rounded-xl border-4 border-on-surface bg-white flex items-center justify-center text-on-surface mb-4 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-                    <span class="material-symbols-outlined text-[32px]">people</span>
-                </div>
-                <p class="font-label-md text-on-surface uppercase tracking-black font-black mb-2 text-lg">Akun Aktif</p>
-                <div class="flex items-center gap-3">
-                    <h2 class="font-headline-lg text-5xl text-on-surface font-black drop-shadow-[2px_2px_0px_#fff]">{{ number_format($activeUsers) }}</h2>
-                    <span class="text-on-surface font-label-md flex items-center bg-white px-3 py-1 rounded-lg border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black"><span class="material-symbols-outlined text-[20px] mr-1">trending_up</span>+5.8%</span>
-                </div>
-            </div>
-
-            <!-- Card 3: Pending Approvals -->
-            <div class="p-6 rounded-2xl bg-[#ff5757] border-4 border-on-surface relative overflow-hidden hover:-translate-y-2 hover:translate-x-2 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-200">
-                <div class="absolute -right-4 -top-4 p-4 opacity-20"><span class="material-symbols-outlined text-[100px] text-on-surface">pending_actions</span></div>
-                <div class="w-14 h-14 rounded-xl border-4 border-on-surface bg-white flex items-center justify-center text-on-surface mb-4 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-                    <span class="material-symbols-outlined text-[32px]">hourglass_top</span>
-                </div>
-                <p class="font-label-md text-on-surface uppercase tracking-black font-black mb-2 text-lg">Persetujuan</p>
-                <div class="flex items-center gap-3">
-                    <h2 class="font-headline-lg text-5xl text-on-surface font-black drop-shadow-[2px_2px_0px_#fff]">{{ number_format($pendingApprovals) }}</h2>
-                    <a href="{{ route('admin.persetujuan') }}" class="text-on-surface font-label-md flex items-center bg-white px-3 py-1 rounded-lg border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black hover:bg-gray-100 transition-colors">Tinjauan</a>
-                </div>
-            </div>
-            
-            <!-- Card 4: Monthly Borrows -->
-            <div class="p-6 rounded-2xl bg-[#7ed957] border-4 border-on-surface relative overflow-hidden hover:-translate-y-2 hover:translate-x-2 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-200">
-                <div class="absolute -right-4 -top-4 p-4 opacity-20"><span class="material-symbols-outlined text-[100px] text-on-surface">shopping_cart</span></div>
-                <div class="w-14 h-14 rounded-xl border-4 border-on-surface bg-white flex items-center justify-center text-on-surface mb-4 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-                    <span class="material-symbols-outlined text-[32px]">sync_alt</span>
-                </div>
-                <p class="font-label-md text-on-surface uppercase tracking-black font-black mb-2 text-lg">Peminjaman</p>
-                <div class="flex items-center gap-3">
-                    <h2 class="font-headline-lg text-5xl text-on-surface font-black drop-shadow-[2px_2px_0px_#fff]">{{ number_format($monthlyBorrows) }}</h2>
-                    <span class="text-on-surface font-label-md flex items-center bg-white px-3 py-1 rounded-lg border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black"><span class="material-symbols-outlined text-[20px] mr-1">trending_up</span>+12%</span>
-                </div>
+                <h1 class="font-headline-lg text-headline-lg text-on-surface bg-gradient-to-r from-primary to-surface-tint bg-clip-text text-transparent">Persetujuan Peminjaman</h1>
             </div>
         </div>
 
@@ -228,64 +173,53 @@ html.dark {
         </div>
         @endif
 
-        <!-- Recent Borrowings Data Table -->
-        <div class="flex flex-col rounded-3xl bg-white border-4 border-on-surface shadow-[8px_8px_0px_rgba(0,0,0,1)] mt-10 overflow-hidden relative">
-            <div class="p-6 border-b-4 border-on-surface flex items-center justify-between bg-[#cb6ce6]">
+        <!-- Pending Approvals Data Table -->
+        <div class="flex flex-col rounded-3xl bg-white border-4 border-on-surface shadow-[8px_8px_0px_rgba(0,0,0,1)] mt-4 overflow-hidden relative">
+            <div class="p-6 border-b-4 border-on-surface flex items-center justify-between bg-[#ff5757]">
                 <h3 class="font-headline-lg text-white font-black drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center gap-3 text-3xl">
                     <div class="w-12 h-12 rounded-xl bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-                        <span class="material-symbols-outlined text-[28px]">table_rows</span>
+                        <span class="material-symbols-outlined text-[28px]">pending_actions</span>
                     </div>
-                    SIRKULASI TERBARU
+                    MENUNGGU PERSETUJUAN
                 </h3>
-                <button class="px-5 py-3 rounded-xl bg-white text-on-surface font-label-md font-black flex items-center gap-2 border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] transition-all uppercase">
-                    Lihat Semua <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
-                </button>
             </div>
-            <div class="overflow-x-auto p-4 bg-[radial-gradient(#d1d5db_2px,transparent_2px)] [background-size:16px_16px]">
+            <div class="overflow-x-auto p-4 bg-[radial-gradient(#d1d5db_2px,transparent_2px)] [background-size:16px_16px] min-h-[400px]">
                 <table class="w-full text-left border-collapse border-spacing-y-2">
                     <thead>
                         <tr class="text-on-surface font-label-md uppercase tracking-wider bg-white border-4 border-on-surface">
-                            <th class="p-4 font-black">Judul Buku</th>
-                            <th class="p-4 font-black">Tipe</th>
-                            <th class="p-4 font-black">Kategori</th>
-                            <th class="p-4 font-black">Stok</th>
-                            <th class="p-4 font-black">ISBN</th>
+                            <th class="p-4 font-black">User</th>
+                            <th class="p-4 font-black">Buku</th>
+                            <th class="p-4 font-black">Tgl Pinjam</th>
+                            <th class="p-4 font-black">Tgl Kembali</th>
                             <th class="p-4 font-black text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="font-body-sm text-on-surface space-y-4">
-                        @forelse($books as $book)
+                        @forelse($pendingApprovals as $approval)
                         <tr class="bg-white border-4 border-on-surface hover:bg-[#ffde59] transition-colors shadow-[4px_4px_0px_rgba(0,0,0,1)] rounded-xl group/row">
-                            <td class="p-4 font-title-md">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-lg bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">
-                                        <span class="material-symbols-outlined text-[24px]">book_4</span>
-                                    </div>
-                                    <span class="font-black text-lg">{{ $book->title }}</span>
-                                </div>
-                            </td>
-                            <td class="p-4 font-label-md uppercase font-black">
-                                @if($book->type == 'physical')
-                                    <span class="bg-[#38b6ff] px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">Fisik</span>
-                                @elseif($book->type == 'ebook')
-                                    <span class="bg-[#ff5757] text-white px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">Digital</span>
-                                @else
-                                    <span class="bg-[#cb6ce6] text-white px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">Mix</span>
-                                @endif
-                            </td>
-                            <td class="p-4 font-bold"><span class="bg-surface-container px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">{{ $book->category }}</span></td>
-                            <td class="p-4 font-black text-xl">{{ $book->stock }}</td>
-                            <td class="p-4 font-bold">{{ $book->isbn ?? '-' }}</td>
+                            <td class="p-4 font-bold">{{ $approval->user->name ?? 'User' }}</td>
+                            <td class="p-4 font-bold">{{ $approval->book->title }}</td>
+                            <td class="p-4 font-bold">{{ $approval->borrowed_at->format('d M Y') }}</td>
+                            <td class="p-4 font-bold">{{ $approval->due_date->format('d M Y') }}</td>
                             <td class="p-4 text-center">
-                                <button class="w-10 h-10 rounded-xl bg-white border-4 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center justify-center text-on-surface hover:bg-black hover:text-white transition-colors mx-auto"><span class="material-symbols-outlined text-[24px]">more_vert</span></button>
+                                <div class="flex items-center justify-center gap-2">
+                                    <form action="{{ route('admin.persetujuan.approve', $approval->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="px-4 py-2 rounded-lg bg-[#7ed957] text-on-surface font-black border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-[#68b347] transition-colors">Setujui</button>
+                                    </form>
+                                    <form action="{{ route('admin.persetujuan.reject', $approval->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="px-4 py-2 rounded-lg bg-[#ff5757] text-white font-black border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-[#d94848] transition-colors">Tolak</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="p-8 text-center text-on-surface bg-white border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black text-xl">
+                            <td colspan="5" class="p-8 text-center bg-white border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] rounded-xl mt-2 font-black text-xl">
                                 <div class="flex flex-col items-center justify-center gap-4">
-                                    <span class="material-symbols-outlined text-[64px]">auto_stories</span>
-                                    <p>WADUH! BELUM ADA DATA BUKU!</p>
+                                    <span class="material-symbols-outlined text-[64px]">done_all</span>
+                                    <p>TIDAK ADA PENGAJUAN PEMINJAMAN.</p>
                                 </div>
                             </td>
                         </tr>

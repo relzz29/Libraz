@@ -8,7 +8,7 @@ class Borrowing extends Model
 {
     protected $fillable = [
         'user_id', 'book_id', 'borrowed_at', 'due_date', 
-        'returned_at', 'renew_count', 'fine_amount'
+        'returned_at', 'renew_count', 'fine_amount', 'status'
     ];
 
     protected $casts = [

@@ -12,7 +12,8 @@ class BorrowController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'book_id' => 'required|exists:books,id'
+            'book_id' => 'required|exists:books,id',
+            'return_date' => 'nullable|date|after_or_equal:tomorrow'
         ]);
 
         $book = Book::findOrFail($request->book_id);
@@ -24,15 +25,18 @@ class BorrowController extends Controller
         // Mocking user ID if auth is not set up correctly, but try to use Auth::id() first
         $userId = Auth::id() ?? 1; 
 
+        $dueDate = $request->return_date ? \Carbon\Carbon::parse($request->return_date) : now()->addDays(14);
+
         Borrowing::create([
             'user_id' => $userId,
             'book_id' => $book->id,
             'borrowed_at' => now(),
-            'due_date' => now()->addDays(14),
+            'due_date' => $dueDate,
+            'status' => 'pending'
         ]);
 
         $book->decrement('stock');
 
-        return redirect()->route('sirkulasi.sukses')->with('success', 'Buku berhasil dipinjam');
+        return redirect()->route('sirkulasi.sukses')->with('success', 'Pengajuan peminjaman berhasil dikirim. Menunggu persetujuan Admin.');
     }
 }

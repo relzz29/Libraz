@@ -16,7 +16,7 @@ class AdminBookController extends Controller
         // or check if Borrowing model exists and use it.
         $totalBooks = Book::count();
         $activeUsers = User::count();
-        $pendingApprovals = 0; // Mock or calculate based on your logic
+        $pendingApprovals = \App\Models\Borrowing::where('status', 'pending')->count();
         $monthlyBorrows = 0; // Mock or calculate
 
         return view('admin_dashboard', compact('books', 'totalBooks', 'activeUsers', 'pendingApprovals', 'monthlyBorrows'));

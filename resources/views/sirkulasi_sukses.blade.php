@@ -105,17 +105,17 @@ html.dark {
 </div>
 <!-- Success Celebration Emblem -->
 <div class="relative flex items-center justify-center mb-space-xs">
-<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center shadow-lg shadow-secondary-container/30">
-<span class="material-symbols-outlined text-[38px] text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center shadow-lg shadow-amber-100/30">
+<span class="material-symbols-outlined text-[38px] text-amber-600" style="font-variation-settings: 'FILL' 1;">hourglass_top</span>
 </div>
-<div class="absolute -top-1 -right-2 bg-primary-container text-on-primary px-2 py-0.5 rounded-full text-label-sm font-label-sm flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
-<span>BERHASIL</span>
+<div class="absolute -top-1 -right-2 bg-amber-500 text-white px-2 py-0.5 rounded-full text-label-sm font-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">pending_actions</span>
+<span>PENDING</span>
 </div>
 </div>
-<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold mt-1">Peminjaman Sukses!</h1>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold mt-1">Menunggu Persetujuan!</h1>
 <p class="font-body-md text-body-md text-on-surface-variant max-w-xs mt-1">
-      Pindai tiket digital ini pada scanner gerbang RFID sebelum melangkah keluar perpustakaan.
+      Pengajuan pinjaman mandiri kamu berhasil dikirim. Silakan tunggu admin menyetujui tiket ini sebelum memindai di gerbang RFID.
     </p>
 <!-- Gamification Toast Pill -->
 <div class="mt-space-sm flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-space-xs rounded-full shadow-md">
@@ -291,12 +291,12 @@ html.dark {
 <p class="font-title-md text-title-md text-tertiary font-bold mt-0.5">11 Des 2024</p>
 <span class="font-body-sm text-body-sm text-on-surface-variant">Maksimal 14 Hari</span>
 </div>
-<div class="bg-secondary-container/25 p-space-sm rounded-xl">
-<span class="font-label-sm text-label-sm text-on-secondary-container uppercase">Status RFID Tag</span>
-<p class="font-title-md text-title-md text-secondary font-bold mt-0.5 flex items-center gap-1">
-<span class="material-symbols-outlined text-[18px]">verified_user</span> Disah-kan
+<div class="bg-amber-100/50 p-space-sm rounded-xl border border-amber-200">
+<span class="font-label-sm text-label-sm text-amber-700 uppercase">Status RFID Tag</span>
+<p class="font-title-md text-title-md text-amber-600 font-bold mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">pending</span> Menunggu
           </p>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Gate Auto-Pass Ready</span>
+<span class="font-body-sm text-body-sm text-amber-700/80">Gate Auto-Pass Locked</span>
 </div>
 </div>
 </div>
