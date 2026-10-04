@@ -199,48 +199,75 @@ html.dark {
             </div>
         </div>
 
-        <div class="bg-surface-container-lowest rounded-3xl shadow-sm border border-surface-container-high overflow-hidden">
-            <div class="p-6 border-b border-surface-container-high flex items-center justify-between">
-                <h3 class="font-headline-sm text-on-surface">Daftar Buku Tersedia</h3>
-                <button type="button" onclick="toggleForm()" class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-title-md flex items-center gap-2 hover:bg-surface-tint transition-colors shadow-md">
+        <div class="flex flex-col rounded-3xl bg-white border-4 border-on-surface shadow-[8px_8px_0px_rgba(0,0,0,1)] overflow-hidden relative">
+            <div class="p-6 border-b-4 border-on-surface flex items-center justify-between bg-[#7ed957]">
+                <h3 class="font-headline-lg text-white font-black drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center gap-3 text-3xl">
+                    <div class="w-12 h-12 rounded-xl bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)]">
+                        <span class="material-symbols-outlined text-[28px]">auto_stories</span>
+                    </div>
+                    DAFTAR BUKU TERSEDIA
+                </h3>
+                <button type="button" onclick="toggleForm()" class="px-5 py-3 rounded-xl bg-[#ffde59] text-on-surface font-label-md font-black flex items-center gap-2 border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] transition-all uppercase">
                     <span class="material-symbols-outlined text-[20px]">add</span>
                     Buku Baru
                 </button>
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+            <div class="overflow-x-auto p-4 bg-[radial-gradient(#d1d5db_2px,transparent_2px)] [background-size:16px_16px]">
+                <table class="w-full text-left border-collapse border-spacing-y-2">
                     <thead>
-                        <tr class="bg-surface-container-low text-on-surface-variant font-label-md uppercase tracking-wider border-b border-surface-container-high">
-                            <th class="p-4 font-bold">Judul Buku</th>
-                            <th class="p-4 font-bold">Tipe</th>
-                            <th class="p-4 font-bold">Kategori</th>
-                            <th class="p-4 font-bold">Stok</th>
-                            <th class="p-4 font-bold">Aksi</th>
+                        <tr class="text-on-surface font-label-md uppercase tracking-wider bg-white border-4 border-on-surface">
+                            <th class="p-4 font-black">Judul Buku</th>
+                            <th class="p-4 font-black">Tipe</th>
+                            <th class="p-4 font-black">Kategori</th>
+                            <th class="p-4 font-black">Stok</th>
+                            <th class="p-4 font-black text-center">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-surface-container-high font-body-sm text-on-surface">
+                    <tbody class="font-body-sm text-on-surface space-y-4">
                         @forelse($books as $book)
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 font-title-md">{{ $book->title }}</td>
-                            <td class="p-4 font-body-md uppercase text-xs">{{ $book->type }}</td>
-                            <td class="p-4 text-on-surface-variant">{{ $book->category }}</td>
-                            <td class="p-4 text-on-surface-variant">{{ $book->stock }}</td>
-                            <td class="p-4 flex items-center gap-2">
-                                <a href="{{ route('admin.books.edit', $book->id) }}" class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary transition-colors flex items-center justify-center" title="Edit Buku">
-                                    <span class="material-symbols-outlined text-[18px]">edit</span>
-                                </a>
-                                <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="p-2 rounded-lg bg-error/10 hover:bg-error/20 text-error transition-colors flex items-center justify-center" title="Hapus Buku">
-                                        <span class="material-symbols-outlined text-[18px]">delete</span>
-                                    </button>
-                                </form>
+                        <tr class="bg-white border-4 border-on-surface hover:bg-[#38b6ff] transition-colors shadow-[4px_4px_0px_rgba(0,0,0,1)] rounded-xl group/row">
+                            <td class="p-4 font-title-md">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-lg bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] group-hover/row:scale-110 transition-transform">
+                                        <span class="material-symbols-outlined text-[24px]">book</span>
+                                    </div>
+                                    <span class="font-black text-lg">{{ $book->title }}</span>
+                                </div>
+                            </td>
+                            <td class="p-4 font-label-md uppercase font-black">
+                                @if($book->type == 'physical')
+                                    <span class="bg-[#38b6ff] px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] group-hover/row:bg-white group-hover/row:text-on-surface transition-colors">Fisik</span>
+                                @elseif($book->type == 'ebook')
+                                    <span class="bg-[#ff5757] text-white px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">Digital</span>
+                                @else
+                                    <span class="bg-[#cb6ce6] text-white px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">Mix</span>
+                                @endif
+                            </td>
+                            <td class="p-4 font-bold"><span class="bg-surface-container px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">{{ $book->category }}</span></td>
+                            <td class="p-4 font-black text-xl {{ $book->stock > 0 ? '' : 'text-[#ff5757]' }}">{{ $book->stock }}</td>
+                            <td class="p-4">
+                                <div class="flex items-center justify-center gap-2">
+                                    <a href="{{ route('admin.books.edit', $book->id) }}" class="w-10 h-10 rounded-xl bg-white border-4 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center justify-center text-on-surface hover:bg-[#ffde59] transition-colors" title="Edit Buku">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+                                    <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?');" class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="w-10 h-10 rounded-xl bg-[#ff5757] border-4 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center justify-center text-white hover:bg-[#ffde59] hover:text-on-surface transition-colors" title="Hapus Buku">
+                                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="p-4 text-center text-on-surface-variant">Belum ada data buku.</td>
+                            <td colspan="5" class="p-8 text-center text-on-surface bg-white border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black text-xl">
+                                <div class="flex flex-col items-center justify-center gap-4">
+                                    <span class="material-symbols-outlined text-[64px]">auto_stories</span>
+                                    <p>WADUH! BELUM ADA DATA BUKU!</p>
+                                </div>
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>

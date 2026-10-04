@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('xp')->default(0);
-            $table->integer('level')->default(1);
-            $table->integer('read_count')->default(0); // Buku Selesai
-            $table->decimal('reading_hours', 8, 2)->default(0); // Jam Total Membaca
-            $table->integer('reviews_count')->default(0); // Rating Ulasan
-            $table->integer('favorites_count')->default(0); // Item Koleksi Favorit
-            $table->integer('current_streak')->default(0);
-            $table->integer('highest_streak')->default(0);
-            $table->date('last_read_date')->nullable();
-        });
+        if (!Schema::hasColumn('users', 'xp')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->integer('xp')->default(0);
+                $table->integer('level')->default(1);
+                $table->integer('read_count')->default(0); // Buku Selesai
+                $table->decimal('reading_hours', 8, 2)->default(0); // Jam Total Membaca
+                $table->integer('reviews_count')->default(0); // Rating Ulasan
+                $table->integer('favorites_count')->default(0); // Item Koleksi Favorit
+                $table->integer('current_streak')->default(0);
+                $table->integer('highest_streak')->default(0);
+                $table->date('last_read_date')->nullable();
+            });
+        }
     }
 
     /**

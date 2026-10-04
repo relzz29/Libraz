@@ -118,38 +118,63 @@ html.dark {
     </div>
 </header>
 
-<main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-24 pb-8 px-6 bg-surface min-h-screen">
-    <div class="w-full mx-auto max-w-5xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-surface-container-lowest p-6 rounded-3xl border border-surface-container-high shadow-sm">
-                <h3 class="font-headline-sm text-on-surface mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[24px]">library_books</span> Ringkasan Buku</h3>
-                <p class="text-on-surface-variant text-sm mb-6">Total dan jenis buku yang ada di sistem.</p>
+<main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-24 pb-8 px-8 bg-surface min-h-screen">
+    <!-- Dotted background -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[radial-gradient(#d1d5db_2px,transparent_2px)] [background-size:24px_24px] opacity-40"></div>
+    
+    <div class="w-full mx-auto max-w-5xl relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Ringkasan Buku Card -->
+            <div class="bg-[#ffde59] p-8 rounded-2xl border-4 border-on-surface shadow-[8px_8px_0px_rgba(0,0,0,1)] relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 rounded-full blur-xl"></div>
+                <h3 class="font-headline-lg text-on-surface mb-1 flex items-center gap-4 text-3xl font-black drop-shadow-[2px_2px_0px_#fff]">
+                    <div class="w-14 h-14 rounded-xl bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:-rotate-12 transition-transform">
+                        <span class="material-symbols-outlined text-[32px]">library_books</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="uppercase">Ringkasan Buku</span>
+                        <span class="text-on-surface font-label-md font-bold text-sm mt-0.5 tracking-wider bg-white px-2 py-0.5 border-2 border-on-surface inline-block w-fit">TOTAL BUKU</span>
+                    </div>
+                </h3>
                 
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center p-4 bg-surface-container-low rounded-2xl">
-                        <span class="font-body-md text-on-surface font-semibold">Total Buku Tersimpan</span>
-                        <span class="font-headline-sm text-primary">{{ number_format($totalBooks) }}</span>
+                <div class="space-y-4 mt-8">
+                    <div class="flex justify-between items-center p-5 bg-white rounded-xl border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:translate-x-1 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] transition-all">
+                        <span class="font-label-md text-on-surface font-black uppercase text-lg flex items-center gap-3"><span class="text-3xl">📚</span> Buku Tersimpan</span>
+                        <span class="font-headline-lg text-3xl font-black bg-[#ffde59] border-4 border-on-surface px-5 py-1.5 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)]">{{ number_format($totalBooks) }}</span>
                     </div>
-                    <div class="flex justify-between items-center p-4 bg-surface-container-low rounded-2xl border-l-4 border-secondary">
-                        <span class="font-body-md text-on-surface font-semibold">Buku Fisik</span>
-                        <span class="font-headline-sm text-secondary">{{ number_format($totalPhysical) }}</span>
+                    <div class="flex justify-between items-center p-5 bg-white rounded-xl border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:translate-x-1 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] transition-all">
+                        <span class="font-label-md text-on-surface font-black uppercase text-lg flex items-center gap-3"><span class="text-3xl">📕</span> Buku Fisik</span>
+                        <span class="font-headline-lg text-3xl font-black bg-[#38b6ff] border-4 border-on-surface px-5 py-1.5 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white">{{ number_format($totalPhysical) }}</span>
                     </div>
-                    <div class="flex justify-between items-center p-4 bg-surface-container-low rounded-2xl border-l-4 border-surface-tint">
-                        <span class="font-body-md text-on-surface font-semibold">E-Book (Digital)</span>
-                        <span class="font-headline-sm text-surface-tint">{{ number_format($totalEbook) }}</span>
+                    <div class="flex justify-between items-center p-5 bg-white rounded-xl border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:translate-x-1 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] transition-all">
+                        <span class="font-label-md text-on-surface font-black uppercase text-lg flex items-center gap-3"><span class="text-3xl">📱</span> E-Book</span>
+                        <span class="font-headline-lg text-3xl font-black bg-[#ff5757] border-4 border-on-surface px-5 py-1.5 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white">{{ number_format($totalEbook) }}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-surface-container-lowest p-6 rounded-3xl border border-surface-container-high shadow-sm">
-                <h3 class="font-headline-sm text-on-surface mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[#d97706] text-[24px]">swap_horiz</span> Sirkulasi & Peminjaman</h3>
-                <p class="text-on-surface-variant text-sm mb-6">Informasi peminjaman dan lalu lintas buku.</p>
+            <!-- Sirkulasi & Peminjaman Card -->
+            <div class="bg-[#cb6ce6] p-8 rounded-2xl border-4 border-on-surface shadow-[8px_8px_0px_rgba(0,0,0,1)] relative overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/20 rounded-full blur-xl"></div>
                 
-                <div class="flex items-center justify-center p-8 bg-surface-container-low rounded-2xl h-[calc(100%-4rem)]">
-                    <div class="text-center">
-                        <span class="material-symbols-outlined text-[64px] text-surface-tint opacity-50 mb-4 block">sync_alt</span>
-                        <h4 class="font-headline-lg text-on-surface text-4xl mb-2">{{ number_format($totalBorrows) }}</h4>
-                        <p class="font-label-md text-on-surface-variant tracking-wider uppercase">Total Peminjaman (Riwayat)</p>
+                <h3 class="font-headline-lg text-white mb-1 flex items-center gap-4 text-3xl font-black drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                    <div class="w-14 h-14 rounded-xl bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:-rotate-12 transition-transform">
+                        <span class="material-symbols-outlined text-[32px]">swap_horiz</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="uppercase">Sirkulasi</span>
+                        <span class="text-on-surface font-label-md font-bold text-sm mt-0.5 tracking-wider bg-[#ffde59] px-2 py-0.5 border-2 border-on-surface inline-block w-fit text-black drop-shadow-none">PEMINJAMAN</span>
+                    </div>
+                </h3>
+                
+                <div class="flex-1 flex items-center justify-center p-8 mt-6 bg-white rounded-xl border-4 border-on-surface shadow-inner relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[radial-gradient(#d1d5db_2px,transparent_2px)] [background-size:16px_16px] opacity-30"></div>
+                    <div class="relative z-10 text-center flex flex-col items-center">
+                        <div class="w-24 h-24 rounded-full bg-[#38b6ff] flex items-center justify-center mb-6 border-4 border-on-surface group-hover:rotate-180 transition-transform duration-700 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
+                            <span class="material-symbols-outlined text-[48px] text-white">sync_alt</span>
+                        </div>
+                        <h4 class="font-headline-lg text-8xl mb-4 text-on-surface font-black drop-shadow-[4px_4px_0px_#cb6ce6]">{{ number_format($totalBorrows) }}</h4>
+                        <p class="font-label-md text-on-surface bg-[#ffde59] px-6 py-2 rounded-lg border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] uppercase tracking-widest font-black text-xl hover:-translate-y-1 transition-transform">Total Peminjaman</p>
                     </div>
                 </div>
             </div>
