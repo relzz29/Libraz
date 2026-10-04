@@ -276,6 +276,29 @@ html.dark {
 
 <input type="file" id="fileUpload" style="opacity: 0; position: absolute; z-index: -1;" accept="image/*" />
 
+<!-- Camera Modal -->
+<div id="cameraModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+  <div id="cameraBackdrop" class="absolute inset-0 bg-on-surface/40 backdrop-blur-sm cursor-pointer"></div>
+  <div class="relative bg-surface-container-lowest rounded-[32px] w-[90%] max-w-lg p-space-lg shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-surface-container-highest transform scale-95 transition-transform duration-300 flex flex-col items-center">
+    <div class="w-full flex justify-between items-center mb-4">
+      <h3 class="font-headline-sm text-headline-sm text-on-surface">Ambil Foto Profil</h3>
+      <button id="btnCancelCameraIcon" class="text-on-surface-variant hover:text-error transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="w-full bg-black rounded-2xl overflow-hidden aspect-square sm:aspect-video flex items-center justify-center relative mb-4">
+        <video id="cameraVideo" class="w-full h-full object-cover scale-x-[-1]" autoplay playsinline></video>
+    </div>
+    <canvas id="cameraCanvas" class="hidden"></canvas>
+    <div class="flex items-center gap-space-sm w-full">
+      <button id="btnCancelCamera" class="flex-1 py-3 rounded-2xl bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors border border-surface-container-highest" type="button">Batal</button>
+      <button id="btnCapture" class="flex-1 py-3 rounded-2xl bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md transition-colors shadow-md shadow-primary/20 flex items-center justify-center gap-2" type="button">
+        <span class="material-symbols-outlined text-[20px]">photo_camera</span> Jepret
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Logout Confirmation Modal -->
 <div id="logoutModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
   <div id="logoutBackdrop" class="absolute inset-0 bg-on-surface/40 backdrop-blur-sm cursor-pointer"></div>
@@ -369,13 +392,92 @@ html.dark {
     // 2. Event Listeners untuk Tombol Profil
     if (btnGaleri) {
       btnGaleri.addEventListener('click', () => {
+        fileUpload.removeAttribute('capture');
         fileUpload.click();
       });
     }
 
+    // Camera Implementation (Webcam for desktop, Native for mobile)
+    const cameraModal = document.getElementById('cameraModal');
+    const cameraVideo = document.getElementById('cameraVideo');
+    const cameraCanvas = document.getElementById('cameraCanvas');
+    const btnCancelCamera = document.getElementById('btnCancelCamera');
+    const btnCancelCameraIcon = document.getElementById('btnCancelCameraIcon');
+    const btnCapture = document.getElementById('btnCapture');
+    let cameraStream = null;
+
+    const stopCamera = () => {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+      }
+      if (cameraVideo) cameraVideo.srcObject = null;
+    };
+
+    const toggleCameraModal = (show) => {
+        if (!cameraModal) return;
+        if (show) {
+            cameraModal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                cameraModal.classList.remove('opacity-0');
+                cameraModal.querySelector('.relative').classList.remove('scale-95');
+                cameraModal.querySelector('.relative').classList.add('scale-100');
+            });
+        } else {
+            cameraModal.classList.add('opacity-0');
+            cameraModal.querySelector('.relative').classList.remove('scale-100');
+            cameraModal.querySelector('.relative').classList.add('scale-95');
+            setTimeout(() => {
+                cameraModal.classList.add('hidden');
+                stopCamera();
+            }, 300);
+        }
+    };
+
     if (btnCamera) {
-      btnCamera.addEventListener('click', () => {
-        fileUpload.click();
+      btnCamera.addEventListener('click', async () => {
+        // Check if device is mobile
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+          // Native camera file input is better on mobile
+          fileUpload.setAttribute('capture', 'user');
+          fileUpload.click();
+        } else {
+          // Open Webcam Modal on Desktop/Laptop
+          try {
+            cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+            cameraVideo.srcObject = cameraStream;
+            toggleCameraModal(true);
+          } catch (err) {
+            console.error("Camera error:", err);
+            alert("Tidak dapat mengakses kamera. Pastikan memberikan izin akses kamera di browser Anda.");
+          }
+        }
+      });
+    }
+
+    const closeCameraHandler = () => toggleCameraModal(false);
+    if (btnCancelCamera) btnCancelCamera.addEventListener('click', closeCameraHandler);
+    if (btnCancelCameraIcon) btnCancelCameraIcon.addEventListener('click', closeCameraHandler);
+    
+    if (btnCapture) {
+      btnCapture.addEventListener('click', () => {
+        if (cameraStream && cameraVideo) {
+          const context = cameraCanvas.getContext('2d');
+          cameraCanvas.width = cameraVideo.videoWidth;
+          cameraCanvas.height = cameraVideo.videoHeight;
+          
+          // Mirror horizontal untuk selfie/webcam
+          context.translate(cameraCanvas.width, 0);
+          context.scale(-1, 1);
+          context.drawImage(cameraVideo, 0, 0, cameraCanvas.width, cameraCanvas.height);
+          
+          const dataUrl = cameraCanvas.toDataURL('image/jpeg', 0.9);
+          profileImage.src = dataUrl;
+          
+          toggleCameraModal(false);
+        }
       });
     }
 
