@@ -167,7 +167,7 @@ html.dark {
 <div class="flex flex-col space-y-1.5">
 <label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider ml-2" for="student-school">Asal Sekolah</label>
 <div class="relative flex items-center">
-<input class="w-full bg-surface-container-lowest border-2 border-surface-container-high rounded-[20px] px-space-lg py-3.5 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all" id="student-school" type="text" value="SMAN 1 Garudapura"/>
+<input class="w-full bg-surface-container-lowest border-2 border-surface-container-high rounded-[20px] px-space-lg py-3.5 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all" id="student-school" type="text" value="" placeholder="contoh: SMKN 1 CIOMAS"/>
 <span class="material-symbols-outlined text-primary absolute right-space-md text-[20px]">edit</span>
 </div>
 </div>
@@ -224,25 +224,25 @@ html.dark {
 <!-- Selected Tags -->
 <div class="flex flex-col space-y-space-sm">
 <span class="font-label-sm text-label-sm uppercase text-primary font-extrabold tracking-wider ml-1">Genre Favorit Kamu 💖</span>
-<div class="flex flex-wrap gap-2">
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-primary to-surface-tint text-on-primary font-label-md text-label-md active:scale-95 transition-all shadow-md shadow-primary/30" type="button">
-<span class="text-base">🚀</span> Sains &amp; Astronomi
-          <span class="material-symbols-outlined text-[16px] font-bold">check</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-primary to-surface-tint text-on-primary font-label-md text-label-md active:scale-95 transition-all shadow-md shadow-primary/30" type="button">
-<span class="text-base">💡</span> Filosofi &amp; Mindset
-          <span class="material-symbols-outlined text-[16px] font-bold">check</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-primary to-surface-tint text-on-primary font-label-md text-label-md active:scale-95 transition-all shadow-md shadow-primary/30" type="button">
-<span class="text-base">📖</span> Sastra &amp; Fiksi
-          <span class="material-symbols-outlined text-[16px] font-bold">check</span>
-</button>
+<div class="flex flex-wrap gap-2" id="selected-genres-container">
 </div>
 </div>
 <!-- Unselected Tags -->
 <div class="flex flex-col space-y-space-sm pt-space-xs">
 <span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-bold tracking-wider ml-1">Eksplor Genre Lain 👀</span>
-<div class="flex flex-wrap gap-2">
+<div class="flex flex-wrap gap-2" id="unselected-genres-container">
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
+<span class="text-base">🚀</span> Sains &amp; Astronomi
+          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
+<span class="text-base">💡</span> Filosofi &amp; Mindset
+          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
+<span class="text-base">📖</span> Sastra &amp; Fiksi
+          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
+</button>
 <button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
 <span class="text-base">🤖</span> Teknologi &amp; AI
           <span class="material-symbols-outlined text-[16px] text-outline">add</span>
@@ -341,7 +341,9 @@ html.dark {
 
         if (elName) elName.value = user.name;
         if (elNis) elNis.value = `${user.nis} XII MIPA 2`;
-        if (elSchool) elSchool.value = user.school_name || 'SMAN 1 Garudapura';
+        if (elSchool) {
+            elSchool.value = (user.school_name && user.school_name !== 'Asal Sekolah Default' && user.school_name !== 'SMAN 1 GARUDAPURA') ? user.school_name : '';
+        }
         if (elBio) elBio.value = user.bio || '';
         if (elWa) elWa.value = user.whatsapp_number || '';
         if (elEmail) elEmail.value = user.email || '';
@@ -444,14 +446,16 @@ html.dark {
             })
           });
           if (response.ok) {
-            btnText.textContent = 'Berhasil Disimpan!';
+            btnText.textContent = 'Berhasil Disimpan! Mengalihkan...';
             
             // Perbarui UI secara langsung
             if (profileImage && !avatarData) {
                profileImage.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(newName) + '&background=random&color=fff&size=150';
             }
 
-            setTimeout(() => { btnText.textContent = originalText; }, 2000);
+            setTimeout(() => { 
+                window.location.href = "{{ route('akun') }}";
+            }, 1000);
           } else {
             const errorData = await response.json();
             console.error('Validation Error:', errorData);
@@ -635,6 +639,38 @@ html.dark {
             }
         }
     });
+
+    // 7. Genre Toggle Logic
+    const selectedGenresContainer = document.getElementById('selected-genres-container');
+    const unselectedGenresContainer = document.getElementById('unselected-genres-container');
+
+    const toggleGenre = (button, isSelected) => {
+        if (isSelected) {
+            // Move to unselected
+            button.className = 'inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest';
+            button.querySelector('.material-symbols-outlined').textContent = 'add';
+            button.querySelector('.material-symbols-outlined').className = 'material-symbols-outlined text-[16px] text-outline';
+            unselectedGenresContainer.appendChild(button);
+        } else {
+            // Move to selected
+            button.className = 'inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-primary to-surface-tint text-on-primary font-label-md text-label-md active:scale-95 transition-all shadow-md shadow-primary/30';
+            button.querySelector('.material-symbols-outlined').textContent = 'check';
+            button.querySelector('.material-symbols-outlined').className = 'material-symbols-outlined text-[16px] font-bold';
+            selectedGenresContainer.appendChild(button);
+        }
+    };
+
+    if (selectedGenresContainer && unselectedGenresContainer) {
+        selectedGenresContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (btn) toggleGenre(btn, true);
+        });
+
+        unselectedGenresContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (btn) toggleGenre(btn, false);
+        });
+    }
   });
 </script>
 </body></html>
