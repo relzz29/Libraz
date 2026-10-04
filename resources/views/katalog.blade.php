@@ -238,10 +238,17 @@ html.dark {
 <!-- Action Buttons -->
 <div class="grid grid-cols-2 gap-space-sm pt-space-xs">
 @if($book->type == 'physical' || $book->type == 'both')
+@if($book->stock > 0)
 <button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="openBorrowModal('{{ $book->id }}', '{{ addslashes($book->title) }}', '{{ addslashes($book->author) }}', '{{ $book->cover_image_url ? asset($book->cover_image_url) : '' }}', '{{ $book->rack }}', '{{ $book->category }}')">
 <span class="material-symbols-outlined text-[18px]">touch_app</span>
         Pinjam Mandiri
       </button>
+@else
+<button class="h-10 px-3 rounded-lg bg-surface-container-high text-on-surface-variant font-label-md text-label-md flex items-center justify-center gap-1.5 cursor-not-allowed opacity-70" disabled>
+<span class="material-symbols-outlined text-[18px]">block</span>
+        Stok Habis
+      </button>
+@endif
 @endif
 @if($book->type == 'ebook' || $book->type == 'both')
 <a href="{{ route('baca.ebook', $book->id) }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
@@ -385,13 +392,13 @@ html.dark {
 <!-- Circulation Details Grid -->
 <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100 mb-4 flex flex-col gap-3">
 <div class="grid grid-cols-2 gap-3">
-<div class="flex flex-col bg-white p-2.5 rounded-xl border border-slate-100 shadow-sm">
+<div class="flex flex-col bg-white p-2.5 rounded-xl border border-slate-100 shadow-sm justify-center">
 <span class="text-[11px] text-slate-400 font-medium">Tanggal Pinjam</span>
-<span class="text-[13px] font-bold text-slate-800 mt-0.5">Hari Ini (27 Nov)</span>
+<span class="text-[13px] font-bold text-slate-800 mt-0.5" id="today_date">Hari Ini</span>
 </div>
-<div class="flex flex-col bg-white p-2.5 rounded-xl border border-purple-100 shadow-sm">
-<span class="text-[11px] text-purple-600 font-medium">Tenggat Kembali</span>
-<span class="text-[13px] font-bold text-purple-700 mt-0.5">11 Des 2024 <span class="text-[10px] text-purple-500 font-normal">(14 Hari)</span></span>
+<div class="flex flex-col bg-white p-2.5 rounded-xl border border-purple-200 shadow-sm">
+<label for="return_date" class="text-[11px] text-purple-600 font-medium mb-1">Tenggat Kembali (Pilih)</label>
+<input type="date" name="return_date" id="return_date" required class="text-[13px] font-bold text-purple-700 bg-purple-50 border border-purple-100 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-purple-500 w-full" onchange="updateDendaText()">
 </div>
 </div>
 <!-- Borrowing Quota Progress -->
@@ -413,7 +420,7 @@ html.dark {
 </div>
 <div class="flex items-start gap-2 text-xs text-slate-700 leading-tight">
 <span class="material-symbols-outlined text-[16px] text-amber-600 flex-shrink-0 mt-0.5">schedule</span>
-<span>Denda keterlambatan <strong>Rp 1.000 / hari</strong> jika lewat dari 11 Des 2024.</span>
+<span>Denda keterlambatan <strong>Rp 1.000 / hari</strong> jika lewat dari <strong id="denda_date_text">Tenggat</strong>.</span>
 </div>
 <div class="flex items-start gap-2 text-xs text-slate-700 leading-tight">
 <span class="material-symbols-outlined text-[16px] text-emerald-600 flex-shrink-0 mt-0.5">update</span>
@@ -476,6 +483,15 @@ html.dark {
   });
 </script>
 <script>
+  function updateDendaText() {
+    const returnDateInput = document.getElementById('return_date').value;
+    if (returnDateInput) {
+      const dateObj = new Date(returnDateInput);
+      const options = { day: 'numeric', month: 'short', year: 'numeric' };
+      document.getElementById('denda_date_text').innerText = dateObj.toLocaleDateString('id-ID', options);
+    }
+  }
+
   function openBorrowModal(id, title, author, cover, rack, category) {
     document.getElementById('modal_book_id').value = id;
     document.getElementById('modal_title').innerText = title;
@@ -483,6 +499,26 @@ html.dark {
     document.getElementById('modal_cover').src = cover;
     document.getElementById('modal_rack').innerText = 'Rak: ' + rack;
     document.getElementById('modal_category').innerText = category;
+    
+    // Set dates
+    const today = new Date();
+    const options = { day: 'numeric', month: 'short' };
+    document.getElementById('today_date').innerText = 'Hari Ini (' + today.toLocaleDateString('id-ID', options) + ')';
+    
+    // Default return date (e.g. 7 days from now)
+    const defaultReturn = new Date();
+    defaultReturn.setDate(defaultReturn.getDate() + 7);
+    
+    // Min return date (tomorrow)
+    const minReturn = new Date();
+    minReturn.setDate(minReturn.getDate() + 1);
+    
+    const returnInput = document.getElementById('return_date');
+    returnInput.min = minReturn.toISOString().split('T')[0];
+    returnInput.value = defaultReturn.toISOString().split('T')[0];
+    
+    updateDendaText();
+    
     document.getElementById('borrowConfirmationModal').classList.remove('hidden');
   }
 </script>
