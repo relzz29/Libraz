@@ -358,7 +358,7 @@ html.dark {
                       <span class="material-symbols-outlined text-[18px]">task_alt</span>
                       Selesai
                     </button>
-                    <button class="flex-1 bg-secondary text-on-secondary px-2 py-2.5 rounded-xl font-label-md text-label-md flex items-center justify-center gap-1 shadow-[2px_2px_0px_#1c1b20] active:translate-y-0.5 transition-all ${!isRenewable ? 'opacity-50 cursor-not-allowed' : 'hover:bg-secondary-fixed-dim'}" ${!isRenewable ? 'disabled' : ''}>
+                    <button onclick="perpanjangWaktu(${borrowing.id})" class="flex-1 bg-secondary text-on-secondary px-2 py-2.5 rounded-xl font-label-md text-label-md flex items-center justify-center gap-1 shadow-[2px_2px_0px_#1c1b20] active:translate-y-0.5 transition-all ${!isRenewable ? 'opacity-50 cursor-not-allowed' : 'hover:bg-secondary-fixed-dim'}" ${!isRenewable ? 'disabled' : ''}>
                       <span class="material-symbols-outlined text-[18px]">sync</span>
                       Perpanjang
                     </button>
@@ -514,6 +514,34 @@ html.dark {
                     showSuccessModal(50, data.message, () => {
                         window.location.reload();
                     });
+                } else {
+                    alert('Gagal: ' + data.message);
+                }
+            } catch(e) {
+                console.error(e);
+                alert('Terjadi kesalahan jaringan.');
+            }
+          }
+        );
+    }
+
+    window.perpanjangWaktu = function(id) {
+        showConfirmModal(
+          'Perpanjang Waktu?', 
+          'Ingin memperpanjang waktu peminjaman buku ini selama 7 hari ke depan?', 
+          async () => {
+            try {
+                const response = await fetch('/perpanjang/' + id, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('auth_token'),
+                        'Accept': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                if(data.success) {
+                    alert(data.message);
+                    window.location.reload();
                 } else {
                     alert('Gagal: ' + data.message);
                 }

@@ -178,6 +178,30 @@ Route::get('/selesai-baca/{borrow_id}', function ($borrow_id) {
     return response()->json(['success' => false, 'message' => 'Data tidak ditemukan']);
 });
 
+Route::get('/perpanjang/{borrow_id}', function ($borrow_id) {
+    $user = auth()->user();
+    if (!$user) return response()->json(['success' => false]);
+
+    $borrow = \App\Models\Borrowing::where('id', $borrow_id)
+                ->where('user_id', $user->id)
+                ->whereNull('returned_at')
+                ->first();
+
+    if ($borrow) {
+        if ($borrow->renew_count >= 1) {
+            return response()->json(['success' => false, 'message' => 'Buku ini sudah pernah diperpanjang sebelumnya.']);
+        }
+        
+        $borrow->due_date = \Carbon\Carbon::parse($borrow->due_date)->addDays(7);
+        $borrow->increment('renew_count', 1);
+        $borrow->save();
+
+        return response()->json(['success' => true, 'message' => 'Waktu peminjaman berhasil diperpanjang 7 hari!']);
+    }
+
+    return response()->json(['success' => false, 'message' => 'Data tidak ditemukan']);
+});
+
 require __DIR__.'/auth.php';
 
 use App\Http\Controllers\AdminBookController;
