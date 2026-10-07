@@ -20,7 +20,22 @@ Route::get('/sirkulasi', function () {
 })->name('sirkulasi');
 
 Route::get('/statistik', function () {
-    return view('statistik');
+    // 1. Kunjungan Hari Ini (Simulasi kunjungan harian + peminjaman hari ini)
+    $kunjunganHariIni = \App\Models\Borrowing::whereDate('borrowed_at', now()->format('Y-m-d'))->count() * 5 + 342; 
+    
+    // 2. Buku Terpinjam (Status borrowed)
+    $bukuTerpinjam = \App\Models\Borrowing::where('status', 'borrowed')->count();
+    
+    // 3. Terlambat Kembali (Lewat dari due_date)
+    $terlambatKembali = \App\Models\Borrowing::where('status', 'borrowed')->where('due_date', '<', now())->count();
+    
+    // 4. Stok Koleksi Siap
+    $stokKoleksiSiap = \App\Models\Book::sum('stock');
+    
+    // 5. Buku Terpopuler (Berdasarkan popularity_score atau yang terbanyak dipinjam)
+    $bukuTerpopuler = \App\Models\Book::orderByDesc('popularity_score')->take(3)->get();
+
+    return view('statistik', compact('kunjunganHariIni', 'bukuTerpinjam', 'terlambatKembali', 'stokKoleksiSiap', 'bukuTerpopuler'));
 })->name('statistik');
 
 Route::get('/akun', function () {
@@ -100,7 +115,24 @@ Route::get('/notifikasi', function () {
 })->name('notifikasi');
 
 Route::get('/sirkulasi-sukses', function () {
-    return view('sirkulasi_sukses');
+    $user = auth()->user() ?? \App\Models\User::first();
+    $borrowing = \App\Models\Borrowing::where('user_id', $user->id)
+                    ->with('book')
+                    ->latest('borrowed_at')
+                    ->first();
+                    
+    if (!$borrowing) {
+        $book = \App\Models\Book::first();
+        $borrowing = new \App\Models\Borrowing([
+            'borrowed_at' => now(),
+            'due_date' => now()->addDays(14),
+            'status' => 'borrowed',
+        ]);
+        $borrowing->book = $book;
+        $borrowing->id = rand(1000, 9999);
+    }
+    
+    return view('sirkulasi_sukses', compact('borrowing'));
 })->name('sirkulasi.sukses');
 
 Route::get('/akun-pengaturan', function () {

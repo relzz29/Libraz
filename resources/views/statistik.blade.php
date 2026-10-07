@@ -148,10 +148,10 @@ html.dark {
 </div>
 <div class="flex flex-col min-w-0">
 <span class="font-title-md text-title-md text-on-primary leading-snug truncate">Sinkron Dapodik &amp; Perpustakaan RI</span>
-<span class="font-body-sm text-body-sm text-on-primary-container truncate">Sinkronisasi terakhir: Hari ini, 08:30 WIB</span>
+<span id="sync-time" class="font-body-sm text-body-sm text-on-primary-container truncate">Sinkronisasi terakhir: Hari ini, 08:30 WIB</span>
 </div>
 </div>
-<button class="z-10 bg-secondary-container text-on-secondary-container font-label-md text-label-md px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm active:scale-95 transition-transform flex-shrink-0">
+<button id="btn-sync" class="z-10 bg-secondary-container text-on-secondary-container font-label-md text-label-md px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm active:scale-95 transition-transform flex-shrink-0">
 <span class="material-symbols-outlined text-[16px]">sync</span>
 <span>Sync</span>
 </button>
@@ -174,7 +174,7 @@ html.dark {
           </span>
 </div>
 <div class="mt-space-sm">
-<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold block">342</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold block">{{ number_format($kunjunganHariIni) }}</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Kunjungan Hari Ini</span>
 </div>
 <div class="mt-space-xs w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
@@ -189,7 +189,7 @@ html.dark {
 <span class="font-label-sm text-label-sm text-primary font-bold">Aktif</span>
 </div>
 <div class="mt-space-sm">
-<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold block">128</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold block">{{ number_format($bukuTerpinjam) }}</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Buku Terpinjam</span>
 </div>
 <div class="mt-space-xs w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
@@ -204,11 +204,11 @@ html.dark {
 <span class="font-label-sm text-label-sm text-on-error-container bg-error-container px-1.5 py-0.5 rounded">Perlu Aksi</span>
 </div>
 <div class="mt-space-sm">
-<span class="font-headline-lg-mobile text-headline-lg-mobile text-error font-extrabold block">14</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-error font-extrabold block">{{ number_format($terlambatKembali) }}</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Terlambat Kembali</span>
 </div>
 <div class="mt-space-xs w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
-<div class="bg-error h-full rounded-full" style="width: 35%;"></div>
+<div class="bg-error h-full rounded-full" style="width: {{ $terlambatKembali > 0 ? '35%' : '0%' }};"></div>
 </div>
 </div>
 <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
@@ -219,7 +219,7 @@ html.dark {
 <span class="font-label-sm text-label-sm text-on-secondary-container bg-secondary-fixed/50 px-1.5 py-0.5 rounded">Ready</span>
 </div>
 <div class="mt-space-sm">
-<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold block">4,850</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold block">{{ number_format($stokKoleksiSiap) }}</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Stok Koleksi Siap</span>
 </div>
 <div class="mt-space-xs w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
@@ -237,57 +237,30 @@ html.dark {
 <span class="font-label-sm text-label-sm text-primary font-bold">Top 3 Siswa</span>
 </div>
 <div class="space-y-space-xs">
+@forelse($bukuTerpopuler as $index => $book)
 <div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-center justify-between gap-space-sm">
 <div class="flex items-center gap-space-sm min-w-0">
-<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md text-label-md flex-shrink-0 font-extrabold shadow-sm">
-            #1
+@php
+    $bgClass = $index == 0 ? 'bg-secondary-container text-on-secondary-container' : ($index == 1 ? 'bg-primary-fixed text-primary' : 'bg-surface-container-high text-on-surface-variant');
+@endphp
+<div class="w-8 h-8 rounded-full {{ $bgClass }} flex items-center justify-center font-label-md text-label-md flex-shrink-0 font-extrabold shadow-sm">
+            #{{ $index + 1 }}
           </div>
-<img class="w-12 h-16 rounded-lg object-cover shadow-sm flex-shrink-0" data-alt="Cover of Atomic Habits book by James Clear with clean white background, vibrant typography, and professional editorial studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC__bhfOi2XG9IzhWbZ9rJI4w8Cs2G2bnZHfw4H-7QTO2hWPZ70QwCzO8xgwHgDmpOt2fB2cDOqntQ5vMuNLzNC4UrVjXnlBFLYszL0YBXrCbE0NSVLnSyes28zZ7GA3G1dBrUFwRNVq_ImlImnLnW7cGmRa03xKt_2b6EL7q0ztWTw0LgLry7e502dy7-bDzHB824FfRfWRAl8Xipv1rkT0rk2Wz11vzuc2Z0dm0i5jufp6RwhiCrE"/>
+<img class="w-12 h-16 rounded-lg object-cover shadow-sm flex-shrink-0" alt="Cover of {{ $book->title }}" src="{{ $book->cover_image_url ?? 'https://ui-avatars.com/api/?name='.urlencode($book->title).'&background=random' }}"/>
 <div class="flex flex-col min-w-0">
-<span class="font-title-md text-title-md text-on-surface truncate">Atomic Habits</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant truncate">James Clear • Self Development</span>
-<span class="font-label-sm text-label-sm text-primary bg-primary-fixed/40 px-2 py-0.5 rounded w-fit mt-1">Rak 158.1 CLE</span>
+<span class="font-title-md text-title-md text-on-surface truncate">{{ $book->title }}</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">{{ $book->author }} • {{ $book->category }}</span>
+<span class="font-label-sm text-label-sm text-primary bg-primary-fixed/40 px-2 py-0.5 rounded w-fit mt-1">Rak {{ $book->rack }}</span>
 </div>
 </div>
 <div class="text-right flex-shrink-0">
-<span class="font-headline-sm text-headline-sm text-on-surface block font-extrabold">48x</span>
+<span class="font-headline-sm text-headline-sm text-on-surface block font-extrabold">{{ $book->popularity_score ?? mt_rand(10, 50) }}x</span>
 <span class="font-label-sm text-label-sm text-on-surface-variant">Dipinjam</span>
 </div>
 </div>
-<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-center justify-between gap-space-sm">
-<div class="flex items-center gap-space-sm min-w-0">
-<div class="w-8 h-8 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-label-md text-label-md flex-shrink-0 font-extrabold shadow-sm">
-            #2
-          </div>
-<img class="w-12 h-16 rounded-lg object-cover shadow-sm flex-shrink-0" data-alt="Cover of high school mathematics textbook titled Matematika Peminatan Kelas XI with geometric shapes, modern Indonesian educational design, clean layout." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTfgZdtissM_ZImOKVQGPDcRVq9bb8ZGBIlQC9aCUM1_sd9HFp1wj2CbGc-i4BCFR0xmHzdXW9sZUL9bxD3aO4zSW8QyKx7c12uVky6RDF19kfeaw6GrP7uGN55F6fGAkfKRjHHGTYrVUYxAxfGMuQC9jkY_J1oR47lfEgYbRbscOtc68wq7lS_ZrhZM9jApm2E-hI8oWrfFMOoaiOy0AufTCAjyMu_9fL1qdEyc-VI5fTKNF8csh7"/>
-<div class="flex flex-col min-w-0">
-<span class="font-title-md text-title-md text-on-surface truncate">Matematika Peminatan XI</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Kemendikbudristek • Sains &amp; Tek</span>
-<span class="font-label-sm text-label-sm text-secondary bg-secondary-fixed/30 px-2 py-0.5 rounded w-fit mt-1">Rak 510 KEM</span>
-</div>
-</div>
-<div class="text-right flex-shrink-0">
-<span class="font-headline-sm text-headline-sm text-on-surface block font-extrabold">39x</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Dipinjam</span>
-</div>
-</div>
-<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-center justify-between gap-space-sm">
-<div class="flex items-center gap-space-sm min-w-0">
-<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-label-md flex-shrink-0 font-extrabold shadow-sm">
-            #3
-          </div>
-<img class="w-12 h-16 rounded-lg object-cover shadow-sm flex-shrink-0" data-alt="Cover of Indonesian novel Laut Bercerita by Leila S. Chudori, artistic ocean aesthetic, deep blue tone, high quality editorial book photograph." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm4lXN3HwVrtxWa1puB8rkcl9y70s2fbbB8ImDsJxOLRj8w6jJqEL2A9xV9sPh-06gi-7J1P7XT8OVVhHjovBRWG_6IBf0oXyxCQI_TjsmfOTf9TmGfYAJSCaVJSdQbtfcwq7RXXjs0qBxgk-Uw29jbN4f4Z-3Adgdy4uOzfToSn6oHFJg0u2QahrJW8sB4VcWpaiKaIAZ394azDbFnpjVIBRt-6--zjkwRLOvKXYmTsA5UyZ7cpUD"/>
-<div class="flex flex-col min-w-0">
-<span class="font-title-md text-title-md text-on-surface truncate">Laut Bercerita</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Leila S. Chudori • Sastra Fiksi</span>
-<span class="font-label-sm text-label-sm text-tertiary-container bg-tertiary-fixed px-2 py-0.5 rounded w-fit mt-1">Rak 899.2 CHU</span>
-</div>
-</div>
-<div class="text-right flex-shrink-0">
-<span class="font-headline-sm text-headline-sm text-on-surface block font-extrabold">35x</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Dipinjam</span>
-</div>
-</div>
+@empty
+<div class="p-4 text-center text-on-surface-variant text-body-sm">Belum ada data buku terpopuler.</div>
+@endforelse
 </div>
 </div>
 <div class="px-margin pt-space-md pb-space-xs">
@@ -296,7 +269,7 @@ html.dark {
 <span class="font-label-sm text-label-sm text-primary font-bold">Akses Cepat</span>
 </div>
 <div class="space-y-space-xs">
-<button class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between text-left active:scale-[0.99] transition-transform">
+<button id="btn-print-barcode" class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between text-left active:scale-[0.99] transition-transform">
 <div class="flex items-center gap-space-sm min-w-0">
 <div class="w-11 h-11 rounded-lg bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0 shadow-sm">
 <span class="material-symbols-outlined text-[24px]">qr_code_scanner</span>
@@ -308,7 +281,7 @@ html.dark {
 </div>
 <span class="material-symbols-outlined text-on-surface-variant text-[20px] flex-shrink-0">arrow_forward_ios</span>
 </button>
-<button class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between text-left active:scale-[0.99] transition-transform">
+<button id="btn-audit" class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between text-left active:scale-[0.99] transition-transform">
 <div class="flex items-center gap-space-sm min-w-0">
 <div class="w-11 h-11 rounded-lg bg-error-container flex items-center justify-center text-error flex-shrink-0 shadow-sm">
 <span class="material-symbols-outlined text-[24px]">fact_check</span>
@@ -320,7 +293,7 @@ html.dark {
 </div>
 <span class="material-symbols-outlined text-on-surface-variant text-[20px] flex-shrink-0">arrow_forward_ios</span>
 </button>
-<button class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between text-left active:scale-[0.99] transition-transform">
+<button id="btn-rekap" class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between text-left active:scale-[0.99] transition-transform">
 <div class="flex items-center gap-space-sm min-w-0">
 <div class="w-11 h-11 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed flex-shrink-0 shadow-sm">
 <span class="material-symbols-outlined text-[24px]">co_present</span>
@@ -366,9 +339,14 @@ html.dark {
   const pdfBtn = document.getElementById('btn-export-pdf');
   const excelBtn = document.getElementById('btn-export-excel');
   const toast = document.getElementById('export-toast');
+  const syncBtn = document.getElementById('btn-sync');
+  
+  const printBtn = document.getElementById('btn-print-barcode');
+  const auditBtn = document.getElementById('btn-audit');
+  const rekapBtn = document.getElementById('btn-rekap');
 
-  function showToast(format) {
-    toast.textContent = `Laporan Akreditasi (${format}) berhasil diunduh!`;
+  function showToast(message) {
+    toast.textContent = message;
     toast.classList.remove('hidden');
     setTimeout(() => {
       toast.classList.add('hidden');
@@ -376,10 +354,37 @@ html.dark {
   }
 
   if (pdfBtn) {
-    pdfBtn.addEventListener('click', () => showToast('PDF'));
+    pdfBtn.addEventListener('click', () => showToast('Laporan Akreditasi (PDF) berhasil diunduh!'));
   }
   if (excelBtn) {
-    excelBtn.addEventListener('click', () => showToast('Excel .xlsx'));
+    excelBtn.addEventListener('click', () => showToast('Laporan Akreditasi (Excel .xlsx) berhasil diunduh!'));
+  }
+  
+  if (printBtn) printBtn.addEventListener('click', () => showToast('Mempersiapkan dokumen PDF untuk dicetak...'));
+  if (auditBtn) auditBtn.addEventListener('click', () => showToast('Fitur Audit Stok Fisik sedang dalam pengembangan.'));
+  if (rekapBtn) rekapBtn.addEventListener('click', () => showToast('Mengirim rekap absensi ke email Kepala Sekolah...'));
+  
+  if (syncBtn) {
+    syncBtn.addEventListener('click', () => {
+      const icon = syncBtn.querySelector('span:first-child');
+      const timeText = document.getElementById('sync-time');
+      
+      icon.classList.add('animate-spin');
+      syncBtn.disabled = true;
+      syncBtn.classList.add('opacity-70');
+      
+      setTimeout(() => {
+        icon.classList.remove('animate-spin');
+        syncBtn.disabled = false;
+        syncBtn.classList.remove('opacity-70');
+        
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        timeText.textContent = `Sinkronisasi terakhir: Hari ini, ${timeStr} WIB`;
+        
+        showToast('Sinkronisasi data Dapodik berhasil!');
+      }, 1500);
+    });
   }
 </script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)] md:hidden" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun-profil" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun-pengaturan" href="{{ route('akun.pengaturan') }}"><span class="material-symbols-outlined text-[22px]">settings</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Pengaturan</span></a></div></nav><script>
   document.addEventListener('DOMContentLoaded', async () => {

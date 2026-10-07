@@ -85,6 +85,11 @@ Sebelum merilis update baru, QA harus memastikan poin-poin berikut telah terpenu
 ## 📝 5. Riwayat Pembaruan (Update Log)
 *(Silakan catat riwayat rilis / update di bawah ini)*
 
+### [v1.1.1] - *2026-10-04*
+**[Changed] (Perubahan pada fitur yang sudah ada)**
+- Melakukan migrasi database penuh dari lokal (Laragon) ke cloud menggunakan **PostgreSQL di Supabase**.
+- Memperbarui konfigurasi `.env` untuk menggunakan *Connection Pooler* (port 5432) milik Supabase guna menghindari masalah kompabilitas IPv4/IPv6 dari sisi provider internet (ISP) lokal saat proses eksekusi migration.
+
 ### [v1.1.0] - *2026-10-03*
 **[Added] (Fitur Baru)**
 - Integrasi CRUD Buku (Admin): Endpoint Store, Update, Destroy di `AdminBookController.php`.
@@ -198,6 +203,30 @@ Berikut adalah daftar file antarmuka (`resources/views/*.blade.php`) beserta pen
 
 ## ⚠️ 7. Riwayat Error & Kendala Sistem (Error Logs)
 *(Bagian ini berisi rekam jejak error yang terjadi di server, terminal, atau database. Data lama **JANGAN DIHAPUS**, cukup tambahkan error baru di baris paling atas agar menjadi referensi bagi pengembang dalam mengatasi bug berulang).*
+
+### [2026-10-04] - Browser / Aplikasi Error "relation 'books' does not exist" setelah Migrasi
+- **Waktu:** 2026-10-04 (Setelah berhasil migrasi ke Supabase)
+- **Tipe Error:** `Illuminate\Database\QueryException`
+- **Pesan Log:** `SQLSTATE[42P01]: Undefined table: 7 ERROR: relation "books" does not exist`
+- **Catatan Pengembang:**
+  - Meskipun terminal menyatakan migrasi berhasil 100%, server lokal `php artisan serve` yang sudah menyala dalam waktu lama masih menyimpan *cache* status koneksi lama di memori internal PHP.
+  - **Tindakan Lanjutan (Resolved):** Matikan proses `php artisan serve` (Ctrl + C), lalu jalankan ulang perintah tersebut agar server mengambil status koneksi terbaru yang sudah stabil di `public` schema Supabase.
+
+### [2026-10-04] - Error Connection Supabase (IPv4/IPv6)
+- **Waktu:** 2026-10-04 (Saat menjalankan php artisan migrate)
+- **Tipe Error:** `PDOException`
+- **Pesan Log:** `SQLSTATE[08006] [7] connection to server at "db.xxxx.supabase.co" failed: timeout expired`
+- **Catatan Pengembang:**
+  - Terjadi karena string koneksi *direct* bawaan Supabase mengarahkan host ke IPv6, sementara *network* environment lokal (Laragon/Windows) tidak mendukung IPv6 dengan baik, menyebabkan *timeout*.
+  - **Tindakan Lanjutan (Resolved):** Mengubah hostname di `.env` menjadi URL *Connection Pooler* (`aws-0-ap-south-1.pooler.supabase.com`) menggunakan port `5432` dengan user format standard, agar lalu lintas dilewatkan melalui rute IPv4 yang stabil.
+
+### [2026-10-04] - Error "could not find driver" (PDO PostgreSQL)
+- **Waktu:** 2026-10-04 (Saat awal setting koneksi Supabase)
+- **Tipe Error:** `PDOException`
+- **Pesan Log:** `could not find driver`
+- **Catatan Pengembang:**
+  - Lingkungan PHP lokal (Laragon) belum mengaktifkan ekstensi yang dibutuhkan untuk membaca database PostgreSQL.
+  - **Tindakan Lanjutan (Resolved):** Mengedit file `C:\laragon\bin\php\php-8.3.30-Win32-vs16-x64\php.ini`, lalu menghapus tanda titik koma (`;`) pada `extension=pdo_pgsql` dan `extension=pgsql` untuk mengaktifkan dukungan driver PostgreSQL.
 
 ### [2026-10-03] - Error 419 Page Expired (CSRF) saat Post Form / Login
 - **Waktu:** 2026-10-03 (Ditemukan saat pengujian submit form Login dan Hapus Buku)
