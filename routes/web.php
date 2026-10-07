@@ -111,6 +111,41 @@ Route::get('/bantuan', function () {
     return view('bantuan');
 })->name('bantuan');
 
+Route::get('/selesai-baca/{borrow_id}', function ($borrow_id) {
+    $user = auth()->user();
+    if (!$user) return response()->json(['success' => false]);
+
+    // Cari data peminjaman
+    $borrow = \App\Models\Borrowing::where('id', $borrow_id)
+                ->where('user_id', $user->id)
+                ->whereNull('returned_at')
+                ->first();
+
+    if ($borrow) {
+        // Tandai buku sebagai dikembalikan
+        $borrow->update(['returned_at' => now()]);
+        
+        // Kembalikan stok buku
+        \App\Models\Book::where('id', $borrow->book_id)->increment('stock');
+
+        // ==== LOGIKA GAMIFIKASI (TAMBAH XP) ====
+        $xp_tambahan = 50; 
+        $user->increment('xp', $xp_tambahan);
+        $user->increment('read_count', 1);
+
+        // Cek apakah level naik
+        $batas_xp = $user->level * 100;
+        if ($user->xp >= $batas_xp) {
+            $user->increment('level', 1);
+            $user->decrement('xp', $batas_xp);
+        }
+        
+        return response()->json(['success' => true, 'message' => 'Buku selesai dibaca, kamu dapat '.$xp_tambahan.' XP!']);
+    }
+
+    return response()->json(['success' => false, 'message' => 'Data tidak ditemukan']);
+});
+
 require __DIR__.'/auth.php';
 
 use App\Http\Controllers\AdminBookController;

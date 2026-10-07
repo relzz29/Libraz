@@ -163,7 +163,7 @@ html.dark {
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-secondary-fixed text-[20px]">bolt</span>
-<span class="font-label-md text-label-md tracking-widest uppercase text-secondary-fixed">BiblioZ Pass • 2024/2025</span>
+<span class="font-label-md text-label-md tracking-widest uppercase text-secondary-fixed">BiblioZ Pass • 2026/2027</span>
 </div>
 <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/20 backdrop-blur-md font-label-sm text-label-sm text-on-primary">
             Master Reader ⚡
@@ -174,7 +174,7 @@ html.dark {
 <div>
 <p class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-wider">Nomor Anggota Digital</p>
 <p class="font-headline-sm text-headline-sm font-label-md tracking-widest text-on-primary mt-0.5">BZ-9921-4882-01</p>
-<p class="font-body-sm text-body-sm text-on-primary/80 mt-1">Berlaku s/d Juni 2025 • Gerbang RFID Aktif</p>
+<p class="font-body-sm text-body-sm text-on-primary/80 mt-1">Berlaku s/d Juni 2027 • Gerbang RFID Aktif</p>
 </div>
 <div class="w-10 h-8 rounded-lg bg-surface-container-lowest/25 flex items-center justify-center">
 <span class="material-symbols-outlined text-on-primary text-[22px]">contactless</span>

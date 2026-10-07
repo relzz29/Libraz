@@ -353,10 +353,16 @@ html.dark {
               } else {
                 const isRenewable = borrowing.renew_count === 0;
                 footerAction = `
-                  <button class="w-full bg-secondary text-on-secondary px-4 py-2.5 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 shadow-[2px_2px_0px_#1c1b20] active:translate-y-0.5 transition-all ${!isRenewable ? 'opacity-50 cursor-not-allowed' : 'hover:bg-secondary-fixed-dim'}" ${!isRenewable ? 'disabled' : ''}>
-                    <span class="material-symbols-outlined text-[18px]">sync</span>
-                    Perpanjang Waktu
-                  </button>
+                  <div class="flex gap-2 w-full">
+                    <button onclick="selesaiBaca(${borrowing.id})" class="flex-1 bg-surface-container text-on-surface px-2 py-2.5 rounded-xl font-label-md text-label-md shadow-sm active:translate-y-0.5 transition-all hover:bg-surface-container-high flex justify-center items-center gap-1 border border-surface-container-high">
+                      <span class="material-symbols-outlined text-[18px]">task_alt</span>
+                      Selesai
+                    </button>
+                    <button class="flex-1 bg-secondary text-on-secondary px-2 py-2.5 rounded-xl font-label-md text-label-md flex items-center justify-center gap-1 shadow-[2px_2px_0px_#1c1b20] active:translate-y-0.5 transition-all ${!isRenewable ? 'opacity-50 cursor-not-allowed' : 'hover:bg-secondary-fixed-dim'}" ${!isRenewable ? 'disabled' : ''}>
+                      <span class="material-symbols-outlined text-[18px]">sync</span>
+                      Perpanjang
+                    </button>
+                  </div>
                 `;
               }
 
@@ -405,6 +411,119 @@ html.dark {
         `;
       }
     });
+
+    // --- Custom Modal Logic ---
+    function showConfirmModal(title, text, onConfirm) {
+      const modalHTML = `
+        <div id="custom-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0 duration-300" id="modal-backdrop"></div>
+          <div class="relative bg-surface-container-lowest rounded-3xl w-full max-w-sm p-6 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modal-card">
+            <div class="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-[32px]">menu_book</span>
+            </div>
+            <h3 class="font-headline-sm text-headline-sm text-center text-on-surface mb-2">${title}</h3>
+            <p class="font-body-md text-body-md text-center text-on-surface-variant mb-6">${text}</p>
+            <div class="flex gap-3">
+              <button id="modal-cancel" class="flex-1 py-3 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">Batal</button>
+              <button id="modal-confirm" class="flex-1 py-3 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-[2px_2px_0px_#1c1b20] active:translate-y-0.5 transition-all">Selesaikan</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      
+      setTimeout(() => {
+        document.getElementById('modal-backdrop').classList.remove('opacity-0');
+        document.getElementById('modal-card').classList.remove('scale-95', 'opacity-0');
+      }, 10);
+
+      const close = () => {
+        document.getElementById('modal-backdrop').classList.add('opacity-0');
+        document.getElementById('modal-card').classList.add('scale-95', 'opacity-0');
+        setTimeout(() => document.getElementById('custom-modal').remove(), 300);
+      };
+
+      document.getElementById('modal-cancel').onclick = close;
+      document.getElementById('modal-backdrop').onclick = close;
+      document.getElementById('modal-confirm').onclick = () => {
+        close();
+        onConfirm();
+      };
+    }
+
+    function showSuccessModal(xp, message, onClosed) {
+      const modalHTML = `
+        <div id="custom-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0 duration-300" id="modal-backdrop"></div>
+          <div class="relative bg-gradient-to-br from-primary via-primary-container to-secondary-fixed rounded-3xl w-full max-w-sm p-1 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modal-card">
+            <div class="bg-surface-container-lowest rounded-[23px] w-full p-8 flex flex-col items-center relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-fixed/20 blur-xl rounded-full -mr-10 -mt-10 pointer-events-none"></div>
+              
+              <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-secondary to-secondary-fixed text-on-secondary flex items-center justify-center shadow-lg mb-5 relative z-10 animate-bounce">
+                <span class="material-symbols-outlined text-[40px]">workspace_premium</span>
+              </div>
+              
+              <h3 class="font-headline-md text-headline-md text-center text-on-surface mb-2 relative z-10">Luar Biasa! 🎉</h3>
+              <p class="font-body-md text-body-md text-center text-on-surface-variant mb-4 relative z-10">${message}</p>
+              
+              <div class="w-full bg-surface-container rounded-2xl p-4 flex items-center justify-center gap-2 mb-6 border border-surface-container-high relative z-10">
+                <span class="material-symbols-outlined text-secondary-fixed text-[28px]">bolt</span>
+                <span class="font-display-lg text-display-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary-fixed">+${xp} XP</span>
+              </div>
+              
+              <button id="modal-ok" class="w-full py-3.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-[3px_3px_0px_#1c1b20] active:translate-y-0.5 transition-all relative z-10">Lanjutkan</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      
+      setTimeout(() => {
+        document.getElementById('modal-backdrop').classList.remove('opacity-0');
+        document.getElementById('modal-card').classList.remove('scale-95', 'opacity-0');
+      }, 10);
+
+      const close = () => {
+        document.getElementById('modal-backdrop').classList.add('opacity-0');
+        document.getElementById('modal-card').classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+          document.getElementById('custom-modal').remove();
+          if(onClosed) onClosed();
+        }, 300);
+      };
+
+      document.getElementById('modal-ok').onclick = close;
+    }
+    // -------------------------
+
+    window.selesaiBaca = function(id) {
+        showConfirmModal(
+          'Kembalikan Buku?', 
+          'Yakin ingin menyelesaikan bacaan dan mengembalikan buku ini sekarang?', 
+          async () => {
+            try {
+                const response = await fetch('/selesai-baca/' + id, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('auth_token'),
+                        'Accept': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                if(data.success) {
+                    showSuccessModal(50, data.message, () => {
+                        window.location.reload();
+                    });
+                } else {
+                    alert('Gagal: ' + data.message);
+                }
+            } catch(e) {
+                console.error(e);
+                alert('Terjadi kesalahan jaringan.');
+            }
+          }
+        );
+    }
   </script>
 </body>
 </html>
