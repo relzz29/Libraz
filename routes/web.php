@@ -10,10 +10,7 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-Route::get('/katalog', function () {
-    $books = App\Models\Book::latest()->get();
-    return view('katalog', compact('books'));
-})->name('katalog');
+Route::get('/katalog', [\App\Http\Controllers\LibraryController::class, 'katalog'])->name('katalog');
 
 Route::get('/sirkulasi', function () {
     return view('sirkulasi');
@@ -61,7 +58,9 @@ Route::get('/akun', function () {
 })->name('akun');
 
 Route::get('/baca-ebook/{id}', function ($id) {
-    $book = \App\Models\Book::findOrFail($id);
+    $books = collect(\App\Http\Controllers\LibraryController::getHardcodedBooks());
+    $book = $books->firstWhere('id', (int)$id);
+    if (!$book) abort(404);
     $user = auth()->user() ?? \App\Models\User::first();
     
     if ($user && $book->type != 'physical') {
@@ -103,10 +102,10 @@ Route::get('/baca-ebook/{id}', function ($id) {
         ]);
     }
     
-    // Check if file exists locally
-    $localPath = str_replace('/storage/', '', $book->pdf_path);
-    if (!\Storage::disk('public')->exists($localPath)) {
-        return back()->with('error', 'Maaf, file E-Book ini (' . basename($localPath) . ') belum ter-download di laptop ini. Silakan lakukan Git Pull terlebih dahulu.');
+    // Check if file exists locally in public folder
+    $localPath = public_path($book->pdf_path);
+    if (!file_exists($localPath)) {
+        return back()->with('error', 'Maaf, file E-Book ini (' . basename($book->pdf_path) . ') belum ter-download di laptop ini. Silakan lakukan Git Pull terlebih dahulu.');
     }
 
     return redirect(asset($book->pdf_path));
