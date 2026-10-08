@@ -12,9 +12,9 @@ class Borrowing extends Model
     ];
 
     protected $casts = [
-        'borrowed_at' => 'date',
-        'due_date' => 'date',
-        'returned_at' => 'date',
+        'borrowed_at' => 'datetime',
+        'due_date' => 'datetime',
+        'returned_at' => 'datetime',
     ];
 
     public function user()

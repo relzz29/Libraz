@@ -114,8 +114,11 @@ html.dark {
         </div>
     </header>
 
-    <main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen items-center">
-        <div class="flex flex-col w-full max-w-md px-margin space-y-space-md pt-space-md">
+    <main class="flex flex-col relative w-full pt-20 pb-24 min-h-screen items-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 relative overflow-hidden">
+        <!-- Ambient Glassmorphism Blobs -->
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-purple-300/30 rounded-full blur-[120px] pointer-events-none mix-blend-multiply"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-indigo-300/30 rounded-full blur-[120px] pointer-events-none mix-blend-multiply"></div>
+        <div class="flex flex-col w-full max-w-md md:max-w-3xl lg:max-w-4xl px-margin space-y-space-md pt-space-md relative z-10">
             
             <!-- Title & Mark as read -->
             <div class="flex items-center justify-between">
@@ -142,149 +145,65 @@ html.dark {
                 </button>
             </div>
 
-            <!-- Section HARI INI -->
+            <!-- Section Dinamis Notifikasi -->
             <div class="flex flex-col space-y-space-sm pt-space-xs">
-                <div class="flex items-center gap-2">
-                    <h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">HARI INI</h2>
-                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                </div>
-                
-                <!-- Card 1 -->
-                <div class="relative bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border-l-[6px] border-error flex flex-col gap-3">
-                    <div class="absolute right-space-md top-space-md font-label-sm text-label-sm text-on-surface-variant">10m lalu</div>
-                    <div class="flex items-center gap-2 pr-12">
-                        <div class="w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+                @forelse($notifications as $notif)
+                <div id="{{ $notif['id'] }}" data-type="{{ $notif['type'] }}" class="notif-card relative bg-white/80 backdrop-blur-xl rounded-2xl p-5 shadow-lg shadow-indigo-100/50 border border-white/50 border-l-[6px] flex flex-col gap-3 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 md:flex-row md:items-center md:gap-6 md:p-6
+                    @if($notif['type'] == 'success') border-emerald-500
+                    @elseif($notif['type'] == 'info') border-blue-500
+                    @elseif($notif['type'] == 'warning') border-amber-500
+                    @elseif($notif['type'] == 'danger') border-rose-500
+                    @else border-primary @endif
+                ">
+                    <div class="flex items-center gap-3 pr-12 md:pr-0 flex-shrink-0">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-inner
+                            @if($notif['type'] == 'success') bg-emerald-100 text-emerald-600
+                            @elseif($notif['type'] == 'info') bg-blue-100 text-blue-600
+                            @elseif($notif['type'] == 'warning') bg-amber-100 text-amber-600
+                            @elseif($notif['type'] == 'danger') bg-rose-100 text-rose-600
+                            @else bg-primary-container text-primary @endif
+                        ">
+                            <span class="material-symbols-outlined text-[20px] md:text-[24px]">{{ $notif['icon'] }}</span>
                         </div>
-                        <span class="px-2 py-0.5 rounded bg-error-container text-error font-label-sm text-label-sm uppercase tracking-wider font-bold">URGENT • H-1 TENGGAT</span>
+                        @if(isset($notif['urgent']) && $notif['urgent'])
+                            <span class="px-2 py-0.5 rounded font-label-sm text-label-sm uppercase tracking-wider font-bold
+                                @if($notif['type'] == 'danger') bg-rose-100 text-rose-600
+                                @elseif($notif['type'] == 'warning') bg-amber-100 text-amber-600 @endif
+                            ">URGENT</span>
+                        @endif
                     </div>
-                    <div class="flex flex-col gap-1">
-                        <h3 class="font-title-md text-title-md text-on-surface">Buku Fisika Modern &amp; Kosmologi Harus Kembali Besok!</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-0.5">Tenggat pengembalian: <span class="font-bold text-error">28 Nov 2024, 15:00 WIB</span>. Segera perpanjang pinjaman atau kembalikan ke drop-box untuk menghindari denda Rp 1.000/hari.</p>
+                    <div class="flex flex-col gap-1.5 flex-1 min-w-0 md:pr-8">
+                        <h3 class="font-title-md text-title-md md:text-lg md:font-bold text-slate-800">{{ $notif['title'] }}</h3>
+                        <p class="font-body-sm text-body-sm md:text-base text-slate-500 leading-relaxed">{{ $notif['message'] }}</p>
                     </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <button class="flex-1 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-95 transition-transform shadow-sm">
-                            <span class="material-symbols-outlined text-[18px]">event_repeat</span>
-                            Perpanjang (+7 Hari)
+                    <!-- Time and Close Button (Absolute on Mobile, Static on Desktop) -->
+                    <div class="absolute right-space-md top-space-md md:static md:right-auto md:top-auto flex flex-col items-end justify-between gap-2 z-10 md:ml-auto flex-shrink-0 h-full">
+                        <button onclick="dismissNotif('{{ $notif['id'] }}')" class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-100/80 hover:bg-slate-200/90 text-slate-400 hover:text-slate-700 flex items-center justify-center transition-all cursor-pointer backdrop-blur-sm md:self-end" title="Hapus Notifikasi">
+                            <span class="material-symbols-outlined text-[16px]">close</span>
                         </button>
-                        <button class="px-4 py-2 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors active:scale-95">
-                            Detail Buku
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="relative bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border-l-[6px] border-secondary-fixed-dim flex flex-col gap-3">
-                    <div class="absolute right-space-md top-space-md font-label-sm text-label-sm text-on-surface-variant">2 jam lalu</div>
-                    <div class="flex items-center gap-2 pr-12">
-                        <div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[18px]">lock</span>
-                        </div>
-                        <span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm uppercase tracking-wider font-bold">SIAP DIAMBIL • LOKER SMART</span>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <h3 class="font-title-md text-title-md text-on-surface">Buku Reservasi: Bumi Manusia Siap Diambil!</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-0.5">Tersimpan aman di <b>Smart Locker 03 (Lantai 1)</b>. Berlaku selama 24 jam sebelum dialihkan ke antrean berikutnya.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-1 px-3 py-2 rounded-xl bg-surface-container-low border border-surface-container-highest">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-secondary text-[20px]">key</span>
-                            <div class="flex flex-col">
-                                <span class="font-label-sm text-[9px] text-on-surface-variant uppercase tracking-wider">PIN AMBIL</span>
-                                <span class="font-title-md text-title-md text-primary tracking-widest font-bold">#BZ-8821</span>
-                            </div>
-                        </div>
-                        <button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1 hover:bg-surface-container-high transition-colors">
-                            <span class="material-symbols-outlined text-[16px]">content_copy</span>
-                            Salin
-                        </button>
+                        <span class="font-label-sm text-label-sm md:text-xs md:font-semibold text-slate-400 whitespace-nowrap md:mt-auto bg-slate-50/50 md:bg-transparent px-2 md:px-0 py-0.5 rounded-md backdrop-blur-md">{{ $notif['time'] }}</span>
                     </div>
                 </div>
-
-                <!-- Card 3 -->
-                <div class="relative bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border-l-[6px] border-primary flex flex-col gap-3">
-                    <div class="absolute right-space-md top-space-md font-label-sm text-label-sm text-on-surface-variant">4 jam lalu</div>
-                    <div class="flex items-center gap-2 pr-12">
-                        <div class="w-8 h-8 rounded-full bg-primary-fixed text-primary flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
-                        </div>
-                        <span class="px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm uppercase tracking-wider font-bold">REWARD UNLOCKED • +150 XP</span>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <h3 class="font-title-md text-title-md text-on-surface">Lencana Baru: Speed Reader ⚡</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-0.5">Hebat! Kamu menuntaskan <b>Filosofi Teras</b> dalam waktu 48 jam. XP kamu bertambah dan semakin dekat ke level 15 (Grandmaster).</p>
-                    </div>
-                    <div class="mt-1">
-                        <button class="w-full py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform shadow-sm">
-                            <span class="material-symbols-outlined text-[18px]">stars</span>
-                            Klaim Badge &amp; Cek Profil
-                        </button>
-                    </div>
-                </div>
+                @empty
+                <div id="empty-state" class="hidden mt-8 flex-col items-center justify-center w-full bg-white/40 backdrop-blur-xl border border-white/60 rounded-[32px] p-10 md:p-16 shadow-lg shadow-indigo-100/30">
+    <div class="w-24 h-24 mb-6 rounded-full bg-gradient-to-tr from-indigo-100 to-purple-50 flex items-center justify-center shadow-inner relative">
+        <div class="absolute inset-0 bg-white/50 rounded-full blur-md"></div>
+        <span class="material-symbols-outlined text-[48px] text-indigo-300 relative z-10">notifications_paused</span>
+    </div>
+    <h3 class="font-title-md text-xl md:text-2xl text-slate-700 font-bold mb-2">Belum Ada Notifikasi</h3>
+    <p class="font-body-md text-sm md:text-base text-slate-500 text-center max-w-sm leading-relaxed">
+        Kamu sudah membaca semua pemberitahuan hari ini. Pinjam buku baru untuk mendapatkan update terbaru!
+    </p>
+    <a href="/katalog" class="mt-8 px-6 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-label-md text-sm shadow-md shadow-indigo-200 hover:-translate-y-0.5 transition-all">
+        Jelajahi Katalog
+    </a>
+</div>
+                @endforelse
             </div>
-
-            <!-- Section KEMARIN & SEBELUMNYA -->
-            <div class="flex flex-col space-y-space-sm pt-space-md">
-                <h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">KEMARIN &amp; SEBELUMNYA</h2>
-                
-                <!-- Card 4 -->
-                <div class="relative bg-surface-container-low rounded-2xl p-space-md shadow-sm flex flex-col gap-3">
-                    <div class="absolute right-space-md top-space-md font-label-sm text-label-sm text-on-surface-variant">Kemarin</div>
-                    <div class="flex items-center gap-2 pr-12">
-                        <div class="w-8 h-8 rounded-full bg-surface-container-lowest text-on-surface-variant flex items-center justify-center border border-surface-container-high">
-                            <span class="material-symbols-outlined text-[18px]">check_circle</span>
-                        </div>
-                        <span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider font-bold">PEMBAYARAN SUKSES</span>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <h3 class="font-title-md text-title-md text-on-surface">Denda Rp 2.000 Terbayar via QRIS</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-0.5">Pengembalian buku <b>Kimia Dasar Jilid 1</b> telah tervalidasi oleh Petugas Citra Prameswari. Akun perpustakaanmu kini bersih tanpa tanggungan.</p>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="relative bg-surface-container-lowest rounded-2xl p-space-md shadow-sm flex flex-col gap-3">
-                    <div class="absolute right-space-md top-space-md font-label-sm text-label-sm text-on-surface-variant">2 hari lalu</div>
-                    <div class="flex items-center gap-2 pr-12">
-                        <div class="w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[18px]">campaign</span>
-                        </div>
-                        <span class="px-2 py-0.5 rounded bg-error-container text-error font-label-sm text-label-sm uppercase tracking-wider font-bold">PENGUMUMAN PERPUS</span>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <h3 class="font-title-md text-title-md text-on-surface">Bedah Buku &amp; Meet the Author: Pekan Literasi</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-0.5">Sabtu ini pukul 09.00 WIB di Hall Baca Lantai 2. Kuota spesial 50 siswa terpilih. Dapatkan e-certificate resmi, novel gratis, dan snack box!</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-1">
-                        <div class="flex items-center gap-1.5 text-secondary">
-                            <span class="material-symbols-outlined text-[18px]">groups</span>
-                            <span class="font-label-sm text-label-sm font-bold">Tersisa 14 Kursi</span>
-                        </div>
-                        <button class="px-4 py-2 rounded-xl bg-surface-container-low text-primary font-label-md text-label-md hover:bg-surface-container-highest transition-colors active:scale-95 font-bold">
-                            Daftar Sekarang
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Bottom Card -->
-                <div class="bg-surface-container-low rounded-2xl p-space-md shadow-sm flex items-center justify-between mt-space-sm cursor-pointer hover:bg-surface-container transition-colors">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-full bg-primary-fixed text-primary flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[24px]">notifications_active</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="font-title-md text-title-md text-on-surface">Pengingat WhatsApp &amp; Push</span>
-                            <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Atur jam notifikasi tenggat buku</span>
-                        </div>
-                    </div>
-                    <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant shadow-sm">
-                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </main>
+            <br>
+            <br>
+            <br>
+        </main>
 
     <nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)] md:hidden" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]">
         <div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto">
@@ -333,6 +252,81 @@ html.dark {
       console.error(e);
     }
   });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Hide dismissed notifications on load
+        const dismissed = JSON.parse(localStorage.getItem('dismissed_notifs') || '[]');
+        dismissed.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        });
+        updateEmptyState();
+    });
+
+    function dismissNotif(id) {
+        // Animate out
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.style.opacity = '0';
+        el.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            el.style.display = 'none';
+            // Save to local storage
+            let dismissed = JSON.parse(localStorage.getItem('dismissed_notifs') || '[]');
+            if (!dismissed.includes(id)) {
+                dismissed.push(id);
+                localStorage.setItem('dismissed_notifs', JSON.stringify(dismissed));
+            }
+            updateEmptyState();
+        }, 300);
+    }
+
+    function filterNotif(filter, btnElement) {
+        // Update active styling
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('bg-primary', 'text-white', 'active-pill');
+            btn.classList.add('bg-surface-container', 'text-slate-500');
+            const badge = btn.querySelector('span');
+            if(badge) {
+                badge.classList.remove('bg-white/20', 'text-white');
+                badge.classList.add('bg-slate-200', 'text-slate-600');
+            }
+        });
+        
+        btnElement.classList.remove('bg-surface-container', 'text-slate-500');
+        btnElement.classList.add('bg-primary', 'text-white', 'active-pill');
+        const badge = btnElement.querySelector('span');
+        if(badge) {
+            badge.classList.remove('bg-slate-200', 'text-slate-600');
+            badge.classList.add('bg-white/20', 'text-white');
+        }
+
+        // Filter cards
+        const dismissed = JSON.parse(localStorage.getItem('dismissed_notifs') || '[]');
+        document.querySelectorAll('.notif-card').forEach(card => {
+            if(dismissed.includes(card.id)) return; // Keep it hidden if dismissed
+            
+            const type = card.getAttribute('data-type');
+            let show = false;
+            
+            if (filter === 'all') show = true;
+            if (filter === 'tenggat' && (type === 'warning' || type === 'danger')) show = true;
+            if (filter === 'sirkulasi' && (type === 'success' || type === 'info')) show = true;
+            
+            card.style.display = show ? 'flex' : 'none';
+        });
+        
+        updateEmptyState();
+    }
+    
+    function updateEmptyState() {
+        const visibleCards = document.querySelectorAll('.notif-card[style=""], .notif-card:not([style*="display: none"])');
+        const emptyState = document.getElementById('empty-state');
+        if(emptyState) {
+            emptyState.style.display = visibleCards.length === 0 ? 'flex' : 'none';
+        }
+    }
 </script>
 </body>
 </html>

@@ -115,7 +115,99 @@ Route::get('/scanner', function () {
 })->name('scanner');
 
 Route::get('/notifikasi', function () {
-    return view('notifikasi');
+    $user = auth()->user() ?? \App\Models\User::first();
+    if (!$user) return redirect('/login');
+
+    $borrowings = \App\Models\Borrowing::with('book')->where('user_id', $user->id)->get();
+    $notifications = [];
+    $today = \Carbon\Carbon::now()->startOfDay();
+    
+    // Set locale to Indonesian for carbon
+    \Carbon\Carbon::setLocale('id');
+
+    foreach ($borrowings as $b) {
+        $bookTitle = $b->book ? $b->book->title : 'Buku';
+        
+        // 1. Borrowed
+        if ($b->borrowed_at) {
+            $dateStr = \Carbon\Carbon::parse($b->borrowed_at)->timezone('Asia/Jakarta')->translatedFormat('d M Y, H:i');
+            $timeDiff = \Carbon\Carbon::parse($b->borrowed_at)->timezone('Asia/Jakarta')->diffForHumans();
+            $notifications[] = [
+                'id' => 'borrow_' . $b->id,
+                'type' => 'success',
+                'title' => 'Buku Berhasil Dipinjam',
+                'message' => 'Kamu meminjam buku "' . $bookTitle . '". Selamat membaca!',
+                'time' => $dateStr . ' WIB (' . $timeDiff . ')',
+                'icon' => 'menu_book',
+                'color' => 'emerald',
+                'raw_time' => \Carbon\Carbon::parse($b->borrowed_at)
+            ];
+        }
+
+        // 2. Returned
+        if ($b->returned_at) {
+            $dateStr = \Carbon\Carbon::parse($b->returned_at)->timezone('Asia/Jakarta')->translatedFormat('d M Y, H:i');
+            $timeDiff = \Carbon\Carbon::parse($b->returned_at)->timezone('Asia/Jakarta')->diffForHumans();
+            $notifications[] = [
+                'id' => 'return_' . $b->id,
+                'type' => 'info',
+                'title' => 'Buku Dikembalikan',
+                'message' => 'Terima kasih telah mengembalikan "' . $bookTitle . '" tepat waktu.',
+                'time' => $dateStr . ' WIB (' . $timeDiff . ')',
+                'icon' => 'task_alt',
+                'color' => 'blue',
+                'raw_time' => \Carbon\Carbon::parse($b->returned_at)
+            ];
+        }
+
+        // 3. Overdue & Reminders
+        if (is_null($b->returned_at) && $b->due_date) {
+            $dueDate = \Carbon\Carbon::parse($b->due_date)->startOfDay();
+            
+            if ($dueDate->isPast()) {
+                // Overdue
+                $daysLate = $dueDate->diffInDays($today);
+                $fine = $daysLate * 1000;
+                $notifications[] = [
+                    'id' => 'overdue_' . $b->id,
+                    'type' => 'danger',
+                    'title' => 'Keterlambatan Pengembalian!',
+                    'message' => 'Buku "' . $bookTitle . '" sudah lewat tenggat (' . $daysLate . ' hari). Denda saat ini: Rp ' . number_format($fine, 0, ',', '.') . '.',
+                    'time' => 'Terlambat ' . $daysLate . ' Hari',
+                    'icon' => 'warning',
+                    'color' => 'rose',
+                    'urgent' => true,
+                    'raw_time' => \Carbon\Carbon::now() // Show at top
+                ];
+            } else {
+                // Not overdue yet, show countdown (H-X)
+                $daysLeft = $today->diffInDays($dueDate, false);
+                if ($daysLeft >= 0 && $daysLeft <= 3) { // Show reminders for H-0, H-1, H-2, H-3
+                    $urgencyText = $daysLeft == 0 ? 'Hari Ini!' : 'H-' . $daysLeft;
+                    $notifications[] = [
+                        'id' => 'reminder_' . $b->id,
+                        'type' => 'warning',
+                        'title' => 'Tenggat Pengembalian Hampir Tiba!',
+                        'message' => 'Tenggat pengembalian buku "' . $bookTitle . '" adalah tanggal ' . $dueDate->translatedFormat('d M Y') . '.',
+                        'time' => 'Sisa ' . $daysLeft . ' Hari (' . $urgencyText . ')',
+                        'icon' => 'schedule',
+                        'color' => 'amber',
+                        'urgent' => $daysLeft <= 1,
+                        'raw_time' => \Carbon\Carbon::now() // Show at top
+                    ];
+                }
+            }
+        }
+    }
+    
+    usort($notifications, function($a, $b) {
+        if (($a['urgent'] ?? false) !== ($b['urgent'] ?? false)) {
+            return ($b['urgent'] ?? false) <=> ($a['urgent'] ?? false);
+        }
+        return $b['raw_time'] <=> $a['raw_time'];
+    });
+
+    return view('notifikasi', compact('notifications'));
 })->name('notifikasi');
 
 Route::get('/sirkulasi-sukses', function (\Illuminate\Http\Request $request) {
