@@ -172,20 +172,30 @@ html.dark {
 </div>
 </div>
 <!-- Field: NISN & Kelas (Locked) -->
+<!-- Field: NISN -->
 <div class="flex flex-col space-y-1.5">
 <div class="flex items-center justify-between ml-2">
-<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="student-nisn">NISN &amp; Rombel Kelas</label>
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="student-nisn">NISN Pusat</label>
 <span class="flex items-center gap-0.5 text-secondary font-label-sm text-label-sm font-bold">
 <span class="material-symbols-outlined text-[16px]">verified</span> Terverifikasi
         </span>
 </div>
 <div class="relative flex items-center opacity-80 cursor-not-allowed">
-<input class="w-full bg-surface-container-low border-2 border-surface-container-high rounded-[20px] px-space-lg py-3.5 font-body-md text-body-md text-on-surface cursor-not-allowed" disabled="" id="student-nisn" type="text" value="1238712073 XII MIPA 2"/>
+<input class="w-full bg-surface-container-low border-2 border-surface-container-high rounded-[20px] px-space-lg py-3.5 font-body-md text-body-md text-on-surface cursor-not-allowed" disabled="" id="student-nisn" type="text" value="292929293"/>
 <span class="material-symbols-outlined text-on-surface-variant absolute right-space-md text-[20px]">lock</span>
 </div>
 <span class="font-body-sm text-body-sm text-outline flex items-center gap-1 mt-1 ml-2">
-<span class="material-symbols-outlined text-[14px]">info</span> Terkunci via NISN Pusat
+<span class="material-symbols-outlined text-[14px]">info</span> Terkunci dan tidak dapat diubah
       </span>
+</div>
+
+<!-- Field: Rombel Kelas -->
+<div class="flex flex-col space-y-1.5 mt-4">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider ml-2" for="student-class">Rombel Kelas / Jurusan</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-lowest border-2 border-surface-container-high rounded-[20px] px-space-lg py-3.5 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all" id="student-class" type="text" value="XII MIPA 2" placeholder="contoh: XII MIPA 2"/>
+<span class="material-symbols-outlined text-primary absolute right-space-md text-[20px]">edit</span>
+</div>
 </div>
 <!-- Field: Bio Siswa -->
 <div class="flex flex-col space-y-1.5">
@@ -361,9 +371,11 @@ html.dark {
         const elSchool = document.getElementById('student-school');
         const elBio = document.getElementById('student-bio');
         const elWa = document.getElementById('student-wa');
+        const elClass = document.getElementById('student-class');
 
         if (elName) elName.value = user.name;
-        if (elNis) elNis.value = `${user.nis} XII MIPA 2`;
+        if (elNis) elNis.value = user.nis;
+        if (elClass) elClass.value = user.role || '';
         if (elSchool) {
             elSchool.value = (user.school_name && user.school_name !== 'Asal Sekolah Default' && user.school_name !== 'SMAN 1 GARUDAPURA') ? user.school_name : '';
         }
@@ -517,6 +529,7 @@ html.dark {
         const newSchool = document.getElementById('student-school').value;
         const newBio = document.getElementById('student-bio').value;
         const newWa = document.getElementById('student-wa').value;
+        const newClass = document.getElementById('student-class') ? document.getElementById('student-class').value : '';
         
         const btnText = btnSimpan.querySelector('span:last-child');
         const originalText = btnText.textContent;
@@ -544,7 +557,8 @@ html.dark {
                 school_name: newSchool,
                 bio: newBio,
                 whatsapp_number: newWa,
-                avatar: avatarData
+                avatar: avatarData,
+                role: newClass
             })
           });
           if (response.ok) {

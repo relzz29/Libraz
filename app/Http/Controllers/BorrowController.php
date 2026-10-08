@@ -39,4 +39,38 @@ class BorrowController extends Controller
 
         return redirect()->route('sirkulasi.sukses')->with('success', 'Pengajuan peminjaman berhasil dikirim. Menunggu persetujuan Admin.');
     }
+
+    public function storeApi(Request $request)
+    {
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'return_date' => 'nullable|date'
+        ]);
+
+        $book = Book::findOrFail($request->book_id);
+
+        if ($book->stock <= 0) {
+            return response()->json(['success' => false, 'message' => 'Stok buku habis.'], 400);
+        }
+
+        $userId = Auth::id(); 
+
+        $dueDate = $request->return_date ? \Carbon\Carbon::parse($request->return_date) : now()->addDays(14);
+
+        $borrowing = Borrowing::create([
+            'user_id' => $userId,
+            'book_id' => $book->id,
+            'borrowed_at' => now(),
+            'due_date' => $dueDate,
+            'status' => 'pending'
+        ]);
+
+        $book->decrement('stock');
+
+        return response()->json([
+            'success' => true, 
+            'message' => 'Pengajuan peminjaman berhasil dikirim. Menunggu persetujuan Admin.',
+            'borrowing_id' => $borrowing->id
+        ]);
+    }
 }

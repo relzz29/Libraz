@@ -20,10 +20,15 @@ class Book extends Model
             }
         }
         
+        if ($value && str_starts_with($value, 'buku/')) {
+            return $value;
+        }
+        
         if ($value && filter_var($value, FILTER_VALIDATE_URL)) {
             return $value;
         }
 
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->title) . '&background=random&size=400&color=fff';
+        $title = $this->title ?? 'Book';
+        return 'https://ui-avatars.com/api/?name=' . urlencode($title) . '&background=random&size=400&color=fff';
     }
 }

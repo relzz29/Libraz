@@ -277,6 +277,47 @@ html.dark {
 </div>
 <!-- Micro-Interactions Client Script -->
 <script>
+  @if($errors->any())
+    alert("{{ $errors->first() }}");
+  @endif
+  @if(session('error'))
+    alert("{{ session('error') }}");
+  @endif
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('borrowForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+          window.location.href = '/login';
+          return;
+      }
+      
+      const formData = new FormData(this);
+      
+      try {
+          const response = await fetch('/api/borrow', {
+              method: 'POST',
+              headers: {
+                  'Authorization': 'Bearer ' + token,
+                  'Accept': 'application/json'
+              },
+              body: formData
+          });
+          
+          const data = await response.json();
+          if (response.ok && data.success) {
+              window.location.href = '/sirkulasi-sukses?id=' + data.borrowing_id;
+          } else {
+              alert(data.message || 'Gagal meminjam buku. Periksa kembali form.');
+          }
+      } catch(err) {
+          console.error(err);
+          alert('Terjadi kesalahan jaringan.');
+      }
+    });
+  });
+
   // Filter Pills Toggle & Filtering Logic
   const pills = document.querySelectorAll('.filter-pill');
   const bookCards = document.querySelectorAll('.book-card');

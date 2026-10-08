@@ -105,18 +105,20 @@ html.dark {
 </div>
 <!-- Success Celebration Emblem -->
 <div class="relative flex items-center justify-center mb-space-xs">
-<div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center shadow-lg shadow-amber-100/30">
-<span class="material-symbols-outlined text-[38px] text-amber-600" style="font-variation-settings: 'FILL' 1;">hourglass_top</span>
+<div class="w-16 h-16 rounded-full {{ $borrowing->status == 'pending' ? 'bg-amber-100 shadow-amber-100/30' : 'bg-secondary-container shadow-secondary-container/30' }} flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-[38px] {{ $borrowing->status == 'pending' ? 'text-amber-600' : 'text-on-secondary-container' }}" style="font-variation-settings: 'FILL' 1;">{{ $borrowing->status == 'pending' ? 'hourglass_top' : 'check_circle' }}</span>
 </div>
-<div class="absolute -top-1 -right-2 bg-amber-500 text-white px-2 py-0.5 rounded-full text-label-sm font-label-sm flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[14px]">pending_actions</span>
-<span>PENDING</span>
+<div class="absolute -top-1 -right-2 {{ $borrowing->status == 'pending' ? 'bg-amber-500' : 'bg-secondary' }} text-white px-2 py-0.5 rounded-full text-label-sm font-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">{{ $borrowing->status == 'pending' ? 'pending_actions' : 'task_alt' }}</span>
+<span>{{ strtoupper($borrowing->status) }}</span>
 </div>
 </div>
-<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold mt-1">Menunggu Persetujuan!</h1>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold mt-1">
+  {{ $borrowing->status == 'pending' ? 'Menunggu Persetujuan!' : 'Peminjaman Disetujui!' }}
+</h1>
 <p class="font-body-md text-body-md text-on-surface-variant max-w-xs mt-1">
-      Pengajuan pinjaman mandiri kamu berhasil dikirim. Silakan tunggu admin menyetujui tiket ini sebelum memindai di gerbang RFID.
-    </p>
+  {{ $borrowing->status == 'pending' ? 'Pengajuan pinjaman mandiri kamu berhasil dikirim. Silakan tunggu admin menyetujui tiket ini sebelum memindai di gerbang RFID.' : 'Tiket peminjaman ini siap digunakan. Silakan pindai di gerbang RFID.' }}
+</p>
 <!-- Gamification Toast Pill -->
 <div class="mt-space-sm flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-space-xs rounded-full shadow-md">
 <div class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
@@ -248,12 +250,12 @@ html.dark {
 <p class="font-title-md text-title-md text-tertiary font-bold mt-0.5">{{ \Carbon\Carbon::parse($borrowing->due_date)->translatedFormat('d M Y') }}</p>
 <span class="font-body-sm text-body-sm text-on-surface-variant">Maksimal 14 Hari</span>
 </div>
-<div class="bg-amber-100/50 p-space-sm rounded-xl border border-amber-200">
-<span class="font-label-sm text-label-sm text-amber-700 uppercase">Status RFID Tag</span>
-<p class="font-title-md text-title-md text-amber-600 font-bold mt-0.5 flex items-center gap-1">
-<span class="material-symbols-outlined text-[18px]">pending</span> Menunggu
+<div class="{{ $borrowing->status == 'pending' ? 'bg-amber-100/50 border border-amber-200' : 'bg-secondary-fixed/50 border border-secondary-fixed-dim' }} p-space-sm rounded-xl">
+<span class="font-label-sm text-label-sm {{ $borrowing->status == 'pending' ? 'text-amber-700' : 'text-on-secondary-fixed-variant' }} uppercase">Status RFID Tag</span>
+<p class="font-title-md text-title-md {{ $borrowing->status == 'pending' ? 'text-amber-600' : 'text-secondary' }} font-bold mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">{{ $borrowing->status == 'pending' ? 'pending' : 'verified' }}</span> {{ $borrowing->status == 'pending' ? 'Menunggu' : 'Aktif' }}
           </p>
-<span class="font-body-sm text-body-sm text-amber-700/80">Gate Auto-Pass Locked</span>
+<span class="font-body-sm text-body-sm {{ $borrowing->status == 'pending' ? 'text-amber-700/80' : 'text-on-secondary-fixed-variant' }}">{{ $borrowing->status == 'pending' ? 'Gate Auto-Pass Locked' : 'Gate Auto-Pass Ready' }}</span>
 </div>
 </div>
 </div>

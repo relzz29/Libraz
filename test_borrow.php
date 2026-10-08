@@ -1,0 +1,1 @@
+<?php require 'vendor/autoload.php'; \ = require_once 'bootstrap/app.php'; \ = \->make(Illuminate\Contracts\Http\Kernel::class); \ = \->handle(\ = Illuminate\Http\Request::create('/api/borrow', 'POST', ['book_id' => 31])); echo \->getContent();

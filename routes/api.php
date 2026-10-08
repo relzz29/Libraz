@@ -14,6 +14,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/user', [App\Http\Controllers\AuthController::class, 'updateProfile']);
     Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
     Route::get('/borrowings', [App\Http\Controllers\LibraryController::class, 'getBorrowings']);
+    Route::post('/borrow', [App\Http\Controllers\BorrowController::class, 'storeApi']);
 });
 
 Route::apiResource('posts', App\Http\Controllers\PostController::class);

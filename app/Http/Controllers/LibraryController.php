@@ -264,8 +264,7 @@ class LibraryController extends Controller
 
     public function katalog()
     {
-        $booksArray = self::getHardcodedBooks();
-        $books = collect($booksArray);
+        $books = Book::all();
         $total_books = $books->sum('stock');
         return view('katalog', compact('books', 'total_books'));
     }
@@ -373,6 +372,7 @@ class LibraryController extends Controller
                 'due_date' => \Carbon\Carbon::now()->addDays(14),
                 'renew_count' => 0,
                 'fine_amount' => 0,
+                'status' => 'pending'
             ]);
 
             $book->decrement('stock');

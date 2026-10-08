@@ -58,8 +58,7 @@ Route::get('/akun', function () {
 })->name('akun');
 
 Route::get('/baca-ebook/{id}', function ($id) {
-    $books = collect(\App\Http\Controllers\LibraryController::getHardcodedBooks());
-    $book = $books->firstWhere('id', (int)$id);
+    $book = \App\Models\Book::find((int)$id);
     if (!$book) abort(404);
     $user = auth()->user() ?? \App\Models\User::first();
     
@@ -119,12 +118,19 @@ Route::get('/notifikasi', function () {
     return view('notifikasi');
 })->name('notifikasi');
 
-Route::get('/sirkulasi-sukses', function () {
-    $user = auth()->user() ?? \App\Models\User::first();
-    $borrowing = \App\Models\Borrowing::where('user_id', $user->id)
-                    ->with('book')
-                    ->latest('borrowed_at')
-                    ->first();
+Route::get('/sirkulasi-sukses', function (\Illuminate\Http\Request $request) {
+    $borrowing = null;
+    if ($request->has('id') && is_numeric($request->id)) {
+        $borrowing = \App\Models\Borrowing::with('book')->find($request->id);
+    }
+    
+    if (!$borrowing) {
+        $user = auth()->user() ?? \App\Models\User::first();
+        $borrowing = \App\Models\Borrowing::where('user_id', $user->id)
+                        ->with('book')
+                        ->latest('borrowed_at')
+                        ->first();
+    }
                     
     if (!$borrowing) {
         $book = \App\Models\Book::first();
@@ -175,6 +181,23 @@ Route::get('/selesai-baca/{borrow_id}', function ($borrow_id) {
         if ($user->xp >= $batas_xp) {
             $user->increment('level', 1);
             $user->decrement('xp', $batas_xp);
+        }
+
+        // ==== LOGIKA STREAK ====
+        $today = now()->format('Y-m-d');
+        if ($user->last_read_date !== $today) {
+            if ($user->last_read_date === now()->subDay()->format('Y-m-d')) {
+                $user->current_streak += 1;
+            } else {
+                $user->current_streak = 1;
+            }
+            
+            if ($user->current_streak > $user->highest_streak) {
+                $user->highest_streak = $user->current_streak;
+            }
+            
+            $user->last_read_date = $today;
+            $user->save();
         }
         
         return response()->json(['success' => true, 'message' => 'Buku selesai dibaca, kamu dapat '.$xp_tambahan.' XP!']);
