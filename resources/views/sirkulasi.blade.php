@@ -112,6 +112,17 @@ html.dark {
     100% { background-position: 0% 50%; }
   }
 </style>
+<style>
+  body, h1, h2, h3, h4, h5, h6, p, div, a, button {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+  }
+  span:not(.material-symbols-outlined) {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+  }
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined' !important;
+  }
+</style>
 </head>
 <body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen">
   
@@ -471,16 +482,23 @@ html.dark {
     function showConfirmModal(title, text, onConfirm) {
       const modalHTML = `
         <div id="custom-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0 duration-300" id="modal-backdrop"></div>
-          <div class="relative bg-surface-container-lowest rounded-3xl w-full max-w-sm p-6 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modal-card">
-            <div class="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
-              <span class="material-symbols-outlined text-[32px]">menu_book</span>
+          <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity opacity-0 duration-300" id="modal-backdrop"></div>
+          <div class="relative bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[32px] w-full max-w-sm p-8 shadow-[0_20px_60px_rgba(31,38,135,0.15)] transform scale-95 opacity-0 transition-all duration-300 overflow-hidden" id="modal-card">
+            
+            <!-- Ambient modal glow -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-400/20 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-400/20 rounded-full blur-2xl"></div>
+
+            <div class="w-20 h-20 rounded-[24px] bg-gradient-to-br from-indigo-100 to-white shadow-inner flex items-center justify-center mx-auto mb-6 relative z-10 border border-white">
+              <span class="material-symbols-outlined text-[36px] text-indigo-600">help</span>
             </div>
-            <h3 class="font-headline-sm text-headline-sm text-center text-on-surface mb-2">${title}</h3>
-            <p class="font-body-md text-body-md text-center text-on-surface-variant mb-6">${text}</p>
-            <div class="flex gap-3">
-              <button id="modal-cancel" class="flex-1 py-3 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">Batal</button>
-              <button id="modal-confirm" class="flex-1 py-3 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-[2px_2px_0px_#1c1b20] active:translate-y-0.5 transition-all">Selesaikan</button>
+            
+            <h3 class="text-2xl font-extrabold text-center text-slate-800 mb-3 relative z-10">${title}</h3>
+            <p class="font-body-md text-base text-center text-slate-500 leading-relaxed mb-8 relative z-10">${text}</p>
+            
+            <div class="flex gap-3 relative z-10">
+              <button id="modal-cancel" class="flex-1 py-3.5 rounded-full bg-slate-100 text-slate-600 font-bold text-sm hover:bg-slate-200 transition-colors">Batal</button>
+              <button id="modal-confirm" class="flex-1 py-3.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-sm shadow-md shadow-indigo-200 hover:-translate-y-0.5 transition-all">Ya, Lanjutkan</button>
             </div>
           </div>
         </div>
@@ -506,28 +524,25 @@ html.dark {
       };
     }
 
-    function showSuccessModal(xp, message, onClosed) {
+    function showSuccessModal(title, message, onClosed) {
       const modalHTML = `
         <div id="custom-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0 duration-300" id="modal-backdrop"></div>
-          <div class="relative bg-gradient-to-br from-primary via-primary-container to-secondary-fixed rounded-3xl w-full max-w-sm p-1 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modal-card">
-            <div class="bg-surface-container-lowest rounded-[23px] w-full p-8 flex flex-col items-center relative overflow-hidden">
-              <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-fixed/20 blur-xl rounded-full -mr-10 -mt-10 pointer-events-none"></div>
-              
-              <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-secondary to-secondary-fixed text-on-secondary flex items-center justify-center shadow-lg mb-5 relative z-10 animate-bounce">
-                <span class="material-symbols-outlined text-[40px]">workspace_premium</span>
-              </div>
-              
-              <h3 class="font-headline-md text-headline-md text-center text-on-surface mb-2 relative z-10">Luar Biasa! 🎉</h3>
-              <p class="font-body-md text-body-md text-center text-on-surface-variant mb-4 relative z-10">${message}</p>
-              
-              <div class="w-full bg-surface-container rounded-2xl p-4 flex items-center justify-center gap-2 mb-6 border border-surface-container-high relative z-10">
-                <span class="material-symbols-outlined text-secondary-fixed text-[28px]">bolt</span>
-                <span class="font-display-lg text-display-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary-fixed">+${xp} XP</span>
-              </div>
-              
-              <button id="modal-ok" class="w-full py-3.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-[3px_3px_0px_#1c1b20] active:translate-y-0.5 transition-all relative z-10">Lanjutkan</button>
+          <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity opacity-0 duration-300" id="modal-backdrop"></div>
+          <div class="relative bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[32px] w-full max-w-sm p-8 shadow-[0_20px_60px_rgba(31,38,135,0.15)] transform scale-95 opacity-0 transition-all duration-300 overflow-hidden" id="modal-card">
+            
+            <!-- Ambient modal glow -->
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald-100/40 to-teal-100/40 opacity-50"></div>
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-400/20 rounded-full blur-3xl animate-pulse"></div>
+
+            <div class="w-24 h-24 rounded-[32px] bg-gradient-to-br from-emerald-400 to-teal-500 shadow-lg shadow-emerald-200 flex items-center justify-center mx-auto mb-6 relative z-10 animate-bounce">
+              <span class="material-symbols-outlined text-[48px] text-white">check_circle</span>
+              <span class="material-symbols-outlined absolute -top-2 -right-2 text-yellow-400 text-2xl animate-spin">sparkles</span>
             </div>
+            
+            <h3 class="text-2xl font-extrabold text-center text-slate-800 mb-3 relative z-10">${title}</h3>
+            <p class="font-body-md text-base text-center text-slate-600 leading-relaxed mb-8 relative z-10">${message}</p>
+            
+            <button id="modal-ok" class="w-full py-4 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-base shadow-lg shadow-emerald-200 hover:-translate-y-1 transition-all relative z-10">Luar Biasa!</button>
           </div>
         </div>
       `;
@@ -566,7 +581,7 @@ html.dark {
                 });
                 const data = await response.json();
                 if(data.success) {
-                    showSuccessModal(50, data.message, () => {
+                    showSuccessModal('Buku Dikembalikan!', data.message, () => {
                         window.location.reload();
                     });
                 } else {
@@ -595,8 +610,9 @@ html.dark {
                 });
                 const data = await response.json();
                 if(data.success) {
-                    alert(data.message);
-                    window.location.reload();
+                    showSuccessModal('Berhasil Diperpanjang!', data.message, () => {
+                        window.location.reload();
+                    });
                 } else {
                     alert('Gagal: ' + data.message);
                 }
