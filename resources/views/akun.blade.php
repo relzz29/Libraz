@@ -490,7 +490,7 @@ html.dark {
 @forelse ($borrowings as $borrow)
 <div class="flex gap-space-md p-space-md rounded-2xl bg-surface-container-lowest shadow-sm">
 <div class="w-20 h-28 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container shadow-xs">
-<img class="w-full h-full object-cover" data-alt="{{ $borrow->book->title ?? 'Buku' }}" src="{{ asset('storage/' . ($borrow->book->cover_image ?? '')) }}"/>
+<img class="w-full h-full object-cover" data-alt="{{ $borrow->book->title ?? 'Buku' }}" src="{{ asset($borrow->book->cover_image_url ?? '') }}"/>
 </div>
 <div class="flex flex-col justify-between flex-1 min-w-0">
 <div class="flex flex-col">
