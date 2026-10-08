@@ -2,3 +2,5 @@
 !.gitignore
 !covers/
 !covers/*
+!pdfs/
+!pdfs/*

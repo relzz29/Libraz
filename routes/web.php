@@ -103,6 +103,12 @@ Route::get('/baca-ebook/{id}', function ($id) {
         ]);
     }
     
+    // Check if file exists locally
+    $localPath = str_replace('/storage/', '', $book->pdf_path);
+    if (!\Storage::disk('public')->exists($localPath)) {
+        return back()->with('error', 'Maaf, file E-Book ini (' . basename($localPath) . ') belum ter-download di laptop ini. Silakan lakukan Git Pull terlebih dahulu.');
+    }
+
     return redirect(asset($book->pdf_path));
 })->name('baca.ebook');
 
