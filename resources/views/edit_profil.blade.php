@@ -553,7 +553,7 @@ html.dark {
             },
             body: JSON.stringify({ 
                 name: newName,
-                email: newEmail,
+                email: newEmail === '' ? null : newEmail,
                 school_name: newSchool,
                 bio: newBio,
                 whatsapp_number: newWa,
