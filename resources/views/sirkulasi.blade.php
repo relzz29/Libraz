@@ -115,10 +115,7 @@ html.dark {
       <span class="material-symbols-outlined text-[22px]">sync_alt</span>
       Sirkulasi
     </a>
-    <a href="/statistik" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
-      <span class="material-symbols-outlined text-[22px]">analytics</span>
-      Statistik
-    </a>
+    
     <a href="/akun" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
       <span class="material-symbols-outlined text-[22px]">account_circle</span>
       Akun
@@ -237,10 +234,7 @@ html.dark {
         <span class="material-symbols-outlined text-[22px]">sync_alt</span>
         <span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span>
       </a>
-      <a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="/statistik">
-        <span class="material-symbols-outlined text-[22px]">analytics</span>
-        <span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span>
-      </a>
+      
       <a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun-profil" href="/akun">
         <span class="material-symbols-outlined text-[22px]">account_circle</span>
         <span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span>

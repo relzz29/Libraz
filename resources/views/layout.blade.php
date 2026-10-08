@@ -244,10 +244,7 @@
                 <i class="fa-solid fa-right-left"></i>
                 <span>Sirkulasi</span>
             </a>
-            <a href="/statistik" class="nav-item {{ request()->is('statistik') ? 'active' : '' }}">
-                <i class="fa-solid fa-chart-simple"></i>
-                <span>Statistik</span>
-            </a>
+            
             <a href="/akun" class="nav-item {{ request()->is('akun') ? 'active' : '' }}">
                 <i class="fa-regular fa-user"></i>
                 <span>Akun</span>

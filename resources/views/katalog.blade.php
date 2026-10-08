@@ -99,34 +99,37 @@ html.dark {
     <span class="font-title-md text-title-md text-primary font-bold tracking-wider uppercase">BiblioZ</span>
   </div>
   <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
-    <a href="/katalog" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20] transition-all">
+    <a href="/katalog" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-primary-container text-on-primary font-bold shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-surface-container-highest hover:shadow-[0_8px_40px_rgba(100,50,255,0.08)] transition-all duration-300 transition-all">
       <span class="material-symbols-outlined text-[22px]">menu_book</span>
       Katalog
     </a>
-    <a href="/sirkulasi" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
+    <a href="/sirkulasi" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
       <span class="material-symbols-outlined text-[22px]">sync_alt</span>
       Sirkulasi
     </a>
-    <a href="/statistik" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
-      <span class="material-symbols-outlined text-[22px]">analytics</span>
-      Statistik
-    </a>
-    <a href="/akun" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
+    
+    <a href="/akun" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
       <span class="material-symbols-outlined text-[22px]">account_circle</span>
       Akun
     </a>
-      <a href="{{ route('akun.pengaturan') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
+      <a href="{{ route('akun.pengaturan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
       <span class="material-symbols-outlined text-[22px]">settings</span>
       Pengaturan
     </a>
   </nav>
 </aside>
 
-<header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Katalog Buku</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="/notifikasi" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><a href="/edit-profil" class="w-11 h-11 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer" title="Edit Profil"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></a></div></div></header><main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-16 pb-24 md:pb-8 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin pb-space-xl gap-space-lg">
+<header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Katalog Buku</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="/notifikasi" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><a href="/edit-profil" class="w-11 h-11 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer" title="Edit Profil"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></a></div></div></header><main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-16 pb-24 md:pb-8 bg-surface min-h-screen overflow-hidden">
+  <!-- Animated Background Orbs -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0 fixed">
+    <div class="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] animate-pulse" style="animation-duration: 8s;"></div>
+    <div class="absolute top-[30%] -right-[10%] w-[40%] h-[60%] rounded-full bg-secondary-fixed/10 blur-[100px] animate-pulse" style="animation-duration: 12s; animation-delay: 2s;"></div>
+  </div>
+  <div class="flex flex-col w-full px-margin pb-space-xl gap-space-lg relative z-10">
 <!-- Micro-Banner Notification: Reservasi Mandiri Status -->
-<div class="relative overflow-hidden rounded-xl bg-secondary-container text-on-secondary-fixed shadow-[3px_3px_0px_#1c1b20] p-space-md flex items-center justify-between gap-space-sm">
+<div class="relative overflow-hidden rounded-2xl bg-secondary-container text-on-secondary-fixed shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-surface-container-highest hover:shadow-[0_8px_40px_rgba(100,50,255,0.08)] transition-all duration-300 p-space-md flex items-center justify-between gap-space-sm">
 <div class="flex items-center gap-space-sm min-w-0">
-<div class="w-10 h-10 rounded-lg bg-surface-container-lowest text-secondary flex items-center justify-center flex-shrink-0 shadow-[2px_2px_0px_#1c1b20]">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest text-secondary flex items-center justify-center flex-shrink-0 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300">
 <span class="material-symbols-outlined text-[24px]">electric_bolt</span>
 </div>
 <div class="flex flex-col min-w-0">
@@ -142,7 +145,7 @@ html.dark {
 <div class="flex flex-col gap-space-xs">
 <div class="relative flex items-center w-full">
 <span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[22px] pointer-events-none">search</span>
-<input class="w-full h-12 pl-11 pr-14 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant font-body-md text-body-md shadow-[3px_3px_0px_#1c1b20] focus:outline-none focus:shadow-[3px_3px_0px_#5b21e6] transition-all" id="catalogSearch" placeholder="Cari judul, penulis, ISBN, atau mapel..." type="search"/>
+<input class="w-full h-14 pl-12 pr-16 rounded-[1.5rem] bg-white/70 dark:bg-black/40 backdrop-blur-lg border border-surface-container-highest rounded-2xl bg-white/50 dark:bg-black/30 backdrop-blur-md text-on-surface border border-white/20 placeholder:text-on-surface-variant font-body-md text-body-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-surface-container-highest hover:shadow-[0_8px_40px_rgba(100,50,255,0.08)] transition-all duration-300 focus:outline-none focus:shadow-[3px_3px_0px_#5b21e6] transition-all" id="catalogSearch" placeholder="Cari judul, penulis, ISBN, atau mapel..." type="search"/>
 <button class="absolute right-1.5 h-9 px-2.5 rounded-lg bg-primary-fixed text-primary hover:bg-primary hover:text-on-primary flex items-center gap-1 transition-all active:translate-x-0.5 active:translate-y-0.5" id="scanBarcodeBtn" title="Scan Barcode / ISBN">
 <span class="material-symbols-outlined text-[20px]">barcode_scanner</span>
 <span class="font-label-sm text-label-sm hidden sm:inline">SCAN</span>
@@ -158,25 +161,25 @@ html.dark {
 <!-- Horizontal Scrollable Category Pills -->
 <div class="flex flex-col gap-space-xs">
 <div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-1 -mx-margin px-margin">
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary text-on-primary shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap active:translate-x-0.5 active:translate-y-0.5 transition-all" data-category="all">
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white shadow-lg shadow-primary/30 hover:scale-[1.02] shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 font-label-md text-label-md whitespace-nowrap active:translate-x-0.5 active:translate-y-0.5 transition-all" data-category="all">
 <span>🔥 Semua Buku</span>
 </button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="kurikulum">
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/50 dark:bg-black/30 backdrop-blur-md text-on-surface border border-white/20 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="kurikulum">
 <span>Kurikulum Merdeka</span>
 </button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="teknik">
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/50 dark:bg-black/30 backdrop-blur-md text-on-surface border border-white/20 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="teknik">
 <span>Teknik &amp; Rekayasa</span>
 </button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="animasi">
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/50 dark:bg-black/30 backdrop-blur-md text-on-surface border border-white/20 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="animasi">
 <span>Seni &amp; Animasi</span>
 </button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="gim">
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/50 dark:bg-black/30 backdrop-blur-md text-on-surface border border-white/20 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="gim">
 <span>Pengembangan Gim</span>
 </button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="umum">
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/50 dark:bg-black/30 backdrop-blur-md text-on-surface border border-white/20 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="umum">
 <span>Mata Pelajaran Umum</span>
 </button>
-<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface shadow-[2px_2px_0px_#1c1b20] font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="ebook">
+<button class="filter-pill flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/50 dark:bg-black/30 backdrop-blur-md text-on-surface border border-white/20 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-all" data-category="ebook">
 <span>E-Book PDF</span>
 </button>
 </div>
@@ -189,11 +192,12 @@ html.dark {
 </div>
 <span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">7 Menampilkan</span>
 </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 @forelse($books as $book)
-<article class="book-card flex flex-col bg-surface-container-lowest rounded-xl shadow-[3px_3px_0px_#1c1b20] p-space-md gap-space-md transition-all hover:-translate-y-0.5" data-category="{{ strtolower($book->category) }} {{ $book->type }}">
-<div class="flex gap-space-md">
+<article class="book-card flex flex-col bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-surface-container-highest hover:shadow-[0_8px_40px_rgba(100,50,255,0.08)] transition-all duration-300 p-space-md gap-space-md transition-all hover:-translate-y-0.5 group" data-category="{{ strtolower($book->category) }} {{ $book->type }}">
+<div class="flex flex-col gap-space-md">
 <!-- Thumbnail Cover -->
-<div class="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 shadow-[2px_2px_0px_#1c1b20] bg-surface-container">
+<div class="relative w-full h-48 sm:h-56 rounded-lg overflow-hidden flex-shrink-0 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 bg-surface-container">
 @if($book->cover_image_url)
 <img class="w-full h-full object-cover" alt="{{ $book->title }}" src="{{ asset($book->cover_image_url) }}"/>
 @else
@@ -215,19 +219,19 @@ html.dark {
 <span class="material-symbols-outlined text-[20px]">bookmark</span>
 </button>
 </div>
-<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">{{ $book->title }}</h3>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2 mt-2">{{ $book->title }}</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant truncate">{{ $book->author }}</p>
 </div>
 <!-- Shelf & Availability Status -->
 <div class="flex flex-wrap items-center gap-1.5 mt-2">
 @if($book->type == 'physical' || $book->type == 'both')
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-100 text-emerald-900 font-label-sm text-label-sm font-bold">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-emerald-500/10 text-emerald-600 font-label-sm text-label-sm font-bold">
 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
             Tersedia di {{ $book->rack }} ({{ $book->stock }} Eks.)
           </span>
 @endif
 @if($book->type == 'ebook' || $book->type == 'both')
-<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-blue-100 text-blue-900 font-label-sm text-label-sm font-bold">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-blue-500/10 text-blue-600 font-label-sm text-label-sm font-bold">
 <span class="material-symbols-outlined text-[14px]">cloud_download</span>
             E-Book
           </span>
@@ -236,10 +240,10 @@ html.dark {
 </div>
 </div>
 <!-- Action Buttons -->
-<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="flex flex-col gap-2 pt-space-sm mt-auto">
 @if($book->type == 'physical' || $book->type == 'both')
 @if($book->stock > 0)
-<button class="h-10 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="openBorrowModal('{{ $book->id }}', '{{ addslashes($book->title) }}', '{{ addslashes($book->author) }}', '{{ $book->cover_image_url ? asset($book->cover_image_url) : '' }}', '{{ $book->rack }}', '{{ $book->category }}')">
+<button class="h-10 px-3 rounded-lg bg-gradient-to-r from-primary to-primary-container text-white shadow-lg shadow-primary/30 hover:scale-[1.02] font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 active:translate-x-0.5 active:translate-y-0.5 transition-all" onclick="openBorrowModal('{{ $book->id }}', '{{ addslashes($book->title) }}', '{{ addslashes($book->author) }}', '{{ $book->cover_image_url ? asset($book->cover_image_url) : '' }}', '{{ $book->rack }}', '{{ $book->category }}')">
 <span class="material-symbols-outlined text-[18px]">touch_app</span>
         Pinjam Mandiri
       </button>
@@ -251,7 +255,7 @@ html.dark {
 @endif
 @endif
 @if($book->type == 'ebook' || $book->type == 'both')
-<a href="{{ route('baca.ebook', $book->id) }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#1c1b20] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+<a href="{{ route('baca.ebook', $book->id) }}" target="_blank" class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 active:translate-x-0.5 active:translate-y-0.5 transition-all">
 <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
         Baca E-Book
       </a>
@@ -264,8 +268,9 @@ html.dark {
   <p>Belum ada buku di katalog.</p>
 </div>
 @endforelse
+</div>
 <!-- Interactive Quick Fact Widget -->
-<div class="p-space-md rounded-xl bg-surface-container text-on-surface flex items-start gap-space-sm shadow-[2px_2px_0px_#1c1b20]">
+<div class="p-space-md rounded-2xl bg-surface-container text-on-surface flex items-start gap-space-sm shadow-sm border border-surface-container hover:shadow-md transition-all duration-300">
 <div class="w-9 h-9 rounded-lg bg-primary-fixed text-primary flex items-center justify-center flex-shrink-0">
 <span class="material-symbols-outlined text-[20px]">lightbulb</span>
 </div>
@@ -398,10 +403,10 @@ html.dark {
       window.location.href = "/scanner";
     });
   }
-</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)] md:hidden" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun-pengaturan" href="{{ route('akun.pengaturan') }}"><span class="material-symbols-outlined text-[22px]">settings</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Pengaturan</span></a></div></nav><div class="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 hidden" id="borrowConfirmationModal">
-<div class="w-full max-w-[430px] bg-white rounded-t-[32px] p-6 shadow-2xl relative border-t border-purple-100 flex flex-col max-h-[90vh] overflow-y-auto no-scrollbar animate-slide-up">
-<!-- Drag Handle -->
-<div class="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-4 flex-shrink-0"></div>
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)] md:hidden" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-surface-container-highest hover:shadow-[0_8px_40px_rgba(100,50,255,0.08)] transition-all duration-300"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-2xl transition-all bg-primary-container text-on-primary font-bold shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-surface-container-highest hover:shadow-[0_8px_40px_rgba(100,50,255,0.08)] transition-all duration-300" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-2xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-2xl text-on-surface-variant transition-all hover:text-primary" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-2xl text-on-surface-variant transition-all hover:text-primary" data-path="akun-pengaturan" href="{{ route('akun.pengaturan') }}"><span class="material-symbols-outlined text-[22px]">settings</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Pengaturan</span></a></div></nav><div class="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 hidden" id="borrowConfirmationModal">
+<div class="w-full max-w-[430px] md:max-w-[600px] bg-white rounded-t-[32px] md:rounded-[32px] p-6 shadow-2xl relative md:border border-t border-purple-100 flex flex-col max-h-[90vh] overflow-y-auto no-scrollbar animate-slide-up">
+<!-- Drag Handle (Mobile Only) -->
+<div class="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-4 flex-shrink-0 md:hidden"></div>
 <!-- Header -->
 <div class="flex items-start justify-between gap-3 mb-4">
 <div class="flex flex-col gap-1">
@@ -418,41 +423,45 @@ html.dark {
 <form method="POST" action="{{ route('borrow.store') }}" id="borrowForm">
 @csrf
 <input type="hidden" name="book_id" id="modal_book_id" value="">
+<!-- Desktop flex wrapper for summary + details -->
+<div class="flex flex-col md:flex-row gap-4 mb-4">
 <!-- Book Summary Card -->
-<div class="bg-purple-50/70 rounded-2xl p-3.5 border border-purple-100 flex gap-3.5 items-center mb-4">
-<img id="modal_cover" alt="Cover" class="w-14 h-20 rounded-xl object-cover shadow-md flex-shrink-0 bg-purple-100" src=""/>
-<div class="flex flex-col flex-1 min-w-0">
-<div class="flex items-center gap-1.5 mb-1">
+<div class="bg-purple-50/70 rounded-2xl p-3.5 border border-purple-100 flex gap-3.5 items-center md:items-start md:flex-col md:flex-1 md:justify-center">
+<img id="modal_cover" alt="Cover" class="w-14 h-20 md:w-32 md:h-48 rounded-2xl md:rounded-xl object-cover shadow-md flex-shrink-0 bg-purple-100 md:mx-auto" src=""/>
+<div class="flex flex-col flex-1 min-w-0 md:text-center md:items-center">
+<div class="flex items-center gap-1.5 mb-1 md:justify-center">
 <span id="modal_category" class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-200/70 text-purple-900"></span>
 <span id="modal_rack" class="text-[10px] font-medium text-purple-700"></span>
 </div>
-<h4 id="modal_title" class="font-bold text-slate-900 text-sm leading-snug line-clamp-2"></h4>
+<h4 id="modal_title" class="font-bold text-slate-900 text-sm md:text-base leading-snug line-clamp-2 mt-2"></h4>
 <p id="modal_author" class="text-xs text-slate-500 truncate mt-0.5"></p>
 </div>
 </div>
 <!-- Circulation Details Grid -->
-<div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100 mb-4 flex flex-col gap-3">
-<div class="grid grid-cols-2 gap-3">
-<div class="flex flex-col bg-white p-2.5 rounded-xl border border-slate-100 shadow-sm justify-center">
+<div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100 flex flex-col gap-3 md:flex-1 md:justify-center">
+<div class="grid grid-cols-2 md:grid-cols-1 gap-3">
+<div class="flex flex-col bg-white p-2.5 rounded-2xl border border-slate-100 shadow-sm justify-center">
 <span class="text-[11px] text-slate-400 font-medium">Tanggal Pinjam</span>
 <span class="text-[13px] font-bold text-slate-800 mt-0.5" id="today_date">Hari Ini</span>
 </div>
-<div class="flex flex-col bg-white p-2.5 rounded-xl border border-purple-200 shadow-sm">
+<div class="flex flex-col bg-white p-2.5 rounded-2xl border border-purple-200 shadow-sm">
 <label for="return_date" class="text-[11px] text-purple-600 font-medium mb-1">Tenggat Kembali (Pilih)</label>
 <input type="date" name="return_date" id="return_date" required class="text-[13px] font-bold text-purple-700 bg-purple-50 border border-purple-100 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-purple-500 w-full" onchange="updateDendaText()">
 </div>
 </div>
 <!-- Borrowing Quota Progress -->
-<div class="flex flex-col gap-1.5 px-0.5 pt-1 border-t border-slate-200/60">
+<div class="flex flex-col gap-1.5 px-0.5 pt-1 border-t border-slate-200/60 mt-auto">
 <div class="flex items-center justify-between text-xs">
-<span class="text-slate-600 font-medium">Kuota Peminjaman Kamu</span>
-<span class="font-bold text-slate-900">2 <span class="text-slate-400 font-normal">dari 3 buku</span></span>
+<span class="text-slate-600 font-medium">Kuota Peminjaman</span>
+<span class="font-bold text-slate-900">2 <span class="text-slate-400 font-normal">dari 3</span></span>
 </div>
 <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
 <div class="h-full bg-[#5b21e6] rounded-full" style="width: 66.6%;"></div>
 </div>
 </div>
 </div>
+</div>
+<!-- End flex wrapper -->
 <!-- Terms & Guidelines -->
 <div class="bg-slate-50/80 rounded-2xl p-3 border border-slate-100 mb-4 flex flex-col gap-2.5">
 <div class="flex items-start gap-2 text-xs text-slate-700 leading-tight">

@@ -192,7 +192,14 @@ html.dark {
                 <div class="w-14 h-14 rounded-xl border-4 border-on-surface bg-white flex items-center justify-center text-on-surface mb-4 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
                     <span class="material-symbols-outlined text-[32px]">hourglass_top</span>
                 </div>
-                <p class="font-label-md text-on-surface uppercase tracking-black font-black mb-2 text-lg">Persetujuan</p>
+                                <!-- Statistik Menu -->
+                <p class="font-label-md text-on-surface uppercase tracking-black font-black mb-2 text-lg mt-6">Statistik</p>
+                <ul class="flex flex-col gap-2">
+                    <li>
+                        <a href="{{ route('statistik') }}" class="text-on-surface font-label-md flex items-center bg-white px-3 py-1 rounded-lg border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black hover:bg-gray-100 transition-colors">Lihat Statistik</a>
+                    </li>
+                </ul>
+                <p class="font-label-md text-on-surface uppercase tracking-black font-black mb-2 text-lg mt-6">Persetujuan</p>
                 <div class="flex items-center gap-3">
                     <h2 class="font-headline-lg text-5xl text-on-surface font-black drop-shadow-[2px_2px_0px_#fff]">{{ number_format($pendingApprovals) }}</h2>
                     <a href="{{ route('admin.persetujuan') }}" class="text-on-surface font-label-md flex items-center bg-white px-3 py-1 rounded-lg border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black hover:bg-gray-100 transition-colors">Tinjauan</a>

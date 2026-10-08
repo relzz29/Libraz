@@ -296,10 +296,7 @@ html.dark {
                 <span class="material-symbols-outlined text-[22px]">sync_alt</span>
                 <span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span>
             </a>
-            <a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="petugas-statistik" href="{{ route('statistik') }}">
-                <span class="material-symbols-outlined text-[22px]">analytics</span>
-                <span class="font-label-sm text-label-sm tracking-tight mt-0.5">Statistik</span>
-            </a>
+            
             <a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all hover:text-primary text-on-surface-variant" data-path="akun" href="{{ route('akun') }}">
                 <span class="material-symbols-outlined text-[22px]">person</span>
                 <span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span>
