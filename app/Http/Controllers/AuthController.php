@@ -148,7 +148,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'avatar' => 'nullable|string',
             'email' => 'nullable|email|max:255|unique:users,email,' . $user->id,
-            'school_name' => 'nullable|string|max:255',
+            'school_name' => 'required|string|max:255',
             'bio' => 'nullable|string',
             'whatsapp_number' => 'nullable|string|max:20',
             'role' => 'nullable|string|max:255',
