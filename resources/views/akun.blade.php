@@ -198,35 +198,61 @@ html.dark {
             </div>
 
             <!-- Minat Baca & FYP Widget -->
-            <div class="relative overflow-hidden bg-gradient-to-br from-white/50 to-white/10 dark:from-slate-800/40 dark:to-slate-900/10 backdrop-blur-md p-4 rounded-[16px] border border-white/60 dark:border-white/10 shadow-sm w-full lg:w-64 flex flex-col justify-between group transition-all hover:bg-white/60 dark:hover:bg-slate-800/60 shrink-0">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">Minat Baca & FYP</span>
-                    <span class="material-symbols-outlined text-[16px] text-primary animate-pulse">auto_awesome</span>
-                </div>
-                
-                <div class="flex flex-wrap gap-2 mb-3">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md border border-surface-container-highest">
-                        <span class="text-base">🚀</span> Sains &amp; Astronomi
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md border border-surface-container-highest">
-                        <span class="text-base">💡</span> Filosofi &amp; Mindset
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md border border-surface-container-highest">
-                        <span class="text-base">🤖</span> Teknologi &amp; AI
-                    </span>
-                    <a href="{{ route('edit.profil') }}" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-primary font-label-md text-label-md border border-primary/20 hover:bg-primary/20 transition-colors cursor-pointer">
-                        <span class="material-symbols-outlined text-[14px]">add</span> Edit
+            <div class="relative overflow-hidden bg-gradient-to-br from-white/70 to-white/40 dark:from-slate-800/60 dark:to-slate-900/40 backdrop-blur-xl p-4 rounded-[20px] border border-white/60 dark:border-white/10 shadow-sm w-full lg:w-72 flex flex-col justify-between shrink-0">
+                <!-- Header -->
+                <div class="flex items-start justify-between mb-1.5">
+                    <div class="flex flex-col">
+                        <span class="text-xs text-slate-400 dark:text-slate-400 leading-none mb-1">✨</span>
+                        <span class="text-[11px] font-extrabold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Minat Baca &amp; FYP</span>
+                    </div>
+                    <a href="{{ route('edit.profil') }}" class="inline-flex items-center px-3 py-1 rounded-full bg-[#EDE9FE] dark:bg-purple-900/40 text-[#7C3AED] dark:text-purple-300 hover:bg-[#DDD6FE] dark:hover:bg-purple-900/60 font-bold text-xs transition-colors shadow-sm">
+                        + Edit
                     </a>
                 </div>
                 
-                <div class="flex items-center gap-2 mt-auto pt-3 border-t border-slate-200/50 dark:border-white/10">
-                    <div class="w-8 h-4 bg-primary/20 rounded-full relative shadow-inner cursor-pointer hover:bg-primary/30 transition-colors">
-                        <div class="absolute right-0.5 top-0.5 w-3 h-3 bg-primary rounded-full shadow-sm"></div>
-                    </div>
+                <!-- Pills List Container (Dynamic) -->
+                @php
+                    $userInterests = $user->interests ?? ['🚀 Sains & Astronomi', '💡 Filosofi & Mindset', '🤖 Teknologi & AI'];
+                    if (is_string($userInterests)) {
+                        $userInterests = json_decode($userInterests, true) ?? [];
+                    }
+                    if (empty($userInterests)) {
+                        $userInterests = ['🚀 Sains & Astronomi', '💡 Filosofi & Mindset', '🤖 Teknologi & AI'];
+                    }
+                @endphp
+                <div id="profile-interests-container" class="flex flex-col gap-1.5 my-2">
+                    @foreach(array_slice($userInterests, 0, 3) as $interest)
+                        @php
+                            $style = 'bg-[#EDE9FE] text-[#581C87] border-[#E9D5FF]/50 dark:bg-purple-950/40 dark:text-purple-200';
+                            if (str_contains($interest, 'Sains')) $style = 'bg-[#FFE4DE] text-[#431407] border-[#FED7AA]/50 dark:bg-rose-950/40 dark:text-rose-200 dark:border-rose-900/30';
+                            elseif (str_contains($interest, 'Filosofi')) $style = 'bg-[#FEF3C7] text-[#451A03] border-[#FDE68A]/50 dark:bg-amber-950/40 dark:text-amber-200 dark:border-amber-900/30';
+                            elseif (str_contains($interest, 'Teknologi')) $style = 'bg-[#E0E7FF] text-[#1E1B4B] border-[#C7D2FE]/50 dark:bg-indigo-950/40 dark:text-indigo-200 dark:border-indigo-900/30';
+                            elseif (str_contains($interest, 'Sastra')) $style = 'bg-[#D1FAE5] text-[#064E3B] border-[#A7F3D0]/50 dark:bg-emerald-950/40 dark:text-emerald-200 dark:border-emerald-900/30';
+                            elseif (str_contains($interest, 'Sejarah')) $style = 'bg-[#E0F2FE] text-[#082F49] border-[#BAE6FD]/50 dark:bg-sky-950/40 dark:text-sky-200 dark:border-sky-900/30';
+                            elseif (str_contains($interest, 'Komik')) $style = 'bg-[#FCE7F3] text-[#701A75] border-[#FBCFE8]/50 dark:bg-fuchsia-950/40 dark:text-fuchsia-200 dark:border-fuchsia-900/30';
+                            elseif (str_contains($interest, 'Bisnis')) $style = 'bg-[#F3E8FF] text-[#581C87] border-[#E9D5FF]/50 dark:bg-purple-950/40 dark:text-purple-200 dark:border-purple-900/30';
+                            elseif (str_contains($interest, 'Self')) $style = 'bg-[#CCFBF1] text-[#134E4A] border-[#99F6E4]/50 dark:bg-teal-950/40 dark:text-teal-200 dark:border-teal-900/30';
+                        @endphp
+                        <div class="w-full px-3.5 py-1.5 rounded-full {{ $style }} text-xs font-bold flex items-center gap-2 shadow-sm border transition-transform hover:scale-[1.01]">
+                            <span>{{ $interest }}</span>
+                        </div>
+                    @endforeach
+                    @if(count($userInterests) > 3)
+                        <div class="text-[10px] text-slate-500 font-bold px-1 text-right">
+                            +{{ count($userInterests) - 3 }} genre lainnya
+                        </div>
+                    @endif
+                </div>
+                
+                <!-- Footer FYP Toggle -->
+                <div class="flex items-center justify-between pt-2 mt-auto border-t border-slate-200/50 dark:border-white/10">
                     <div class="flex flex-col">
-                        <span class="text-[10px] font-bold text-slate-700 dark:text-slate-300 leading-tight">Algoritma FYP Aktif</span>
-                        <span class="text-[9px] text-slate-500 font-medium">Buku disesuaikan minat</span>
+                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-tight">Algoritma FYP Aktif</span>
+                        <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Buku disesuaikan minat</span>
                     </div>
+                    <button type="button" id="fyp-toggle-btn" role="switch" aria-checked="true" aria-label="Toggle Algoritma FYP" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-primary transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm">
+                        <span id="fyp-toggle-knob" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out translate-x-5"></span>
+                    </button>
                 </div>
             </div>
             
@@ -627,8 +653,59 @@ html.dark {
     });
   }
 
+  // Genre Style Mapping & Renderer
+  const GENRE_STYLE_MAP = {
+    'Sains': 'bg-[#FFE4DE] text-[#431407] border-[#FED7AA]/50 dark:bg-rose-950/40 dark:text-rose-200 dark:border-rose-900/30',
+    'Filosofi': 'bg-[#FEF3C7] text-[#451A03] border-[#FDE68A]/50 dark:bg-amber-950/40 dark:text-amber-200 dark:border-amber-900/30',
+    'Teknologi': 'bg-[#E0E7FF] text-[#1E1B4B] border-[#C7D2FE]/50 dark:bg-indigo-950/40 dark:text-indigo-200 dark:border-indigo-900/30',
+    'Sastra': 'bg-[#D1FAE5] text-[#064E3B] border-[#A7F3D0]/50 dark:bg-emerald-950/40 dark:text-emerald-200 dark:border-emerald-900/30',
+    'Sejarah': 'bg-[#E0F2FE] text-[#082F49] border-[#BAE6FD]/50 dark:bg-sky-950/40 dark:text-sky-200 dark:border-sky-900/30',
+    'Komik': 'bg-[#FCE7F3] text-[#701A75] border-[#FBCFE8]/50 dark:bg-fuchsia-950/40 dark:text-fuchsia-200 dark:border-fuchsia-900/30',
+    'Bisnis': 'bg-[#F3E8FF] text-[#581C87] border-[#E9D5FF]/50 dark:bg-purple-950/40 dark:text-purple-200 dark:border-purple-900/30',
+    'Self': 'bg-[#CCFBF1] text-[#134E4A] border-[#99F6E4]/50 dark:bg-teal-950/40 dark:text-teal-200 dark:border-teal-900/30',
+    'Misteri': 'bg-[#F1F5F9] text-[#0F172A] border-[#CBD5E1]/50 dark:bg-slate-800/70 dark:text-slate-200 dark:border-slate-700/50',
+  };
+
+  function renderProfileInterests(interests) {
+    const container = document.getElementById('profile-interests-container');
+    if (!container || !interests || !Array.isArray(interests) || interests.length === 0) return;
+
+    container.innerHTML = '';
+    const displayItems = interests.slice(0, 3);
+
+    displayItems.forEach(item => {
+      let style = 'bg-[#EDE9FE] text-[#581C87] border-[#E9D5FF]/50 dark:bg-purple-950/40 dark:text-purple-200';
+      for (const [key, val] of Object.entries(GENRE_STYLE_MAP)) {
+        if (item.includes(key)) {
+          style = val;
+          break;
+        }
+      }
+
+      const pill = document.createElement('div');
+      pill.className = `w-full px-3.5 py-1.5 rounded-full ${style} text-xs font-bold flex items-center gap-2 shadow-sm border transition-transform hover:scale-[1.01]`;
+      pill.innerHTML = `<span>${item}</span>`;
+      container.appendChild(pill);
+    });
+
+    if (interests.length > 3) {
+      const extra = document.createElement('div');
+      extra.className = 'text-[10px] text-slate-500 font-bold px-1 text-right';
+      extra.textContent = `+${interests.length - 3} genre lainnya`;
+      container.appendChild(extra);
+    }
+  }
+
   // Fetch User Data from API
   document.addEventListener('DOMContentLoaded', async () => {
+    // Render dari cached interests seketika
+    try {
+      const cached = JSON.parse(localStorage.getItem('user_interests'));
+      if (Array.isArray(cached) && cached.length > 0) {
+        renderProfileInterests(cached);
+      }
+    } catch(e) {}
+
     const token = localStorage.getItem('auth_token');
     
     try {
@@ -661,6 +738,12 @@ html.dark {
 
         if (elAvatarSmall) elAvatarSmall.src = avatarUrl;
         if (elAvatarLarge) elAvatarLarge.src = avatarUrl;
+
+        // --- Render Minat Baca & FYP secara Realtime ---
+        if (user.interests && Array.isArray(user.interests) && user.interests.length > 0) {
+            renderProfileInterests(user.interests);
+            localStorage.setItem('user_interests', JSON.stringify(user.interests));
+        }
 
         // --- Logic Peringkat Literasi & XP (Gen Z Ranking System) ---
         // Jika backend belum support, default ke 1.
@@ -716,6 +799,37 @@ html.dark {
       }
     } catch (e) {
       console.error(e);
+    }
+
+    // Toggle Algoritma FYP
+    const fypToggle = document.getElementById('fyp-toggle-btn');
+    const fypKnob = document.getElementById('fyp-toggle-knob');
+    if (fypToggle && fypKnob) {
+      let isFypActive = localStorage.getItem('fyp_active') !== 'false';
+      
+      const updateFypUI = (active) => {
+        if (active) {
+          fypToggle.classList.remove('bg-slate-300', 'dark:bg-slate-700');
+          fypToggle.classList.add('bg-primary');
+          fypKnob.classList.remove('translate-x-0');
+          fypKnob.classList.add('translate-x-5');
+          fypToggle.setAttribute('aria-checked', 'true');
+        } else {
+          fypToggle.classList.remove('bg-primary');
+          fypToggle.classList.add('bg-slate-300', 'dark:bg-slate-700');
+          fypKnob.classList.remove('translate-x-5');
+          fypKnob.classList.add('translate-x-0');
+          fypToggle.setAttribute('aria-checked', 'false');
+        }
+      };
+
+      updateFypUI(isFypActive);
+
+      fypToggle.addEventListener('click', () => {
+        isFypActive = !isFypActive;
+        localStorage.setItem('fyp_active', isFypActive ? 'true' : 'false');
+        updateFypUI(isFypActive);
+      });
     }
   });
 </script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)] md:hidden" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun-pengaturan" href="{{ route('akun.pengaturan') }}"><span class="material-symbols-outlined text-[22px]">settings</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Pengaturan</span></a></div></nav></body></html>

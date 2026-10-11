@@ -239,7 +239,8 @@ Route::get('/sirkulasi-sukses', function (\Illuminate\Http\Request $request) {
 })->name('sirkulasi.sukses');
 
 Route::get('/akun-pengaturan', function () {
-    return view('akun_pengaturan');
+    $user = auth()->user() ?? \App\Models\User::first();
+    return view('akun_pengaturan', compact('user'));
 })->name('akun.pengaturan');
 
 Route::get('/bantuan', function () {
@@ -329,7 +330,8 @@ use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\AdminAuthController;
 
 Route::get('/edit-profil', function () {
-    return view('edit_profil');
+    $user = auth()->user() ?? \App\Models\User::first();
+    return view('edit_profil', compact('user'));
 })->name('edit.profil');
 
 // Admin Auth Routes

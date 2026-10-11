@@ -223,52 +223,34 @@ html.dark {
 </div>
 </div>
 <!-- Kategori Minat Baca & Feed AI -->
-<div class="rounded-[32px] p-space-lg bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container-lowest flex flex-col space-y-space-md">
+<div class="rounded-[28px] p-6 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container-high/60 flex flex-col space-y-4">
 <div>
+<div class="flex items-center justify-between">
 <div class="flex items-center gap-space-xs mb-1">
 <span class="text-2xl">🧠</span>
 <h2 class="font-headline-sm text-headline-sm text-on-surface">Minat Baca &amp; FYP</h2>
 </div>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Pilih genre favorit untuk kurasi FYP (For Your Page) dan rekomendasi pintar AI.</p>
+<span class="text-xs font-bold text-primary px-3 py-1 bg-primary/10 rounded-full" id="genres-count-badge">0 Dipilih</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pilih genre favorit untuk kurasi FYP (For Your Page) dan rekomendasi cerdas AI.</p>
 </div>
 <!-- Selected Tags -->
 <div class="flex flex-col space-y-space-sm">
+<div class="flex items-center justify-between">
 <span class="font-label-sm text-label-sm uppercase text-primary font-extrabold tracking-wider ml-1">Genre Favorit Kamu 💖</span>
-<div class="flex flex-wrap gap-2" id="selected-genres-container">
+<span class="text-[11px] text-on-surface-variant italic">Klik untuk menghapus</span>
+</div>
+<div class="flex flex-wrap gap-2.5 min-h-[48px] p-3 rounded-2xl bg-surface-container/30 border border-dashed border-primary/25 items-center" id="selected-genres-container">
+<p id="empty-genres-hint" class="text-xs text-on-surface-variant/70 italic">Belum ada genre dipilih. Klik genre di bawah untuk menambahkan.</p>
 </div>
 </div>
 <!-- Unselected Tags -->
 <div class="flex flex-col space-y-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
 <span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-bold tracking-wider ml-1">Eksplor Genre Lain 👀</span>
-<div class="flex flex-wrap gap-2" id="unselected-genres-container">
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
-<span class="text-base">🚀</span> Sains &amp; Astronomi
-          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
-<span class="text-base">💡</span> Filosofi &amp; Mindset
-          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
-<span class="text-base">📖</span> Sastra &amp; Fiksi
-          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
-<span class="text-base">🤖</span> Teknologi &amp; AI
-          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
-<span class="text-base">🏛️</span> Sejarah Dunia
-          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
-<span class="text-base">🎨</span> Komik &amp; Webtoon
-          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest" type="button">
-<span class="text-base">📈</span> Bisnis &amp; Cuang
-          <span class="material-symbols-outlined text-[16px] text-outline">add</span>
-</button>
+<span class="text-[11px] text-on-surface-variant italic">Klik untuk memilih</span>
+</div>
+<div class="flex flex-wrap gap-2.5" id="unselected-genres-container">
 </div>
 </div>
 </div>
@@ -347,6 +329,92 @@ html.dark {
       if (alertBox) alertBox.classList.remove('hidden');
     }
 
+    // Genre System Logic & Elements
+    const selectedGenresContainer = document.getElementById('selected-genres-container');
+    const unselectedGenresContainer = document.getElementById('unselected-genres-container');
+    const genresCountBadge = document.getElementById('genres-count-badge');
+
+    const ALL_GENRES = [
+      { name: 'Sains & Astronomi', emoji: '🚀', label: '🚀 Sains & Astronomi', activeBg: 'bg-[#FFE4DE] text-[#431407] border-[#FED7AA] dark:bg-rose-950/60 dark:text-rose-200 dark:border-rose-800/50' },
+      { name: 'Filosofi & Mindset', emoji: '💡', label: '💡 Filosofi & Mindset', activeBg: 'bg-[#FEF3C7] text-[#451A03] border-[#FDE68A] dark:bg-amber-950/60 dark:text-amber-200 dark:border-amber-800/50' },
+      { name: 'Teknologi & AI', emoji: '🤖', label: '🤖 Teknologi & AI', activeBg: 'bg-[#E0E7FF] text-[#1E1B4B] border-[#C7D2FE] dark:bg-indigo-950/60 dark:text-indigo-200 dark:border-indigo-800/50' },
+      { name: 'Sastra & Fiksi', emoji: '📖', label: '📖 Sastra & Fiksi', activeBg: 'bg-[#D1FAE5] text-[#064E3B] border-[#A7F3D0] dark:bg-emerald-950/60 dark:text-emerald-200 dark:border-emerald-800/50' },
+      { name: 'Sejarah Dunia', emoji: '🏛️', label: '🏛️ Sejarah Dunia', activeBg: 'bg-[#E0F2FE] text-[#082F49] border-[#BAE6FD] dark:bg-sky-950/60 dark:text-sky-200 dark:border-sky-800/50' },
+      { name: 'Komik & Webtoon', emoji: '🎨', label: '🎨 Komik & Webtoon', activeBg: 'bg-[#FCE7F3] text-[#701A75] border-[#FBCFE8] dark:bg-fuchsia-950/60 dark:text-fuchsia-200 dark:border-fuchsia-800/50' },
+      { name: 'Bisnis & Cuan', emoji: '📈', label: '📈 Bisnis & Cuan', activeBg: 'bg-[#F3E8FF] text-[#581C87] border-[#E9D5FF] dark:bg-purple-950/60 dark:text-purple-200 dark:border-purple-800/50' },
+      { name: 'Self Improvement', emoji: '🧘', label: '🧘 Self Improvement', activeBg: 'bg-[#CCFBF1] text-[#134E4A] border-[#99F6E4] dark:bg-teal-950/60 dark:text-teal-200 dark:border-teal-800/50' },
+      { name: 'Misteri & Detektif', emoji: '🔍', label: '🔍 Misteri & Detektif', activeBg: 'bg-[#F1F5F9] text-[#0F172A] border-[#CBD5E1] dark:bg-slate-800/70 dark:text-slate-200 dark:border-slate-700' },
+    ];
+
+    let currentSelectedGenres = [];
+
+    function renderGenrePicker(selectedList) {
+      if (selectedList) currentSelectedGenres = selectedList;
+
+      if (!selectedGenresContainer || !unselectedGenresContainer) return;
+
+      selectedGenresContainer.innerHTML = '';
+      unselectedGenresContainer.innerHTML = '';
+
+      let selectedCount = 0;
+
+      ALL_GENRES.forEach(genre => {
+        const isSelected = currentSelectedGenres.some(s => s && (s.includes(genre.name) || s === genre.label));
+
+        if (isSelected) {
+          selectedCount++;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('data-genre-label', genre.label);
+          btn.className = `inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full ${genre.activeBg} font-bold text-xs shadow-sm border active:scale-95 transition-all group cursor-pointer`;
+          btn.innerHTML = `
+            <span class="text-sm">${genre.emoji}</span>
+            <span>${genre.name}</span>
+            <span class="material-symbols-outlined text-[15px] opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-transform">close</span>
+          `;
+          btn.addEventListener('click', () => {
+            currentSelectedGenres = currentSelectedGenres.filter(s => !s.includes(genre.name) && s !== genre.label);
+            renderGenrePicker();
+          });
+          selectedGenresContainer.appendChild(btn);
+        } else {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('data-genre-label', genre.label);
+          btn.className = `inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-semibold text-xs border border-surface-container-highest active:scale-95 transition-all cursor-pointer`;
+          btn.innerHTML = `
+            <span class="text-sm">${genre.emoji}</span>
+            <span>${genre.name}</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">add</span>
+          `;
+          btn.addEventListener('click', () => {
+            currentSelectedGenres.push(genre.label);
+            renderGenrePicker();
+          });
+          unselectedGenresContainer.appendChild(btn);
+        }
+      });
+
+      if (selectedCount === 0) {
+        selectedGenresContainer.innerHTML = '<p id="empty-genres-hint" class="text-xs text-on-surface-variant/70 italic my-auto">Belum ada genre dipilih. Klik genre di bawah untuk menambahkan.</p>';
+      }
+      if (genresCountBadge) {
+        genresCountBadge.textContent = `${selectedCount} Dipilih`;
+      }
+    }
+
+    // Inisialisasi awal genre dari localStorage jika ada
+    try {
+      const cached = JSON.parse(localStorage.getItem('user_interests'));
+      if (Array.isArray(cached) && cached.length > 0) {
+        renderGenrePicker(cached);
+      } else {
+        renderGenrePicker(['🚀 Sains & Astronomi', '💡 Filosofi & Mindset', '🤖 Teknologi & AI']);
+      }
+    } catch (e) {
+      renderGenrePicker(['🚀 Sains & Astronomi', '💡 Filosofi & Mindset', '🤖 Teknologi & AI']);
+    }
+
     // 1. Fetch data dari API
     const token = localStorage.getItem('auth_token');
     if (!token) {
@@ -393,6 +461,21 @@ html.dark {
                 profileImage.src = defaultAvatar;
             }
         }
+
+        // Inisialisasi Minat Baca / Genres
+        let initialInterests = null;
+        if (user.interests && Array.isArray(user.interests) && user.interests.length > 0) {
+            initialInterests = user.interests;
+        } else {
+            try {
+                const stored = JSON.parse(localStorage.getItem('user_interests'));
+                if (Array.isArray(stored) && stored.length > 0) initialInterests = stored;
+            } catch (e) {}
+        }
+        if (!initialInterests || initialInterests.length === 0) {
+            initialInterests = ['🚀 Sains & Astronomi', '💡 Filosofi & Mindset', '🤖 Teknologi & AI'];
+        }
+        renderGenrePicker(initialInterests);
       } else {
         localStorage.removeItem('auth_token');
         window.location.href = '/login';
@@ -542,6 +625,10 @@ html.dark {
             avatarData = profileImage.src;
         }
 
+        // Ambil genre yang dipilih
+        const selectedGenreEls = selectedGenresContainer ? selectedGenresContainer.querySelectorAll('[data-genre-label]') : [];
+        const selectedGenres = Array.from(selectedGenreEls).map(el => el.getAttribute('data-genre-label'));
+
         try {
           const response = await fetch('/api/user', {
             method: 'PUT',
@@ -558,11 +645,15 @@ html.dark {
                 bio: newBio,
                 whatsapp_number: newWa,
                 avatar: avatarData,
-                role: newClass
+                role: newClass,
+                interests: selectedGenres
             })
           });
           if (response.ok) {
             btnText.textContent = 'Berhasil Disimpan! Mengalihkan...';
+            
+            // Simpan juga ke localStorage agar instan
+            localStorage.setItem('user_interests', JSON.stringify(selectedGenres));
             
             // Perbarui UI secara langsung
             if (profileImage && !avatarData) {
@@ -755,38 +846,6 @@ html.dark {
             }
         }
     });
-
-    // 7. Genre Toggle Logic
-    const selectedGenresContainer = document.getElementById('selected-genres-container');
-    const unselectedGenresContainer = document.getElementById('unselected-genres-container');
-
-    const toggleGenre = (button, isSelected) => {
-        if (isSelected) {
-            // Move to unselected
-            button.className = 'inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-highest';
-            button.querySelector('.material-symbols-outlined').textContent = 'add';
-            button.querySelector('.material-symbols-outlined').className = 'material-symbols-outlined text-[16px] text-outline';
-            unselectedGenresContainer.appendChild(button);
-        } else {
-            // Move to selected
-            button.className = 'inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-primary to-surface-tint text-on-primary font-label-md text-label-md active:scale-95 transition-all shadow-md shadow-primary/30';
-            button.querySelector('.material-symbols-outlined').textContent = 'check';
-            button.querySelector('.material-symbols-outlined').className = 'material-symbols-outlined text-[16px] font-bold';
-            selectedGenresContainer.appendChild(button);
-        }
-    };
-
-    if (selectedGenresContainer && unselectedGenresContainer) {
-        selectedGenresContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('button');
-            if (btn) toggleGenre(btn, true);
-        });
-
-        unselectedGenresContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('button');
-            if (btn) toggleGenre(btn, false);
-        });
-    }
   });
 </script>
 </body></html>

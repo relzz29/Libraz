@@ -40,6 +40,7 @@ class User extends Authenticatable
         'email',
         'bio',
         'whatsapp_number',
+        'interests',
     ];
 
     /**
@@ -62,6 +63,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'interests' => 'array',
         ];
     }
 }

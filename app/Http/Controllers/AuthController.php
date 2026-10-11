@@ -152,6 +152,8 @@ class AuthController extends Controller
             'bio' => 'nullable|string',
             'whatsapp_number' => 'nullable|string|max:20',
             'role' => 'nullable|string|max:255',
+            'interests' => 'nullable|array',
+            'interests.*' => 'string|max:100',
         ]);
 
         $user->name = $validated['name'];
@@ -160,6 +162,7 @@ class AuthController extends Controller
         if (array_key_exists('bio', $validated)) $user->bio = $validated['bio'];
         if (array_key_exists('whatsapp_number', $validated)) $user->whatsapp_number = $validated['whatsapp_number'];
         if (array_key_exists('role', $validated)) $user->role = $validated['role'];
+        if (array_key_exists('interests', $validated)) $user->interests = $validated['interests'];
         
         if (!empty($validated['avatar'])) {
             $avatarData = $validated['avatar'];
