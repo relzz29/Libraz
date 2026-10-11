@@ -337,18 +337,21 @@ Route::get('/edit-profil', function () {
 // Admin Auth Routes
 Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
-Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+Route::match(['get', 'post'], '/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-// Admin Dashboard Routes
-Route::get('/admin', [AdminBookController::class, 'index'])->name('admin');
-Route::get('/admin/tambah-buku', [AdminBookController::class, 'create'])->name('admin.books.create');
-Route::post('/admin/books', [AdminBookController::class, 'store'])->name('admin.books.store');
-Route::get('/admin/books/{id}/edit', [AdminBookController::class, 'edit'])->name('admin.books.edit');
-Route::put('/admin/books/{id}', [AdminBookController::class, 'update'])->name('admin.books.update');
-Route::delete('/admin/books/{id}', [AdminBookController::class, 'destroy'])->name('admin.books.destroy');
-Route::get('/admin/laporan', [AdminBookController::class, 'laporan'])->name('admin.laporan');
-Route::get('/admin/persetujuan', [App\Http\Controllers\AdminApprovalController::class, 'index'])->name('admin.persetujuan');
-Route::post('/admin/persetujuan/{id}/approve', [App\Http\Controllers\AdminApprovalController::class, 'approve'])->name('admin.persetujuan.approve');
-Route::post('/admin/persetujuan/{id}/reject', [App\Http\Controllers\AdminApprovalController::class, 'reject'])->name('admin.persetujuan.reject');
+// Admin Dashboard Routes (Protected by admin middleware)
+Route::middleware('admin')->group(function () {
+    Route::get('/admin', [AdminBookController::class, 'index'])->name('admin');
+    Route::get('/admin/tambah-buku', [AdminBookController::class, 'create'])->name('admin.books.create');
+    Route::post('/admin/books', [AdminBookController::class, 'store'])->name('admin.books.store');
+    Route::get('/admin/books/{id}/edit', [AdminBookController::class, 'edit'])->name('admin.books.edit');
+    Route::put('/admin/books/{id}', [AdminBookController::class, 'update'])->name('admin.books.update');
+    Route::delete('/admin/books/{id}', [AdminBookController::class, 'destroy'])->name('admin.books.destroy');
+    Route::get('/admin/laporan', [AdminBookController::class, 'laporan'])->name('admin.laporan');
+    Route::get('/admin/persetujuan', [App\Http\Controllers\AdminApprovalController::class, 'index'])->name('admin.persetujuan');
+    Route::post('/admin/persetujuan/{id}/approve', [App\Http\Controllers\AdminApprovalController::class, 'approve'])->name('admin.persetujuan.approve');
+    Route::post('/admin/persetujuan/{id}/reject', [App\Http\Controllers\AdminApprovalController::class, 'reject'])->name('admin.persetujuan.reject');
+});
+
 Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
 

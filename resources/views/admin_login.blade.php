@@ -1,155 +1,355 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Admin Login - Libraz</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Masuk Portal Admin - BiblioZ Digital Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-:root {
-  --color-primary: 67 0 187;
-  --color-primary-container: 91 33 230;
-  --color-on-primary: 255 255 255;
-  --color-surface: 253 248 255;
-  --color-surface-container: 241 236 244;
-  --color-surface-container-lowest: 255 255 255;
-  --color-on-surface: 28 27 32;
-  --color-on-surface-variant: 72 68 86;
-  --color-secondary-fixed: 77 255 178;
-}
-html.dark {
-  --color-surface: 49 51 56;
-  --color-surface-container: 43 45 49;
-  --color-surface-container-lowest: 30 31 34;
-  --color-on-surface: 242 243 245;
-  --color-on-surface-variant: 181 186 193;
-  --color-primary: 99 102 241;
-  --color-primary-container: 67 56 202;
-}
-</style>
-<script id="tailwind-config">
-tailwind.config = {
-    "darkMode": "class",
-    "theme": {
-        "extend": {
-            "colors": {
-                "primary": "rgb(var(--color-primary) / <alpha-value>)",
-                "primary-container": "rgb(var(--color-primary-container) / <alpha-value>)",
-                "on-primary": "rgb(var(--color-on-primary) / <alpha-value>)",
-                "surface": "rgb(var(--color-surface) / <alpha-value>)",
-                "surface-container": "rgb(var(--color-surface-container) / <alpha-value>)",
-                "surface-container-lowest": "rgb(var(--color-surface-container-lowest) / <alpha-value>)",
-                "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
-                "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
-                "secondary-fixed": "rgb(var(--color-secondary-fixed) / <alpha-value>)"
-            },
-            "fontFamily": {
-                "title-md": ["Plus Jakarta Sans"],
-                "headline-sm": ["Plus Jakarta Sans"],
-                "display-lg": ["Plus Jakarta Sans"],
-                "body-md": ["Plus Jakarta Sans"],
-                "label-sm": ["Space Grotesk"],
-                "label-md": ["Space Grotesk"]
-            }
-        }
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #fcfbf9;
+      background-image: radial-gradient(#d4d4d8 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
     }
-};
-</script>
-<script>
-  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-  }
-</script>
+  </style>
 </head>
-<body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen">
-<main class="flex flex-col lg:flex-row w-full min-h-screen items-stretch">
-  <!-- Desktop Hero Panel -->
-  <div class="hidden lg:flex flex-col flex-1 bg-gradient-to-br from-gray-900 to-black p-12 justify-center relative overflow-hidden text-white">
-      <div class="absolute -right-32 -bottom-32 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] pointer-events-none"></div>
-      <div class="relative z-10 max-w-xl mx-auto space-y-12">
-          <div class="flex items-center gap-4 mb-8">
-              <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-2xl flex items-center justify-center border border-white/20 shadow-2xl">
-                  <span class="material-symbols-outlined text-4xl text-secondary-fixed">admin_panel_settings</span>
-              </div>
-              <div class="flex flex-col">
-                  <span class="font-display-lg text-4xl font-black tracking-tight">LIBRAZ ADMIN</span>
-                  <span class="font-label-md text-secondary-fixed mt-1">Management Portal</span>
-              </div>
+<body class="min-h-screen text-slate-900 flex flex-col justify-between selection:bg-[#ffea79] selection:text-black">
+
+  <!-- TOP NAVBAR -->
+  <header class="w-full bg-[#fcfbf9]/90 backdrop-blur-md border-b-2 border-black sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- LOGO -->
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl bg-[#6700bb] text-white border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center">
+          <span class="material-symbols-outlined text-[24px]">menu_book</span>
+        </div>
+        <div class="flex flex-col leading-none">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black tracking-tight text-black font-['Plus_Jakarta_Sans']">BIBLIOZ</span>
+            <span class="bg-[#ffea79] text-black border-2 border-black font-black text-[11px] px-2 py-0.5 rounded-lg shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] uppercase">
+              ADMIN
+            </span>
           </div>
-          <div class="space-y-6">
-              <h1 class="font-display-lg text-4xl leading-tight font-extrabold drop-shadow-sm">
-                  Kelola Perpustakaan Digital dengan Mudah 🚀
-              </h1>
-              <p class="font-body-md text-lg text-gray-300 max-w-lg leading-relaxed">
-                  Pusat kendali untuk mengelola katalog buku, statistik peminjaman, dan anggota perpustakaan.
-              </p>
-          </div>
+          <span class="text-[9px] font-extrabold text-black/70 tracking-[0.2em] uppercase mt-1">
+            DIGITAL LIBRARY CORE
+          </span>
+        </div>
       </div>
-  </div>
 
-  <!-- Authentication Form Container -->
-  <div class="flex flex-col flex-1 items-center justify-center relative w-full lg:w-1/2 bg-surface min-h-screen p-6">
-      <div class="w-full max-w-sm m-auto">
-          <div class="lg:hidden text-center mb-8">
-              <div class="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-4 shadow-xl">
-                  <span class="material-symbols-outlined text-4xl text-white">admin_panel_settings</span>
-              </div>
-              <h2 class="font-display-lg text-2xl font-extrabold text-on-surface">Admin Portal</h2>
-          </div>
+      <!-- RIGHT STATUS & USER LINK -->
+      <div class="flex items-center gap-3">
+        <!-- SERVER STATUS PILL -->
+        <div class="hidden md:flex items-center gap-2 border-2 border-black bg-[#dcfce7] rounded-full px-4 py-1.5 text-xs font-black text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 border border-black animate-pulse"></span>
+          <span>Server SMKN 1 CIOMAS ONLINE</span>
+        </div>
+
+        <!-- KE TAMPILAN SISWA BUTTON -->
+        <a href="{{ route('katalog') }}" class="inline-flex items-center gap-1.5 border-2 border-black bg-white rounded-xl px-4 py-2 text-xs font-black text-black hover:bg-gray-50 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+          <span>Ke Tampilan Siswa</span>
+          <span class="material-symbols-outlined text-[16px]">north_east</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN SECTION -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 flex items-center">
+    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      
+      <!-- LEFT HERO COLUMN -->
+      <div class="lg:col-span-7 flex flex-col gap-5">
+        
+        <!-- RESTRICTED BADGE -->
+        <div class="inline-flex items-center gap-2 border-2 border-black bg-[#ffea79] px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] font-black text-xs text-black w-fit">
+          <span>⚡ PUSAT KENDALI PUSTAKAWAN & STAF</span>
+          <span class="bg-black text-white text-[10px] font-black px-2.5 py-0.5 rounded-full tracking-wider">RESTRICTED</span>
+        </div>
+
+        <!-- HERO HEADLINE -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight leading-[1.12]">
+          Kelola<br>
+          Perpustakaan<br>
+          <span class="inline-block bg-[#38bdf8] border-2 border-black px-3.5 py-1 rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -rotate-1 text-black font-black my-1">
+            Lebih Sat-
+          </span><br>
+          Set!
+        </h1>
+
+        <!-- SUBTITLE -->
+        <p class="text-xs sm:text-sm text-gray-700 font-semibold max-w-xl leading-relaxed">
+          Sistem otomasi sirkulasi modern, tracking stok buku digital, dan ruang perpustakaan secara otomatis.
+        </p>
+
+        <!-- BENTO STATS / INFO CARDS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
           
-          <div class="hidden lg:block text-center mb-8">
-            <h2 class="font-display-lg text-3xl font-extrabold text-on-surface mb-2">Selamat Datang Admin</h2>
-            <p class="font-body-md text-on-surface-variant">Silakan masuk untuk mengelola sistem.</p>
+          <!-- CARD 1: AGENDA -->
+          <div class="border-2 border-black rounded-2xl bg-[#ffea79] p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between gap-2.5">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-white border-2 border-black flex items-center justify-center text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
+                <span class="material-symbols-outlined text-[16px]">calendar_today</span>
+              </div>
+            </div>
+            <div>
+              <div class="text-[10px] font-black uppercase tracking-wider text-black/70">AGENDA & PENGUMUMAN</div>
+              <div class="text-base font-black text-black mt-0.5">Agenda Hari Ini</div>
+            </div>
+            <div class="border-2 border-black bg-white rounded-xl px-3 py-1.5 text-xs font-bold text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2">
+              <span>📌</span>
+              <span class="truncate">Kunjungan Kelas & Karantina Buku</span>
+            </div>
           </div>
 
-          <!-- Error Alert -->
+          <!-- CARD 2: OPERASIONAL -->
+          <div class="border-2 border-black rounded-2xl bg-[#38bdf8] p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between gap-2.5">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-white border-2 border-black flex items-center justify-center text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
+                <span class="material-symbols-outlined text-[16px]">schedule</span>
+              </div>
+            </div>
+            <div>
+              <div class="text-[10px] font-black uppercase tracking-wider text-black/70">OPERASIONAL HARI INI</div>
+              <div class="text-base font-black text-black mt-0.5" id="shift-title">Shift Pagi</div>
+            </div>
+            <div class="border-2 border-black bg-white rounded-xl px-3 py-1.5 text-xs font-bold text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2">
+              <span>⚡</span>
+              <span class="truncate" id="shift-desc">Pustakawan Siaga (06.30 - 14.50)</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CARD 3: PROTOKOL KEAMANAN -->
+        <div class="border-2 border-black rounded-2xl bg-[#86efac] p-3.5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-9 h-9 rounded-xl bg-white border-2 border-black flex items-center justify-center text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex-shrink-0">
+              <span class="material-symbols-outlined text-xl text-black">verified_user</span>
+            </div>
+            <div class="flex flex-col min-w-0">
+              <span class="text-xs font-black uppercase tracking-wider text-black truncate">PROTOKOL KEAMANAN MANDIRI</span>
+              <span class="text-[11px] font-bold text-black/80 truncate">Otentikasi Kredensial Terenkripsi & Verifikasi ID Pegawai Resmi</span>
+            </div>
+          </div>
+          <span class="border-2 border-black bg-white rounded-xl px-3 py-1 text-xs font-black text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex-shrink-0">
+            256-Bit SSL
+          </span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT LOGIN FORM CARD -->
+      <div class="lg:col-span-5">
+        <div class="relative bg-white border-2 border-black rounded-3xl p-5 sm:p-7 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          
+          <!-- FLOATING BADGE -->
+          <div class="absolute -top-3.5 right-6 bg-[#ff5252] border-2 border-black text-white text-[11px] sm:text-xs font-black px-3.5 py-1 rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-1.5 z-10 select-none">
+            <span>🚨 AREA KHUSUS PEGAWAI</span>
+          </div>
+
+          <!-- FORM HEADER -->
+          <div class="mt-1 mb-3">
+            <div class="flex items-center justify-between">
+              <h2 class="text-2xl font-black text-black tracking-tight flex items-center gap-2">
+                <span>Masuk Portal Admin</span>
+                <span class="text-amber-500">⚡</span>
+              </h2>
+            </div>
+            <p class="text-xs text-gray-500 font-semibold mt-0.5">
+              Gunakan ID Pegawai yang terdaftar di sistem.
+            </p>
+          </div>
+
+          <!-- ALERT MESSAGES -->
           @if(session('error'))
-          <div class="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-4 text-sm" role="alert">
-              {{ session('error') }}
+          <div class="mb-3 p-2.5 rounded-xl border-2 border-black bg-rose-100 text-rose-800 text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2">
+            <span>⚠️</span>
+            <span>{{ session('error') }}</span>
           </div>
           @endif
 
-          <form action="{{ route('admin.login.submit') }}" method="POST" class="flex flex-col gap-5">
-              @csrf
-              <!-- Username/Email -->
-              <div class="flex flex-col gap-1.5 group">
-                  <label class="font-label-md text-label-md text-on-surface-variant ml-1 group-focus-within:text-primary transition-colors" for="username">
-                      Username / Email
-                  </label>
-                  <div class="relative flex items-center h-14 bg-surface-container-lowest rounded-xl border border-surface-container hover:border-primary/50 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10 transition-all shadow-sm">
-                      <div class="absolute left-4 flex items-center justify-center text-on-surface-variant group-focus-within:text-primary transition-colors">
-                          <span class="material-symbols-outlined text-[22px]">person</span>
-                      </div>
-                      <input class="w-full h-full bg-transparent pl-12 pr-4 font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none rounded-xl" id="username" name="username" placeholder="admin@libraz.com" required="" type="text" value=""/>
-                  </div>
-              </div>
+          @if(session('success'))
+          <div class="mb-3 p-2.5 rounded-xl border-2 border-black bg-emerald-100 text-emerald-800 text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2">
+            <span>✅</span>
+            <span>{{ session('success') }}</span>
+          </div>
+          @endif
 
-              <!-- Password -->
-              <div class="flex flex-col gap-1.5 group">
-                  <div class="flex items-center justify-between ml-1">
-                      <label class="font-label-md text-label-md text-on-surface-variant group-focus-within:text-primary transition-colors" for="password">
-                          Password
-                      </label>
-                  </div>
-                  <div class="relative flex items-center h-14 bg-surface-container-lowest rounded-xl border border-surface-container hover:border-primary/50 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10 transition-all shadow-sm">
-                      <div class="absolute left-4 flex items-center justify-center text-on-surface-variant group-focus-within:text-primary transition-colors">
-                          <span class="material-symbols-outlined text-[22px]">lock</span>
-                      </div>
-                      <input class="w-full h-full bg-transparent pl-12 pr-12 font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none rounded-xl tracking-wider" id="password" name="password" placeholder="••••••••" required="" type="password"/>
-                  </div>
-              </div>
+          <form action="{{ route('admin.login.submit') }}" method="POST" class="flex flex-col gap-3">
+            @csrf
+            <input type="hidden" name="role" id="role-input" value="Pustakawan">
 
-              <button class="h-14 w-full mt-4 rounded-xl bg-primary text-white font-title-md text-[15px] flex items-center justify-center gap-2 shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 active:translate-y-0 transition-all" type="submit">
-                  <span>Masuk Portal</span>
-                  <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
-              </button>
+            <!-- ROLE PICKER -->
+            <div class="flex flex-col gap-1.5">
+              <div class="flex items-center justify-between">
+                <label class="text-[11px] font-black uppercase tracking-wider text-black">
+                  PILIH PERAN / PENUGASAN:
+                </label>
+                <button type="button" onclick="fillDemoCredentials()" class="text-[10px] font-black text-[#6d28d9] hover:underline flex items-center gap-1">
+                  <span>⚡ Isi Kredensial Demo</span>
+                </button>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <button type="button" onclick="selectRole('Pustakawan')" id="role-btn-Pustakawan" class="role-btn border-2 border-black rounded-xl py-2 px-1 text-center font-black text-xs transition-all bg-[#ffea79] text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                  📚 Pustakawan
+                </button>
+                <button type="button" onclick="selectRole('Kepala Perpus')" id="role-btn-Kepala" class="role-btn border-2 border-black rounded-xl py-2 px-1 text-center font-black text-xs transition-all bg-white text-black hover:bg-gray-50">
+                  👑 Kepala Perpus
+                </button>
+                <button type="button" onclick="selectRole('Admin IT')" id="role-btn-IT" class="role-btn border-2 border-black rounded-xl py-2 px-1 text-center font-black text-xs transition-all bg-white text-black hover:bg-gray-50">
+                  🛠️ Admin IT
+                </button>
+              </div>
+            </div>
+
+            <!-- ID PEGAWAI -->
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center justify-between text-[11px] font-black">
+                <label class="uppercase tracking-wider text-black" for="username">ID PEGAWAI</label>
+                <span class="text-gray-400 font-bold">Wajib</span>
+              </div>
+              <div class="relative border-2 border-black rounded-xl bg-white px-3.5 py-2.5 flex items-center gap-2.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus-within:ring-2 focus-within:ring-black">
+                <span class="material-symbols-outlined text-gray-500 text-[20px] select-none">person</span>
+                <input type="text" name="username" id="username" required
+                  value="{{ old('username', '') }}"
+                  placeholder="Contoh: PST-001"
+                  class="w-full bg-transparent font-bold text-sm text-black placeholder:text-gray-400 focus:outline-none">
+              </div>
+            </div>
+
+            <!-- PIN / PASSWORD -->
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center justify-between text-[11px] font-black">
+                <label class="uppercase tracking-wider text-black" for="password">PIN KEAMANAN / KATA SANDI</label>
+                <a href="javascript:void(0)" onclick="alert('Silakan hubungi Unit IT Perpustakaan untuk reset PIN kredensial.')" class="text-[#6d28d9] hover:underline font-bold">Lupa PIN?</a>
+              </div>
+              <div class="relative border-2 border-black rounded-xl bg-white px-3.5 py-2.5 flex items-center gap-2.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus-within:ring-2 focus-within:ring-black">
+                <span class="material-symbols-outlined text-gray-500 text-[20px] select-none">lock</span>
+                <input type="password" name="password" id="password" required
+                  value=""
+                  placeholder="••••••••••"
+                  class="w-full bg-transparent font-bold text-sm text-black placeholder:text-gray-400 focus:outline-none">
+                <button type="button" onclick="togglePasswordVisibility()" class="text-gray-500 hover:text-black focus:outline-none">
+                  <span class="material-symbols-outlined text-[20px]" id="eye-icon">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- REMEMBER & MAX SESSION -->
+            <div class="flex items-center justify-between pt-0.5">
+              <label class="flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" name="remember" checked class="w-4 h-4 rounded border-2 border-black text-[#6d28d9] focus:ring-0 cursor-pointer">
+                <span class="text-xs font-bold text-gray-800">Ingat sesi di PC perpustakaan ini</span>
+              </label>
+              <span class="border border-gray-400 rounded-md px-2 py-0.5 text-[10px] font-bold text-gray-600">
+                Maks 8 Jam
+              </span>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <button type="submit" class="w-full mt-1 bg-[#6700bb] hover:bg-[#55009e] text-white font-black text-sm py-3 px-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer transition-all">
+              <span>Masuk ke Dashboard Sistem</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+
+            <!-- WARNING BOX -->
+            <div class="border-2 border-dashed border-amber-300 bg-amber-50 rounded-xl p-2.5 flex items-start gap-2 text-[11px] text-gray-700 font-medium">
+              <span class="text-sm leading-none">⚠️</span>
+              <p class="leading-tight">
+                Harap selalu klik <strong>Keluar / Logout</strong> setelah selesai bertugas di meja sirkulasi untuk mencegah akses tanpa hak.
+              </p>
+            </div>
+
           </form>
+
+        </div>
       </div>
-  </div>
-</main>
+
+    </div>
+  </main>
+
+  <!-- JAVASCRIPT FOR ROLE SELECTION, PASSWORD TOGGLE & DEMO FILLER -->
+  <script>
+    const roleCredentials = {
+      'Pustakawan': { id: 'PST-001', pin: 'pustaka123', placeholder: 'Contoh: PST-001' },
+      'Kepala Perpus': { id: 'KPL-001', pin: 'kepala123', placeholder: 'Contoh: KPL-001' },
+      'Admin IT': { id: 'ADM-001', pin: 'adminit123', placeholder: 'Contoh: ADM-001' }
+    };
+
+    function selectRole(role) {
+      document.getElementById('role-input').value = role;
+
+      const roles = [
+        { key: 'Pustakawan', id: 'role-btn-Pustakawan' },
+        { key: 'Kepala Perpus', id: 'role-btn-Kepala' },
+        { key: 'Admin IT', id: 'role-btn-IT' }
+      ];
+
+      roles.forEach(r => {
+        const btn = document.getElementById(r.id);
+        if (r.key === role) {
+          btn.className = 'role-btn border-2 border-black rounded-xl py-2 px-1 text-center font-black text-xs transition-all bg-[#ffea79] text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]';
+        } else {
+          btn.className = 'role-btn border-2 border-black rounded-xl py-2 px-1 text-center font-black text-xs transition-all bg-white text-black hover:bg-gray-50';
+        }
+      });
+
+      // Update placeholder according to selected role
+      const usernameInput = document.getElementById('username');
+      if (usernameInput && roleCredentials[role]) {
+        usernameInput.placeholder = roleCredentials[role].placeholder;
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const pwdInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eye-icon');
+
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        eyeIcon.textContent = 'visibility_off';
+      } else {
+        pwdInput.type = 'password';
+        eyeIcon.textContent = 'visibility';
+      }
+    }
+
+    function fillDemoCredentials() {
+      const currentRole = document.getElementById('role-input').value || 'Pustakawan';
+      const creds = roleCredentials[currentRole] || roleCredentials['Pustakawan'];
+      
+      document.getElementById('username').value = creds.id;
+      document.getElementById('password').value = creds.pin;
+    }
+
+    // Dynamic shift based on client time
+    (function updateShift() {
+      const hour = new Date().getHours();
+      const shiftTitle = document.getElementById('shift-title');
+      const shiftDesc = document.getElementById('shift-desc');
+      if (shiftTitle && shiftDesc) {
+        if (hour >= 6 && hour < 15) {
+          shiftTitle.textContent = 'Shift Pagi';
+          shiftDesc.textContent = 'Pustakawan Siaga (06.30 - 14.50)';
+        } else if (hour >= 15 && hour < 21) {
+          shiftTitle.textContent = 'Shift Sore';
+          shiftDesc.textContent = 'Pustakawan Siaga (14.50 - 21.00)';
+        } else {
+          shiftTitle.textContent = 'Layanan Mandiri';
+          shiftDesc.textContent = 'Sistem Otomasi Aktif (24 Jam)';
+        }
+      }
+    })();
+  </script>
+
 </body>
 </html>

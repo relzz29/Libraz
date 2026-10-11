@@ -270,31 +270,52 @@ html.dark {
           $isStreakActive = $user->current_streak > 0 && in_array($user->last_read_date, [$todayStr, $yesterdayStr]);
           $displayStreak = $isStreakActive ? $user->current_streak : 0;
       @endphp
-      <div class="flex-1 w-full md:max-w-[420px] ml-auto bg-white/50 dark:bg-black/50 backdrop-blur-md p-6 rounded-3xl z-10 flex flex-col gap-4 border border-white/60 dark:border-white/10 shadow-sm relative overflow-hidden">
-        <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none">
-          <span class="material-symbols-outlined text-[120px]">stars</span>
+      <div class="flex-1 w-full md:max-w-[420px] ml-auto bg-white/50 dark:bg-black/50 backdrop-blur-md p-6 rounded-3xl z-10 flex flex-col gap-3.5 border border-white/60 dark:border-white/10 shadow-sm relative overflow-hidden">
+        <!-- Watermark -->
+        <div class="absolute -right-8 -bottom-8 opacity-5 dark:opacity-10 pointer-events-none">
+          <span class="material-symbols-outlined text-[130px]">stars</span>
         </div>
-        <div class="flex items-center justify-between">
-          <div class="flex flex-col">
-            <span class="text-xs text-primary font-black uppercase tracking-[0.2em] mb-1">Peringkat Literasi</span>
-            <span class="font-extrabold text-xl text-on-surface flex items-center gap-2" id="profile-level-title">
-              <span class="bg-surface-container-high w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-inner">L{{ $user->level }}</span>
-              {{ $levelTitle }}
+
+        <!-- Header: Peringkat Literasi & Title & Top Badge -->
+        <div class="flex flex-col gap-1.5">
+          <span class="text-[11px] text-primary font-bold uppercase tracking-wider">PERINGKAT LITERASI</span>
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="material-symbols-outlined text-2xl text-slate-400 dark:text-slate-400 select-none">workspace_premium</span>
+              <span class="font-extrabold text-base md:text-lg text-on-surface truncate" id="profile-level-title">
+                Level {{ $user->level }} • {{ $levelTitle }}
+              </span>
+            </div>
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary text-white shadow-md shadow-primary/30 flex-shrink-0" id="profile-top-percent">
+              Top {{ max(1, 100 - ($user->level * 2)) }}%
             </span>
           </div>
-          <span class="text-xs font-black px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-primary-container text-white shadow-lg shadow-primary/30" id="profile-top-percent">
-            Top {{ max(1, 100 - ($user->level * 10)) }}%
-          </span>
         </div>
-        <div class="flex flex-col gap-2 mt-2">
-          <div class="flex items-center justify-between text-xs font-bold text-on-surface-variant">
-            <span id="profile-xp-text" class="text-on-surface">{{ $user->xp }} / {{ $nextLevelXp }} XP</span>
-            <span id="profile-xp-next" class="text-primary">+{{ $nextLevelXp - $user->xp }} XP ke Lvl {{ $user->level + 1 }}</span>
+
+        <!-- Row: XP Values & Icons -->
+        <div class="flex items-center justify-between text-xs pt-1">
+          <div class="flex items-center gap-1.5">
+            <span id="profile-xp-text" class="font-bold text-on-surface">{{ $user->xp }} / {{ $nextLevelXp }} XP</span>
+            <span class="material-symbols-outlined text-base text-primary/70 select-none">track_changes</span>
           </div>
-          <div class="w-full h-3.5 rounded-full bg-surface-container-highest overflow-hidden shadow-inner p-0.5">
-            <div id="profile-xp-bar" class="h-full rounded-full bg-gradient-to-r from-primary via-[#9d4edd] to-secondary-fixed transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(100,50,255,0.5)] relative overflow-hidden" style="width: {{ $xpPercent }}%;">
-              <div class="absolute inset-0 bg-white/20 w-full h-full" style="background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent); background-size: 1rem 1rem; animation: progress-stripes 1s linear infinite;"></div>
-            </div>
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base text-primary/70 select-none">flag</span>
+            <span id="profile-xp-next" class="font-semibold text-on-surface-variant">+{{ $nextLevelXp - $user->xp }} XP ke Level {{ $user->level + 1 }}</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar & Milestones -->
+        <div class="flex flex-col gap-1.5">
+          <div class="relative w-full h-2 rounded-full bg-slate-200 dark:bg-white/15 flex items-center">
+            <div id="profile-xp-bar" class="h-full rounded-full bg-primary transition-all duration-700 ease-out shadow-sm" style="width: {{ $xpPercent }}%;"></div>
+            <!-- Midpoint 50% dot -->
+            <div class="absolute left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-400 pointer-events-none"></div>
+          </div>
+          <!-- Numbers beneath bar -->
+          <div class="flex items-center justify-between text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+            <span>0</span>
+            <span id="profile-xp-mid">{{ (int)($nextLevelXp / 2) }} XP</span>
+            <span id="profile-xp-max">{{ $nextLevelXp }} XP</span>
           </div>
         </div>
       </div>
@@ -772,6 +793,8 @@ html.dark {
         const elXpNext = document.getElementById('profile-xp-next');
         const elXpBar = document.getElementById('profile-xp-bar');
         const elTopPercent = document.getElementById('profile-top-percent');
+        const elXpMid = document.getElementById('profile-xp-mid');
+        const elXpMax = document.getElementById('profile-xp-max');
         
         if (elLevelTitle) {
           elLevelTitle.textContent = `Level ${userLevel} • ${getLiteracyTitle(userLevel)}`;
@@ -779,19 +802,19 @@ html.dark {
           let xpRequirement = userLevel * 100; // Contoh rumus sederhana (Level 1 butuh 100XP, dsb)
           if (elXpText) elXpText.textContent = `${userXp} / ${xpRequirement} XP`;
           
-          let xpLeft = xpRequirement - userXp;
+          let xpLeft = Math.max(0, xpRequirement - userXp);
           let nextLevel = userLevel + 1;
           if (elXpNext) elXpNext.textContent = `+${xpLeft} XP ke Level ${nextLevel}`;
           
-          let progressPercent = (userXp / xpRequirement) * 100;
+          let progressPercent = Math.min(100, Math.max(0, (userXp / xpRequirement) * 100));
           if (elXpBar) elXpBar.style.width = `${progressPercent}%`;
+
+          if (elXpMid) elXpMid.textContent = `${Math.round(xpRequirement / 2)} XP`;
+          if (elXpMax) elXpMax.textContent = `${xpRequirement} XP`;
           
           if (elTopPercent) {
             let percent = Math.max(1, 100 - (userLevel * 2)); // Rumus kasar
             elTopPercent.textContent = `Top ${percent}%`;
-            if(userLevel >= 10) {
-               elTopPercent.className = 'font-label-md text-label-md px-2.5 py-1 rounded-full bg-primary/20 text-primary font-bold';
-            }
           }
         }
       } else {

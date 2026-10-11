@@ -131,7 +131,10 @@ html.dark {
     <div class="h-16 px-margin flex items-center justify-between gap-space-sm">
         <div class="flex items-center gap-space-sm min-w-0">
             <div class="flex flex-col min-w-0">
-                <span class="font-title-md text-title-md text-on-surface truncate">Beranda Admin 👋</span>
+                <div class="flex items-center gap-2">
+                    <span class="font-title-md text-title-md text-on-surface truncate">Halo, {{ auth()->user()->name ?? session('admin_role', 'Admin') }} 👋</span>
+                    <span class="text-[10px] font-black px-2 py-0.5 rounded-md bg-primary/10 text-primary uppercase border border-primary/20">{{ session('admin_role', 'Admin') }}</span>
+                </div>
                 <span class="font-label-md text-label-md text-on-surface-variant mt-0.5">Kelola seluruh aktivitas perpustakaan.</span>
             </div>
         </div>
@@ -140,8 +143,8 @@ html.dark {
                 <input type="text" placeholder="Cari buku, user, resi..." class="w-full bg-surface-container-low border border-surface-container-high rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-all">
                 <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[20px]">search</span>
             </div>
-            <div class="w-11 h-11 flex items-center justify-center relative cursor-pointer">
-                <img id="profile-avatar-small" alt="Profile Admin" class="w-9 h-9 rounded-full object-cover border-2 border-primary/20" src="https://ui-avatars.com/api/?name=Admin&background=4300bb&color=fff"/>
+            <div class="w-11 h-11 flex items-center justify-center relative cursor-pointer" title="{{ auth()->user()->name ?? 'Admin' }} ({{ session('admin_role', 'Admin') }})">
+                <img id="profile-avatar-small" alt="Profile Admin" class="w-9 h-9 rounded-full object-cover border-2 border-primary/20" src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? session('admin_role', 'Admin')) }}&background=4300bb&color=fff"/>
                 <div class="absolute bottom-0 right-1 w-3 h-3 bg-secondary rounded-full border-2 border-surface"></div>
             </div>
         </div>

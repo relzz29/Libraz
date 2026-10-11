@@ -9,6 +9,9 @@ class AdminAuthController extends Controller
 {
     public function showLoginForm()
     {
+        if (Auth::check() && (session('is_admin') || in_array(strtolower(Auth::user()->role), ['admin', 'pustakawan', 'kepala perpus', 'admin it']))) {
+            return redirect()->route('admin');
+        }
         return view('admin_login');
     }
 
@@ -19,36 +22,84 @@ class AdminAuthController extends Controller
             'password' => 'required'
         ]);
 
-        // Support login by email or name/username
-        $field = filter_var($credentials['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        $username = trim($credentials['username']);
+        $password = $credentials['password'];
+        $role = $request->input('role', 'Pustakawan');
+        $remember = $request->boolean('remember');
+
+        // 1. Cek jika user ada di database (berdasarkan nis/ID, email, atau name)
+        $user = \App\Models\User::where('nis', $username)
+            ->orWhere('email', $username)
+            ->orWhere('name', $username)
+            ->first();
+
+        if ($user && \Illuminate\Support\Facades\Hash::check($password, $user->password)) {
+            if (!in_array(strtolower($user->role), ['admin', 'pustakawan', 'kepala perpus', 'admin it'])) {
+                $user->update(['role' => 'admin']);
+            }
+            Auth::login($user, $remember);
+            session(['is_admin' => true, 'admin_role' => $role]);
+            return redirect()->route('admin')->with('success', 'Selamat datang di Portal Admin.');
+        }
+
+        // 2. Kredensial Khusus Tiap Peran (Pustakawan, Kepala Perpus, Admin IT)
+        $staffCredentials = [
+            'pustakawan' => [
+                'ids' => ['PST-001', 'PUSTAKAWAN'],
+                'pin' => 'pustaka123',
+                'name' => 'Petugas Pustakawan',
+                'email' => 'pustakawan@libraz.com',
+                'role' => 'Pustakawan'
+            ],
+            'kepala perpus' => [
+                'ids' => ['KPL-001', 'KEPALAPERPUS', 'KEPALA'],
+                'pin' => 'kepala123',
+                'name' => 'Farell Giekady',
+                'email' => 'kepala@libraz.com',
+                'role' => 'Kepala Perpus'
+            ],
+            'admin it' => [
+                'ids' => ['ADM-001', 'ADMINIT', 'ADMIN', 'ADM-19850412'],
+                'pin' => 'adminit123',
+                'name' => 'Aryandi Ramadhani',
+                'email' => 'adminit@libraz.com',
+                'role' => 'Admin IT'
+            ]
+        ];
+
+        // Normalisasi role terpilih
+        $selectedRoleKey = strtolower($role);
         
-        $attempt = Auth::attempt([
-            $field => $credentials['username'],
-            'password' => $credentials['password'],
-            'role' => 'admin' // Ensure the user has the admin role
-        ]);
+        // Cari apakah cocok dengan salah satu peran
+        foreach ($staffCredentials as $key => $staff) {
+            $idMatched = in_array(strtoupper($username), array_map('strtoupper', $staff['ids']));
+            
+            // Juga izinkan jika user memasukkan sandi adminit123 / admin123 untuk ADM-001
+            $pinMatched = ($password === $staff['pin']) || ($key === 'admin it' && $password === 'admin123');
 
-        // For demo purposes, allow a fallback hardcoded login
-        if ($credentials['username'] === 'admin' && $credentials['password'] === 'admin123') {
-            // Attempt to find or create demo admin
-            $admin = \App\Models\User::firstOrCreate(
-                ['email' => 'admin@libraz.com'],
-                [
-                    'name' => 'admin',
-                    'password' => bcrypt('admin123'),
-                    'role' => 'admin'
-                ]
-            );
-            Auth::login($admin);
-            return redirect()->route('admin')->with('success', 'Berhasil login sebagai Admin Demo.');
+            if ($idMatched && $pinMatched) {
+                $admin = \App\Models\User::firstOrCreate(
+                    ['email' => $staff['email']],
+                    [
+                        'name' => $staff['name'],
+                        'nis' => $staff['ids'][0],
+                        'password' => bcrypt($staff['pin']),
+                        'role' => 'admin'
+                    ]
+                );
+                $admin->update([
+                    'role' => 'admin',
+                    'name' => $staff['name'],
+                    'nis' => $staff['ids'][0]
+                ]);
+
+                Auth::login($admin, $remember);
+                session(['is_admin' => true, 'admin_role' => $staff['role']]);
+                return redirect()->route('admin')->with('success', 'Berhasil login sebagai ' . $staff['role'] . '.');
+            }
         }
 
-        if ($attempt) {
-            $request->session()->regenerate();
-            return redirect()->route('admin');
-        }
-
-        return back()->with('error', 'Username atau password salah, atau Anda bukan admin.');
+        return back()->with('error', 'ID Pegawai atau Kata Sandi salah untuk peran ' . $role . '.')->withInput();
     }
 
     public function logout(Request $request)
@@ -56,6 +107,8 @@ class AdminAuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+        session()->forget('is_admin');
+        session()->forget('admin_role');
+        return redirect()->route('admin.login')->with('success', 'Anda telah berhasil logout.');
     }
 }
