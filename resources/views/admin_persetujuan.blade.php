@@ -3,169 +3,209 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
-<title>Admin Dashboard - BiblioZ</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet"/>
+<title>Persetujuan Peminjaman - Admin BiblioZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-:root {
-  --color-on-primary-fixed: 30 0 96;
-  --color-surface-container-highest: 229 225 232;
-  --color-on-error: 255 255 255;
-  --color-surface-container: 241 236 244;
-  --color-surface-container-high: 235 230 238;
-  --color-on-surface: 28 27 32;
-  --color-surface-variant: 229 225 232;
-  --color-surface-container-low: 247 242 249;
-  --color-on-surface-variant: 72 68 86;
-  --color-background: 253 248 255;
-  --color-primary: 67 0 187;
-  --color-surface-tint: 101 49 240;
-  --color-secondary: 0 108 70;
-  --color-on-background: 28 27 32;
-  --color-secondary-container: 67 252 174;
-  --color-on-secondary: 255 255 255;
-  --color-error: 186 26 26;
-  --color-surface-container-lowest: 255 255 255;
-  --color-primary-container: 91 33 230;
-  --color-surface: 253 248 255;
-  --color-outline: 121 116 136;
-  --color-on-primary: 255 255 255;
-}
-html.dark {
-  --color-surface-container-highest: 63 65 71;
-  --color-on-error: 255 255 255;
-  --color-surface-container: 43 45 49;
-  --color-surface-container-high: 49 51 56;
-  --color-on-surface: 242 243 245;
-  --color-surface-variant: 43 45 49;
-  --color-surface-container-low: 30 31 34;
-  --color-on-surface-variant: 181 186 193;
-  --color-background: 49 51 56;
-  --color-primary: 99 102 241;
-  --color-surface-tint: 79 70 229;
-  --color-secondary: 13 148 136;
-  --color-on-background: 242 243 245;
-  --color-secondary-container: 15 118 110;
-  --color-on-secondary: 255 255 255;
-  --color-error: 218 55 60;
-  --color-surface-container-lowest: 30 31 34;
-  --color-primary-container: 67 56 202;
-  --color-surface: 49 51 56;
-  --color-outline: 63 65 71;
-  --color-on-primary: 255 255 255;
-  --color-outline-variant: 43 45 49;
-}
-</style>
-<script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"surface-container-highest":"rgb(var(--color-surface-container-highest) / <alpha-value>)","surface-container":"rgb(var(--color-surface-container) / <alpha-value>)","surface-container-high":"rgb(var(--color-surface-container-high) / <alpha-value>)","on-surface":"rgb(var(--color-on-surface) / <alpha-value>)","surface-variant":"rgb(var(--color-surface-variant) / <alpha-value>)","surface-container-low":"rgb(var(--color-surface-container-low) / <alpha-value>)","on-surface-variant":"rgb(var(--color-on-surface-variant) / <alpha-value>)","background":"rgb(var(--color-background) / <alpha-value>)","primary":"rgb(var(--color-primary) / <alpha-value>)","surface-tint":"rgb(var(--color-surface-tint) / <alpha-value>)","secondary":"rgb(var(--color-secondary) / <alpha-value>)","on-background":"rgb(var(--color-on-background) / <alpha-value>)","secondary-container":"rgb(var(--color-secondary-container) / <alpha-value>)","on-secondary":"rgb(var(--color-on-secondary) / <alpha-value>)","error":"rgb(var(--color-error) / <alpha-value>)","surface-container-lowest":"rgb(var(--color-surface-container-lowest) / <alpha-value>)","primary-container":"rgb(var(--color-primary-container) / <alpha-value>)","surface":"rgb(var(--color-surface) / <alpha-value>)","outline":"rgb(var(--color-outline) / <alpha-value>)","on-primary":"rgb(var(--color-on-primary) / <alpha-value>)"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","gutter-sm":"0.75rem","space-lg":"1.25rem","margin":"1.25rem","gutter":"1rem","margin-desktop":"2.5rem","space-md":"0.875rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-lg":["Space Grotesk"],"body-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-md":["Space Grotesk"]},"fontSize":{"title-md":["16px",{"lineHeight":"22px","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"700"}],"headline-lg":["30px",{"lineHeight":"36px","fontWeight":"800"}],"label-lg":["13px",{"lineHeight":"16px","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"500"}],"label-md":["11px",{"lineHeight":"14px","fontWeight":"700"}]}}}};</script>
-<script>
-  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) || localStorage.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
+  @layer base {
+    html, body {
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      overscroll-behavior: none;
+    }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
   }
-</script>
-<style>
-  body {
-    min-height: max(884px, 100dvh);
+  ::-webkit-scrollbar { display: none; }
+
+  /* Comic & Manga Neo-Brutalist Styles */
+  .comic-page-rays {
+    background-color: #faf6ee;
+    background-image: repeating-conic-gradient(
+      from 0deg at 50% -12%,
+      rgba(0, 0, 0, 0.038) 0deg 2.2deg,
+      transparent 2.2deg 8.5deg
+    );
   }
-  
-  /* Modal Animation Styles */
-  .modal-overlay {
-    backdrop-filter: blur(8px);
-    transition: opacity 0.3s ease;
+
+  .comic-sidebar-rays {
+    background-color: #fcf9f2;
+    background-image: repeating-conic-gradient(
+      from 135deg at 20% 12%,
+      rgba(0, 0, 0, 0.04) 0deg 2deg,
+      transparent 2deg 8.5deg
+    );
   }
-  .modal-content {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: scale(0.95);
-    opacity: 0;
+
+  .comic-title {
+    font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(135deg, #7c3aed 0%, #c026d3 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px #000;
+    filter: drop-shadow(3px 3px 0px #000);
+    letter-spacing: -0.02em;
   }
-  .modal-open .modal-content {
-    transform: scale(1);
-    opacity: 1;
+
+  .comic-btn-hover {
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .comic-btn-hover:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #000 !important;
   }
 </style>
 </head>
-<body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen">
+<body class="comic-page-rays font-['Plus_Jakarta_Sans',sans-serif] text-black flex flex-col min-h-screen selection:bg-[#fbbf24] selection:text-black">
   
 <!-- Desktop Sidebar -->
-<aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-surface-container-high flex-col z-50">
-  <div class="h-16 flex items-center px-6 border-b border-surface-container-high gap-3">
-    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
-    <span class="font-title-md text-title-md text-primary font-bold tracking-wider uppercase">BiblioZ</span>
-  </div>
-  <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
-    <div class="px-4 py-2 mt-2 mb-1">
-        <span class="font-label-md text-label-md text-outline tracking-widest uppercase">Admin Panel</span>
+<aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 comic-sidebar-rays border-r-[3.5px] border-black flex-col z-50">
+  <!-- Brand Header -->
+  <div class="h-20 flex items-center px-6 border-b-[3.5px] border-black gap-3 bg-[#fbf8f0]">
+    <div class="relative flex-shrink-0">
+      <svg class="w-10 h-10 filter drop-shadow-[2px_2px_0px_#000]" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 11 C15 8 8 9 5 11 L5 33 C8 31 15 30 22 32 Z" fill="#84cc16" stroke="#000" stroke-width="2.8" stroke-linejoin="round" />
+        <path d="M22 11 C29 8 36 9 39 11 L39 33 C36 31 29 30 22 32 Z" fill="#facc15" stroke="#000" stroke-width="2.8" stroke-linejoin="round" />
+        <path d="M22 10 L22 32" stroke="#000" stroke-width="2.8" />
+        <path d="M12 10 C15 8 20 9 22 10 C24 9 29 8 32 10" stroke="#9333ea" stroke-width="2" stroke-linecap="round" fill="none" />
+      </svg>
     </div>
-    <a href="/admin" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20] transition-all">
-      <span class="material-symbols-outlined text-[22px]">dashboard</span>
-      Dashboard
+    <div class="flex flex-col">
+      <span class="font-black text-2xl tracking-wider text-black leading-none font-['Space_Grotesk',sans-serif]">BIBLIOZ</span>
+      <span class="text-[9px] font-black tracking-[0.25em] text-black/60 uppercase leading-tight mt-1">BIBLIOZ</span>
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
+    <div class="px-3 pt-3 pb-1">
+      <span class="font-black text-[12px] tracking-widest text-black uppercase">ADMIN PANEL</span>
+    </div>
+    
+    <!-- Dashboard -->
+    <a href="{{ route('admin') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+      <span class="text-base">Dashboard</span>
     </a>
-    <a href="/admin/tambah-buku" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
-      <span class="material-symbols-outlined text-[22px]">add_circle</span>
-      Tambah Buku
+
+    <!-- Tambah Buku -->
+    <a href="{{ route('admin.books.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <circle cx="12" cy="12" r="9"/>
+        <line x1="12" y1="8" x2="12" y2="16"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+      </svg>
+      <span class="text-base">Tambah Buku</span>
     </a>
-    <a href="/admin/laporan" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
-      <span class="material-symbols-outlined text-[22px]">analytics</span>
-      Laporan
+
+    <!-- Active Persetujuan Item -->
+    <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#5f15e8] text-white font-black border-[2.5px] border-black shadow-[4px_4px_0px_#000] transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+        <rect x="8" y="2" width="8" height="4" rx="1"/>
+        <path d="m9 14 2 2 4-4"/>
+      </svg>
+      <span class="text-base tracking-wide">Persetujuan</span>
     </a>
-    <a href="/katalog" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
-      <span class="material-symbols-outlined text-[22px]">menu_book</span>
-      Ke Tampilan User
+
+    <!-- Laporan -->
+    <a href="{{ route('admin.laporan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      <span class="text-base">Laporan</span>
+    </a>
+
+    <!-- Ke Tampilan User -->
+    <a href="{{ route('katalog') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      </svg>
+      <span class="text-base">Ke Tampilan User</span>
     </a>
   </nav>
-  <div class="p-4 border-t border-surface-container-high">
+
+  <!-- Logout Button -->
+  <div class="p-4 border-t-[3.5px] border-black bg-[#fbf8f0]">
     <form action="{{ route('admin.logout') }}" method="POST">
       @csrf
-      <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-error hover:bg-error/10 transition-all font-bold">
-        <span class="material-symbols-outlined text-[22px]">logout</span>
-        Keluar
+      <button type="submit" class="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-white text-black font-black border-2 border-black shadow-[3px_3px_0px_#000] comic-btn-hover">
+        <span class="material-symbols-outlined text-[20px] text-red-600 font-bold">logout</span>
+        <span>Keluar</span>
       </button>
     </form>
   </div>
 </aside>
 
-<header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high">
-    <div class="h-16 px-margin flex items-center justify-between gap-space-sm">
-        <div class="flex items-center gap-space-sm min-w-0">
-            <div class="flex flex-col min-w-0">
-                <span class="font-title-md text-title-md text-on-surface truncate">Beranda Admin 👋</span>
-                <span class="font-label-md text-label-md text-on-surface-variant mt-0.5">Kelola seluruh aktivitas perpustakaan.</span>
+<!-- Topbar / Header -->
+<header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-[#faf6ee]/95 backdrop-blur-md border-b-[3.5px] border-black">
+    <div class="h-20 px-6 sm:px-8 flex items-center justify-between gap-4">
+        <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xl sm:text-2xl font-black text-black truncate tracking-tight">
+                    Persetujuan Peminjaman ⏳
+                </span>
+                <span class="bg-[#facc15] text-black font-black text-xs px-2.5 py-0.5 rounded-lg border-2 border-black shadow-[3px_3px_0px_#000] uppercase tracking-wide">
+                    {{ strtoupper(session('admin_role', 'ADMIN IT')) }}
+                </span>
             </div>
+            <span class="text-xs sm:text-sm font-semibold text-gray-800 mt-0.5">Tinjau dan setujui permintaan peminjaman buku.</span>
         </div>
-        <div class="flex items-center gap-space-md flex-shrink-0">
-            <div class="relative w-64 hidden lg:block">
-                <input type="text" placeholder="Cari buku, user, resi..." class="w-full bg-surface-container-low border border-surface-container-high rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-all">
-                <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[20px]">search</span>
-            </div>
-            <div class="w-11 h-11 flex items-center justify-center relative cursor-pointer">
-                <img id="profile-avatar-small" alt="Profile Admin" class="w-9 h-9 rounded-full object-cover border-2 border-primary/20" src="https://ui-avatars.com/api/?name=Admin&background=4300bb&color=fff"/>
-                <div class="absolute bottom-0 right-1 w-3 h-3 bg-secondary rounded-full border-2 border-surface"></div>
+
+        <div class="flex items-center gap-4 flex-shrink-0">
+            <div class="relative flex items-center justify-center" title="{{ auth()->user()->name ?? 'Aryandi Ramadhani' }}">
+                <div class="w-11 h-11 rounded-full bg-[#5f15e8] border-[2.5px] border-black flex items-center justify-center text-white font-black text-sm shadow-[2px_2px_0px_#000]">
+                    {{ strtoupper(substr(auth()->user()->name ?? 'Aryandi Ramadhani', 0, 2)) }}
+                </div>
+                <div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#22c55e] rounded-full border-2 border-black"></div>
             </div>
         </div>
     </div>
 </header>
 
-<main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-20 pb-24 md:pb-8 bg-surface min-h-screen">
-    <div class="flex flex-col w-full px-margin gap-space-lg max-w-6xl mx-auto">
+<!-- Main Content -->
+<main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-24 pb-24 md:pb-10 min-h-screen">
+    <div class="flex flex-col w-full px-6 sm:px-8 gap-6 max-w-7xl mx-auto">
         
-        <!-- Header Actions -->
-        <div class="flex flex-wrap items-center justify-between gap-4 mt-2">
-            <div>
-                <h1 class="font-headline-lg text-headline-lg text-on-surface bg-gradient-to-r from-primary to-surface-tint bg-clip-text text-transparent">Persetujuan Peminjaman</h1>
-            </div>
+        <!-- Header Section Title -->
+        <div class="flex items-center justify-between gap-3 mt-1 flex-wrap">
+            <h1 class="comic-title text-3xl sm:text-4xl font-black">
+                Daftar Permintaan Menunggu
+            </h1>
+            <span class="bg-[#ff5757] text-white font-black text-sm px-4 py-2 rounded-xl border-[2.5px] border-black shadow-[3px_3px_0px_#000]">
+                {{ count($pendingApprovals) }} Menunggu Tinjauan
+            </span>
         </div>
 
         @if(session('success'))
-        <div class="bg-secondary/10 border-l-4 border-secondary text-secondary p-4 rounded-xl mt-4">
-            <p class="font-body-md">{{ session('success') }}</p>
+        <div class="w-full bg-[#8ce934] border-[3px] border-black rounded-xl p-3.5 px-4 shadow-[4px_4px_0px_#000] flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full border-2 border-black flex items-center justify-center flex-shrink-0 bg-transparent">
+                <svg class="w-4 h-4 text-black stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" fill="none"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12l3 3L16 9" />
+                </svg>
+            </div>
+            <span class="text-black font-black text-sm sm:text-base">{{ session('success') }}</span>
         </div>
         @endif
+
         @if($errors->any())
-        <div class="bg-error/10 border-l-4 border-error text-error p-4 rounded-xl mt-4">
-            <ul class="list-disc ml-5 font-body-md">
+        <div class="bg-[#ff5757] border-[3px] border-black text-black p-4 rounded-xl shadow-[4px_4px_0px_#000]">
+            <ul class="list-disc ml-5 font-bold text-sm">
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -174,52 +214,64 @@ html.dark {
         @endif
 
         <!-- Pending Approvals Data Table -->
-        <div class="flex flex-col rounded-3xl bg-white border-4 border-on-surface shadow-[8px_8px_0px_rgba(0,0,0,1)] mt-4 overflow-hidden relative">
-            <div class="p-6 border-b-4 border-on-surface flex items-center justify-between bg-[#ff5757]">
-                <h3 class="font-headline-lg text-white font-black drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center gap-3 text-3xl">
-                    <div class="w-12 h-12 rounded-xl bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-                        <span class="material-symbols-outlined text-[28px]">pending_actions</span>
+        <div class="flex flex-col rounded-3xl bg-white border-[3.5px] border-black shadow-[8px_8px_0px_#000] overflow-hidden relative">
+            <div class="p-5 border-b-[3.5px] border-black flex items-center justify-between bg-[#ff5757]">
+                <h3 class="text-white font-black drop-shadow-[2px_2px_0px_#000] flex items-center gap-3 text-2xl sm:text-3xl tracking-tight">
+                    <div class="w-11 h-11 rounded-xl bg-white border-[2.5px] border-black flex items-center justify-center text-black shadow-[3px_3px_0px_#000]">
+                        <span class="material-symbols-outlined text-[26px]">pending_actions</span>
                     </div>
                     MENUNGGU PERSETUJUAN
                 </h3>
             </div>
-            <div class="overflow-x-auto p-4 bg-[radial-gradient(#d1d5db_2px,transparent_2px)] [background-size:16px_16px] min-h-[400px]">
+            
+            <div class="overflow-x-auto p-4 bg-[#fcf9f2] bg-[radial-gradient(#00000015_2px,transparent_2px)] [background-size:16px_16px] min-h-[300px]">
                 <table class="w-full text-left border-collapse border-spacing-y-2">
                     <thead>
-                        <tr class="text-on-surface font-label-md uppercase tracking-wider bg-white border-4 border-on-surface">
-                            <th class="p-4 font-black">User</th>
-                            <th class="p-4 font-black">Buku</th>
-                            <th class="p-4 font-black">Tgl Pinjam</th>
-                            <th class="p-4 font-black">Tgl Kembali</th>
-                            <th class="p-4 font-black text-center">Aksi</th>
+                        <tr class="text-black uppercase tracking-wider bg-white border-[2.5px] border-black shadow-[2px_2px_0px_#000]">
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Peminjam / User</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Judul Buku</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Tgl Pinjam</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Tgl Kembali</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm text-center">Aksi Keputusan</th>
                         </tr>
                     </thead>
-                    <tbody class="font-body-sm text-on-surface space-y-4">
+                    <tbody class="text-black space-y-4">
                         @forelse($pendingApprovals as $approval)
-                        <tr class="bg-white border-4 border-on-surface hover:bg-[#ffde59] transition-colors shadow-[4px_4px_0px_rgba(0,0,0,1)] rounded-xl group/row">
-                            <td class="p-4 font-bold">{{ $approval->user->name ?? 'User' }}</td>
-                            <td class="p-4 font-bold">{{ $approval->book->title }}</td>
-                            <td class="p-4 font-bold">{{ $approval->borrowed_at->format('d M Y') }}</td>
-                            <td class="p-4 font-bold">{{ $approval->due_date->format('d M Y') }}</td>
-                            <td class="p-4 text-center">
+                        <tr class="bg-white border-[2.5px] border-black hover:bg-[#ffde59] transition-colors shadow-[3px_3px_0px_#000] rounded-xl group/row">
+                            <td class="p-3.5 font-bold">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#00b4d8] border-2 border-black flex items-center justify-center text-white font-black text-xs shadow-[2px_2px_0px_#000]">
+                                        {{ strtoupper(substr($approval->user->name ?? 'User', 0, 2)) }}
+                                    </div>
+                                    <span class="font-black text-base">{{ $approval->user->name ?? 'User Siswa' }}</span>
+                                </div>
+                            </td>
+                            <td class="p-3.5 font-bold text-base">{{ $approval->book->title }}</td>
+                            <td class="p-3.5 font-bold text-sm">{{ $approval->borrowed_at ? $approval->borrowed_at->format('d M Y') : '-' }}</td>
+                            <td class="p-3.5 font-bold text-sm">{{ $approval->due_date ? $approval->due_date->format('d M Y') : '-' }}</td>
+                            <td class="p-3.5 text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <form action="{{ route('admin.persetujuan.approve', $approval->id) }}" method="POST">
+                                    <form action="{{ route('admin.persetujuan.approve', $approval->id) }}" method="POST" class="m-0 inline">
                                         @csrf
-                                        <button type="submit" class="px-4 py-2 rounded-lg bg-[#7ed957] text-on-surface font-black border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-[#68b347] transition-colors">Setujui</button>
+                                        <button type="submit" class="px-4 py-1.5 rounded-xl bg-[#8ce934] text-black font-black text-xs sm:text-sm border-2 border-black shadow-[2px_2px_0px_#000] comic-btn-hover flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[18px]">check_circle</span> Setujui
+                                        </button>
                                     </form>
-                                    <form action="{{ route('admin.persetujuan.reject', $approval->id) }}" method="POST">
+                                    <form action="{{ route('admin.persetujuan.reject', $approval->id) }}" method="POST" class="m-0 inline">
                                         @csrf
-                                        <button type="submit" class="px-4 py-2 rounded-lg bg-[#ff5757] text-white font-black border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-[#d94848] transition-colors">Tolak</button>
+                                        <button type="submit" class="px-4 py-1.5 rounded-xl bg-[#ff5757] text-white font-black text-xs sm:text-sm border-2 border-black shadow-[2px_2px_0px_#000] comic-btn-hover flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[18px]">cancel</span> Tolak
+                                        </button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="p-8 text-center bg-white border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] rounded-xl mt-2 font-black text-xl">
-                                <div class="flex flex-col items-center justify-center gap-4">
-                                    <span class="material-symbols-outlined text-[64px]">done_all</span>
-                                    <p>TIDAK ADA PENGAJUAN PEMINJAMAN.</p>
+                            <td colspan="5" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
+                                <div class="flex flex-col items-center justify-center gap-3">
+                                    <span class="material-symbols-outlined text-[54px] text-green-600">task_alt</span>
+                                    <p>SEMUA BERES! TIDAK ADA PERMINTAAN TERTUNDA.</p>
                                 </div>
                             </td>
                         </tr>
@@ -228,10 +280,8 @@ html.dark {
                 </table>
             </div>
         </div>
+
     </div>
 </main>
-
-<!-- Modal removed -->
-
 </body>
 </html>
