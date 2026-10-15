@@ -4,155 +4,252 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <title>Tambah Buku - Admin BiblioZ</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-:root {
-  --color-on-primary-fixed: 30 0 96;
-  --color-surface-container-highest: 229 225 232;
-  --color-on-error: 255 255 255;
-  --color-surface-container: 241 236 244;
-  --color-surface-container-high: 235 230 238;
-  --color-on-surface: 28 27 32;
-  --color-surface-variant: 229 225 232;
-  --color-surface-container-low: 247 242 249;
-  --color-on-surface-variant: 72 68 86;
-  --color-background: 253 248 255;
-  --color-primary: 67 0 187;
-  --color-surface-tint: 101 49 240;
-  --color-secondary: 0 108 70;
-  --color-on-background: 28 27 32;
-  --color-secondary-container: 67 252 174;
-  --color-on-secondary: 255 255 255;
-  --color-error: 186 26 26;
-  --color-surface-container-lowest: 255 255 255;
-  --color-primary-container: 91 33 230;
-  --color-surface: 253 248 255;
-  --color-outline: 121 116 136;
-  --color-on-primary: 255 255 255;
-}
-html.dark {
-  --color-surface-container-highest: 63 65 71;
-  --color-surface-container: 43 45 49;
-  --color-surface-container-high: 49 51 56;
-  --color-on-surface: 242 243 245;
-  --color-surface-variant: 43 45 49;
-  --color-surface-container-low: 30 31 34;
-  --color-on-surface-variant: 181 186 193;
-  --color-background: 49 51 56;
-  --color-primary: 99 102 241;
-  --color-surface-tint: 79 70 229;
-  --color-secondary: 13 148 136;
-  --color-on-background: 242 243 245;
-  --color-secondary-container: 15 118 110;
-  --color-on-secondary: 255 255 255;
-  --color-error: 218 55 60;
-  --color-surface-container-lowest: 30 31 34;
-  --color-primary-container: 67 56 202;
-  --color-surface: 49 51 56;
-  --color-outline: 63 65 71;
-  --color-on-primary: 255 255 255;
-}
-</style>
-<script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"surface-container-highest":"rgb(var(--color-surface-container-highest) / <alpha-value>)","surface-container":"rgb(var(--color-surface-container) / <alpha-value>)","surface-container-high":"rgb(var(--color-surface-container-high) / <alpha-value>)","on-surface":"rgb(var(--color-on-surface) / <alpha-value>)","surface-variant":"rgb(var(--color-surface-variant) / <alpha-value>)","surface-container-low":"rgb(var(--color-surface-container-low) / <alpha-value>)","on-surface-variant":"rgb(var(--color-on-surface-variant) / <alpha-value>)","background":"rgb(var(--color-background) / <alpha-value>)","primary":"rgb(var(--color-primary) / <alpha-value>)","surface-tint":"rgb(var(--color-surface-tint) / <alpha-value>)","secondary":"rgb(var(--color-secondary) / <alpha-value>)","on-background":"rgb(var(--color-on-background) / <alpha-value>)","secondary-container":"rgb(var(--color-secondary-container) / <alpha-value>)","on-secondary":"rgb(var(--color-on-secondary) / <alpha-value>)","error":"rgb(var(--color-error) / <alpha-value>)","surface-container-lowest":"rgb(var(--color-surface-container-lowest) / <alpha-value>)","primary-container":"rgb(var(--color-primary-container) / <alpha-value>)","surface":"rgb(var(--color-surface) / <alpha-value>)","outline":"rgb(var(--color-outline) / <alpha-value>)","on-primary":"rgb(var(--color-on-primary) / <alpha-value>)"},"fontFamily":{"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-lg":["Space Grotesk"],"body-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-md":["Space Grotesk"]}}}};</script>
-<script>
-  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
+  @layer base {
+    html, body {
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      overscroll-behavior: none;
+    }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
   }
-</script>
+  ::-webkit-scrollbar { display: none; }
+
+  /* Comic & Manga Neo-Brutalist Styles */
+  .comic-page-rays {
+    background-color: #faf6ee;
+    background-image: repeating-conic-gradient(
+      from 0deg at 50% -12%,
+      rgba(0, 0, 0, 0.038) 0deg 2.2deg,
+      transparent 2.2deg 8.5deg
+    );
+  }
+
+  .comic-sidebar-rays {
+    background-color: #fcf9f2;
+    background-image: repeating-conic-gradient(
+      from 135deg at 20% 12%,
+      rgba(0, 0, 0, 0.04) 0deg 2deg,
+      transparent 2deg 8.5deg
+    );
+  }
+
+  .comic-title {
+    font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(135deg, #7c3aed 0%, #c026d3 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px #000;
+    filter: drop-shadow(3px 3px 0px #000);
+    letter-spacing: -0.02em;
+  }
+
+  .comic-btn-hover {
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .comic-btn-hover:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #000 !important;
+  }
+</style>
 </head>
-<body class="bg-background font-body-md text-on-surface flex flex-col min-h-screen">
+<body class="comic-page-rays font-['Plus_Jakarta_Sans',sans-serif] text-black flex flex-col min-h-screen selection:bg-[#fbbf24] selection:text-black">
   
 <!-- Desktop Sidebar -->
-<aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-surface-container-high flex-col z-50">
-  <div class="h-16 flex items-center px-6 border-b border-surface-container-high gap-3">
-    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
-    <span class="font-title-md text-primary font-bold tracking-wider uppercase">BiblioZ</span>
-  </div>
-  <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
-    <div class="px-4 py-2 mt-2 mb-1">
-        <span class="font-label-md text-outline tracking-widest uppercase">Admin Panel</span>
+<aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 comic-sidebar-rays border-r-[3.5px] border-black flex-col z-50">
+  <!-- Brand Header -->
+  <div class="h-20 flex items-center px-6 border-b-[3.5px] border-black gap-3 bg-[#fbf8f0]">
+    <div class="relative flex-shrink-0">
+      <svg class="w-10 h-10 filter drop-shadow-[2px_2px_0px_#000]" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 11 C15 8 8 9 5 11 L5 33 C8 31 15 30 22 32 Z" fill="#84cc16" stroke="#000" stroke-width="2.8" stroke-linejoin="round" />
+        <path d="M22 11 C29 8 36 9 39 11 L39 33 C36 31 29 30 22 32 Z" fill="#facc15" stroke="#000" stroke-width="2.8" stroke-linejoin="round" />
+        <path d="M22 10 L22 32" stroke="#000" stroke-width="2.8" />
+        <path d="M12 10 C15 8 20 9 22 10 C24 9 29 8 32 10" stroke="#9333ea" stroke-width="2" stroke-linecap="round" fill="none" />
+      </svg>
     </div>
-    <a href="/admin" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
-      <span class="material-symbols-outlined text-[22px]">dashboard</span>
-      Dashboard
+    <div class="flex flex-col">
+      <span class="font-black text-2xl tracking-wider text-black leading-none font-['Space_Grotesk',sans-serif]">BIBLIOZ</span>
+      <span class="text-[9px] font-black tracking-[0.25em] text-black/60 uppercase leading-tight mt-1">BIBLIOZ</span>
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
+    <div class="px-3 pt-3 pb-1">
+      <span class="font-black text-[12px] tracking-widest text-black uppercase">ADMIN PANEL</span>
+    </div>
+    
+    <!-- Dashboard -->
+    <a href="{{ route('admin') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+      <span class="text-base">Dashboard</span>
     </a>
-    <a href="/admin/tambah-buku" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20] transition-all">
-      <span class="material-symbols-outlined text-[22px]">add_circle</span>
-      Tambah Buku
+
+    <!-- Active Tambah Buku Item -->
+    <a href="{{ route('admin.books.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#5f15e8] text-white font-black border-[2.5px] border-black shadow-[4px_4px_0px_#000] transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <circle cx="12" cy="12" r="9"/>
+        <line x1="12" y1="8" x2="12" y2="16"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+      </svg>
+      <span class="text-base tracking-wide">Tambah Buku</span>
     </a>
-    <a href="/admin/laporan" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
-      <span class="material-symbols-outlined text-[22px]">analytics</span>
-      Laporan
+
+    <!-- Persetujuan -->
+    <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+        <rect x="8" y="2" width="8" height="4" rx="1"/>
+        <path d="m9 14 2 2 4-4"/>
+      </svg>
+      <span class="text-base">Persetujuan</span>
     </a>
-    <a href="/katalog" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
-      <span class="material-symbols-outlined text-[22px]">menu_book</span>
-      Ke Tampilan User
+
+    <!-- Laporan -->
+    <a href="{{ route('admin.laporan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      <span class="text-base">Laporan</span>
+    </a>
+
+    <!-- Ke Tampilan User -->
+    <a href="{{ route('katalog') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      </svg>
+      <span class="text-base">Ke Tampilan User</span>
     </a>
   </nav>
-  <div class="p-4 border-t border-surface-container-high">
+
+  <!-- Logout Button -->
+  <div class="p-4 border-t-[3.5px] border-black bg-[#fbf8f0]">
     <form action="{{ route('admin.logout') }}" method="POST">
       @csrf
-      <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-error hover:bg-error/10 transition-all font-bold">
-        <span class="material-symbols-outlined text-[22px]">logout</span>
-        Keluar
+      <button type="submit" class="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-white text-black font-black border-2 border-black shadow-[3px_3px_0px_#000] comic-btn-hover">
+        <span class="material-symbols-outlined text-[20px] text-red-600 font-bold">logout</span>
+        <span>Keluar</span>
       </button>
     </form>
   </div>
 </aside>
 
-<header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high">
-    <div class="h-16 px-6 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-4 min-w-0">
-            <div class="flex flex-col min-w-0">
-                <span class="font-title-md text-on-surface truncate">Tambah Buku</span>
-                <span class="font-label-md text-on-surface-variant mt-0.5">Tambah buku fisik atau E-Book baru ke katalog.</span>
+<!-- Topbar / Header -->
+<header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-[#faf6ee]/95 backdrop-blur-md border-b-[3.5px] border-black">
+    <div class="h-20 px-6 sm:px-8 flex items-center justify-between gap-4">
+        <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xl sm:text-2xl font-black text-black truncate tracking-tight">
+                    Tambah Buku 📚
+                </span>
+                <span class="bg-[#facc15] text-black font-black text-xs px-2.5 py-0.5 rounded-lg border-2 border-black shadow-[3px_3px_0px_#000] uppercase tracking-wide">
+                    {{ strtoupper(session('admin_role', 'ADMIN IT')) }}
+                </span>
+            </div>
+            <span class="text-xs sm:text-sm font-semibold text-gray-800 mt-0.5">Kelola dan input koleksi buku perpustakaan.</span>
+        </div>
+
+        <div class="flex items-center gap-4 flex-shrink-0">
+            <button type="button" onclick="toggleForm()" class="bg-[#ffde59] text-black font-black text-sm px-4 py-2.5 rounded-xl border-[2.5px] border-black shadow-[3px_3px_0px_#000] comic-btn-hover flex items-center gap-2 uppercase">
+                <span class="material-symbols-outlined text-[20px]">add_box</span>
+                <span>Buku Baru</span>
+            </button>
+            <div class="relative flex items-center justify-center" title="{{ auth()->user()->name ?? 'Aryandi Ramadhani' }}">
+                <div class="w-11 h-11 rounded-full bg-[#5f15e8] border-[2.5px] border-black flex items-center justify-center text-white font-black text-sm shadow-[2px_2px_0px_#000]">
+                    {{ strtoupper(substr(auth()->user()->name ?? 'Aryandi Ramadhani', 0, 2)) }}
+                </div>
+                <div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#22c55e] rounded-full border-2 border-black"></div>
             </div>
         </div>
     </div>
 </header>
 
-<main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-24 pb-8 px-6 bg-surface min-h-screen">
-    <div class="max-w-6xl w-full mx-auto flex flex-col gap-8">
+<!-- Main Content -->
+<main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-24 pb-24 md:pb-10 min-h-screen">
+    <div class="flex flex-col w-full px-6 sm:px-8 gap-6 max-w-7xl mx-auto">
         
+        <!-- Header Section Title -->
+        <div class="flex items-center justify-between gap-3 mt-1 flex-wrap">
+            <h1 class="comic-title text-3xl sm:text-4xl font-black">
+                Daftar Buku Perpustakaan
+            </h1>
+            <button type="button" onclick="toggleForm()" class="px-5 py-2.5 rounded-xl bg-[#8ce934] text-black font-black border-[3px] border-black shadow-[4px_4px_0px_#000] comic-btn-hover uppercase text-sm flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                <span>Tambah Buku Baru</span>
+            </button>
+        </div>
+
         @if(session('success'))
-        <div class="bg-secondary/10 border-l-4 border-secondary text-secondary p-4 rounded-xl">
-            <p class="font-body-md">{{ session('success') }}</p>
+        <div class="w-full bg-[#8ce934] border-[3px] border-black rounded-xl p-3.5 px-4 shadow-[4px_4px_0px_#000] flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full border-2 border-black flex items-center justify-center flex-shrink-0 bg-transparent">
+                <svg class="w-4 h-4 text-black stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" fill="none"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12l3 3L16 9" />
+                </svg>
+            </div>
+            <span class="text-black font-black text-sm sm:text-base">{{ session('success') }}</span>
         </div>
         @endif
 
-        <!-- Form Modal (Hidden by Default) -->
+        @if($errors->any())
+        <div class="bg-[#ff5757] border-[3px] border-black text-black p-4 rounded-xl shadow-[4px_4px_0px_#000]">
+            <ul class="list-disc ml-5 font-bold text-sm">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+        <!-- Form Modal (Comic Style Popup) -->
         <div id="formModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6">
-            <!-- Blurred Backdrop -->
-            <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="toggleForm()"></div>
+            <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="toggleForm()"></div>
             
-            <!-- Modal Content -->
-            <div class="relative w-full max-w-4xl bg-surface-container-lowest rounded-3xl shadow-2xl border border-surface-container-high p-6 sm:p-8 overflow-y-auto max-h-[90vh] z-10 animate-in fade-in zoom-in-95 duration-200">
-                <div class="flex items-center justify-between mb-6 pb-4 border-b border-surface-container-high">
-                    <h2 class="font-headline-sm text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[28px]">book</span> Form Tambah Buku</h2>
-                    <button type="button" onclick="toggleForm()" class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant transition-colors">
-                        <span class="material-symbols-outlined">close</span>
+            <div class="relative w-full max-w-3xl bg-[#faf6ee] rounded-3xl border-4 border-black shadow-[10px_10px_0px_#000] p-6 sm:p-8 overflow-y-auto max-h-[90vh] z-10 animate-in fade-in zoom-in-95 duration-200">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b-[3px] border-black">
+                    <h2 class="text-2xl font-black text-black flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#5f15e8] border-2 border-black flex items-center justify-center text-white shadow-[2px_2px_0px_#000]">
+                            <span class="material-symbols-outlined text-[22px]">book</span>
+                        </div>
+                        Form Tambah Buku Baru
+                    </h2>
+                    <button type="button" onclick="toggleForm()" class="w-10 h-10 rounded-xl bg-white border-2 border-black hover:bg-black hover:text-white flex items-center justify-center text-black shadow-[2px_2px_0px_#000] transition-colors">
+                        <span class="material-symbols-outlined text-[22px]">close</span>
                     </button>
                 </div>
                 
-                <form action="{{ route('admin.books.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6">
+                <form action="{{ route('admin.books.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
                     @csrf
                     <div class="flex flex-col gap-1.5">
-                        <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Judul Buku</label>
-                        <input type="text" name="title" required placeholder="Masukkan judul buku" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-all">
+                        <label class="font-black text-black uppercase tracking-wide text-xs">Judul Buku</label>
+                        <input type="text" name="title" required placeholder="Masukkan judul buku..." class="w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none focus:bg-[#fffdf0]">
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div class="flex flex-col gap-1.5">
-                            <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Penulis</label>
-                            <input type="text" name="author" required placeholder="Nama penulis" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all">
+                            <label class="font-black text-black uppercase tracking-wide text-xs">Penulis</label>
+                            <input type="text" name="author" required placeholder="Nama penulis..." class="w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none focus:bg-[#fffdf0]">
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Kategori</label>
-                            <select name="category" required class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all appearance-none">
+                            <label class="font-black text-black uppercase tracking-wide text-xs">Kategori</label>
+                            <select name="category" required class="w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none focus:bg-[#fffdf0] cursor-pointer">
                                 <option value="Sastra & Novel">Sastra & Novel</option>
                                 <option value="Sains & Teknologi">Sains & Teknologi</option>
                                 <option value="Filosofi & Mindset">Filosofi & Mindset</option>
@@ -162,98 +259,103 @@ html.dark {
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                         <div class="flex flex-col gap-1.5">
-                            <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Tipe Buku</label>
-                            <select name="type" required class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all appearance-none">
+                            <label class="font-black text-black uppercase tracking-wide text-xs">Tipe Buku</label>
+                            <select name="type" required class="w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none cursor-pointer">
                                 <option value="physical">Fisik</option>
                                 <option value="ebook">E-Book (PDF)</option>
                                 <option value="both">Keduanya (Fisik & PDF)</option>
                             </select>
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="font-label-md text-on-surface-variant uppercase tracking-wide">ISBN</label>
-                            <input type="text" name="isbn" placeholder="Contoh: 978-623-..." class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all">
+                            <label class="font-black text-black uppercase tracking-wide text-xs">ISBN</label>
+                            <input type="text" name="isbn" placeholder="Contoh: 978-623-..." class="w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none">
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Stok Tersedia</label>
-                            <input type="number" name="stock" min="0" value="1" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-body-md transition-all">
+                            <label class="font-black text-black uppercase tracking-wide text-xs">Stok Tersedia</label>
+                            <input type="number" name="stock" min="0" value="1" class="w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-1">
                         <div class="flex flex-col gap-1.5">
-                            <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Upload Cover Buku</label>
-                            <input type="file" name="cover_image" accept="image/png, image/jpeg, image/jpg" class="w-full text-body-md file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-body-sm file:font-semibold file:bg-primary file:text-on-primary hover:file:bg-surface-tint border border-surface-container-high p-2 rounded-xl bg-surface-container-low">
+                            <label class="font-black text-black uppercase tracking-wide text-xs">Upload Cover Buku</label>
+                            <input type="file" name="cover_image" accept="image/png, image/jpeg, image/jpg" class="w-full bg-white border-[2.5px] border-black rounded-xl p-2.5 shadow-[3px_3px_0px_#000] font-bold text-xs file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-2 file:border-black file:text-xs file:font-black file:bg-[#ffde59] file:text-black hover:file:bg-[#facc15] cursor-pointer">
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="font-label-md text-on-surface-variant uppercase tracking-wide">Upload PDF (Jika E-Book)</label>
-                            <input type="file" name="pdf_file" accept="application/pdf" class="w-full text-body-md file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-body-sm file:font-semibold file:bg-primary file:text-on-primary hover:file:bg-surface-tint border border-surface-container-high p-2 rounded-xl bg-surface-container-low">
+                            <label class="font-black text-black uppercase tracking-wide text-xs">Upload PDF (E-Book)</label>
+                            <input type="file" name="pdf_file" accept="application/pdf" class="w-full bg-white border-[2.5px] border-black rounded-xl p-2.5 shadow-[3px_3px_0px_#000] font-bold text-xs file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-2 file:border-black file:text-xs file:font-black file:bg-[#38b6ff] file:text-black hover:file:bg-[#00b4d8] cursor-pointer">
                         </div>
                     </div>
                     
-                    <div class="pt-6 mt-4 border-t border-surface-container-high flex justify-end gap-4">
-                        <button type="submit" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-title-md hover:bg-surface-tint transition-colors shadow-md">Simpan Buku</button>
+                    <div class="pt-5 mt-2 border-t-[3px] border-black flex justify-end gap-3">
+                        <button type="button" onclick="toggleForm()" class="px-5 py-2.5 rounded-xl bg-white text-black font-black border-2 border-black shadow-[3px_3px_0px_#000] comic-btn-hover">Batal</button>
+                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#5f15e8] text-white font-black border-2 border-black shadow-[3px_3px_0px_#000] comic-btn-hover">Simpan Buku</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="flex flex-col rounded-3xl bg-white border-4 border-on-surface shadow-[8px_8px_0px_rgba(0,0,0,1)] overflow-hidden relative">
-            <div class="p-6 border-b-4 border-on-surface flex items-center justify-between bg-[#7ed957]">
-                <h3 class="font-headline-lg text-white font-black drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center gap-3 text-3xl">
-                    <div class="w-12 h-12 rounded-xl bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-                        <span class="material-symbols-outlined text-[28px]">auto_stories</span>
+        <!-- Table Card: DAFTAR BUKU TERSEDIA -->
+        <div class="flex flex-col rounded-3xl bg-white border-[3.5px] border-black shadow-[8px_8px_0px_#000] overflow-hidden relative">
+            <div class="p-5 border-b-[3.5px] border-black flex items-center justify-between bg-[#8ce934]">
+                <h3 class="text-black font-black drop-shadow-[1px_1px_0px_#fff] flex items-center gap-3 text-2xl sm:text-3xl tracking-tight">
+                    <div class="w-11 h-11 rounded-xl bg-white border-[2.5px] border-black flex items-center justify-center text-black shadow-[3px_3px_0px_#000]">
+                        <span class="material-symbols-outlined text-[26px]">menu_book</span>
                     </div>
                     DAFTAR BUKU TERSEDIA
                 </h3>
-                <button type="button" onclick="toggleForm()" class="px-5 py-3 rounded-xl bg-[#ffde59] text-on-surface font-label-md font-black flex items-center gap-2 border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0px_0px_0px_rgba(0,0,0,1)] transition-all uppercase">
-                    <span class="material-symbols-outlined text-[20px]">add</span>
-                    Buku Baru
-                </button>
+                <span class="px-3.5 py-1.5 rounded-xl bg-white text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] text-xs uppercase">
+                    Total: {{ count($books) }} Judul
+                </span>
             </div>
-            <div class="overflow-x-auto p-4 bg-[radial-gradient(#d1d5db_2px,transparent_2px)] [background-size:16px_16px]">
+            
+            <div class="overflow-x-auto p-4 bg-[#fcf9f2] bg-[radial-gradient(#00000015_2px,transparent_2px)] [background-size:16px_16px]">
                 <table class="w-full text-left border-collapse border-spacing-y-2">
                     <thead>
-                        <tr class="text-on-surface font-label-md uppercase tracking-wider bg-white border-4 border-on-surface">
-                            <th class="p-4 font-black">Judul Buku</th>
-                            <th class="p-4 font-black">Tipe</th>
-                            <th class="p-4 font-black">Kategori</th>
-                            <th class="p-4 font-black">Stok</th>
-                            <th class="p-4 font-black text-center">Aksi</th>
+                        <tr class="text-black uppercase tracking-wider bg-white border-[2.5px] border-black shadow-[2px_2px_0px_#000]">
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Judul Buku</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Tipe</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Kategori</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Stok</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm text-center">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="font-body-sm text-on-surface space-y-4">
+                    <tbody class="text-black space-y-4">
                         @forelse($books as $book)
-                        <tr class="bg-white border-4 border-on-surface hover:bg-[#38b6ff] transition-colors shadow-[4px_4px_0px_rgba(0,0,0,1)] rounded-xl group/row">
-                            <td class="p-4 font-title-md">
+                        <tr class="bg-white border-[2.5px] border-black hover:bg-[#ffde59] transition-colors shadow-[3px_3px_0px_#000] rounded-xl group/row">
+                            <td class="p-3.5">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-lg bg-white border-4 border-on-surface flex items-center justify-center text-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] group-hover/row:scale-110 transition-transform">
-                                        <span class="material-symbols-outlined text-[24px]">book</span>
+                                    <div class="w-10 h-10 rounded-lg bg-white border-2 border-black flex items-center justify-center text-black shadow-[2px_2px_0px_#000]">
+                                        <span class="material-symbols-outlined text-[22px]">book_4</span>
                                     </div>
-                                    <span class="font-black text-lg">{{ $book->title }}</span>
+                                    <div class="flex flex-col">
+                                        <span class="font-black text-base">{{ $book->title }}</span>
+                                        <span class="text-xs font-bold text-gray-600">{{ $book->author }}</span>
+                                    </div>
                                 </div>
                             </td>
-                            <td class="p-4 font-label-md uppercase font-black">
+                            <td class="p-3.5 uppercase font-black text-xs">
                                 @if($book->type == 'physical')
-                                    <span class="bg-[#38b6ff] px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] group-hover/row:bg-white group-hover/row:text-on-surface transition-colors">Fisik</span>
+                                    <span class="bg-[#38b6ff] px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">Fisik</span>
                                 @elseif($book->type == 'ebook')
-                                    <span class="bg-[#ff5757] text-white px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">Digital</span>
+                                    <span class="bg-[#ff5757] text-white px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">Digital</span>
                                 @else
-                                    <span class="bg-[#cb6ce6] text-white px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">Mix</span>
+                                    <span class="bg-[#cb6ce6] text-white px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">Mix</span>
                                 @endif
                             </td>
-                            <td class="p-4 font-bold"><span class="bg-surface-container px-3 py-1.5 rounded-lg border-2 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)]">{{ $book->category }}</span></td>
-                            <td class="p-4 font-black text-xl {{ $book->stock > 0 ? '' : 'text-[#ff5757]' }}">{{ $book->stock }}</td>
-                            <td class="p-4">
+                            <td class="p-3.5 font-bold"><span class="bg-gray-100 px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">{{ $book->category }}</span></td>
+                            <td class="p-3.5 font-black text-lg {{ $book->stock > 0 ? '' : 'text-red-600' }}">{{ $book->stock }}</td>
+                            <td class="p-3.5 text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <a href="{{ route('admin.books.edit', $book->id) }}" class="w-10 h-10 rounded-xl bg-white border-4 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center justify-center text-on-surface hover:bg-[#ffde59] transition-colors" title="Edit Buku">
+                                    <a href="{{ route('admin.books.edit', $book->id) }}" class="w-9 h-9 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000] inline-flex items-center justify-center text-black hover:bg-[#ffde59] transition-colors" title="Edit Buku">
                                         <span class="material-symbols-outlined text-[20px]">edit</span>
                                     </a>
-                                    <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?');" class="m-0">
+                                    <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?');" class="m-0 inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="w-10 h-10 rounded-xl bg-[#ff5757] border-4 border-on-surface shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center justify-center text-white hover:bg-[#ffde59] hover:text-on-surface transition-colors" title="Hapus Buku">
+                                        <button type="submit" class="w-9 h-9 rounded-xl bg-[#ff5757] border-2 border-black shadow-[2px_2px_0px_#000] inline-flex items-center justify-center text-white hover:bg-black transition-colors" title="Hapus Buku">
                                             <span class="material-symbols-outlined text-[20px]">delete</span>
                                         </button>
                                     </form>
@@ -262,9 +364,9 @@ html.dark {
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-on-surface bg-white border-4 border-on-surface shadow-[4px_4px_0px_rgba(0,0,0,1)] font-black text-xl">
-                                <div class="flex flex-col items-center justify-center gap-4">
-                                    <span class="material-symbols-outlined text-[64px]">auto_stories</span>
+                            <td colspan="5" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
+                                <div class="flex flex-col items-center justify-center gap-3">
+                                    <span class="material-symbols-outlined text-[54px]">auto_stories</span>
                                     <p>WADUH! BELUM ADA DATA BUKU!</p>
                                 </div>
                             </td>
@@ -277,6 +379,7 @@ html.dark {
 
     </div>
 </main>
+
 <script>
     function toggleForm() {
         const formModal = document.getElementById('formModal');
