@@ -533,6 +533,15 @@
         <span id="submit-label">Masuk ke Perpustakaan</span>
         <span class="ms ms-icon">arrow_forward</span>
       </button>
+
+      <!-- Portal Admin & Pegawai Link -->
+      <div style="margin-top: 20px; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 16px;">
+        <a href="{{ route('admin.login') }}" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #64748b; text-decoration: none; padding: 7px 16px; border-radius: 999px; background: #f1f5f9; transition: all 0.2s;" onmouseover="this.style.color='#6d48e5';this.style.background='#ede9fe'" onmouseout="this.style.color='#64748b';this.style.background='#f1f5f9'">
+          <span class="ms" style="font-size: 16px; color: #6d48e5;">admin_panel_settings</span>
+          <span>Portal Khusus Pegawai &amp; Admin</span>
+          <span class="ms" style="font-size: 14px;">arrow_forward</span>
+        </a>
+      </div>
     </form>
 
   </div>

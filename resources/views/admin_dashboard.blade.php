@@ -603,5 +603,44 @@
     </div>
 </main>
 
+<!-- Mobile Bottom Navigation Bar (md:hidden) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#faf6ee]/95 backdrop-blur-md border-t-[3.5px] border-black px-3 py-2 flex items-center justify-around pb-safe shadow-[0_-4px_10px_rgba(0,0,0,0.1)]">
+  <!-- Dashboard -->
+  <a href="{{ route('admin') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl bg-[#5f15e8] text-white font-black border-2 border-black shadow-[2px_2px_0px_#000]">
+    <span class="material-symbols-outlined text-[20px]">dashboard</span>
+    <span class="text-[9px] uppercase tracking-wider font-extrabold">Home</span>
+  </a>
+
+  <!-- Tambah Buku -->
+  <a href="{{ route('admin.books.create') }}" class="flex flex-col items-center gap-0.5 py-1 px-2.5 rounded-xl text-black font-extrabold hover:bg-black/5">
+    <span class="material-symbols-outlined text-[20px]">add_circle</span>
+    <span class="text-[9px] uppercase tracking-wider font-extrabold">Tambah</span>
+  </a>
+
+  <!-- Persetujuan -->
+  <a href="{{ route('admin.persetujuan') }}" class="flex flex-col items-center gap-0.5 py-1 px-2.5 rounded-xl text-black font-extrabold hover:bg-black/5 relative">
+    <span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+    <span class="text-[9px] uppercase tracking-wider font-extrabold">Setujui</span>
+    @if(isset($pendingApprovals) && $pendingApprovals > 0)
+    <span class="absolute top-0 right-1 w-2.5 h-2.5 rounded-full bg-rose-500 border border-black animate-pulse"></span>
+    @endif
+  </a>
+
+  <!-- Laporan -->
+  <a href="{{ route('admin.laporan') }}" class="flex flex-col items-center gap-0.5 py-1 px-2.5 rounded-xl text-black font-extrabold hover:bg-black/5">
+    <span class="material-symbols-outlined text-[20px]">bar_chart</span>
+    <span class="text-[9px] uppercase tracking-wider font-extrabold">Laporan</span>
+  </a>
+
+  <!-- Keluar / Logout -->
+  <form action="{{ route('admin.logout') }}" method="POST" class="inline">
+    @csrf
+    <button type="submit" class="flex flex-col items-center gap-0.5 py-1 px-2.5 rounded-xl text-rose-600 font-extrabold hover:bg-rose-50">
+      <span class="material-symbols-outlined text-[20px]">logout</span>
+      <span class="text-[9px] uppercase tracking-wider font-extrabold">Keluar</span>
+    </button>
+  </form>
+</nav>
+
 </body>
 </html>

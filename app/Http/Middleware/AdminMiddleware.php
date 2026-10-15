@@ -22,7 +22,8 @@ class AdminMiddleware
         $user = Auth::user();
         if ($user) {
             $allowedRoles = ['admin', 'pustakawan', 'kepala perpus', 'admin it'];
-            if (!in_array(strtolower($user->role), $allowedRoles) && !session('is_admin')) {
+            $userRole = strtolower($user->role ?? '');
+            if (!in_array($userRole, $allowedRoles) && !session('is_admin')) {
                 return redirect()->route('admin.login')->with('error', 'Akses ditolak. Akun Anda tidak memiliki hak akses admin.');
             }
         }

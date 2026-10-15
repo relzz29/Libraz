@@ -24,5 +24,24 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpException $e, \Illuminate\Http\Request $request) {
+            if ($e->getStatusCode() === 419) {
+                if ($request->expectsJson() || $request->isXmlHttpRequest()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Sesi kedaluwarsa atau token tidak valid. Silakan coba kembali.',
+                        'csrf_token' => csrf_token(),
+                        'csrf_expired' => true,
+                    ], 419);
+                }
+
+                // Regenerate token so the redirected form receives a fresh valid token
+                $request->session()->regenerateToken();
+
+                $targetUrl = $request->header('Referer') ?: route('admin.login');
+                return redirect()->to($targetUrl)
+                    ->withInput($request->except('password', '_token'))
+                    ->with('error', 'Sesi Anda sempat kedaluwarsa. Token keamanan telah diperbarui otomatis, silakan coba Masuk kembali.');
+            }
+        });
     })->create();

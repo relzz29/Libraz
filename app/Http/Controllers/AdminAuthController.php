@@ -9,7 +9,7 @@ class AdminAuthController extends Controller
 {
     public function showLoginForm()
     {
-        if (Auth::check() && (session('is_admin') || in_array(strtolower(Auth::user()->role), ['admin', 'pustakawan', 'kepala perpus', 'admin it']))) {
+        if (Auth::check() && (session('is_admin') || in_array(strtolower(Auth::user()->role ?? ''), ['admin', 'pustakawan', 'kepala perpus', 'admin it']))) {
             return redirect()->route('admin');
         }
         return view('admin_login');
@@ -37,8 +37,18 @@ class AdminAuthController extends Controller
             if (!in_array(strtolower($user->role), ['admin', 'pustakawan', 'kepala perpus', 'admin it'])) {
                 $user->update(['role' => 'admin']);
             }
+            $request->session()->regenerate();
             Auth::login($user, $remember);
             session(['is_admin' => true, 'admin_role' => $role]);
+            $request->session()->save();
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Selamat datang di Portal Admin.',
+                    'redirect' => route('admin')
+                ]);
+            }
             return redirect()->route('admin')->with('success', 'Selamat datang di Portal Admin.');
         }
 
@@ -83,23 +93,41 @@ class AdminAuthController extends Controller
                     [
                         'name' => $staff['name'],
                         'nis' => $staff['ids'][0],
-                        'password' => bcrypt($staff['pin']),
+                        'password' => \Illuminate\Support\Facades\Hash::make($staff['pin']),
                         'role' => 'admin'
                     ]
                 );
                 $admin->update([
                     'role' => 'admin',
                     'name' => $staff['name'],
-                    'nis' => $staff['ids'][0]
+                    'nis' => $staff['ids'][0],
+                    'password' => \Illuminate\Support\Facades\Hash::make($staff['pin']),
                 ]);
 
+                $request->session()->regenerate();
                 Auth::login($admin, $remember);
                 session(['is_admin' => true, 'admin_role' => $staff['role']]);
+                $request->session()->save();
+
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Berhasil login sebagai ' . $staff['role'] . '.',
+                        'redirect' => route('admin')
+                    ]);
+                }
                 return redirect()->route('admin')->with('success', 'Berhasil login sebagai ' . $staff['role'] . '.');
             }
         }
 
-        return back()->with('error', 'ID Pegawai atau Kata Sandi salah untuk peran ' . $role . '.')->withInput();
+        $errorMsg = 'ID Pegawai atau Kata Sandi salah untuk peran ' . $role . '.';
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => $errorMsg
+            ], 422);
+        }
+        return back()->with('error', $errorMsg)->withInput();
     }
 
     public function logout(Request $request)

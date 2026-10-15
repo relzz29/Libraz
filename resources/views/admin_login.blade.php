@@ -170,6 +170,8 @@
           </div>
 
           <!-- ALERT MESSAGES -->
+          <div id="login-alert" class="hidden mb-3 p-2.5 rounded-xl border-2 border-black text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2"></div>
+
           @if(session('error'))
           <div class="mb-3 p-2.5 rounded-xl border-2 border-black bg-rose-100 text-rose-800 text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2">
             <span>⚠️</span>
@@ -184,7 +186,7 @@
           </div>
           @endif
 
-          <form action="{{ route('admin.login.submit') }}" method="POST" class="flex flex-col gap-3">
+          <form id="admin-login-form" action="{{ route('admin.login.submit') }}" method="POST" class="flex flex-col gap-3">
             @csrf
             <input type="hidden" name="role" id="role-input" value="Pustakawan">
 
@@ -256,9 +258,9 @@
             </div>
 
             <!-- SUBMIT BUTTON -->
-            <button type="submit" class="w-full mt-1 bg-[#6700bb] hover:bg-[#55009e] text-white font-black text-sm py-3 px-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer transition-all">
-              <span>Masuk ke Dashboard Sistem</span>
-              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            <button type="submit" id="login-submit-btn" class="w-full mt-1 bg-[#6700bb] hover:bg-[#55009e] text-white font-black text-sm py-3 px-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer transition-all">
+              <span id="login-submit-text">Masuk ke Dashboard Sistem</span>
+              <span class="material-symbols-outlined text-[18px]" id="login-submit-icon">arrow_forward</span>
             </button>
 
             <!-- WARNING BOX -->
@@ -277,7 +279,7 @@
     </div>
   </main>
 
-  <!-- JAVASCRIPT FOR ROLE SELECTION, PASSWORD TOGGLE & DEMO FILLER -->
+  <!-- JAVASCRIPT FOR ROLE SELECTION, PASSWORD TOGGLE, CSRF RECOVERY & DEMO FILLER -->
   <script>
     const roleCredentials = {
       'Pustakawan': { id: 'PST-001', pin: 'pustaka123', placeholder: 'Contoh: PST-001' },
@@ -349,6 +351,127 @@
         }
       }
     })();
+
+    // Auto-refresh page on Back/Forward navigation to prevent stale CSRF tokens
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    });
+
+    // Helper to refresh CSRF token in DOM
+    async function refreshCsrfToken() {
+      try {
+        const res = await fetch("{{ route('csrf.token') }}", { headers: { 'Accept': 'application/json' } });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.csrf_token) {
+            document.querySelectorAll('input[name="_token"]').forEach(el => el.value = data.csrf_token);
+            const meta = document.querySelector('meta[name="csrf-token"]');
+            if (meta) meta.setAttribute('content', data.csrf_token);
+            return data.csrf_token;
+          }
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    // Refresh token periodically every 15 minutes
+    setInterval(refreshCsrfToken, 15 * 60 * 1000);
+
+    // Smooth AJAX Login Submission with Automatic 419 Recovery
+    const loginForm = document.getElementById('admin-login-form');
+    const submitBtn = document.getElementById('login-submit-btn');
+    const submitBtnText = document.getElementById('login-submit-text');
+    const alertBox = document.getElementById('login-alert');
+
+    function showLoginAlert(msg, type = 'error') {
+      alertBox.className = type === 'success'
+        ? 'mb-3 p-2.5 rounded-xl border-2 border-black bg-emerald-100 text-emerald-900 text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2'
+        : 'mb-3 p-2.5 rounded-xl border-2 border-black bg-rose-100 text-rose-900 text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2';
+      alertBox.innerHTML = `<span>${type === 'success' ? '✅' : '⚠️'}</span><span>${msg}</span>`;
+      alertBox.classList.remove('hidden');
+    }
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const role = document.getElementById('role-input').value;
+        const remember = document.querySelector('input[name="remember"]')?.checked;
+        let token = document.querySelector('input[name="_token"]').value;
+
+        if (!username || !password) {
+          showLoginAlert('Mohon lengkapi ID Pegawai dan PIN Keamanan.');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+        submitBtnText.textContent = 'Memverifikasi Kredensial...';
+        alertBox.classList.add('hidden');
+
+        try {
+          let res = await fetch("{{ route('admin.login.submit') }}", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'X-CSRF-TOKEN': token
+            },
+            body: JSON.stringify({
+              _token: token,
+              username: username,
+              password: password,
+              role: role,
+              remember: remember
+            })
+          });
+
+          // If 419 token expired, auto-refresh token and retry once
+          if (res.status === 419) {
+            const newToken = await refreshCsrfToken();
+            if (newToken) {
+              token = newToken;
+              res = await fetch("{{ route('admin.login.submit') }}", {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'X-CSRF-TOKEN': token
+                },
+                body: JSON.stringify({
+                  _token: token,
+                  username: username,
+                  password: password,
+                  role: role,
+                  remember: remember
+                })
+              });
+            }
+          }
+
+          const data = await res.json();
+          if (res.ok && data.success) {
+            showLoginAlert(data.message || 'Login berhasil! Mengalihkan ke dashboard...', 'success');
+            submitBtnText.textContent = 'Berhasil! Mengalihkan...';
+            setTimeout(() => {
+              window.location.href = data.redirect || "{{ route('admin') }}";
+            }, 600);
+          } else {
+            showLoginAlert(data.message || 'ID Pegawai atau PIN salah untuk peran ini.');
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+            submitBtnText.textContent = 'Masuk ke Dashboard Sistem';
+          }
+        } catch (err) {
+          // If unexpected error or offline, fallback to regular form submit
+          loginForm.submit();
+        }
+      });
+    }
   </script>
 
 </body>
