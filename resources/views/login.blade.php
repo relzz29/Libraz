@@ -5,762 +5,764 @@
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Login - Libraz</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
-
-<style>
-@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
-body { min-height: max(884px, 100dvh); }
-/* Scanner Modal CSS */
-.scanner-modal-backdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
-.scanner-modal-card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 24px; padding: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); display: flex; flex-direction: column; gap: 14px; animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1); position: relative; }
-@keyframes modalPop { from { opacity: 0; transform: scale(0.92) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-.scanner-modal-header { display: flex; justify-content: space-between; align-items: center; }
-.modal-icon-badge { width: 36px; height: 36px; border-radius: 10px; background: #e0e7ff; color: #4f46e5; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-.modal-close-btn { background: #f1f5f9; border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; transition: all 0.15s; }
-.modal-close-btn:hover { background: #e2e8f0; color: #0f172a; }
-.scanner-viewport-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: 270px; background: #090d16; border-radius: 18px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.qr-reader-box { width: 100% !important; height: 100% !important; border: none !important; }
-.qr-reader-box video { width: 100% !important; height: 100% !important; object-fit: cover !important; }
-#qr-reader__scan_region { background: transparent !important; }
-#qr-reader__dashboard { display: none !important; }
-.scanner-target-frame { position: absolute; top: 15%; left: 15%; right: 15%; bottom: 15%; pointer-events: none; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4); border-radius: 12px; }
-.target-corner { position: absolute; width: 20px; height: 20px; border-color: #22d3a3; border-style: solid; }
-.target-tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; border-top-left-radius: 8px; }
-.target-tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; border-top-right-radius: 8px; }
-.target-bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; border-bottom-left-radius: 8px; }
-.target-br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; border-bottom-right-radius: 8px; }
-.laser-scanner { position: absolute; left: 5%; right: 5%; height: 3px; background: linear-gradient(90deg, transparent, #22d3a3, #38bdf8, #22d3a3, transparent); box-shadow: 0 0 12px #22d3a3, 0 0 6px #38bdf8; animation: laserPulse 1.8s infinite ease-in-out alternate; }
-@keyframes laserPulse { 0% { top: 5%; opacity: 0.2; } 50% { opacity: 1; } 100% { top: 95%; opacity: 0.2; } }
-.scanner-status-text { font-size: 0.78rem; color: #64748b; text-align: center; font-weight: 600; min-height: 20px; display: flex; align-items: center; justify-content: center; gap: 6px; }
-.scanner-alert-box { font-size: 0.8rem; font-weight: 600; padding: 10px 14px; border-radius: 10px; text-align: center; }
-.scanner-alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-.scanner-alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-.scanner-modal-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-.scanner-action-btn { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 6px; font-size: 0.72rem; font-weight: 600; color: #334155; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; transition: all 0.15s; }
-.scanner-action-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
-.scanner-action-btn.demo-btn { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
-.scanner-action-btn.demo-btn:hover { background: #ede9fe; }
-
-/* Custom New Login Layout Styles */
-.bg-grid-pattern {
-    background-size: 40px 40px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-}
-.brand-purple { background-color: #2a1a5e; }
-.brand-purple-dark { background-color: #150935; }
-.brand-accent { background-color: #6d48e5; }
-.brand-success { background-color: #22c55e; }
-.text-brand-purple { color: #2a1a5e; }
-.text-brand-accent { color: #6d48e5; }
-.bg-brand-accent { background-color: #6d48e5; }
-.ring-brand-accent:focus { --tw-ring-color: #6d48e5; }
-.mask-image-gradient {
-    -webkit-mask-image: radial-gradient(circle, black 50%, transparent 80%);
-    mask-image: radial-gradient(circle, black 50%, transparent 80%);
-}
-@keyframes shimmer_btn { 100% { transform: translateX(100%); } }
-</style>
-<script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-primary-fixed":"rgb(var(--color-on-primary-fixed) \/ <alpha-value>)","on-primary-fixed-variant":"rgb(var(--color-on-primary-fixed-variant) \/ <alpha-value>)","surface-container-highest":"rgb(var(--color-surface-container-highest) \/ <alpha-value>)","on-error":"rgb(var(--color-on-error) \/ <alpha-value>)","on-error-container":"rgb(var(--color-on-error-container) \/ <alpha-value>)","surface-container":"rgb(var(--color-surface-container) \/ <alpha-value>)","surface-container-high":"rgb(var(--color-surface-container-high) \/ <alpha-value>)","on-tertiary-fixed":"rgb(var(--color-on-tertiary-fixed) \/ <alpha-value>)","on-secondary-fixed":"rgb(var(--color-on-secondary-fixed) \/ <alpha-value>)","secondary-fixed":"rgb(var(--color-secondary-fixed) \/ <alpha-value>)","on-tertiary":"rgb(var(--color-on-tertiary) \/ <alpha-value>)","on-surface":"rgb(var(--color-on-surface) \/ <alpha-value>)","surface-variant":"rgb(var(--color-surface-variant) \/ <alpha-value>)","surface-container-low":"rgb(var(--color-surface-container-low) \/ <alpha-value>)","on-primary-container":"rgb(var(--color-on-primary-container) \/ <alpha-value>)","on-surface-variant":"rgb(var(--color-on-surface-variant) \/ <alpha-value>)","background":"rgb(var(--color-background) \/ <alpha-value>)","inverse-primary":"rgb(var(--color-inverse-primary) \/ <alpha-value>)","inverse-on-surface":"rgb(var(--color-inverse-on-surface) \/ <alpha-value>)","tertiary-container":"rgb(var(--color-tertiary-container) \/ <alpha-value>)","error-container":"rgb(var(--color-error-container) \/ <alpha-value>)","primary":"rgb(var(--color-primary) \/ <alpha-value>)","on-secondary-container":"rgb(var(--color-on-secondary-container) \/ <alpha-value>)","surface-tint":"rgb(var(--color-surface-tint) \/ <alpha-value>)","secondary-fixed-dim":"rgb(var(--color-secondary-fixed-dim) \/ <alpha-value>)","secondary":"rgb(var(--color-secondary) \/ <alpha-value>)","surface-dim":"rgb(var(--color-surface-dim) \/ <alpha-value>)","tertiary-fixed-dim":"rgb(var(--color-tertiary-fixed-dim) \/ <alpha-value>)","tertiary-fixed":"rgb(var(--color-tertiary-fixed) \/ <alpha-value>)","on-background":"rgb(var(--color-on-background) \/ <alpha-value>)","secondary-container":"rgb(var(--color-secondary-container) \/ <alpha-value>)","tertiary":"rgb(var(--color-tertiary) \/ <alpha-value>)","inverse-surface":"rgb(var(--color-inverse-surface) \/ <alpha-value>)","primary-fixed-dim":"rgb(var(--color-primary-fixed-dim) \/ <alpha-value>)","primary-fixed":"rgb(var(--color-primary-fixed) \/ <alpha-value>)","on-secondary":"rgb(var(--color-on-secondary) \/ <alpha-value>)","error":"rgb(var(--color-error) \/ <alpha-value>)","surface-container-lowest":"rgb(var(--color-surface-container-lowest) \/ <alpha-value>)","primary-container":"rgb(var(--color-primary-container) \/ <alpha-value>)","surface":"rgb(var(--color-surface) \/ <alpha-value>)","outline":"rgb(var(--color-outline) \/ <alpha-value>)","surface-bright":"rgb(var(--color-surface-bright) \/ <alpha-value>)","on-secondary-fixed-variant":"rgb(var(--color-on-secondary-fixed-variant) \/ <alpha-value>)","on-primary":"rgb(var(--color-on-primary) \/ <alpha-value>)","on-tertiary-fixed-variant":"rgb(var(--color-on-tertiary-fixed-variant) \/ <alpha-value>)","outline-variant":"rgb(var(--color-outline-variant) \/ <alpha-value>)","on-tertiary-container":"rgb(var(--color-on-tertiary-container) \/ <alpha-value>)"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","gutter-sm":"0.75rem","space-lg":"1.25rem","margin":"1.25rem","gutter":"1rem","margin-desktop":"2.5rem","space-md":"0.875rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"title-md":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-sm":["Space Grotesk"],"headline-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-lg":["Space Grotesk"],"body-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-md":["Space Grotesk"]},"fontSize":{"title-md":["16px",{"lineHeight":"22px","fontWeight":"700"}],"headline-lg-mobile":["26px",{"lineHeight":"32px","fontWeight":"800"}],"headline-md":["22px",{"lineHeight":"28px","fontWeight":"700"}],"display-lg":["38px",{"lineHeight":"44px","fontWeight":"800"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"label-sm":["10px",{"lineHeight":"12px","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"700"}],"headline-lg":["30px",{"lineHeight":"36px","fontWeight":"800"}],"label-lg":["13px",{"lineHeight":"16px","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"500"}],"label-md":["11px",{"lineHeight":"14px","fontWeight":"700"}]}}}};</script>
-<script>
-  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) || localStorage.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-  }
-</script>
-
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
 <style>
-@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
-body { min-height: max(884px, 100dvh); }
-/* Scanner Modal CSS */
-.scanner-modal-backdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
-.scanner-modal-card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 24px; padding: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); display: flex; flex-direction: column; gap: 14px; animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1); position: relative; }
-@keyframes modalPop { from { opacity: 0; transform: scale(0.92) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-.scanner-modal-header { display: flex; justify-content: space-between; align-items: center; }
-.modal-icon-badge { width: 36px; height: 36px; border-radius: 10px; background: #e0e7ff; color: #4f46e5; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-.modal-close-btn { background: #f1f5f9; border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; transition: all 0.15s; }
-.modal-close-btn:hover { background: #e2e8f0; color: #0f172a; }
-.scanner-viewport-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: 270px; background: #090d16; border-radius: 18px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.qr-reader-box { width: 100% !important; height: 100% !important; border: none !important; }
-.qr-reader-box video { width: 100% !important; height: 100% !important; object-fit: cover !important; }
-#qr-reader__scan_region { background: transparent !important; }
-#qr-reader__dashboard { display: none !important; }
-.scanner-target-frame { position: absolute; top: 15%; left: 15%; right: 15%; bottom: 15%; pointer-events: none; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4); border-radius: 12px; }
-.target-corner { position: absolute; width: 20px; height: 20px; border-color: #22d3a3; border-style: solid; }
-.target-tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; border-top-left-radius: 8px; }
-.target-tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; border-top-right-radius: 8px; }
-.target-bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; border-bottom-left-radius: 8px; }
-.target-br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; border-bottom-right-radius: 8px; }
-.laser-scanner { position: absolute; left: 5%; right: 5%; height: 3px; background: linear-gradient(90deg, transparent, #22d3a3, #38bdf8, #22d3a3, transparent); box-shadow: 0 0 12px #22d3a3, 0 0 6px #38bdf8; animation: laserPulse 1.8s infinite ease-in-out alternate; }
-@keyframes laserPulse { 0% { top: 5%; opacity: 0.2; } 50% { opacity: 1; } 100% { top: 95%; opacity: 0.2; } }
-.scanner-status-text { font-size: 0.78rem; color: #64748b; text-align: center; font-weight: 600; min-height: 20px; display: flex; align-items: center; justify-content: center; gap: 6px; }
-.scanner-alert-box { font-size: 0.8rem; font-weight: 600; padding: 10px 14px; border-radius: 10px; text-align: center; }
-.scanner-alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-.scanner-alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-.scanner-modal-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-.scanner-action-btn { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 6px; font-size: 0.72rem; font-weight: 600; color: #334155; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; transition: all 0.15s; }
-.scanner-action-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
-.scanner-action-btn.demo-btn { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
-.scanner-action-btn.demo-btn:hover { background: #ede9fe; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  ::-webkit-scrollbar { display: none; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100dvh;
+    display: flex;
+    background: #f8fafc;
+    overscroll-behavior: none;
+  }
+
+  /* â”€â”€ LEFT PANEL â”€â”€ */
+  .left-panel {
+    width: 48%;
+    background-color: #1a0f37;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 36px 44px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .left-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    right: -60px;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(109,72,229,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .lp-logo { display: flex; align-items: center; gap: 12px; position: relative; z-index: 2; }
+  .lp-logo-icon {
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+  }
+  .lp-logo-icon img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; }
+  .lp-logo-text h1 { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: 1px; }
+  .lp-live-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: #22c55e; margin-top: 1px; }
+  .lp-live-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse-dot 1.5s infinite; }
+  @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+
+  .lp-hero { position: relative; z-index: 2; margin-top: 36px; }
+  .lp-headline { font-size: clamp(26px, 2.6vw, 38px); font-weight: 800; color: #fff; line-height: 1.22; margin-bottom: 12px; }
+  .lp-subtext { font-size: 13.5px; color: rgba(199,190,255,0.82); line-height: 1.65; margin-bottom: 24px; max-width: 380px; }
+
+  .lp-bottom-row { position: relative; display: flex; align-items: flex-end; }
+  .lp-features { display: flex; flex-direction: column; gap: 10px; width: 235px; flex-shrink: 0; position: relative; z-index: 2; }
+  .lp-feature-card {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 10px 14px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: background 0.2s;
+  }
+  .lp-feature-card:hover { background: rgba(255,255,255,0.1); }
+  .lp-feature-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .fi-purple { background: rgba(109,72,229,0.3); color: #c4b5fd; }
+  .fi-green  { background: rgba(34,197,94,0.25);  color: #86efac; }
+  .fi-amber  { background: rgba(245,158,11,0.25); color: #fcd34d; }
+  .lp-feature-title { font-size: 12.5px; font-weight: 700; color: #fff; }
+  .lp-feature-sub   { font-size: 10.5px; color: rgba(199,190,255,0.7); margin-top: 1px; }
+
+  .lp-illustration {
+    position: absolute; right: -16px; bottom: -8px;
+    width: 290px; pointer-events: none; z-index: 1;
+  }
+  .lp-illustration img {
+    width: 100%; height: auto; display: block; object-fit: contain;
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.45));
+  }
+
+  /* LP FOOTER */
+  .lp-footer {
+    margin-top: auto;
+    padding-top: 24px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .lp-stat-card {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px; padding: 12px 18px;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    transition: all 0.2s ease;
+  }
+  .lp-stat-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+  .lp-avatars { display: flex; align-items: center; }
+  .lp-avatars img {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 2px solid #1a0f37; object-fit: cover;
+    margin-left: -10px;
+  }
+  .lp-avatars img:first-child { margin-left: 0; }
+  .lp-stat-info { flex: 1; }
+  .lp-stat-title { font-size: 14px; font-weight: 800; color: #fff; letter-spacing: 0.3px; }
+  .lp-stat-desc { font-size: 11px; color: rgba(199, 190, 255, 0.7); margin-top: 1px; }
+  .lp-trend-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(34, 197, 94, 0.18); color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 800;
+  }
+  .lp-trend-tag .ms { font-size: 15px; }
+
+  .lp-metrics-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px; padding: 10px 16px;
+  }
+  .lp-metric-item { display: flex; flex-direction: column; align-items: center; flex: 1; text-align: center; }
+  .lp-metric-num { font-size: 13px; font-weight: 800; color: #fff; }
+  .lp-metric-label { font-size: 10px; color: rgba(199, 190, 255, 0.65); margin-top: 1px; }
+  .lp-metric-divider { width: 1px; height: 22px; background: rgba(255, 255, 255, 0.1); }
+
+  /* â”€â”€ RIGHT PANEL â”€â”€ */
+  .right-panel {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 32px 24px; background: #f8faff; overflow-y: auto;
+  }
+  .rp-inner { width: 100%; max-width: 440px; display: flex; flex-direction: column; }
+  .mobile-logo { display: none; align-items: center; justify-content: center; gap: 10px; margin-bottom: 28px; }
+
+  /* TAB */
+  .tab-row {
+    display: flex; background: #e8ecf0; border-radius: 14px;
+    padding: 5px; gap: 4px; margin-bottom: 22px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .tab-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 12px 8px; border-radius: 10px; border: none;
+    font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: all 0.22s ease; background: transparent; color: #64748b;
+  }
+  .tab-btn.active { background: #6d48e5; color: #fff; box-shadow: 0 4px 12px rgba(109,72,229,0.35); }
+  .tab-btn:not(.active):hover { background: rgba(109,72,229,0.08); color: #4b4b6b; }
+
+  /* ROLE */
+  .role-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #e8ecf0; border-radius: 14px; padding: 6px 6px 6px 16px;
+    margin-bottom: 20px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .role-label { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: #64748b; }
+  .role-pills { display: flex; background: #fff; border-radius: 10px; padding: 4px; gap: 2px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .role-pill {
+    padding: 7px 16px; border-radius: 8px; border: none;
+    font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+    transition: all 0.2s; background: transparent; color: #64748b;
+  }
+  .role-pill.active { background: #6d48e5; color: #fff; box-shadow: 0 3px 8px rgba(109,72,229,0.3); }
+  .role-pill:not(.active):hover { color: #334155; background: #f1f5f9; }
+
+  /* QR CARD */
+  .qr-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 20px; padding: 22px; color: #fff;
+    margin-bottom: 20px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.2s;
+  }
+  .qr-card:hover { box-shadow: 0 20px 45px rgba(15,23,42,0.4); transform: translateY(-2px); }
+  .qr-card::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(34,211,163,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .qr-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; position: relative; z-index: 1; }
+  .fast-pass-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(34,211,163,0.15); color: #34d399;
+    border: 1px solid rgba(34,211,163,0.3); border-radius: 999px;
+    font-size: 10px; font-weight: 800; padding: 3px 10px; letter-spacing: 0.5px; margin-bottom: 8px;
+  }
+  .qr-card h3 { font-size: 17px; font-weight: 800; color: #fff; }
+  .qr-card p  { font-size: 12px; color: #94a3b8; margin-top: 3px; }
+  .qr-icon-btn {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center; color: #fff;
+    transition: background 0.2s; flex-shrink: 0;
+  }
+  .qr-card:hover .qr-icon-btn { background: #6d48e5; }
+  .qr-viewport {
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 16px;
+    background: rgba(0,0,0,0.3); height: 110px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; position: relative; z-index: 1;
+  }
+  .qr-viewport .qr-big-icon { font-size: 40px; color: #475569; }
+  .qr-viewport .tap-text { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: #34d399; text-transform: uppercase; }
+  .qr-corner { position: absolute; width: 14px; height: 14px; border-color: #34d399; border-style: solid; }
+  .qr-corner.tl { top:6px;left:6px;border-width:2px 0 0 2px;border-radius:3px 0 0 0; }
+  .qr-corner.tr { top:6px;right:6px;border-width:2px 2px 0 0;border-radius:0 3px 0 0; }
+  .qr-corner.bl { bottom:6px;left:6px;border-width:0 0 2px 2px;border-radius:0 0 0 3px; }
+  .qr-corner.br { bottom:6px;right:6px;border-width:0 2px 2px 0;border-radius:0 0 3px 0; }
+
+  /* DIVIDER */
+  .or-divider { display: flex; align-items: center; gap: 12px; margin: 4px 0 20px; }
+  .or-divider::before,.or-divider::after { content:''; flex:1; height:1px; background:#e2e8f0; }
+  .or-divider span { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: #94a3b8; text-transform: uppercase; white-space: nowrap; }
+
+  /* FIELDS */
+  .field-group { margin-bottom: 16px; }
+  .field-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+  .field-label { font-size: 13px; font-weight: 700; color: #334155; }
+  .field-link { font-size: 11px; font-weight: 700; color: #6d48e5; text-decoration: none; display: flex; align-items: center; gap: 3px; }
+  .field-link:hover { text-decoration: underline; }
+  .field-input-wrap { position: relative; }
+  .field-icon-left { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none; display: flex; transition: color 0.2s; font-size: 20px; }
+  .field-input-wrap:focus-within .field-icon-left { color: #6d48e5; }
+  .field-input {
+    width: 100%; border: 1.5px solid #e2e8f0; border-radius: 13px;
+    padding: 13px 44px 13px 46px; font-family: inherit; font-size: 14px; font-weight: 500;
+    color: #1e293b; background: #fff; outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .field-input::placeholder { color: #b0bec8; font-weight: 400; }
+  .field-input:hover { border-color: #c7d0d8; }
+  .field-input:focus { border-color: #6d48e5; box-shadow: 0 0 0 3px rgba(109,72,229,0.12); }
+  .field-icon-right { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+  .icon-btn { background: none; border: none; cursor: pointer; padding: 6px; border-radius: 8px; color: #94a3b8; display: flex; align-items: center; transition: background 0.15s, color 0.15s; }
+  .icon-btn:hover { background: #f1f5f9; color: #6d48e5; }
+
+  /* REMEMBER */
+  .remember-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 4px; }
+  .remember-left { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .remember-left input[type="checkbox"] { width: 16px; height: 16px; accent-color: #6d48e5; cursor: pointer; }
+  .remember-left label { font-size: 12px; font-weight: 500; color: #475569; cursor: pointer; }
+  .secure-badge { display: flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 800; color: #16a34a; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 4px 8px; letter-spacing: 0.5px; }
+
+  /* SUBMIT */
+  .submit-btn {
+    width: 100%; padding: 15px; background: #6d48e5; color: #fff; border: none;
+    border-radius: 14px; font-family: inherit; font-size: 14px; font-weight: 800; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    position: relative; overflow: hidden;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    box-shadow: 0 6px 20px rgba(109,72,229,0.4); letter-spacing: 0.2px;
+  }
+  .submit-btn:hover { background: #5a3bc2; box-shadow: 0 8px 24px rgba(109,72,229,0.5); transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+    transform: translateX(-100%); transition: transform 0.5s;
+  }
+  .submit-btn:hover::after { transform: translateX(100%); }
+  .submit-btn .ms-icon { font-size: 18px; transition: transform 0.2s; }
+  .submit-btn:hover .ms-icon { transform: translateX(4px); }
+
+  /* ALERT */
+  #js-alert-container { display: none; padding: 11px 14px; border-radius: 12px; font-size: 13px; font-weight: 600; align-items: center; gap: 8px; margin-bottom: 14px; }
+
+  /* SCANNER MODAL */
+  .scanner-backdrop { position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
+  .scanner-card { background: #fff; width: 100%; max-width: 400px; border-radius: 24px; padding: 22px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); display: flex; flex-direction: column; gap: 14px; animation: modalPop 0.25s cubic-bezier(0.16,1,0.3,1); position: relative; }
+  @keyframes modalPop { from{opacity:0;transform:scale(0.92) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
+  .scanner-header { display: flex; justify-content: space-between; align-items: center; }
+  .scanner-icon-badge { width:36px;height:36px;border-radius:10px;background:#e0e7ff;color:#4f46e5;display:flex;align-items:center;justify-content:center; }
+  .scanner-close-btn { background:#f1f5f9;border:none;width:34px;height:34px;border-radius:50%;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#64748b;transition:all 0.15s;line-height:1; }
+  .scanner-close-btn:hover { background:#e2e8f0;color:#0f172a; }
+  .scanner-viewport { position:relative;width:100%;aspect-ratio:1/1;max-height:270px;background:#090d16;border-radius:18px;overflow:hidden;display:flex;align-items:center;justify-content:center; }
+  #qr-reader{width:100%!important;height:100%!important;border:none!important}
+  #qr-reader video{width:100%!important;height:100%!important;object-fit:cover!important}
+  #qr-reader__scan_region{background:transparent!important}
+  #qr-reader__dashboard{display:none!important}
+  .scan-frame{position:absolute;top:15%;left:15%;right:15%;bottom:15%;pointer-events:none;box-shadow:0 0 0 9999px rgba(0,0,0,0.4);border-radius:12px}
+  .sc{position:absolute;width:20px;height:20px;border-color:#22d3a3;border-style:solid}
+  .sc.tl{top:-2px;left:-2px;border-width:3px 0 0 3px;border-top-left-radius:8px}
+  .sc.tr{top:-2px;right:-2px;border-width:3px 3px 0 0;border-top-right-radius:8px}
+  .sc.bl{bottom:-2px;left:-2px;border-width:0 0 3px 3px;border-bottom-left-radius:8px}
+  .sc.br{bottom:-2px;right:-2px;border-width:0 3px 3px 0;border-bottom-right-radius:8px}
+  .laser{position:absolute;left:5%;right:5%;height:3px;background:linear-gradient(90deg,transparent,#22d3a3,#38bdf8,#22d3a3,transparent);box-shadow:0 0 12px #22d3a3,0 0 6px #38bdf8;animation:laserPulse 1.8s infinite ease-in-out alternate}
+  @keyframes laserPulse{0%{top:5%;opacity:0.2}50%{opacity:1}100%{top:95%;opacity:0.2}}
+  .scanner-status{font-size:12px;color:#64748b;text-align:center;font-weight:600;min-height:20px;display:flex;align-items:center;justify-content:center;gap:6px}
+  .scanner-alert-box{font-size:13px;font-weight:600;padding:10px 14px;border-radius:10px;text-align:center;display:none}
+  .alert-danger{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+  .alert-success{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+  .scanner-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .scan-action-btn{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:8px 6px;font-size:11px;font-weight:700;color:#334155;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all 0.15s;font-family:inherit}
+  .scan-action-btn:hover{background:#f1f5f9;border-color:#cbd5e1}
+  .scan-action-btn.demo{background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9}
+  .scan-action-btn.demo:hover{background:#ede9fe}
+
+  /* FORGOT MODAL */
+  .forgot-card{background:#fff;width:100%;max-width:380px;border-radius:24px;padding:36px 28px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);text-align:center;animation:modalPop 0.25s cubic-bezier(0.16,1,0.3,1)}
+  .forgot-icon{width:64px;height:64px;border-radius:50%;background:#fff1f2;color:#e11d48;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){.left-panel{display:none}.mobile-logo{display:flex}}
+  .hidden{display:none!important}
+  .ms{font-family:'Material Symbols Outlined';font-size:20px;font-style:normal;display:inline-flex;line-height:1;vertical-align:middle}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .spin{animation:spin 1s linear infinite}
 </style>
 </head>
-<body class="bg-background font-body-md text-body-md text-on-surface pt-safe pb-safe flex flex-col min-h-screen">
-<main class="flex flex-col lg:flex-row relative w-full min-h-screen items-stretch bg-slate-50 text-slate-800">
-    
-    <!-- LEFT SIDE: Illustration & Info -->
-    <div class="relative hidden lg:flex lg:w-1/2 flex-col justify-between bg-gradient-to-br from-[#2a1a5e] to-[#150935] p-12 text-white overflow-hidden bg-grid-pattern">
-        
-        <!-- Logo -->
-        <div class="flex items-center gap-3 z-10">
-            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/20">
-                <img src="/assets/images/libraz_logo.jpg" alt="Logo" class="w-10 h-10 rounded-lg object-cover mix-blend-screen" onerror="this.src='https://ui-avatars.com/api/?name=LIBRAZ&background=random&color=fff'">
-            </div>
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight">LIBRAZ</h1>
-                <div class="flex items-center gap-1.5 text-green-500 text-xs font-medium">
-                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                    Live Library System
-                </div>
-            </div>
-        </div>
+<body>
 
-        <!-- Main Content -->
-        <div class="z-10 mt-12 max-w-lg">
-            <h2 class="text-5xl font-extrabold leading-tight mb-6" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-                Level up your reading<br>game ⚡ 📚
-            </h2>
-            <p class="text-lg text-indigo-100/80 leading-relaxed mb-6">
-                Bergabunglah dengan ribuan siswa yang telah beralih ke perpustakaan digital masa depan. Cepat, pintar, dan terintegrasi langsung dengan ekosistem sekolah.
-            </p>
-            
-            <div class="flex flex-col gap-3 mt-8 w-max relative z-20">
-                <div class="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 p-3 pr-8 rounded-2xl hover:bg-white/10 transition-colors">
-                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-300">
-                        <span class="material-symbols-outlined text-[20px]">library_books</span>
-                    </div>
-                    <div>
-                        <div class="text-sm font-bold text-white tracking-wide">Akses Ribuan Koleksi</div>
-                        <div class="text-[11px] text-indigo-200">E-Book & Buku Fisik Terlengkap</div>
-                    </div>
-                </div>
-                
-                <div class="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 p-3 pr-8 rounded-2xl hover:bg-white/10 transition-colors">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-300">
-                        <span class="material-symbols-outlined text-[20px]">bolt</span>
-                    </div>
-                    <div>
-                        <div class="text-sm font-bold text-white tracking-wide">Fast Pass Scanner</div>
-                        <div class="text-[11px] text-indigo-200">Pinjam buku dalam 3 detik</div>
-                    </div>
-                </div>
+<!-- LEFT PANEL -->
+<div class="left-panel">
+  <div class="lp-logo">
+    <div class="lp-logo-icon">
+      <img src="/assets/images/libraz_logo.jpg" alt="Logo"
+           onerror="this.style.display='none';this.parentElement.innerHTML='<span class=\'ms\' style=\'color:#c4b5fd;font-size:24px\'>menu_book</span>'">
+    </div>
+    <div class="lp-logo-text">
+      <h1>LIBRAZ</h1>
+      <div class="lp-live-badge"><span class="lp-live-dot"></span>Live Library System</div>
+    </div>
+  </div>
 
-                <div class="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 p-3 pr-8 rounded-2xl hover:bg-white/10 transition-colors">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-300">
-                        <span class="material-symbols-outlined text-[20px]">social_leaderboard</span>
-                    </div>
-                    <div>
-                        <div class="text-sm font-bold text-white tracking-wide">Gamifikasi Belajar</div>
-                        <div class="text-[11px] text-indigo-200">Naik level dengan membaca</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="lp-hero">
+    <h2 class="lp-headline">Level up your reading<br>game &#9889; &#128218;</h2>
+    <p class="lp-subtext">Bergabunglah dengan ribuan siswa yang telah beralih ke perpustakaan digital masa depan. Cepat, pintar, dan terintegrasi langsung dengan ekosistem sekolah.</p>
 
-        <!-- Illustration -->
-        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-90 z-0 pointer-events-none transform translate-x-12">
-            <img src="/assets/images/girl_reading_books.jpg" alt="Illustration" class="w-full h-full object-contain mix-blend-screen mask-image-gradient" onerror="this.style.display='none'">
+    <div class="lp-bottom-row">
+      <div class="lp-features">
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon fi-purple"><span class="ms">library_books</span></div>
+          <div>
+            <div class="lp-feature-title">Akses Ribuan Koleksi</div>
+            <div class="lp-feature-sub">E-Book &amp; Buku Fisik Terlengkap</div>
+          </div>
         </div>
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon fi-green"><span class="ms">bolt</span></div>
+          <div>
+            <div class="lp-feature-title">Fast Pass Scanner</div>
+            <div class="lp-feature-sub">Pinjam buku dalam 3 detik</div>
+          </div>
+        </div>
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon fi-amber"><span class="ms">social_leaderboard</span></div>
+          <div>
+            <div class="lp-feature-title">Gamifikasi Belajar</div>
+            <div class="lp-feature-sub">Naik level dengan membaca</div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Bottom Stats -->
-        <div class="z-10 mt-auto w-fit">
-            <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4">
-                <div class="flex -space-x-3">
-                    <img class="w-10 h-10 rounded-full border-2 border-[#2a1a5e] object-cover" src="https://i.pravatar.cc/100?img=1" alt="">
-                    <img class="w-10 h-10 rounded-full border-2 border-[#2a1a5e] object-cover" src="https://i.pravatar.cc/100?img=2" alt="">
-                    <img class="w-10 h-10 rounded-full border-2 border-[#2a1a5e] object-cover" src="https://i.pravatar.cc/100?img=3" alt="">
-                </div>
-                <div>
-                    <div class="font-bold text-lg">1,240+ Siswa</div>
-                    <div class="text-xs text-indigo-200">Aktif membaca hari ini</div>
-                </div>
-                <div class="ml-4 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-green-500">
-                    <span class="material-symbols-outlined">trending_up</span>
-                </div>
-            </div>
-        </div>
+      <div class="lp-illustration">
+        <img src="/assets/images/students_illustration.png" alt="Illustration" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM STATS / SOCIAL PROOF WIDGET -->
+  <div class="lp-footer">
+    <div class="lp-stat-card">
+      <div class="lp-avatars">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+      </div>
+      <div class="lp-stat-info">
+        <div class="lp-stat-title">1,240+ Siswa</div>
+        <div class="lp-stat-desc">Aktif membaca &amp; berkunjung hari ini</div>
+      </div>
+      <div class="lp-trend-tag">
+        <span class="ms">trending_up</span> +24%
+      </div>
     </div>
 
-    <!-- RIGHT SIDE: Login Form -->
-    <div class="flex flex-1 flex-col justify-center px-6 py-12 lg:px-24 xl:px-32 relative bg-white">
-        
-        <div class="mx-auto w-full max-w-[420px]">
-            
-            <!-- Mobile Logo -->
-            <div class="lg:hidden flex items-center justify-center gap-3 mb-10">
-                <div class="w-10 h-10 bg-[#2a1a5e] rounded-xl flex items-center justify-center text-white">
-                    <span class="material-symbols-outlined">menu_book</span>
-                </div>
-                <h1 class="text-2xl font-bold tracking-tight text-[#2a1a5e]">LIBRAZ</h1>
-            </div>
-
-            <!-- Segmented Tab Navigation: Masuk vs Daftar -->
-            <div class="w-full bg-slate-100 rounded-xl p-1.5 flex gap-1 mb-8 shadow-inner">
-                <button class="flex-1 py-3 rounded-lg font-bold text-sm bg-white text-[#6d48e5] shadow-sm flex items-center justify-center gap-1.5 transition-all" id="tab-login" type="button">
-                    <span class="material-symbols-outlined text-[20px]">login</span>
-                    <span>Masuk Akun</span>
-                </button>
-                <button class="flex-1 py-3 rounded-lg font-bold text-sm text-slate-500 hover:text-slate-800 hover:bg-slate-200/50 flex items-center justify-center gap-1.5 transition-all" id="tab-register" type="button">
-                    <span class="material-symbols-outlined text-[20px]">person_add</span>
-                    <span>Daftar Baru</span>
-                </button>
-            </div>
-
-            <!-- Role Toggle -->
-            <div class="bg-slate-100 p-1.5 rounded-xl flex items-center justify-between mb-8 shadow-inner">
-                <span class="flex items-center gap-2 pl-3 text-sm font-semibold text-slate-500">
-                    <span class="material-symbols-outlined text-[20px]">badge</span> Sebagai:
-                </span>
-                <div class="flex bg-white rounded-lg p-1 shadow-sm border border-slate-200">
-                    <button class="px-4 py-1.5 rounded-md bg-[#6d48e5] text-white text-sm font-semibold shadow-sm transition-colors" id="role-student" type="button">Siswa / Siswi</button>
-                    <button class="px-4 py-1.5 rounded-md text-slate-500 text-sm font-medium hover:text-slate-800 transition-colors" id="role-teacher" type="button">Pendidik</button>
-                </div>
-            </div>
-
-            <!-- Fast Pass Scan Card -->
-            <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] rounded-2xl p-6 text-white mb-8 shadow-xl relative overflow-hidden group cursor-pointer hover:shadow-2xl transition-all border border-slate-700" onclick="openScanner()">
-                <div class="flex justify-between items-start mb-4 relative z-10">
-                    <div>
-                        <div class="inline-flex items-center gap-1.5 bg-emerald-400/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 border border-emerald-400/30">
-                            <span class="material-symbols-outlined text-[12px]">bolt</span> FAST PASS
-                        </div>
-                        <h3 class="text-lg font-bold text-white">Scan Kartu Pelajar</h3>
-                        <p class="text-xs text-slate-400 mt-1">Otomatis deteksi QR ID Perpustakaan.</p>
-                    </div>
-                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10 group-hover:bg-[#6d48e5] transition-colors">
-                        <span class="material-symbols-outlined">qr_code_scanner</span>
-                    </div>
-                </div>
-                
-                <div class="mt-4 border border-slate-600 rounded-xl p-4 bg-slate-900/50 flex flex-col items-center justify-center gap-3 relative h-[120px] relative z-10">
-                    <div class="absolute inset-2 border-2 border-dashed border-slate-600 rounded-lg opacity-50"></div>
-                    <span class="material-symbols-outlined text-4xl text-slate-400">qr_code_2</span>
-                    <span class="text-[10px] font-bold tracking-widest text-emerald-400 uppercase relative z-10">Ketuk untuk buka kamera</span>
-                    
-                    <!-- decorative scan corners -->
-                    <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-emerald-500 rounded-tl-sm"></div>
-                    <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-emerald-500 rounded-tr-sm"></div>
-                    <div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-emerald-500 rounded-bl-sm"></div>
-                    <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-emerald-500 rounded-br-sm"></div>
-                </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="relative flex py-5 items-center mb-4">
-                <div class="flex-grow border-t border-slate-200"></div>
-                <span class="flex-shrink-0 mx-4 text-slate-400 text-[10px] font-bold tracking-widest uppercase">Atau Manual ID</span>
-                <div class="flex-grow border-t border-slate-200"></div>
-            </div>
-
-            <!-- Authenticaton Form -->
-            <form id="auth-form" method="POST" action="#" class="space-y-5">
-                @csrf
-                <input type="hidden" name="is_register" id="is-register" value="0">
-                <input type="hidden" name="school_name" value="Asal Sekolah Default">
-
-                <!-- JS Custom Alert Container -->
-                <div id="js-alert-container" class="hidden p-3 text-sm rounded-xl flex items-center gap-2 mb-3"></div>
-
-                <div>
-                    <div class="flex items-center justify-between mb-1.5">
-                        <label for="input-identifier" id="label-identifier" class="block text-sm font-semibold text-slate-700">Nomor Induk Siswa (NIS)</label>
-                        <a href="#" class="text-xs font-semibold text-[#6d48e5] flex items-center gap-1 hover:underline">
-                            <span class="material-symbols-outlined text-[14px]">help</span> Cek NIS Online
-                        </a>
-                    </div>
-                    <div class="relative group">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 group-focus-within:text-[#6d48e5] transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">badge</span>
-                        </div>
-                        <input type="text" name="nis" id="input-identifier" inputmode="numeric" class="block w-full rounded-xl border-0 py-3.5 pl-11 pr-10 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#6d48e5] focus:outline-none sm:text-sm sm:leading-6 font-medium bg-white transition-all hover:ring-slate-400" placeholder="Contoh: 2024108827" value="{{ old('nis') }}" required>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-2">
-                             <button type="button" onclick="openScanner()" class="p-1.5 rounded-lg text-slate-400 hover:text-[#6d48e5] hover:bg-indigo-50 transition-colors">
-                                 <span class="material-symbols-outlined text-[20px]">qr_code</span>
-                             </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hidden fullname field for registration logic compatibility -->
-                <div class="hidden flex-col gap-1.5" id="register-field-name">
-                    <label class="block text-sm font-semibold text-slate-700" for="input-fullname">Nama Lengkap Siswa</label>
-                    <div class="relative group">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 group-focus-within:text-[#6d48e5] transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">person</span>
-                        </div>
-                        <input class="block w-full rounded-xl border-0 py-3.5 pl-11 pr-10 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#6d48e5] focus:outline-none sm:text-sm sm:leading-6 font-medium bg-white transition-all hover:ring-slate-400" id="input-fullname" name="name" placeholder="Sesuai Akun Dapodik Sekolah" type="text" value="{{ old('name') }}"/>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex items-center justify-between mb-1.5">
-                        <label for="input-password" class="block text-sm font-semibold text-slate-700">Kata Sandi / PIN</label>
-                        <button type="button" onclick="openForgotPinModal()" class="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors bg-transparent border-0 p-0 cursor-pointer">Lupa PIN?</button>
-                    </div>
-                    <div class="relative group">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 group-focus-within:text-[#6d48e5] transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">lock</span>
-                        </div>
-                        <input type="password" name="password" id="input-password" class="block w-full rounded-xl border-0 py-3.5 pl-11 pr-10 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#6d48e5] focus:outline-none sm:text-sm sm:leading-6 font-medium bg-white transition-all hover:ring-slate-400" placeholder="••••••••" required>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-2">
-                             <button type="button" id="toggle-password" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
-                                 <span class="material-symbols-outlined text-[20px]" id="pwd-icon">visibility_off</span>
-                             </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between pt-2">
-                    <div class="flex items-center">
-                        <input id="remember" name="remember" type="checkbox" checked class="h-4 w-4 rounded border-slate-300 text-[#6d48e5] focus:ring-[#6d48e5] cursor-pointer transition-colors accent-[#6d48e5]">
-                        <label for="remember" class="ml-2 block text-sm font-medium text-slate-700 cursor-pointer">Ingat perangkat ini di perpustakaan</label>
-                    </div>
-                    <div class="flex items-center gap-1 text-emerald-600 text-[10px] font-bold bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100">
-                        <span class="material-symbols-outlined text-[12px]">shield</span> AMAN
-                    </div>
-                </div>
-
-                <div class="pt-2 flex flex-col gap-3">
-                    <button id="submit-button" type="submit" class="group relative flex w-full justify-center items-center rounded-xl bg-[#6d48e5] px-3 py-4 text-sm font-bold text-white hover:bg-[#5a3bc2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d48e5] transition-all shadow-lg shadow-[#6d48e5]/30 overflow-hidden cursor-pointer">
-                        <span class="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_btn_1s_forwards]"></span>
-                        <span class="relative flex items-center gap-2">
-                            <span>Masuk ke Perpustakaan</span> 
-                            <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
-                        </span>
-                    </button>
-                </div>
-            </form>
-            
-        </div>
-        
+    <div class="lp-metrics-row">
+      <div class="lp-metric-item">
+        <span class="lp-metric-num">15K+</span>
+        <span class="lp-metric-label">Koleksi Buku</span>
+      </div>
+      <div class="lp-metric-divider"></div>
+      <div class="lp-metric-item">
+        <span class="lp-metric-num">3 Detik</span>
+        <span class="lp-metric-label">Fast Pass QR</span>
+      </div>
+      <div class="lp-metric-divider"></div>
+      <div class="lp-metric-item">
+        <span class="lp-metric-num">&#9733; 4.9</span>
+        <span class="lp-metric-label">Rating Siswa</span>
+      </div>
     </div>
-</main><!-- Scanner Modal -->
-<div id="qr-modal" class="scanner-modal-backdrop" style="display: none;">
-    <div class="scanner-modal-card">
-        <div class="scanner-modal-header">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <div class="modal-icon-badge"><span class="material-symbols-outlined">qr_code_scanner</span></div>
-                <div>
-                    <h3 style="font-size: 1rem; font-weight: 700; margin: 0; color: #1e1b4b;">Fast Pass Scanner</h3>
-                    <p style="font-size: 0.72rem; color: #6b7280; margin: 0;">Arahkan kamera ke QR / Barcode kartu</p>
-                </div>
-            </div>
-            <button type="button" id="btn-close-scanner" class="modal-close-btn">&times;</button>
-        </div>
-
-        <div class="scanner-viewport-wrapper">
-            <div id="qr-reader" class="qr-reader-box"></div>
-            <div class="scanner-target-frame">
-                <div class="target-corner target-tl"></div>
-                <div class="target-corner target-tr"></div>
-                <div class="target-corner target-bl"></div>
-                <div class="target-corner target-br"></div>
-                <div class="laser-scanner"></div>
-            </div>
-        </div>
-
-        <div id="scanner-status" class="scanner-status-text">
-            <span class="material-symbols-outlined animate-spin text-[16px]">autorenew</span> Menyiapkan kamera...
-        </div>
-
-        <div id="scanner-alert" class="scanner-alert-box" style="display: none;"></div>
-
-        <div class="scanner-modal-actions">
-            <button type="button" id="btn-switch-camera" class="scanner-action-btn">
-                <span class="material-symbols-outlined text-[18px]">flip_camera_ios</span> Ganti Kamera
-            </button>
-            <label class="scanner-action-btn" style="cursor: pointer; margin: 0;">
-                <span class="material-symbols-outlined text-[18px]">image</span> Unggah Gambar
-                <input type="file" id="qr-file-input" accept="image/*" style="display: none;">
-            </label>
-            <button type="button" id="btn-demo-scan" class="scanner-action-btn demo-btn" title="Uji coba Fast Pass tanpa kamera">
-                <span class="material-symbols-outlined text-[18px]">bolt</span> Coba Demo (Nadia)
-            </button>
-        </div>
-    </div>
+  </div>
 </div>
 
-<!-- Forgot PIN Modal -->
-<div id="forgot-pin-modal" class="scanner-modal-backdrop" style="display: none;">
-    <div class="scanner-modal-card" style="text-align: center; padding: 32px 24px;">
-        <div style="width: 64px; height: 64px; border-radius: 50%; background: #fff1f2; color: #e11d48; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-            <span class="material-symbols-outlined text-[32px]">lock_reset</span>
-        </div>
-        <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0 0 8px; font-family: 'Plus Jakarta Sans', sans-serif;">Lupa PIN Anda?</h3>
-        <p style="font-size: 0.875rem; color: #64748b; margin: 0 0 24px; line-height: 1.5; font-family: 'Plus Jakarta Sans', sans-serif;">
-            Untuk alasan keamanan, reset PIN hanya dapat dilakukan oleh Admin Perpustakaan (Tech Support).
-        </p>
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-            <a href="{{ route('bantuan') }}" style="width: 100%; padding: 12px; border-radius: 12px; background: #4300bb; color: white; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.875rem; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(67, 0, 187, 0.2);">
-                <span>Hubungi Tech Support</span>
-                <span class="material-symbols-outlined text-[18px]">support_agent</span>
-            </a>
-            <button type="button" onclick="closeForgotPinModal()" style="width: 100%; padding: 12px; border-radius: 12px; background: #f1f5f9; color: #64748b; border: none; font-weight: 700; cursor: pointer; font-size: 0.875rem; transition: all 0.2s;">
-                Kembali ke Login
-            </button>
-        </div>
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+  <div class="rp-inner">
+
+    <div class="mobile-logo">
+      <div style="width:40px;height:40px;background:#2a1a5e;border-radius:12px;display:flex;align-items:center;justify-content:center;">
+        <span class="ms" style="color:#fff;font-size:22px">menu_book</span>
+      </div>
+      <span style="font-size:20px;font-weight:800;color:#2a1a5e;">LIBRAZ</span>
     </div>
+
+    <!-- Tabs -->
+    <div class="tab-row">
+      <button class="tab-btn active" id="tab-login" type="button">
+        <span class="ms">login</span><span>Masuk Akun</span>
+      </button>
+      <button class="tab-btn" id="tab-register" type="button">
+        <span class="ms">person_add</span><span>Daftar Baru</span>
+      </button>
+    </div>
+
+    <!-- Role -->
+    <div class="role-row">
+      <div class="role-label">
+        <span class="ms" style="font-size:18px;color:#94a3b8">badge</span>Sebagai:
+      </div>
+      <div class="role-pills">
+        <button class="role-pill active" id="role-student" type="button">Siswa / Siswi</button>
+        <button class="role-pill" id="role-teacher" type="button">Pendidik</button>
+      </div>
+    </div>
+
+    <!-- QR Card -->
+    <div class="qr-card" onclick="openScanner()">
+      <div class="qr-card-top">
+        <div>
+          <div class="fast-pass-badge"><span class="ms" style="font-size:12px">bolt</span>FAST PASS</div>
+          <h3>Scan Kartu Pelajar</h3>
+          <p>Otomatis deteksi QR ID Perpustakaan.</p>
+        </div>
+        <div class="qr-icon-btn"><span class="ms">qr_code_scanner</span></div>
+      </div>
+      <div class="qr-viewport">
+        <span class="ms qr-big-icon">qr_code_2</span>
+        <span class="tap-text">Ketuk untuk buka kamera</span>
+        <div class="qr-corner tl"></div><div class="qr-corner tr"></div>
+        <div class="qr-corner bl"></div><div class="qr-corner br"></div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="or-divider"><span>Atau Manual ID</span></div>
+
+    <!-- Form -->
+    <form id="auth-form" method="POST" action="#" style="display:flex;flex-direction:column;">
+      @csrf
+      <input type="hidden" name="is_register" id="is-register" value="0">
+      <input type="hidden" name="school_name" value="Asal Sekolah Default">
+
+      <div id="js-alert-container"></div>
+
+      <!-- NIS -->
+      <div class="field-group">
+        <div class="field-label-row">
+          <label class="field-label" for="input-identifier" id="label-identifier">Nomor Induk Siswa (NIS)</label>
+          <a href="#" class="field-link"><span class="ms" style="font-size:14px">help</span>Cek NIS Online</a>
+        </div>
+        <div class="field-input-wrap">
+          <span class="ms field-icon-left">badge</span>
+          <input type="text" name="nis" id="input-identifier" inputmode="numeric" class="field-input" placeholder="Contoh: 2024108827" value="{{ old('nis') }}" required>
+          <div class="field-icon-right">
+            <button type="button" onclick="openScanner()" class="icon-btn"><span class="ms">qr_code</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Name (register) -->
+      <div class="field-group hidden" id="register-field-name">
+        <div class="field-label-row">
+          <label class="field-label" for="input-fullname">Nama Lengkap Siswa</label>
+        </div>
+        <div class="field-input-wrap">
+          <span class="ms field-icon-left">person</span>
+          <input type="text" name="name" id="input-fullname" class="field-input" placeholder="Sesuai Akun Dapodik Sekolah" value="{{ old('name') }}">
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="field-group">
+        <div class="field-label-row">
+          <label class="field-label" for="input-password">Kata Sandi / PIN</label>
+          <button type="button" onclick="openForgotPinModal()" style="background:none;border:none;cursor:pointer;font-family:inherit;color:#94a3b8;font-size:11px;font-weight:600;">Lupa PIN?</button>
+        </div>
+        <div class="field-input-wrap">
+          <span class="ms field-icon-left">lock</span>
+          <input type="password" name="password" id="input-password" class="field-input" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+          <div class="field-icon-right">
+            <button type="button" id="toggle-password" class="icon-btn"><span class="ms" id="pwd-icon">visibility_off</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Remember -->
+      <div class="remember-row">
+        <div class="remember-left">
+          <input type="checkbox" id="remember" name="remember" checked>
+          <label for="remember">Ingat perangkat ini di perpustakaan</label>
+        </div>
+        <div class="secure-badge"><span class="ms" style="font-size:12px">shield</span>AMAN</div>
+      </div>
+
+      <!-- Submit -->
+      <button id="submit-button" type="submit" class="submit-btn">
+        <span id="submit-label">Masuk ke Perpustakaan</span>
+        <span class="ms ms-icon">arrow_forward</span>
+      </button>
+    </form>
+
+  </div>
+</div>
+
+<!-- SCANNER MODAL -->
+<div id="qr-modal" class="scanner-backdrop" style="display:none;">
+  <div class="scanner-card">
+    <div class="scanner-header">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="scanner-icon-badge"><span class="ms">qr_code_scanner</span></div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#1e1b4b;">Fast Pass Scanner</div>
+          <div style="font-size:11px;color:#6b7280;">Arahkan kamera ke QR / Barcode kartu</div>
+        </div>
+      </div>
+      <button type="button" id="btn-close-scanner" class="scanner-close-btn">&times;</button>
+    </div>
+    <div class="scanner-viewport">
+      <div id="qr-reader"></div>
+      <div class="scan-frame">
+        <div class="sc tl"></div><div class="sc tr"></div>
+        <div class="sc bl"></div><div class="sc br"></div>
+        <div class="laser"></div>
+      </div>
+    </div>
+    <div id="scanner-status" class="scanner-status">
+      <span class="ms spin" style="font-size:16px;">autorenew</span> Menyiapkan kamera...
+    </div>
+    <div id="scanner-alert" class="scanner-alert-box"></div>
+    <div class="scanner-actions">
+      <button type="button" id="btn-switch-camera" class="scan-action-btn">
+        <span class="ms" style="font-size:18px;">flip_camera_ios</span>Ganti Kamera
+      </button>
+      <label class="scan-action-btn" style="cursor:pointer;margin:0;">
+        <span class="ms" style="font-size:18px;">image</span>Unggah Gambar
+        <input type="file" id="qr-file-input" accept="image/*" style="display:none;">
+      </label>
+      <button type="button" id="btn-demo-scan" class="scan-action-btn demo">
+        <span class="ms" style="font-size:18px;">bolt</span>Coba Demo
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FORGOT PIN MODAL -->
+<div id="forgot-pin-modal" class="scanner-backdrop" style="display:none;">
+  <div class="forgot-card">
+    <div class="forgot-icon"><span class="ms" style="font-size:32px;">lock_reset</span></div>
+    <h3 style="font-size:20px;font-weight:800;color:#0f172a;margin-bottom:8px;">Lupa PIN Anda?</h3>
+    <p style="font-size:14px;color:#64748b;line-height:1.6;margin-bottom:24px;">Untuk alasan keamanan, reset PIN hanya dapat dilakukan oleh Admin Perpustakaan (Tech Support).</p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <a href="{{ route('bantuan') }}" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:#6d48e5;color:#fff;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none;">
+        <span>Hubungi Tech Support</span><span class="ms" style="font-size:18px;">support_agent</span>
+      </a>
+      <button type="button" onclick="closeForgotPinModal()" style="padding:13px;background:#f1f5f9;color:#64748b;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;">
+        Kembali ke Login
+      </button>
+    </div>
+  </div>
 </div>
 
 <script>
-    function openForgotPinModal() {
-        document.getElementById('forgot-pin-modal').style.display = 'flex';
-    }
-    
-    function closeForgotPinModal() {
-        document.getElementById('forgot-pin-modal').style.display = 'none';
-    }
-    
-    // Close modal when clicking outside
-    document.getElementById('forgot-pin-modal').addEventListener('click', function(e) {
-        if (e.target === this) closeForgotPinModal();
-    });
+function openForgotPinModal()  { document.getElementById('forgot-pin-modal').style.display='flex'; }
+function closeForgotPinModal() { document.getElementById('forgot-pin-modal').style.display='none'; }
+document.getElementById('forgot-pin-modal').addEventListener('click',function(e){if(e.target===this)closeForgotPinModal();});
 </script>
 
 <script>
-  (function() {
-    const tabLogin = document.getElementById('tab-login');
-    const tabRegister = document.getElementById('tab-register');
-    const registerField = document.getElementById('register-field-name');
-    const submitBtn = document.getElementById('submit-button');
-    const roleStudent = document.getElementById('role-student');
-    const roleTeacher = document.getElementById('role-teacher');
-    const labelIdentifier = document.getElementById('label-identifier');
-    const inputIdentifier = document.getElementById('input-identifier');
-    const togglePwd = document.getElementById('toggle-password');
-    const inputPwd = document.getElementById('input-password');
-    const pwdIcon = document.getElementById('pwd-icon');
-    const authForm = document.getElementById('auth-form');
-    const isRegisterInput = document.getElementById('is-register');
-    const inputFullname = document.getElementById('input-fullname');
+(function(){
+  const tabLogin=document.getElementById('tab-login');
+  const tabReg=document.getElementById('tab-register');
+  const regField=document.getElementById('register-field-name');
+  const submitBtn=document.getElementById('submit-button');
+  const submitLabel=document.getElementById('submit-label');
+  const roleStudent=document.getElementById('role-student');
+  const roleTeacher=document.getElementById('role-teacher');
+  const labelId=document.getElementById('label-identifier');
+  const inputId=document.getElementById('input-identifier');
+  const togglePwd=document.getElementById('toggle-password');
+  const inputPwd=document.getElementById('input-password');
+  const pwdIcon=document.getElementById('pwd-icon');
+  const authForm=document.getElementById('auth-form');
+  const isRegIn=document.getElementById('is-register');
+  const inputName=document.getElementById('input-fullname');
+  const alertBox=document.getElementById('js-alert-container');
 
-    let currentMode = 'login';
-    let currentRole = 'student';
+  let mode='login', role='student';
 
-    // Route URLs removed (using api explicitly)
+  const oldIsReg="{{ old('is_register') }}";
+  if(oldIsReg==="1") switchToReg();
 
-    // Auto switch if there was an error in register mode
-    const oldIsRegister = "{{ old('is_register') }}";
-    if (oldIsRegister === "1") {
-      switchToRegister();
+  function showAlert(msg,type='error'){
+    alertBox.style.display='flex';
+    if(type==='success'){
+      alertBox.style.background='#dcfce7';alertBox.style.color='#166534';
+      alertBox.innerHTML=`<span class="ms" style="font-size:18px;color:#16a34a">check_circle</span><span>${msg}</span>`;
+    }else{
+      alertBox.style.background='#fee2e2';alertBox.style.color='#991b1b';
+      alertBox.innerHTML=`<span class="ms" style="font-size:18px;color:#dc2626">error</span><span>${msg}</span>`;
     }
+    setTimeout(()=>{alertBox.style.display='none';},5000);
+  }
 
-    // Custom Alert Helper
-    const alertContainer = document.getElementById('js-alert-container');
-    function showCustomAlert(message, type = 'error') {
-      alertContainer.classList.remove('hidden');
-      if (type === 'success') {
-        alertContainer.style.backgroundColor = '#dcfce7';
-        alertContainer.style.color = '#166534';
-        alertContainer.innerHTML = `<span class="material-symbols-outlined text-[18px]">check_circle</span> <span>${message}</span>`;
-      } else {
-        alertContainer.style.backgroundColor = '#fee2e2';
-        alertContainer.style.color = '#991b1b';
-        alertContainer.innerHTML = `<span class="material-symbols-outlined text-[18px]">error</span> <span>${message}</span>`;
+  function switchToLogin(){
+    if(mode==='login')return;mode='login';
+    tabLogin.classList.add('active');tabReg.classList.remove('active');
+    regField.classList.add('hidden');inputName.removeAttribute('required');
+    submitLabel.textContent='Masuk ke Perpustakaan';isRegIn.value="0";
+  }
+  function switchToReg(){
+    if(mode==='register')return;mode='register';
+    tabReg.classList.add('active');tabLogin.classList.remove('active');
+    regField.classList.remove('hidden');inputName.setAttribute('required','required');
+    submitLabel.textContent='Aktivasi Akun Baru';isRegIn.value="1";
+  }
+
+  tabLogin.addEventListener('click',switchToLogin);
+  tabReg.addEventListener('click',switchToReg);
+
+  roleStudent.addEventListener('click',()=>{
+    if(role==='student')return;role='student';
+    roleStudent.classList.add('active');roleTeacher.classList.remove('active');
+    labelId.textContent='Nomor Induk Siswa (NIS)';inputId.placeholder='Contoh: 2024108827';
+  });
+  roleTeacher.addEventListener('click',()=>{
+    if(role==='teacher')return;role='teacher';
+    roleTeacher.classList.add('active');roleStudent.classList.remove('active');
+    labelId.textContent='Nomor Induk Pegawai (NIP / NUPTK)';inputId.placeholder='Contoh: 198503152010011002';
+  });
+
+  togglePwd.addEventListener('click',()=>{
+    const isPass=inputPwd.type==='password';
+    inputPwd.type=isPass?'text':'password';
+    pwdIcon.textContent=isPass?'visibility':'visibility_off';
+  });
+
+  authForm.addEventListener('submit',async function(e){
+    e.preventDefault();
+    const isReg=isRegIn.value==="1";
+    const apiUrl=isReg?'/api/register':'/api/login';
+    const payload={nis:inputId.value,password:inputPwd.value};
+    if(isReg){
+      payload.name=inputName.value;payload.password_confirmation=inputPwd.value;
+      const sn=document.querySelector('input[name="school_name"]');
+      payload.school_name=sn?sn.value:'Asal Sekolah Default';
+    }
+    submitBtn.disabled=true;submitLabel.textContent='Memproses...';alertBox.style.display='none';
+    const csrf=document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    try{
+      const res=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json','X-CSRF-TOKEN':csrf},body:JSON.stringify(payload)});
+      const data=await res.json();
+      if(res.ok){
+        if(isReg){
+          showAlert('Akun Berhasil Dibuat. Silakan masuk.','success');
+          setTimeout(()=>{inputId.value='';inputPwd.value='';inputName.value='';switchToLogin();},1500);
+        }else{
+          localStorage.setItem('auth_token',data.token||data.access_token);
+          showAlert('Login berhasil!','success');
+          setTimeout(()=>{window.location.href='/katalog';},800);
+        }
+      }else{
+        let msg=data.message||'Terjadi kesalahan.';
+        if(data.errors)msg=Object.values(data.errors).flat().join('<br>');
+        showAlert('Gagal: '+msg,'error');
       }
-      
-      // Auto hide after 5 seconds
-      setTimeout(() => {
-        alertContainer.classList.add('hidden');
-      }, 5000);
-    }
+    }catch(err){showAlert('Kesalahan jaringan. Pastikan koneksi internet aktif.','error');}
+    finally{submitBtn.disabled=false;submitLabel.textContent=isReg?'Aktivasi Akun Baru':'Masuk ke Perpustakaan';}
+  });
 
-    function switchToLogin() {
-      if (currentMode === 'login') return;
-      currentMode = 'login';
-      tabLogin.className = 'flex-1 py-2.5 rounded-lg font-title-md text-title-md bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-1.5 transition-all';
-      tabRegister.className = 'flex-1 py-2.5 rounded-lg font-title-md text-title-md text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1.5 transition-all';
-      registerField.classList.add('hidden');
-      inputFullname.removeAttribute('required');
-      submitBtn.querySelector('span:first-child').textContent = 'Masuk ke Perpustakaan';
-      isRegisterInput.value = "0";
-    }
+  // QR SCANNER
+  const qrModal=document.getElementById('qr-modal');
+  const btnClose=document.getElementById('btn-close-scanner');
+  const scanStat=document.getElementById('scanner-status');
+  const scanAlert=document.getElementById('scanner-alert');
+  const btnSwitch=document.getElementById('btn-switch-camera');
+  const fileInput=document.getElementById('qr-file-input');
+  const btnDemo=document.getElementById('btn-demo-scan');
 
-    function switchToRegister() {
-      if (currentMode === 'register') return;
-      currentMode = 'register';
-      tabRegister.className = 'flex-1 py-2.5 rounded-lg font-title-md text-title-md bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-1.5 transition-all';
-      tabLogin.className = 'flex-1 py-2.5 rounded-lg font-title-md text-title-md text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1.5 transition-all';
-      registerField.classList.remove('hidden');
-      inputFullname.setAttribute('required', 'required');
-      submitBtn.querySelector('span:first-child').textContent = 'Aktivasi Akun Baru';
-      isRegisterInput.value = "1";
-    }
+  let qr=null,scanning=false,facingMode="environment",processing=false;
 
-    // Tab Switcher
-    tabLogin.addEventListener('click', switchToLogin);
-    tabRegister.addEventListener('click', switchToRegister);
+  function playBeep(){try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator();const g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(750,c.currentTime);o.frequency.exponentialRampToValueAtTime(1200,c.currentTime+0.12);g.gain.setValueAtTime(0.2,c.currentTime);g.gain.exponentialRampToValueAtTime(0.01,c.currentTime+0.15);o.start();o.stop(c.currentTime+0.15);}catch(e){}}
 
-    // Role Switcher
-    roleStudent.addEventListener('click', () => {
-      if (currentRole === 'student') return;
-      currentRole = 'student';
-      roleStudent.className = 'px-3.5 py-1 rounded-full font-label-md text-label-md bg-primary-container text-surface-container-lowest shadow-sm transition-all';
-      roleTeacher.className = 'px-3.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all';
-      labelIdentifier.textContent = 'Nomor Induk Siswa (NIS)';
-      inputIdentifier.placeholder = 'Contoh: 2024108827';
-    });
+  window.openScanner=function(){
+    qrModal.style.display='flex';scanAlert.style.display='none';scanAlert.className='scanner-alert-box';
+    scanStat.innerHTML='<span class="ms spin" style="font-size:16px;">autorenew</span> Menghubungkan ke kamera...';
+    processing=false;
+    if(typeof Html5Qrcode==='undefined'){scanStat.innerHTML='<span style="color:#ef4444"><span class="ms" style="font-size:16px">warning</span> Library QR Scanner sedang dimuat...</span>';return;}
+    if(!qr)qr=new Html5Qrcode("qr-reader");
+    startCam(facingMode);
+  };
 
-    roleTeacher.addEventListener('click', () => {
-      if (currentRole === 'teacher') return;
-      currentRole = 'teacher';
-      roleTeacher.className = 'px-3.5 py-1 rounded-full font-label-md text-label-md bg-primary-container text-surface-container-lowest shadow-sm transition-all';
-      roleStudent.className = 'px-3.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all';
-      labelIdentifier.textContent = 'Nomor Induk Pegawai (NIP / NUPTK)';
-      inputIdentifier.placeholder = 'Contoh: 198503152010011002';
-    });
+  function startCam(fm){
+    qr.start({facingMode:fm},{fps:10,qrbox:{width:220,height:220},aspectRatio:1.0},onSuccess,()=>{}).then(()=>{scanning=true;scanStat.innerHTML='<span class="ms" style="font-size:16px;color:#22c55e">videocam</span> Kamera aktif. Arahkan ke barcode / QR ID.';}).catch(()=>{scanning=false;scanStat.innerHTML='<span style="color:#f59e0b"><span class="ms" style="font-size:16px">videocam_off</span> Kamera tidak aktif. Coba ganti kamera.</span>';});
+  }
 
-    // Password Toggle
-    togglePwd.addEventListener('click', () => {
-      const isPassword = inputPwd.type === 'password';
-      inputPwd.type = isPassword ? 'text' : 'password';
-      pwdIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
-    });
+  function stopCam(){if(qr&&scanning)qr.stop().then(()=>{scanning=false;}).catch(()=>{});}
 
-    // Handle Form Submit via Fetch API
-    authForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const isRegister = isRegisterInput.value === "1";
-      const apiUrl = isRegister ? '/api/register' : '/api/login';
-      
-      const payload = {
-        nis: inputIdentifier.value,
-        password: inputPwd.value,
-      };
+  function closeModal(){stopCam();qrModal.style.display='none';processing=false;}
 
-      if (isRegister) {
-        payload.name = inputFullname.value;
-        payload.password_confirmation = inputPwd.value; // Assuming no confirm field in UI yet
-        const schoolNameInput = document.querySelector('input[name="school_name"]');
-        payload.school_name = schoolNameInput ? schoolNameInput.value : 'Asal Sekolah Default';
-      }
+  btnClose.addEventListener('click',closeModal);
+  qrModal.addEventListener('click',e=>{if(e.target===qrModal)closeModal();});
 
-      submitBtn.disabled = true;
-      submitBtn.querySelector('span:first-child').textContent = 'Memproses...';
-      alertContainer.classList.add('hidden'); // Hide any previous alert
+  btnSwitch.addEventListener('click',()=>{
+    if(qr&&scanning){facingMode=facingMode==="environment"?"user":"environment";qr.stop().then(()=>{scanning=false;scanStat.innerHTML='<span class="ms spin" style="font-size:16px">autorenew</span> Berganti kamera...';startCam(facingMode);}).catch(()=>{});}
+  });
 
-      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+  fileInput.addEventListener('change',function(e){
+    const f=e.target.files[0];if(!f)return;
+    if(!qr)qr=new Html5Qrcode("qr-reader");
+    scanStat.innerHTML='<span class="ms spin" style="font-size:16px">autorenew</span> Memindai file gambar...';
+    qr.scanFile(f,true).then(t=>onSuccess(t)).catch(()=>{scanStat.innerHTML='<span style="color:#ef4444"><span class="ms" style="font-size:16px">cancel</span> Barcode tidak terbaca di gambar.</span>';});
+  });
 
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
-          },
-          body: JSON.stringify(payload)
-        });
+  btnDemo.addEventListener('click',()=>{scanStat.innerHTML='<span class="ms" style="font-size:16px;color:#6d48e5">bolt</span> Mensimulasikan scan kartu Nadia...';onSuccess("2024108827");});
 
-        const data = await response.json();
-
-        if (response.ok) {
-          if (isRegister) {
-            showCustomAlert('Akun Berhasil Dibuat. Silakan masuk.', 'success');
-            setTimeout(() => {
-              inputIdentifier.value = '';
-              inputPwd.value = '';
-              inputFullname.value = '';
-              switchToLogin();
-            }, 1500);
-          } else {
-            // Save token for SPA
-            localStorage.setItem('auth_token', data.token || data.access_token);
-            showCustomAlert('Login berhasil!', 'success');
-            // Redirect to /katalog page
-            setTimeout(() => {
-              window.location.href = '/katalog';
-            }, 800);
-          }
-        } else {
-          let errorMessage = data.message || 'Terjadi kesalahan.';
-          if (data.errors) {
-            errorMessage = Object.values(data.errors).flat().join('<br>');
-          }
-          showCustomAlert('Gagal: ' + errorMessage, 'error');
-        }
-      } catch (error) {
-        showCustomAlert('Kesalahan jaringan. Pastikan koneksi internet aktif.', 'error');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.querySelector('span:first-child').textContent = isRegister ? 'Aktivasi Akun Baru' : 'Masuk ke Perpustakaan';
-      }
-    });
-
-    // ================= QR SCANNER FAST PASS LOGIC =================
-    const qrModal = document.getElementById('qr-modal');
-    const btnCloseScanner = document.getElementById('btn-close-scanner');
-    const scannerStatus = document.getElementById('scanner-status');
-    const scannerAlert = document.getElementById('scanner-alert');
-    const btnSwitchCamera = document.getElementById('btn-switch-camera');
-    const qrFileInput = document.getElementById('qr-file-input');
-    const btnDemoScan = document.getElementById('btn-demo-scan');
-
-    let html5QrCode = null;
-    let isScannerRunning = false;
-    let currentFacingMode = "environment";
-    let isProcessingScan = false;
-
-    function playSuccessSound() {
-        try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(750, ctx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.12);
-            gain.gain.setValueAtTime(0.2, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
-            osc.start();
-            osc.stop(ctx.currentTime + 0.15);
-        } catch (e) { }
-    }
-
-    window.openScanner = function() {
-        qrModal.style.display = 'flex';
-        scannerAlert.style.display = 'none';
-        scannerStatus.innerHTML = '<span class="material-symbols-outlined animate-spin text-[16px]">autorenew</span> Menghubungkan ke kamera...';
-        isProcessingScan = false;
-
-        if (typeof Html5Qrcode === 'undefined') {
-            scannerStatus.innerHTML = '<span style="color:#ef4444;"><span class="material-symbols-outlined text-[16px]">warning</span> Library QR Scanner sedang dimuat...</span>';
-            return;
-        }
-
-        if (!html5QrCode) {
-            html5QrCode = new Html5Qrcode("qr-reader");
-        }
-        startCamera(currentFacingMode);
-    }
-
-    function startCamera(facingMode) {
-        html5QrCode.start(
-            { facingMode: facingMode },
-            { fps: 10, qrbox: { width: 220, height: 220 }, aspectRatio: 1.0 },
-            onScanSuccess,
-            onScanFailure
-        ).then(() => {
-            isScannerRunning = true;
-            scannerStatus.innerHTML = '<span class="material-symbols-outlined text-[16px] text-green-500">videocam</span> Kamera aktif. Arahkan ke barcode / QR ID.';
-        }).catch(err => {
-            isScannerRunning = false;
-            scannerStatus.innerHTML = '<span style="color:#f59e0b;"><span class="material-symbols-outlined text-[16px]">videocam_off</span> Kamera tidak aktif. Coba ganti kamera.</span>';
-        });
-    }
-
-    function stopCamera() {
-        if (html5QrCode && isScannerRunning) {
-            html5QrCode.stop().then(() => { isScannerRunning = false; }).catch(err => {});
-        }
-    }
-
-    function closeScannerModal() {
-        stopCamera();
-        qrModal.style.display = 'none';
-        isProcessingScan = false;
-    }
-
-    btnCloseScanner.addEventListener('click', closeScannerModal);
-    qrModal.addEventListener('click', function(e) { if (e.target === qrModal) closeScannerModal(); });
-
-    btnSwitchCamera.addEventListener('click', function() {
-        if (html5QrCode && isScannerRunning) {
-            currentFacingMode = (currentFacingMode === "environment") ? "user" : "environment";
-            html5QrCode.stop().then(() => {
-                isScannerRunning = false;
-                scannerStatus.innerHTML = '<span class="material-symbols-outlined animate-spin text-[16px]">autorenew</span> Berganti kamera...';
-                startCamera(currentFacingMode);
-            }).catch(err => {});
-        }
-    });
-
-    qrFileInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        if (!html5QrCode) html5QrCode = new Html5Qrcode("qr-reader");
-        scannerStatus.innerHTML = '<span class="material-symbols-outlined animate-spin text-[16px]">autorenew</span> Memindai file gambar...';
-        html5QrCode.scanFile(file, true)
-            .then(decodedText => onScanSuccess(decodedText))
-            .catch(err => {
-                scannerStatus.innerHTML = '<span style="color:#ef4444;"><span class="material-symbols-outlined text-[16px]">cancel</span> Barcode tidak terbaca di gambar.</span>';
-            });
-    });
-
-    btnDemoScan.addEventListener('click', function() {
-        scannerStatus.innerHTML = '<span class="material-symbols-outlined text-[16px] text-indigo-500">bolt</span> Mensimulasikan scan kartu Nadia...';
-        onScanSuccess("2024108827");
-    });
-
-    function onScanSuccess(decodedText) {
-        if (isProcessingScan) return;
-        isProcessingScan = true;
-        playSuccessSound();
-        stopCamera();
-
-        scannerStatus.innerHTML = '<span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span> Berhasil terbaca: <b>' + decodedText + '</b>';
-        
-        let cleanNis = decodedText;
-        if(decodedText.includes('BZ-')) {
-            const parts = decodedText.split('-');
-            if(parts.length >= 3) cleanNis = parts[1] + parts[2];
-        }
-        inputIdentifier.value = cleanNis;
-
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-        fetch("/api/qr-login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            },
-            body: JSON.stringify({ qr_data: decodedText })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.success) {
-                if (data.token) {
-                    localStorage.setItem('auth_token', data.token);
-                }
-                window.location.href = data.redirect;
-            } else {
-                scannerAlert.className = 'scanner-alert-box scanner-alert-danger';
-                scannerAlert.innerHTML = '<span class="material-symbols-outlined text-[16px]">error</span> ' + (data.message || 'QR tidak valid.');
-                scannerAlert.style.display = 'block';
-                isProcessingScan = false;
-            }
-        })
-        .catch(err => {
-            scannerAlert.className = 'scanner-alert-box scanner-alert-danger';
-            scannerAlert.innerHTML = '<span class="material-symbols-outlined text-[16px]">wifi_off</span> Koneksi ke server terputus.';
-            scannerAlert.style.display = 'block';
-            isProcessingScan = false;
-        });
-    }
-
-    function onScanFailure(error) {
-        // Handle scan failure silently
-    }
-  })();
+  function onSuccess(text){
+    if(processing)return;processing=true;playBeep();stopCam();
+    scanStat.innerHTML='<span class="ms" style="font-size:16px;color:#22c55e">check_circle</span> Berhasil terbaca: <b>'+text+'</b>';
+    let nis=text;
+    if(text.includes('BZ-')){const p=text.split('-');if(p.length>=3)nis=p[1]+p[2];}
+    inputId.value=nis;
+    const csrf=document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    fetch("/api/qr-login",{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json','X-CSRF-TOKEN':csrf},body:JSON.stringify({qr_data:text})})
+    .then(r=>r.json()).then(d=>{
+      if(d.success){if(d.token)localStorage.setItem('auth_token',d.token);window.location.href=d.redirect;}
+      else{scanAlert.className='scanner-alert-box alert-danger';scanAlert.innerHTML='<span class="ms" style="font-size:16px">error</span> '+(d.message||'QR tidak valid.');scanAlert.style.display='block';processing=false;}
+    }).catch(()=>{scanAlert.className='scanner-alert-box alert-danger';scanAlert.innerHTML='<span class="ms" style="font-size:16px">wifi_off</span> Koneksi ke server terputus.';scanAlert.style.display='block';processing=false;});
+  }
+})();
 </script>
-</main>
 </body>
 </html>
