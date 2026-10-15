@@ -53,7 +53,11 @@ class BorrowController extends Controller
             return response()->json(['success' => false, 'message' => 'Stok buku habis.'], 400);
         }
 
-        $userId = Auth::id(); 
+        $user = $request->user() ?? Auth::user();
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Silakan login terlebih dahulu.'], 401);
+        }
+        $userId = $user->id; 
 
         $dueDate = $request->return_date ? \Carbon\Carbon::parse($request->return_date) : now()->addDays(14);
 

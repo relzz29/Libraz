@@ -277,7 +277,10 @@ class LibraryController extends Controller
 
     public function getBorrowings()
     {
-        $user = Auth::user();
+        $user = request()->user() ?? Auth::user();
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Silakan login terlebih dahulu.'], 401);
+        }
         $borrowings = Borrowing::with('book')
             ->where('user_id', $user->id)
             ->whereNull('returned_at')
@@ -340,7 +343,10 @@ class LibraryController extends Controller
 
         $action = $request->input('action', 'borrow');
         if ($action === 'borrow') {
-            $user = Auth::user();
+            $user = $request->user() ?? Auth::user();
+            if (!$user) {
+                return response()->json(['success' => false, 'message' => 'Silakan login terlebih dahulu.'], 401);
+            }
 
             // Check if already borrowed and active
             $existing = Borrowing::where('user_id', $user->id)

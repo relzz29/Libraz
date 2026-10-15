@@ -661,7 +661,12 @@ html.dark {
             }
 
             setTimeout(() => { 
-                window.location.href = "{{ route('akun') }}";
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('first_login') === '1') {
+                    window.location.href = "{{ route('katalog') }}";
+                } else {
+                    window.location.href = "{{ route('akun') }}";
+                }
             }, 1000);
           } else {
             const errorData = await response.json();
