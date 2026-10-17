@@ -259,7 +259,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div class="flex flex-col gap-1.5">
                             <label class="font-black text-black uppercase tracking-wide text-xs">Tipe Buku</label>
                             <select name="type" required class="w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none cursor-pointer">
@@ -267,6 +267,10 @@
                                 <option value="ebook">E-Book (PDF)</option>
                                 <option value="both">Keduanya (Fisik & PDF)</option>
                             </select>
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-black text-black uppercase tracking-wide text-xs">Lokasi Rak</label>
+                            <input type="text" name="rack" placeholder="Contoh: Rak A-1" class="w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none">
                         </div>
                         <div class="flex flex-col gap-1.5">
                             <label class="font-black text-black uppercase tracking-wide text-xs">ISBN</label>
@@ -318,6 +322,7 @@
                             <th class="p-3.5 font-black text-xs sm:text-sm">Judul Buku</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Tipe</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Kategori</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Lokasi Rak</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Stok</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm text-center">Aksi</th>
                         </tr>
@@ -346,6 +351,12 @@
                                 @endif
                             </td>
                             <td class="p-3.5 font-bold"><span class="bg-gray-100 px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">{{ $book->category }}</span></td>
+                            <td class="p-3.5 font-black text-xs">
+                                <span class="bg-[#facc15] px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] flex items-center gap-1 w-fit">
+                                    <span class="material-symbols-outlined text-[14px]">shelves</span>
+                                    {{ $book->rack ?? 'Rak Utama' }}
+                                </span>
+                            </td>
                             <td class="p-3.5 font-black text-lg {{ $book->stock > 0 ? '' : 'text-red-600' }}">{{ $book->stock }}</td>
                             <td class="p-3.5 text-center">
                                 <div class="flex items-center justify-center gap-2">

@@ -137,6 +137,7 @@ class AdminBookController extends Controller
             'type' => 'required|in:physical,ebook,both',
             'isbn' => 'nullable|string|max:255',
             'stock' => 'required|integer|min:0',
+            'rack' => 'nullable|string|max:100',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'pdf_file' => 'nullable|mimes:pdf|max:10240',
         ]);
@@ -160,7 +161,7 @@ class AdminBookController extends Controller
             'type' => $request->type,
             'isbn' => $request->isbn,
             'stock' => $request->stock,
-            'rack' => 'Rak Baru', // default or make it dynamic
+            'rack' => $request->filled('rack') ? $request->rack : 'Rak Utama',
             'cover_image_url' => $coverImageUrl,
             'pdf_path' => $pdfPath,
         ]);
@@ -202,6 +203,7 @@ class AdminBookController extends Controller
             'type' => 'required|in:physical,ebook,both',
             'isbn' => 'nullable|string|max:255',
             'stock' => 'required|integer|min:0',
+            'rack' => 'nullable|string|max:100',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'pdf_file' => 'nullable|mimes:pdf|max:10240',
         ]);
@@ -232,6 +234,9 @@ class AdminBookController extends Controller
         $book->type = $request->type;
         $book->isbn = $request->isbn;
         $book->stock = $request->stock;
+        if ($request->filled('rack')) {
+            $book->rack = $request->rack;
+        }
         
         $book->save();
 

@@ -220,7 +220,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="flex flex-col gap-1.5">
                         <label class="font-black text-black uppercase tracking-wide text-xs">Tipe Buku</label>
                         <select name="type" required class="w-full bg-[#fcf9f2] border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none cursor-pointer">
@@ -228,6 +228,10 @@
                             <option value="ebook" {{ $book->type == 'ebook' ? 'selected' : '' }}>E-Book (PDF)</option>
                             <option value="both" {{ $book->type == 'both' ? 'selected' : '' }}>Keduanya (Fisik & PDF)</option>
                         </select>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-black text-black uppercase tracking-wide text-xs">Lokasi Rak</label>
+                        <input type="text" name="rack" value="{{ $book->rack }}" placeholder="Contoh: Rak A-1" class="w-full bg-[#fcf9f2] border-[2.5px] border-black rounded-xl px-4 py-3 shadow-[3px_3px_0px_#000] font-bold text-black focus:outline-none focus:bg-white">
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label class="font-black text-black uppercase tracking-wide text-xs">ISBN</label>
