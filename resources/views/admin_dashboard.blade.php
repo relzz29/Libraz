@@ -225,13 +225,34 @@
 
         <!-- Right: Search Bar & Profile Avatar -->
         <div class="flex items-center gap-4 flex-shrink-0">
-            <!-- Search bar pill -->
-            <div class="relative w-64 lg:w-72 hidden sm:block">
-                <input type="text" placeholder="Cari buku, user, resi..." class="w-full bg-[#fcf9f2] border-[2.5px] border-black rounded-full py-2 pl-10 pr-4 shadow-[3px_3px_0px_#000] text-sm font-bold text-black focus:outline-none placeholder-gray-500">
-                <svg class="w-4 h-4 absolute left-3.5 top-3 text-black stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="11" cy="11" r="7"/>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                </svg>
+            <!-- Search bar pill with Live Dropdown -->
+            <div class="relative w-72 lg:w-96 hidden sm:block">
+                <form action="{{ route('admin') }}" method="GET" class="m-0" id="adminSearchForm">
+                    <div class="relative">
+                        <input type="text" 
+                               name="search" 
+                               id="adminSearchInput"
+                               value="{{ $search ?? '' }}"
+                               placeholder="Cari buku, user, resi..." 
+                               autocomplete="off"
+                               class="w-full bg-[#fcf9f2] border-[2.5px] border-black rounded-full py-2 pl-10 pr-9 shadow-[3px_3px_0px_#000] text-sm font-bold text-black focus:outline-none focus:bg-white placeholder-gray-500">
+                        <svg class="w-4 h-4 absolute left-3.5 top-3 text-black stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="7"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <button type="button" id="clearSearchBtn" class="{{ empty($search) ? 'hidden' : '' }} absolute right-3 top-2.5 text-gray-500 hover:text-black">
+                            <span class="material-symbols-outlined text-[18px]">close</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Live Search Results Dropdown -->
+                <div id="liveSearchResults" class="hidden absolute top-12 left-0 right-0 bg-[#faf6ee] border-[3px] border-black rounded-2xl shadow-[6px_6px_0px_#000] z-50 overflow-hidden max-h-[420px] overflow-y-auto">
+                    <div id="searchLoading" class="hidden p-4 text-center font-bold text-xs text-gray-600">
+                        <span class="inline-block animate-spin mr-1">⚡</span> Mencari data...
+                    </div>
+                    <div id="searchResultsContent" class="divide-y-2 divide-black/10"></div>
+                </div>
             </div>
 
             <!-- Profile Avatar -->
@@ -534,13 +555,20 @@
 
         <!-- Recent Borrowings Data Table -->
         <div class="flex flex-col rounded-3xl bg-white border-[3.5px] border-black shadow-[8px_8px_0px_#000] mt-6 overflow-hidden relative">
-            <div class="p-5 border-b-[3.5px] border-black flex items-center justify-between bg-[#cb6ce6]">
-                <h3 class="text-white font-black drop-shadow-[2px_2px_0px_#000] flex items-center gap-3 text-2xl sm:text-3xl tracking-tight">
-                    <div class="w-11 h-11 rounded-xl bg-white border-[2.5px] border-black flex items-center justify-center text-black shadow-[3px_3px_0px_#000]">
-                        <span class="material-symbols-outlined text-[26px]">table_rows</span>
-                    </div>
-                    SIRKULASI TERBARU
-                </h3>
+            <div class="p-5 border-b-[3.5px] border-black flex items-center justify-between bg-[#cb6ce6] flex-wrap gap-3">
+                <div class="flex items-center gap-3">
+                    <h3 class="text-white font-black drop-shadow-[2px_2px_0px_#000] flex items-center gap-3 text-2xl sm:text-3xl tracking-tight">
+                        <div class="w-11 h-11 rounded-xl bg-white border-[2.5px] border-black flex items-center justify-center text-black shadow-[3px_3px_0px_#000]">
+                            <span class="material-symbols-outlined text-[26px]">table_rows</span>
+                        </div>
+                        {{ !empty($search) ? 'HASIL PENCARIAN: "' . $search . '"' : 'SIRKULASI TERBARU' }}
+                    </h3>
+                    @if(!empty($search))
+                        <a href="{{ route('admin') }}" class="px-3 py-1 rounded-lg bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-red-500 hover:text-white transition-colors">
+                            ✕ Reset Filter
+                        </a>
+                    @endif
+                </div>
                 <a href="{{ route('katalog') }}" class="px-4 py-2 rounded-xl bg-white text-black font-black flex items-center gap-2 border-[2.5px] border-black shadow-[3px_3px_0px_#000] comic-btn-hover uppercase text-xs sm:text-sm">
                     Lihat Semua <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </a>
@@ -641,6 +669,208 @@
     </button>
   </form>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('adminSearchInput');
+    const searchForm = document.getElementById('adminSearchForm');
+    const clearBtn = document.getElementById('clearSearchBtn');
+    const resultsDropdown = document.getElementById('liveSearchResults');
+    const resultsContent = document.getElementById('searchResultsContent');
+    const searchLoading = document.getElementById('searchLoading');
+
+    let debounceTimer = null;
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+            searchInput.value = '';
+            clearBtn.classList.add('hidden');
+            resultsDropdown.classList.add('hidden');
+            if (window.location.search.includes('search=')) {
+                window.location.href = "{{ route('admin') }}";
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', function () {
+        const query = searchInput.value.trim();
+        if (query.length > 0) {
+            clearBtn.classList.remove('hidden');
+        } else {
+            clearBtn.classList.add('hidden');
+            resultsDropdown.classList.add('hidden');
+            return;
+        }
+
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            fetchSearchResults(query);
+        }, 280);
+    });
+
+    searchInput.addEventListener('focus', function () {
+        if (searchInput.value.trim().length > 1 && resultsContent.children.length > 0) {
+            resultsDropdown.classList.remove('hidden');
+        }
+    });
+
+    // Close dropdown when clicked outside
+    document.addEventListener('click', function (e) {
+        if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
+            resultsDropdown.classList.add('hidden');
+        }
+    });
+
+    function fetchSearchResults(query) {
+        if (query.length < 2) {
+            resultsDropdown.classList.add('hidden');
+            return;
+        }
+
+        resultsDropdown.classList.remove('hidden');
+        searchLoading.classList.remove('hidden');
+        resultsContent.innerHTML = '';
+
+        fetch(`{{ route('admin.search') }}?q=${encodeURIComponent(query)}`)
+            .then(res => res.json())
+            .then(data => {
+                searchLoading.classList.add('hidden');
+                renderResults(data, query);
+            })
+            .catch(err => {
+                searchLoading.classList.add('hidden');
+                resultsContent.innerHTML = '<div class="p-3 text-xs font-bold text-red-600">Terjadi kesalahan pencarian.</div>';
+            });
+    }
+
+    function renderResults(data, query) {
+        const totalItems = (data.books?.length || 0) + (data.users?.length || 0) + (data.borrowings?.length || 0);
+
+        if (totalItems === 0) {
+            resultsContent.innerHTML = `
+                <div class="p-5 text-center">
+                    <span class="material-symbols-outlined text-[32px] text-gray-400">search_off</span>
+                    <p class="font-black text-xs text-black mt-1">Tidak ada hasil untuk "${query}"</p>
+                    <p class="text-[11px] font-bold text-gray-500">Coba kata kunci judul buku, nama siswa, atau ID transaksi.</p>
+                </div>
+            `;
+            return;
+        }
+
+        let html = '';
+
+        // 1. Books Group
+        if (data.books && data.books.length > 0) {
+            html += `
+                <div class="p-2 bg-[#ffde59] border-b-2 border-black flex items-center justify-between">
+                    <span class="font-black text-[11px] uppercase tracking-wider text-black flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[15px]">menu_book</span> BUKU (${data.books.length})
+                    </span>
+                    <a href="{{ route('admin') }}?search=${encodeURIComponent(query)}" class="text-[10px] font-black underline text-black">Filter Tabel</a>
+                </div>
+                <div class="divide-y divide-black/10">
+            `;
+            data.books.forEach(b => {
+                const editUrl = "{{ url('/admin/books') }}/" + b.id + "/edit";
+                html += `
+                    <a href="${editUrl}" class="flex items-center justify-between p-3 hover:bg-[#fff9d2] transition-colors group">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-8 h-8 rounded-lg bg-white border-2 border-black flex items-center justify-center text-black flex-shrink-0 shadow-[1px_1px_0px_#000]">
+                                <span class="material-symbols-outlined text-[18px]">book_4</span>
+                            </div>
+                            <div class="flex flex-col min-w-0">
+                                <span class="font-black text-xs text-black truncate group-hover:text-[#5f15e8]">${escapeHtml(b.title)}</span>
+                                <span class="text-[10px] font-bold text-gray-600 truncate">${escapeHtml(b.author)} • ${escapeHtml(b.category)}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 flex-shrink-0">
+                            <span class="text-[10px] font-black px-2 py-0.5 rounded-md border border-black ${b.stock > 0 ? 'bg-emerald-200' : 'bg-red-200'}">Stok: ${b.stock}</span>
+                            <span class="material-symbols-outlined text-[16px] text-black">edit</span>
+                        </div>
+                    </a>
+                `;
+            });
+            html += '</div>';
+        }
+
+        // 2. Users Group
+        if (data.users && data.users.length > 0) {
+            html += `
+                <div class="p-2 bg-[#38b6ff] border-b-2 border-black border-t-2 border-black flex items-center justify-between">
+                    <span class="font-black text-[11px] uppercase tracking-wider text-black flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[15px]">person</span> ANGGOTA / USER (${data.users.length})
+                    </span>
+                </div>
+                <div class="divide-y divide-black/10">
+            `;
+            data.users.forEach(u => {
+                html += `
+                    <div class="flex items-center justify-between p-3 hover:bg-[#e0f2fe] transition-colors">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-8 h-8 rounded-full bg-[#5f15e8] text-white border-2 border-black flex items-center justify-center font-black text-xs flex-shrink-0 shadow-[1px_1px_0px_#000]">
+                                ${(u.name || 'U').substring(0,2).toUpperCase()}
+                            </div>
+                            <div class="flex flex-col min-w-0">
+                                <span class="font-black text-xs text-black truncate">${escapeHtml(u.name)}</span>
+                                <span class="text-[10px] font-bold text-gray-600 truncate">${escapeHtml(u.email || '-')} ${u.nis ? '• NIS: ' + escapeHtml(u.nis) : ''}</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-black px-2 py-0.5 rounded-md border border-black bg-white">${escapeHtml(u.role || 'Siswa')}</span>
+                    </div>
+                `;
+            });
+            html += '</div>';
+        }
+
+        // 3. Borrowings / Sirkulasi Group
+        if (data.borrowings && data.borrowings.length > 0) {
+            html += `
+                <div class="p-2 bg-[#cb6ce6] border-b-2 border-black border-t-2 border-black flex items-center justify-between">
+                    <span class="font-black text-[11px] uppercase tracking-wider text-white flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[15px]">swap_horiz</span> SIRKULASI / RESI (${data.borrowings.length})
+                    </span>
+                    <a href="{{ route('admin.persetujuan') }}" class="text-[10px] font-black underline text-white">Buka Persetujuan</a>
+                </div>
+                <div class="divide-y divide-black/10">
+            `;
+            data.borrowings.forEach(br => {
+                const borrowerName = br.user ? br.user.name : 'User #' + br.user_id;
+                const bookTitle = br.book ? br.book.title : 'Buku #' + br.book_id;
+                let statusBadge = '<span class="bg-amber-200 text-black px-2 py-0.5 rounded border border-black text-[9px] font-black">PENDING</span>';
+                if (br.status === 'borrowed') statusBadge = '<span class="bg-blue-200 text-black px-2 py-0.5 rounded border border-black text-[9px] font-black">DIPINJAM</span>';
+                if (br.status === 'returned') statusBadge = '<span class="bg-emerald-200 text-black px-2 py-0.5 rounded border border-black text-[9px] font-black">KEMBALI</span>';
+
+                html += `
+                    <div class="flex items-center justify-between p-3 hover:bg-[#f5d0fe] transition-colors">
+                        <div class="flex flex-col min-w-0 pr-2">
+                            <span class="font-black text-xs text-black truncate">#${br.id} - ${escapeHtml(bookTitle)}</span>
+                            <span class="text-[10px] font-bold text-gray-700 truncate">Peminjam: ${escapeHtml(borrowerName)}</span>
+                        </div>
+                        <div class="flex items-center gap-2 flex-shrink-0">
+                            ${statusBadge}
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+        }
+
+        resultsContent.innerHTML = html;
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+});
+</script>
 
 </body>
 </html>

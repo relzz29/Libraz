@@ -9,17 +9,72 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminBookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::latest()->get();
-        // Assuming Borrowing is not fully set up, we'll just mock it or skip it for now, 
-        // or check if Borrowing model exists and use it.
+        $search = $request->input('search');
+        $booksQuery = Book::latest();
+
+        if ($search) {
+            $booksQuery->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('author', 'like', "%{$search}%")
+                  ->orWhere('category', 'like', "%{$search}%")
+                  ->orWhere('isbn', 'like', "%{$search}%");
+            });
+        }
+
+        $books = $booksQuery->get();
         $totalBooks = Book::count();
         $activeUsers = User::count();
         $pendingApprovals = \App\Models\Borrowing::where('status', 'pending')->count();
         $monthlyBorrows = 0; // Mock or calculate
 
-        return view('admin_dashboard', compact('books', 'totalBooks', 'activeUsers', 'pendingApprovals', 'monthlyBorrows'));
+        return view('admin_dashboard', compact('books', 'totalBooks', 'activeUsers', 'pendingApprovals', 'monthlyBorrows', 'search'));
+    }
+
+    public function search(Request $request)
+    {
+        $q = trim($request->input('q', ''));
+        if (empty($q)) {
+            return response()->json([
+                'books' => [],
+                'users' => [],
+                'borrowings' => []
+            ]);
+        }
+
+        // 1. Search Books
+        $books = Book::where('title', 'like', "%{$q}%")
+            ->orWhere('author', 'like', "%{$q}%")
+            ->orWhere('category', 'like', "%{$q}%")
+            ->orWhere('isbn', 'like', "%{$q}%")
+            ->take(5)
+            ->get(['id', 'title', 'author', 'category', 'type', 'stock', 'isbn', 'cover_image_url']);
+
+        // 2. Search Users
+        $users = User::where('name', 'like', "%{$q}%")
+            ->orWhere('email', 'like', "%{$q}%")
+            ->orWhere('nis', 'like', "%{$q}%")
+            ->take(5)
+            ->get(['id', 'name', 'email', 'nis', 'role']);
+
+        // 3. Search Borrowings / Resi
+        $borrowings = \App\Models\Borrowing::with(['user:id,name', 'book:id,title'])
+            ->where('id', 'like', "%{$q}%")
+            ->orWhereHas('book', function ($b) use ($q) {
+                $b->where('title', 'like', "%{$q}%");
+            })
+            ->orWhereHas('user', function ($u) use ($q) {
+                $u->where('name', 'like', "%{$q}%");
+            })
+            ->take(5)
+            ->get();
+
+        return response()->json([
+            'books' => $books,
+            'users' => $users,
+            'borrowings' => $borrowings
+        ]);
     }
 
     public function store(Request $request)

@@ -354,6 +354,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/persetujuan', [App\Http\Controllers\AdminApprovalController::class, 'index'])->name('admin.persetujuan');
     Route::post('/admin/persetujuan/{id}/approve', [App\Http\Controllers\AdminApprovalController::class, 'approve'])->name('admin.persetujuan.approve');
     Route::post('/admin/persetujuan/{id}/reject', [App\Http\Controllers\AdminApprovalController::class, 'reject'])->name('admin.persetujuan.reject');
+    Route::get('/admin/search', [AdminBookController::class, 'search'])->name('admin.search');
 });
 
 Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
