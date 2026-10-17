@@ -12,6 +12,9 @@ class AdminBookController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $selectedCategory = $request->input('category');
+        $selectedType = $request->input('type');
+
         $booksQuery = Book::latest();
 
         if ($search) {
@@ -19,11 +22,22 @@ class AdminBookController extends Controller
                 $q->where('title', 'like', "%{$search}%")
                   ->orWhere('author', 'like', "%{$search}%")
                   ->orWhere('category', 'like', "%{$search}%")
+                  ->orWhere('rack', 'like', "%{$search}%")
                   ->orWhere('isbn', 'like', "%{$search}%");
             });
         }
 
-        $books = $booksQuery->get();
+        if ($selectedCategory && $selectedCategory !== 'all') {
+            $booksQuery->where('category', $selectedCategory);
+        }
+
+        if ($selectedType && $selectedType !== 'all') {
+            $booksQuery->where('type', $selectedType);
+        }
+
+        $books = $booksQuery->paginate(8)->withQueryString();
+        $categories = Book::select('category')->distinct()->pluck('category');
+
         $now = now();
         $startThisMonth = $now->copy()->startOfMonth();
         $startLastMonth = $now->copy()->subMonth()->startOfMonth();
@@ -60,7 +74,7 @@ class AdminBookController extends Controller
             'activeUsers', 'userGrowth',
             'pendingApprovals',
             'monthlyBorrows', 'borrowGrowth', 'currentMonthName',
-            'search'
+            'search', 'selectedCategory', 'selectedType', 'categories'
         ));
     }
 
@@ -134,6 +148,7 @@ class AdminBookController extends Controller
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
             'category' => 'required|string|max:255',
+            'description' => 'nullable|string|max:5000',
             'type' => 'required|in:physical,ebook,both',
             'isbn' => 'nullable|string|max:255',
             'stock' => 'required|integer|min:0',
@@ -158,6 +173,7 @@ class AdminBookController extends Controller
             'title' => $request->title,
             'author' => $request->author,
             'category' => $request->category,
+            'description' => $request->description,
             'type' => $request->type,
             'isbn' => $request->isbn,
             'stock' => $request->stock,
@@ -171,7 +187,7 @@ class AdminBookController extends Controller
 
     public function create()
     {
-        $books = Book::latest()->get();
+        $books = Book::latest()->paginate(10);
         return view('admin_tambah_buku', compact('books'));
     }
 
@@ -200,6 +216,7 @@ class AdminBookController extends Controller
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
             'category' => 'required|string|max:255',
+            'description' => 'nullable|string|max:5000',
             'type' => 'required|in:physical,ebook,both',
             'isbn' => 'nullable|string|max:255',
             'stock' => 'required|integer|min:0',
@@ -231,6 +248,7 @@ class AdminBookController extends Controller
         $book->title = $request->title;
         $book->author = $request->author;
         $book->category = $request->category;
+        $book->description = $request->description;
         $book->type = $request->type;
         $book->isbn = $request->isbn;
         $book->stock = $request->stock;

@@ -155,7 +155,15 @@
       <span class="text-base tracking-wide">Dashboard</span>
     </a>
 
-    <!-- Tambah Buku -->
+    @php
+      $currentRole = strtolower(session('admin_role', 'admin it'));
+      $canManageBooks = in_array($currentRole, ['pustakawan', 'admin it', 'admin']);
+      $canApprove = in_array($currentRole, ['pustakawan', 'kepala perpus', 'admin it', 'admin']);
+      $canViewReports = in_array($currentRole, ['kepala perpus', 'admin it', 'admin']);
+    @endphp
+
+    <!-- Tambah Buku (Pustakawan & Admin IT) -->
+    @if($canManageBooks)
     <a href="{{ route('admin.books.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <circle cx="12" cy="12" r="9"/>
@@ -164,18 +172,27 @@
       </svg>
       <span class="text-base">Tambah Buku</span>
     </a>
+    @endif
 
-    <!-- Persetujuan -->
-    <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
+    <!-- Persetujuan (Pustakawan, Kepala Perpus & Admin IT) -->
+    @if($canApprove)
+    <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all relative">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
         <rect x="8" y="2" width="8" height="4" rx="1"/>
         <path d="m9 14 2 2 4-4"/>
       </svg>
       <span class="text-base">Persetujuan</span>
+      @if(isset($pendingApprovals) && $pendingApprovals > 0)
+        <span class="ml-auto px-2 py-0.5 rounded-full bg-rose-500 text-white font-black text-xs border border-black animate-pulse">
+          {{ $pendingApprovals }}
+        </span>
+      @endif
     </a>
+    @endif
 
-    <!-- Laporan -->
+    <!-- Laporan (Kepala Perpus & Admin IT) -->
+    @if($canViewReports)
     <a href="{{ route('admin.laporan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="20" x2="18" y2="10"/>
@@ -184,6 +201,7 @@
       </svg>
       <span class="text-base">Laporan</span>
     </a>
+    @endif
 
     <!-- Ke Tampilan User -->
     <a href="{{ route('katalog') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
@@ -550,7 +568,18 @@
 
         </div>
 
-        <!-- Notification Banner (Green Comic Alert) -->
+        <!-- Notification Banner (Green Comic Alert / Red Warning Alert) -->
+        @if(session('error'))
+        <div class="w-full bg-[#ff5757] border-[3.5px] border-black rounded-2xl p-4 shadow-[5px_5px_0px_#000] flex items-center gap-3.5">
+            <div class="w-8 h-8 rounded-xl bg-white border-2 border-black flex items-center justify-center flex-shrink-0 text-black shadow-[2px_2px_0px_#000]">
+                <span class="material-symbols-outlined text-[20px] text-rose-600 font-bold">lock</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-xs font-black uppercase tracking-wide text-white drop-shadow-[1px_1px_0px_#000]">AKSES DIBATASI (ROLE-BASED CONTROL)</span>
+                <span class="text-black font-black text-sm sm:text-base">{{ session('error') }}</span>
+            </div>
+        </div>
+        @else
         <div class="w-full bg-[#8ce934] border-[3px] border-black rounded-xl p-3 px-4 shadow-[4px_4px_0px_#000] flex items-center gap-3">
             <div class="w-6 h-6 rounded-full border-2 border-black flex items-center justify-center flex-shrink-0 bg-transparent">
                 <svg class="w-4 h-4 text-black stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -559,9 +588,10 @@
                 </svg>
             </div>
             <span class="text-black font-black text-sm sm:text-base">
-                {{ (session('success') && session('success') !== 'Selamat datang di Portal Admin.') ? session('success') : 'Berhasil login sebagai Admin IT.' }}
+                {{ session('success') ?? ('Berhasil login sebagai ' . (session('admin_role') ?? 'Admin IT') . '.') }}
             </span>
         </div>
+        @endif
 
         @if($errors->any())
         <div class="bg-[#ff5757] border-[3px] border-black text-black p-4 rounded-xl shadow-[4px_4px_0px_#000]">
@@ -583,16 +613,61 @@
                         </div>
                         {{ !empty($search) ? 'HASIL PENCARIAN: "' . $search . '"' : 'SIRKULASI TERBARU' }}
                     </h3>
-                    @if(!empty($search))
-                        <a href="{{ route('admin') }}" class="px-3 py-1 rounded-lg bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-red-500 hover:text-white transition-colors">
-                            ✕ Reset Filter
+                    @if(!empty($search) || (!empty($selectedCategory) && $selectedCategory !== 'all') || (!empty($selectedType) && $selectedType !== 'all'))
+                        <a href="{{ route('admin') }}" class="px-3 py-1.5 rounded-lg bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-rose-500 hover:text-white transition-colors flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">close</span> Reset Filter
                         </a>
                     @endif
                 </div>
-                <a href="{{ route('katalog') }}" class="px-4 py-2 rounded-xl bg-white text-black font-black flex items-center gap-2 border-[2.5px] border-black shadow-[3px_3px_0px_#000] comic-btn-hover uppercase text-xs sm:text-sm">
-                    Lihat Semua <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </a>
+                <div class="flex items-center gap-2">
+                    <span class="px-3 py-1.5 rounded-xl bg-white text-black font-black border-[2px] border-black shadow-[2px_2px_0px_#000] text-xs uppercase hidden sm:inline-block">
+                        Total: {{ $books->total() }} Data
+                    </span>
+                    <a href="{{ route('admin.books.create') }}" class="px-4 py-2 rounded-xl bg-[#8ce934] text-black font-black flex items-center gap-1.5 border-[2.5px] border-black shadow-[3px_3px_0px_#000] comic-btn-hover uppercase text-xs sm:text-sm">
+                        <span class="material-symbols-outlined text-[18px]">add_circle</span> Tambah
+                    </a>
+                </div>
             </div>
+
+            <!-- Filter Controls Bar -->
+            <div class="p-3.5 sm:p-4 bg-[#fbf7ed] border-b-[2.5px] border-black flex flex-wrap items-center justify-between gap-3">
+                <form action="{{ route('admin') }}" method="GET" class="flex flex-wrap items-center gap-2.5 w-full sm:w-auto" id="filterForm">
+                    @if(!empty($search))
+                        <input type="hidden" name="search" value="{{ $search }}">
+                    @endif
+                    
+                    <!-- Filter Kategori -->
+                    <div class="flex items-center gap-1.5">
+                        <label class="text-xs font-black uppercase text-black hidden sm:inline-flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">category</span> Kategori:
+                        </label>
+                        <select name="category" onchange="document.getElementById('filterForm').submit()" class="bg-white border-2 border-black rounded-xl px-3 py-1.5 text-xs font-black shadow-[2px_2px_0px_#000] cursor-pointer focus:outline-none focus:bg-[#fffdf0]">
+                            <option value="all" {{ empty($selectedCategory) || $selectedCategory === 'all' ? 'selected' : '' }}>Semua Kategori</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat }}" {{ ($selectedCategory ?? '') === $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Filter Tipe -->
+                    <div class="flex items-center gap-1.5">
+                        <label class="text-xs font-black uppercase text-black hidden sm:inline-flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">menu_book</span> Format:
+                        </label>
+                        <select name="type" onchange="document.getElementById('filterForm').submit()" class="bg-white border-2 border-black rounded-xl px-3 py-1.5 text-xs font-black shadow-[2px_2px_0px_#000] cursor-pointer focus:outline-none focus:bg-[#fffdf0]">
+                            <option value="all" {{ empty($selectedType) || $selectedType === 'all' ? 'selected' : '' }}>Semua Tipe</option>
+                            <option value="physical" {{ ($selectedType ?? '') === 'physical' ? 'selected' : '' }}>Buku Fisik</option>
+                            <option value="ebook" {{ ($selectedType ?? '') === 'ebook' ? 'selected' : '' }}>E-Book / Digital</option>
+                            <option value="both" {{ ($selectedType ?? '') === 'both' ? 'selected' : '' }}>Campuran / Mix</option>
+                        </select>
+                    </div>
+                </form>
+
+                <div class="text-xs font-bold text-gray-700 ml-auto hidden md:block">
+                    Menampilkan <span class="font-black text-black">{{ $books->firstItem() ?? 0 }}</span> - <span class="font-black text-black">{{ $books->lastItem() ?? 0 }}</span> dari <span class="font-black text-black">{{ $books->total() }}</span> buku
+                </div>
+            </div>
+
             <div class="overflow-x-auto p-4 bg-[#fcf9f2] bg-[radial-gradient(#00000015_2px,transparent_2px)] [background-size:16px_16px]">
                 <table class="w-full text-left border-collapse border-spacing-y-2">
                     <thead>
@@ -600,6 +675,7 @@
                             <th class="p-3.5 font-black text-xs sm:text-sm">Judul Buku</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Tipe</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Kategori</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Lokasi Rak</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Stok</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">ISBN</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm text-center">Aksi</th>
@@ -610,10 +686,17 @@
                         <tr class="bg-white border-[2.5px] border-black hover:bg-[#ffde59] transition-colors shadow-[3px_3px_0px_#000] rounded-xl group/row">
                             <td class="p-3.5">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg bg-white border-2 border-black flex items-center justify-center text-black shadow-[2px_2px_0px_#000]">
-                                        <span class="material-symbols-outlined text-[22px]">book_4</span>
+                                    <div class="w-10 h-10 rounded-lg bg-white border-2 border-black flex items-center justify-center text-black shadow-[2px_2px_0px_#000] overflow-hidden flex-shrink-0">
+                                        @if(!empty($book->cover_image_url))
+                                            <img src="{{ $book->cover_image_url }}" alt="{{ $book->title }}" class="w-full h-full object-cover">
+                                        @else
+                                            <span class="material-symbols-outlined text-[22px]">book_4</span>
+                                        @endif
                                     </div>
-                                    <span class="font-black text-base">{{ $book->title }}</span>
+                                    <div class="flex flex-col">
+                                        <span class="font-black text-base line-clamp-1">{{ $book->title }}</span>
+                                        <span class="text-xs font-bold text-gray-600">{{ $book->author }}</span>
+                                    </div>
                                 </div>
                             </td>
                             <td class="p-3.5 uppercase font-black text-xs">
@@ -626,20 +709,33 @@
                                 @endif
                             </td>
                             <td class="p-3.5 font-bold"><span class="bg-gray-100 px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">{{ $book->category }}</span></td>
-                            <td class="p-3.5 font-black text-lg">{{ $book->stock }}</td>
+                            <td class="p-3.5 font-black text-xs">
+                                <span class="bg-[#facc15] px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] flex items-center gap-1 w-fit">
+                                    <span class="material-symbols-outlined text-[14px]">shelves</span>
+                                    {{ $book->rack ?? 'Rak Utama' }}
+                                </span>
+                            </td>
+                            <td class="p-3.5 font-black text-lg {{ $book->stock > 0 ? '' : 'text-red-600' }}">{{ $book->stock }}</td>
                             <td class="p-3.5 font-bold text-sm">{{ $book->isbn ?? '-' }}</td>
                             <td class="p-3.5 text-center">
-                                <a href="{{ route('admin.books.edit', $book->id) }}" class="w-9 h-9 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000] inline-flex items-center justify-center text-black hover:bg-black hover:text-white transition-colors mx-auto">
-                                    <span class="material-symbols-outlined text-[20px]">edit</span>
-                                </a>
+                                <div class="flex items-center justify-center gap-2">
+                                    <a href="{{ route('admin.books.edit', $book->id) }}" class="w-9 h-9 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000] inline-flex items-center justify-center text-black hover:bg-black hover:text-white transition-colors" title="Edit Buku">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
+                            <td colspan="7" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
                                 <div class="flex flex-col items-center justify-center gap-3">
                                     <span class="material-symbols-outlined text-[54px]">auto_stories</span>
-                                    <p>WADUH! BELUM ADA DATA BUKU!</p>
+                                    <p>WADUH! BELUM ADA DATA BUKU YANG SESUAI!</p>
+                                    @if(!empty($search) || !empty($selectedCategory) || !empty($selectedType))
+                                        <a href="{{ route('admin') }}" class="px-4 py-2 rounded-xl bg-[#5f15e8] text-white font-black text-sm border-2 border-black shadow-[3px_3px_0px_#000] hover:bg-black transition-colors">
+                                            Reset Semua Filter
+                                        </a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -647,25 +743,73 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Neo-Brutalist Comic Pagination Bar -->
+            @if($books->hasPages())
+            <div class="p-4 bg-white border-t-[3px] border-black flex flex-wrap items-center justify-between gap-3">
+                <div class="text-xs font-black uppercase text-gray-700">
+                    Halaman {{ $books->currentPage() }} dari {{ $books->lastPage() }}
+                </div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    {{-- Previous Page Link --}}
+                    @if ($books->onFirstPage())
+                        <span class="px-3 py-1.5 rounded-xl bg-gray-200 text-gray-400 font-black text-xs border-2 border-gray-400 cursor-not-allowed flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">chevron_left</span> Prev
+                        </span>
+                    @else
+                        <a href="{{ $books->previousPageUrl() }}" class="px-3 py-1.5 rounded-xl bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-[#ffde59] transition-colors flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">chevron_left</span> Prev
+                        </a>
+                    @endif
+
+                    {{-- Numeric Pagination Elements --}}
+                    @foreach ($books->getUrlRange(max(1, $books->currentPage() - 2), min($books->lastPage(), $books->currentPage() + 2)) as $page => $url)
+                        @if ($page == $books->currentPage())
+                            <span class="w-8 h-8 rounded-xl bg-[#5f15e8] text-white font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $url }}" class="w-8 h-8 rounded-xl bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-[#ffde59] transition-colors flex items-center justify-center">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($books->hasMorePages())
+                        <a href="{{ $books->nextPageUrl() }}" class="px-3 py-1.5 rounded-xl bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-[#ffde59] transition-colors flex items-center gap-1">
+                            Next <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </a>
+                    @else
+                        <span class="px-3 py-1.5 rounded-xl bg-gray-200 text-gray-400 font-black text-xs border-2 border-gray-400 cursor-not-allowed flex items-center gap-1">
+                            Next <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </main>
 
 <!-- Mobile Bottom Navigation Bar (md:hidden) -->
 <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#faf6ee]/95 backdrop-blur-md border-t-[3.5px] border-black px-3 py-2 flex items-center justify-around pb-safe shadow-[0_-4px_10px_rgba(0,0,0,0.1)]">
-  <!-- Dashboard -->
+  <!-- Dashboard: Semua Peran -->
   <a href="{{ route('admin') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl bg-[#5f15e8] text-white font-black border-2 border-black shadow-[2px_2px_0px_#000]">
     <span class="material-symbols-outlined text-[20px]">dashboard</span>
     <span class="text-[9px] uppercase tracking-wider font-extrabold">Home</span>
   </a>
 
-  <!-- Tambah Buku -->
+  <!-- Tambah Buku (Pustakawan & Admin IT) -->
+  @if($canManageBooks)
   <a href="{{ route('admin.books.create') }}" class="flex flex-col items-center gap-0.5 py-1 px-2.5 rounded-xl text-black font-extrabold hover:bg-black/5">
     <span class="material-symbols-outlined text-[20px]">add_circle</span>
     <span class="text-[9px] uppercase tracking-wider font-extrabold">Tambah</span>
   </a>
+  @endif
 
-  <!-- Persetujuan -->
+  <!-- Persetujuan (Pustakawan, Kepala Perpus & Admin IT) -->
+  @if($canApprove)
   <a href="{{ route('admin.persetujuan') }}" class="flex flex-col items-center gap-0.5 py-1 px-2.5 rounded-xl text-black font-extrabold hover:bg-black/5 relative">
     <span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
     <span class="text-[9px] uppercase tracking-wider font-extrabold">Setujui</span>
@@ -673,12 +817,15 @@
     <span class="absolute top-0 right-1 w-2.5 h-2.5 rounded-full bg-rose-500 border border-black animate-pulse"></span>
     @endif
   </a>
+  @endif
 
-  <!-- Laporan -->
+  <!-- Laporan (Kepala Perpus & Admin IT) -->
+  @if($canViewReports)
   <a href="{{ route('admin.laporan') }}" class="flex flex-col items-center gap-0.5 py-1 px-2.5 rounded-xl text-black font-extrabold hover:bg-black/5">
     <span class="material-symbols-outlined text-[20px]">bar_chart</span>
     <span class="text-[9px] uppercase tracking-wider font-extrabold">Laporan</span>
   </a>
+  @endif
 
   <!-- Keluar / Logout -->
   <form action="{{ route('admin.logout') }}" method="POST" class="inline">

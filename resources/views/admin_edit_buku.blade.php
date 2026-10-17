@@ -243,6 +243,13 @@
                     </div>
                 </div>
 
+                <div class="flex flex-col gap-1.5">
+                    <label class="font-black text-black uppercase tracking-wide text-xs">
+                        Sinopsis / Ringkasan Buku <span class="text-gray-500 font-bold lowercase">(opsional)</span>
+                    </label>
+                    <textarea name="description" rows="3" placeholder="Tulis sinopsis atau informasi singkat mengenai buku ini agar siswa tertarik membaca..." class="w-full bg-[#fcf9f2] border-[2.5px] border-black rounded-xl p-3 shadow-[3px_3px_0px_#000] font-bold text-sm text-black focus:outline-none focus:bg-white">{{ $book->description }}</textarea>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-1">
                     <div class="flex flex-col gap-1.5">
                         <label class="font-black text-black uppercase tracking-wide text-xs">

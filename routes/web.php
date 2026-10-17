@@ -342,19 +342,31 @@ Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name(
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
 Route::match(['get', 'post'], '/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-// Admin Dashboard Routes (Protected by admin middleware)
+// Admin Dashboard Routes (Protected by admin & RBAC middleware)
 Route::middleware('admin')->group(function () {
     Route::get('/admin', [AdminBookController::class, 'index'])->name('admin');
-    Route::get('/admin/tambah-buku', [AdminBookController::class, 'create'])->name('admin.books.create');
-    Route::post('/admin/books', [AdminBookController::class, 'store'])->name('admin.books.store');
-    Route::get('/admin/books/{id}/edit', [AdminBookController::class, 'edit'])->name('admin.books.edit');
-    Route::put('/admin/books/{id}', [AdminBookController::class, 'update'])->name('admin.books.update');
-    Route::delete('/admin/books/{id}', [AdminBookController::class, 'destroy'])->name('admin.books.destroy');
-    Route::get('/admin/laporan', [AdminBookController::class, 'laporan'])->name('admin.laporan');
-    Route::get('/admin/persetujuan', [App\Http\Controllers\AdminApprovalController::class, 'index'])->name('admin.persetujuan');
-    Route::post('/admin/persetujuan/{id}/approve', [App\Http\Controllers\AdminApprovalController::class, 'approve'])->name('admin.persetujuan.approve');
-    Route::post('/admin/persetujuan/{id}/reject', [App\Http\Controllers\AdminApprovalController::class, 'reject'])->name('admin.persetujuan.reject');
     Route::get('/admin/search', [AdminBookController::class, 'search'])->name('admin.search');
+
+    // 1. Modul Manajemen Buku (Pustakawan & Admin IT)
+    Route::middleware('role:pustakawan,admin it')->group(function () {
+        Route::get('/admin/tambah-buku', [AdminBookController::class, 'create'])->name('admin.books.create');
+        Route::post('/admin/books', [AdminBookController::class, 'store'])->name('admin.books.store');
+        Route::get('/admin/books/{id}/edit', [AdminBookController::class, 'edit'])->name('admin.books.edit');
+        Route::put('/admin/books/{id}', [AdminBookController::class, 'update'])->name('admin.books.update');
+        Route::delete('/admin/books/{id}', [AdminBookController::class, 'destroy'])->name('admin.books.destroy');
+    });
+
+    // 2. Modul Persetujuan & Peminjaman (Pustakawan, Kepala Perpus, & Admin IT)
+    Route::middleware('role:pustakawan,kepala perpus,admin it')->group(function () {
+        Route::get('/admin/persetujuan', [App\Http\Controllers\AdminApprovalController::class, 'index'])->name('admin.persetujuan');
+        Route::post('/admin/persetujuan/{id}/approve', [App\Http\Controllers\AdminApprovalController::class, 'approve'])->name('admin.persetujuan.approve');
+        Route::post('/admin/persetujuan/{id}/reject', [App\Http\Controllers\AdminApprovalController::class, 'reject'])->name('admin.persetujuan.reject');
+    });
+
+    // 3. Modul Laporan Eksekutif & Statistik (Kepala Perpus & Admin IT)
+    Route::middleware('role:kepala perpus,admin it')->group(function () {
+        Route::get('/admin/laporan', [AdminBookController::class, 'laporan'])->name('admin.laporan');
+    });
 });
 
 Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');

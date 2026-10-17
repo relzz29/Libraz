@@ -99,7 +99,15 @@
       <span class="text-base">Dashboard</span>
     </a>
 
-    <!-- Active Tambah Buku Item -->
+    @php
+      $currentRole = strtolower(session('admin_role', 'admin it'));
+      $canManageBooks = in_array($currentRole, ['pustakawan', 'admin it', 'admin']);
+      $canApprove = in_array($currentRole, ['pustakawan', 'kepala perpus', 'admin it', 'admin']);
+      $canViewReports = in_array($currentRole, ['kepala perpus', 'admin it', 'admin']);
+    @endphp
+
+    <!-- Active Tambah Buku Item (Pustakawan & Admin IT) -->
+    @if($canManageBooks)
     <a href="{{ route('admin.books.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#5f15e8] text-white font-black border-[2.5px] border-black shadow-[4px_4px_0px_#000] transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <circle cx="12" cy="12" r="9"/>
@@ -108,8 +116,10 @@
       </svg>
       <span class="text-base tracking-wide">Tambah Buku</span>
     </a>
+    @endif
 
-    <!-- Persetujuan -->
+    <!-- Persetujuan (Pustakawan, Kepala Perpus & Admin IT) -->
+    @if($canApprove)
     <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
@@ -118,8 +128,10 @@
       </svg>
       <span class="text-base">Persetujuan</span>
     </a>
+    @endif
 
-    <!-- Laporan -->
+    <!-- Laporan (Kepala Perpus & Admin IT) -->
+    @if($canViewReports)
     <a href="{{ route('admin.laporan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="20" x2="18" y2="10"/>
@@ -128,6 +140,7 @@
       </svg>
       <span class="text-base">Laporan</span>
     </a>
+    @endif
 
     <!-- Ke Tampilan User -->
     <a href="{{ route('katalog') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
@@ -282,6 +295,11 @@
                         </div>
                     </div>
 
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-black text-black uppercase tracking-wide text-xs">Sinopsis / Ringkasan Buku <span class="text-gray-500 font-bold lowercase">(opsional)</span></label>
+                        <textarea name="description" rows="3" placeholder="Tulis sinopsis atau informasi singkat mengenai buku ini agar siswa tertarik membaca..." class="w-full bg-white border-[2.5px] border-black rounded-xl p-3 shadow-[3px_3px_0px_#000] font-bold text-sm text-black focus:outline-none focus:bg-[#fffdf0]"></textarea>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-1">
                         <div class="flex flex-col gap-1.5">
                             <label class="font-black text-black uppercase tracking-wide text-xs">Upload Cover Buku</label>
@@ -311,7 +329,7 @@
                     DAFTAR BUKU TERSEDIA
                 </h3>
                 <span class="px-3.5 py-1.5 rounded-xl bg-white text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] text-xs uppercase">
-                    Total: {{ count($books) }} Judul
+                    Total: {{ $books->total() }} Judul
                 </span>
             </div>
             
@@ -375,7 +393,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
+                            <td colspan="6" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
                                 <div class="flex flex-col items-center justify-center gap-3">
                                     <span class="material-symbols-outlined text-[54px]">auto_stories</span>
                                     <p>WADUH! BELUM ADA DATA BUKU!</p>
@@ -386,6 +404,51 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Neo-Brutalist Comic Pagination Bar -->
+            @if($books->hasPages())
+            <div class="p-4 bg-white border-t-[3px] border-black flex flex-wrap items-center justify-between gap-3">
+                <div class="text-xs font-black uppercase text-gray-700">
+                    Halaman {{ $books->currentPage() }} dari {{ $books->lastPage() }}
+                </div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    {{-- Previous Page Link --}}
+                    @if ($books->onFirstPage())
+                        <span class="px-3 py-1.5 rounded-xl bg-gray-200 text-gray-400 font-black text-xs border-2 border-gray-400 cursor-not-allowed flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">chevron_left</span> Prev
+                        </span>
+                    @else
+                        <a href="{{ $books->previousPageUrl() }}" class="px-3 py-1.5 rounded-xl bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-[#ffde59] transition-colors flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">chevron_left</span> Prev
+                        </a>
+                    @endif
+
+                    {{-- Numeric Pagination Elements --}}
+                    @foreach ($books->getUrlRange(max(1, $books->currentPage() - 2), min($books->lastPage(), $books->currentPage() + 2)) as $page => $url)
+                        @if ($page == $books->currentPage())
+                            <span class="w-8 h-8 rounded-xl bg-[#5f15e8] text-white font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $url }}" class="w-8 h-8 rounded-xl bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-[#ffde59] transition-colors flex items-center justify-center">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($books->hasMorePages())
+                        <a href="{{ $books->nextPageUrl() }}" class="px-3 py-1.5 rounded-xl bg-white text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-[#ffde59] transition-colors flex items-center gap-1">
+                            Next <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </a>
+                    @else
+                        <span class="px-3 py-1.5 rounded-xl bg-gray-200 text-gray-400 font-black text-xs border-2 border-gray-400 cursor-not-allowed flex items-center gap-1">
+                            Next <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            @endif
         </div>
 
     </div>

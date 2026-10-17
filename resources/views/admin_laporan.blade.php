@@ -99,7 +99,15 @@
       <span class="text-base">Dashboard</span>
     </a>
 
-    <!-- Tambah Buku -->
+    @php
+      $currentRole = strtolower(session('admin_role', 'admin it'));
+      $canManageBooks = in_array($currentRole, ['pustakawan', 'admin it', 'admin']);
+      $canApprove = in_array($currentRole, ['pustakawan', 'kepala perpus', 'admin it', 'admin']);
+      $canViewReports = in_array($currentRole, ['kepala perpus', 'admin it', 'admin']);
+    @endphp
+
+    <!-- Tambah Buku (Pustakawan & Admin IT) -->
+    @if($canManageBooks)
     <a href="{{ route('admin.books.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <circle cx="12" cy="12" r="9"/>
@@ -108,8 +116,10 @@
       </svg>
       <span class="text-base">Tambah Buku</span>
     </a>
+    @endif
 
-    <!-- Persetujuan -->
+    <!-- Persetujuan (Pustakawan, Kepala Perpus & Admin IT) -->
+    @if($canApprove)
     <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
@@ -118,8 +128,10 @@
       </svg>
       <span class="text-base">Persetujuan</span>
     </a>
+    @endif
 
-    <!-- Active Laporan Item -->
+    <!-- Active Laporan Item (Kepala Perpus & Admin IT) -->
+    @if($canViewReports)
     <a href="{{ route('admin.laporan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#5f15e8] text-white font-black border-[2.5px] border-black shadow-[4px_4px_0px_#000] transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="20" x2="18" y2="10"/>
@@ -128,6 +140,7 @@
       </svg>
       <span class="text-base tracking-wide">Laporan</span>
     </a>
+    @endif
 
     <!-- Ke Tampilan User -->
     <a href="{{ route('katalog') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">

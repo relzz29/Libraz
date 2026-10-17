@@ -99,7 +99,15 @@
       <span class="text-base">Dashboard</span>
     </a>
 
-    <!-- Tambah Buku -->
+    @php
+      $currentRole = strtolower(session('admin_role', 'admin it'));
+      $canManageBooks = in_array($currentRole, ['pustakawan', 'admin it', 'admin']);
+      $canApprove = in_array($currentRole, ['pustakawan', 'kepala perpus', 'admin it', 'admin']);
+      $canViewReports = in_array($currentRole, ['kepala perpus', 'admin it', 'admin']);
+    @endphp
+
+    <!-- Tambah Buku (Pustakawan & Admin IT) -->
+    @if($canManageBooks)
     <a href="{{ route('admin.books.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <circle cx="12" cy="12" r="9"/>
@@ -108,8 +116,10 @@
       </svg>
       <span class="text-base">Tambah Buku</span>
     </a>
+    @endif
 
-    <!-- Active Persetujuan Item -->
+    <!-- Active Persetujuan Item (Pustakawan, Kepala Perpus & Admin IT) -->
+    @if($canApprove)
     <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#5f15e8] text-white font-black border-[2.5px] border-black shadow-[4px_4px_0px_#000] transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
@@ -118,8 +128,10 @@
       </svg>
       <span class="text-base tracking-wide">Persetujuan</span>
     </a>
+    @endif
 
-    <!-- Laporan -->
+    <!-- Laporan (Kepala Perpus & Admin IT) -->
+    @if($canViewReports)
     <a href="{{ route('admin.laporan') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
       <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="20" x2="18" y2="10"/>
@@ -128,6 +140,7 @@
       </svg>
       <span class="text-base">Laporan</span>
     </a>
+    @endif
 
     <!-- Ke Tampilan User -->
     <a href="{{ route('katalog') }}" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-black font-extrabold hover:bg-black/5 hover:translate-x-1 transition-all">
@@ -181,14 +194,20 @@
 <main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-24 pb-24 md:pb-10 min-h-screen">
     <div class="flex flex-col w-full px-6 sm:px-8 gap-6 max-w-7xl mx-auto">
         
-        <!-- Header Section Title -->
-        <div class="flex items-center justify-between gap-3 mt-1 flex-wrap">
-            <h1 class="comic-title text-3xl sm:text-4xl font-black">
-                Daftar Permintaan Menunggu
-            </h1>
-            <span class="bg-[#ff5757] text-white font-black text-sm px-4 py-2 rounded-xl border-[2.5px] border-black shadow-[3px_3px_0px_#000]">
-                {{ count($pendingApprovals) }} Menunggu Tinjauan
-            </span>
+        <!-- Header Section Title with Dual Tabs -->
+        <div class="flex items-center justify-between gap-4 mt-1 flex-wrap">
+            <div class="flex items-center gap-3">
+                <button type="button" onclick="switchApprovalTab('pending')" id="tabBtnPending" class="px-5 py-2.5 rounded-2xl bg-[#ff5757] text-white font-black border-[3px] border-black shadow-[4px_4px_0px_#000] text-sm uppercase flex items-center gap-2 transition-all">
+                    <span class="material-symbols-outlined text-[20px]">pending_actions</span>
+                    <span>Menunggu Tinjauan</span>
+                    <span class="bg-white text-black px-2 py-0.5 rounded-lg text-xs font-black">{{ count($pendingApprovals) }}</span>
+                </button>
+                <button type="button" onclick="switchApprovalTab('history')" id="tabBtnHistory" class="px-5 py-2.5 rounded-2xl bg-white text-black font-black border-[3px] border-black shadow-[4px_4px_0px_#000] text-sm uppercase flex items-center gap-2 hover:bg-gray-100 transition-all">
+                    <span class="material-symbols-outlined text-[20px]">history</span>
+                    <span>Riwayat Keputusan</span>
+                    <span class="bg-[#facc15] text-black px-2 py-0.5 rounded-lg text-xs font-black">{{ count($decisionHistory) }}</span>
+                </button>
+            </div>
         </div>
 
         @if(session('success'))
@@ -213,14 +232,14 @@
         </div>
         @endif
 
-        <!-- Pending Approvals Data Table -->
-        <div class="flex flex-col rounded-3xl bg-white border-[3.5px] border-black shadow-[8px_8px_0px_#000] overflow-hidden relative">
+        <!-- TAB 1: PENDING APPROVALS -->
+        <div id="tabPendingContent" class="flex flex-col rounded-3xl bg-white border-[3.5px] border-black shadow-[8px_8px_0px_#000] overflow-hidden relative">
             <div class="p-5 border-b-[3.5px] border-black flex items-center justify-between bg-[#ff5757]">
                 <h3 class="text-white font-black drop-shadow-[2px_2px_0px_#000] flex items-center gap-3 text-2xl sm:text-3xl tracking-tight">
                     <div class="w-11 h-11 rounded-xl bg-white border-[2.5px] border-black flex items-center justify-center text-black shadow-[3px_3px_0px_#000]">
                         <span class="material-symbols-outlined text-[26px]">pending_actions</span>
                     </div>
-                    MENUNGGU PERSETUJUAN
+                    PERMINTAAN MENUNGGU PERSETUJUAN
                 </h3>
             </div>
             
@@ -228,6 +247,7 @@
                 <table class="w-full text-left border-collapse border-spacing-y-2">
                     <thead>
                         <tr class="text-black uppercase tracking-wider bg-white border-[2.5px] border-black shadow-[2px_2px_0px_#000]">
+                            <th class="p-3.5 font-black text-xs sm:text-sm">ID Resi</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Peminjam / User</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Judul Buku</th>
                             <th class="p-3.5 font-black text-xs sm:text-sm">Tgl Pinjam</th>
@@ -238,28 +258,31 @@
                     <tbody class="text-black space-y-4">
                         @forelse($pendingApprovals as $approval)
                         <tr class="bg-white border-[2.5px] border-black hover:bg-[#ffde59] transition-colors shadow-[3px_3px_0px_#000] rounded-xl group/row">
+                            <td class="p-3.5 font-black text-xs">
+                                <span class="bg-[#facc15] px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">#{{ $approval->id }}</span>
+                            </td>
                             <td class="p-3.5 font-bold">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#00b4d8] border-2 border-black flex items-center justify-center text-white font-black text-xs shadow-[2px_2px_0px_#000]">
+                                    <div class="w-9 h-9 rounded-full bg-[#00b4d8] border-2 border-black flex items-center justify-center text-white font-black text-xs shadow-[2px_2px_0px_#000]">
                                         {{ strtoupper(substr($approval->user->name ?? 'User', 0, 2)) }}
                                     </div>
-                                    <span class="font-black text-base">{{ $approval->user->name ?? 'User Siswa' }}</span>
+                                    <span class="font-black text-sm sm:text-base">{{ $approval->user->name ?? 'User Siswa' }}</span>
                                 </div>
                             </td>
-                            <td class="p-3.5 font-bold text-base">{{ $approval->book->title }}</td>
-                            <td class="p-3.5 font-bold text-sm">{{ $approval->borrowed_at ? $approval->borrowed_at->format('d M Y') : '-' }}</td>
-                            <td class="p-3.5 font-bold text-sm">{{ $approval->due_date ? $approval->due_date->format('d M Y') : '-' }}</td>
+                            <td class="p-3.5 font-bold text-sm sm:text-base">{{ $approval->book->title ?? 'Buku Tidak Diketahui' }}</td>
+                            <td class="p-3.5 font-bold text-xs sm:text-sm">{{ $approval->borrowed_at ? $approval->borrowed_at->format('d M Y') : '-' }}</td>
+                            <td class="p-3.5 font-bold text-xs sm:text-sm">{{ $approval->due_date ? $approval->due_date->format('d M Y') : '-' }}</td>
                             <td class="p-3.5 text-center">
                                 <div class="flex items-center justify-center gap-2">
                                     <form action="{{ route('admin.persetujuan.approve', $approval->id) }}" method="POST" class="m-0 inline">
                                         @csrf
-                                        <button type="submit" class="px-4 py-1.5 rounded-xl bg-[#8ce934] text-black font-black text-xs sm:text-sm border-2 border-black shadow-[2px_2px_0px_#000] comic-btn-hover flex items-center gap-1">
+                                        <button type="submit" class="px-3.5 py-1.5 rounded-xl bg-[#8ce934] text-black font-black text-xs sm:text-sm border-2 border-black shadow-[2px_2px_0px_#000] comic-btn-hover flex items-center gap-1">
                                             <span class="material-symbols-outlined text-[18px]">check_circle</span> Setujui
                                         </button>
                                     </form>
                                     <form action="{{ route('admin.persetujuan.reject', $approval->id) }}" method="POST" class="m-0 inline">
                                         @csrf
-                                        <button type="submit" class="px-4 py-1.5 rounded-xl bg-[#ff5757] text-white font-black text-xs sm:text-sm border-2 border-black shadow-[2px_2px_0px_#000] comic-btn-hover flex items-center gap-1">
+                                        <button type="submit" class="px-3.5 py-1.5 rounded-xl bg-[#ff5757] text-white font-black text-xs sm:text-sm border-2 border-black shadow-[2px_2px_0px_#000] comic-btn-hover flex items-center gap-1">
                                             <span class="material-symbols-outlined text-[18px]">cancel</span> Tolak
                                         </button>
                                     </form>
@@ -268,7 +291,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
+                            <td colspan="6" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
                                 <div class="flex flex-col items-center justify-center gap-3">
                                     <span class="material-symbols-outlined text-[54px] text-green-600">task_alt</span>
                                     <p>SEMUA BERES! TIDAK ADA PERMINTAAN TERTUNDA.</p>
@@ -281,7 +304,106 @@
             </div>
         </div>
 
+        <!-- TAB 2: DECISION HISTORY (AUDIT TRAIL) -->
+        <div id="tabHistoryContent" class="hidden flex flex-col rounded-3xl bg-white border-[3.5px] border-black shadow-[8px_8px_0px_#000] overflow-hidden relative">
+            <div class="p-5 border-b-[3.5px] border-black flex items-center justify-between bg-[#38bdf8]">
+                <h3 class="text-black font-black drop-shadow-[1px_1px_0px_#fff] flex items-center gap-3 text-2xl sm:text-3xl tracking-tight">
+                    <div class="w-11 h-11 rounded-xl bg-white border-[2.5px] border-black flex items-center justify-center text-black shadow-[3px_3px_0px_#000]">
+                        <span class="material-symbols-outlined text-[26px]">manage_history</span>
+                    </div>
+                    LOG & RIWAYAT KEPUTUSAN TERDAHULU
+                </h3>
+            </div>
+            
+            <div class="overflow-x-auto p-4 bg-[#fcf9f2] bg-[radial-gradient(#00000015_2px,transparent_2px)] [background-size:16px_16px] min-h-[300px]">
+                <table class="w-full text-left border-collapse border-spacing-y-2">
+                    <thead>
+                        <tr class="text-black uppercase tracking-wider bg-white border-[2.5px] border-black shadow-[2px_2px_0px_#000]">
+                            <th class="p-3.5 font-black text-xs sm:text-sm">ID Resi</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Peminjam / User</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Judul Buku</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm">Waktu Transaksi</th>
+                            <th class="p-3.5 font-black text-xs sm:text-sm text-center">Status Keputusan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-black space-y-4">
+                        @forelse($decisionHistory as $item)
+                        <tr class="bg-white border-[2.5px] border-black hover:bg-[#ffde59]/50 transition-colors shadow-[3px_3px_0px_#000] rounded-xl group/row">
+                            <td class="p-3.5 font-black text-xs">
+                                <span class="bg-white px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">#{{ $item->id }}</span>
+                            </td>
+                            <td class="p-3.5 font-bold">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full bg-[#5f15e8] border-2 border-black flex items-center justify-center text-white font-black text-xs shadow-[2px_2px_0px_#000]">
+                                        {{ strtoupper(substr($item->user->name ?? 'User', 0, 2)) }}
+                                    </div>
+                                    <span class="font-black text-sm">{{ $item->user->name ?? 'User Siswa' }}</span>
+                                </div>
+                            </td>
+                            <td class="p-3.5 font-bold text-sm">{{ $item->book->title ?? 'Buku Dihapus' }}</td>
+                            <td class="p-3.5 font-bold text-xs text-gray-700">
+                                <div>{{ $item->updated_at ? $item->updated_at->timezone('Asia/Jakarta')->translatedFormat('d M Y, H:i') : '-' }} WIB</div>
+                                <div class="text-[10px] text-gray-500 font-semibold">{{ $item->updated_at ? $item->updated_at->diffForHumans() : '' }}</div>
+                            </td>
+                            <td class="p-3.5 text-center">
+                                @if($item->status == 'approved' || $item->status == 'borrowed')
+                                    <span class="inline-flex items-center gap-1 bg-[#8ce934] text-black font-black text-xs px-3 py-1 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000]">
+                                        <span class="material-symbols-outlined text-[16px]">check_circle</span> Disetujui
+                                    </span>
+                                @elseif($item->status == 'rejected')
+                                    <span class="inline-flex items-center gap-1 bg-[#ff5757] text-white font-black text-xs px-3 py-1 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000]">
+                                        <span class="material-symbols-outlined text-[16px]">cancel</span> Ditolak
+                                    </span>
+                                @elseif($item->status == 'returned')
+                                    <span class="inline-flex items-center gap-1 bg-[#00b4d8] text-white font-black text-xs px-3 py-1 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000]">
+                                        <span class="material-symbols-outlined text-[16px]">task_alt</span> Dikembalikan
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-1 bg-gray-200 text-black font-black text-xs px-3 py-1 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000]">
+                                        {{ strtoupper($item->status) }}
+                                    </span>
+                                @endif
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="p-8 text-center text-black bg-white border-[2.5px] border-black shadow-[3px_3px_0px_#000] font-black text-lg">
+                                <div class="flex flex-col items-center justify-center gap-3">
+                                    <span class="material-symbols-outlined text-[54px] text-gray-400">history_toggle_off</span>
+                                    <p>BELUM ADA LOG RIWAYAT KEPUTUSAN.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 </main>
+
+<script>
+function switchApprovalTab(tab) {
+    const btnPending = document.getElementById('tabBtnPending');
+    const btnHistory = document.getElementById('tabBtnHistory');
+    const contentPending = document.getElementById('tabPendingContent');
+    const contentHistory = document.getElementById('tabHistoryContent');
+
+    if (tab === 'pending') {
+        contentPending.classList.remove('hidden');
+        contentHistory.classList.add('hidden');
+
+        btnPending.className = "px-5 py-2.5 rounded-2xl bg-[#ff5757] text-white font-black border-[3px] border-black shadow-[4px_4px_0px_#000] text-sm uppercase flex items-center gap-2 transition-all";
+        btnHistory.className = "px-5 py-2.5 rounded-2xl bg-white text-black font-black border-[3px] border-black shadow-[4px_4px_0px_#000] text-sm uppercase flex items-center gap-2 hover:bg-gray-100 transition-all";
+    } else {
+        contentPending.classList.add('hidden');
+        contentHistory.classList.remove('hidden');
+
+        btnHistory.className = "px-5 py-2.5 rounded-2xl bg-[#38bdf8] text-black font-black border-[3px] border-black shadow-[4px_4px_0px_#000] text-sm uppercase flex items-center gap-2 transition-all";
+        btnPending.className = "px-5 py-2.5 rounded-2xl bg-white text-black font-black border-[3px] border-black shadow-[4px_4px_0px_#000] text-sm uppercase flex items-center gap-2 hover:bg-gray-100 transition-all";
+    }
+}
+</script>
 </body>
 </html>

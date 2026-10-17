@@ -10,8 +10,14 @@ class AdminApprovalController extends Controller
 {
     public function index()
     {
-        $pendingApprovals = Borrowing::with(['user', 'book'])->where('status', 'pending')->get();
-        return view('admin_persetujuan', compact('pendingApprovals'));
+        $pendingApprovals = Borrowing::with(['user', 'book'])->where('status', 'pending')->latest()->get();
+        $decisionHistory = Borrowing::with(['user', 'book'])
+            ->whereIn('status', ['approved', 'rejected', 'borrowed', 'returned'])
+            ->latest('updated_at')
+            ->take(50)
+            ->get();
+
+        return view('admin_persetujuan', compact('pendingApprovals', 'decisionHistory'));
     }
 
     public function approve($id)
