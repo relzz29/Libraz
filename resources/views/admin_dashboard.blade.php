@@ -362,10 +362,15 @@
                         <span class="text-5xl font-black text-black tracking-tight leading-none">
                             {{ number_format($totalBooks) }}
                         </span>
-                        <!-- Pill Badge -->
-                        <div class="bg-white border-[2.5px] border-black rounded-xl px-2.5 py-1 shadow-[3px_3px_0px_#000] flex items-center gap-1 font-black text-xs text-black">
-                            <span class="text-sm">↗</span>
-                            <span>+3.2%</span>
+                        <!-- Dynamic Pill Badge -->
+                        <div class="border-[2.5px] border-black rounded-xl px-2.5 py-1 shadow-[3px_3px_0px_#000] flex items-center gap-1 font-black text-xs {{ $bookGrowth['color'] ?? 'bg-white text-black' }}" title="Pertumbuhan buku baru bulan ini dibanding bulan lalu">
+                            <span class="text-sm font-black">
+                                @if(($bookGrowth['direction'] ?? '') === 'up') ↗
+                                @elseif(($bookGrowth['direction'] ?? '') === 'down') ↘
+                                @else •
+                                @endif
+                            </span>
+                            <span>{{ $bookGrowth['text'] ?? '0.0%' }}</span>
                         </div>
                     </div>
                 </div>
@@ -410,10 +415,15 @@
                         <span class="text-5xl font-black text-black tracking-tight leading-none">
                             {{ number_format($activeUsers) }}
                         </span>
-                        <!-- Pill Badge -->
-                        <div class="bg-white border-[2.5px] border-black rounded-xl px-2.5 py-1 shadow-[3px_3px_0px_#000] flex items-center gap-1 font-black text-xs text-black">
-                            <span class="text-sm">↗</span>
-                            <span>+5.8%</span>
+                        <!-- Dynamic Pill Badge -->
+                        <div class="border-[2.5px] border-black rounded-xl px-2.5 py-1 shadow-[3px_3px_0px_#000] flex items-center gap-1 font-black text-xs {{ $userGrowth['color'] ?? 'bg-white text-black' }}" title="Pertumbuhan anggota baru bulan ini dibanding bulan lalu">
+                            <span class="text-sm font-black">
+                                @if(($userGrowth['direction'] ?? '') === 'up') ↗
+                                @elseif(($userGrowth['direction'] ?? '') === 'down') ↘
+                                @else •
+                                @endif
+                            </span>
+                            <span>{{ $userGrowth['text'] ?? '0.0%' }}</span>
                         </div>
                     </div>
                 </div>
@@ -514,15 +524,25 @@
 
                 <!-- Label & Value -->
                 <div class="relative z-10">
-                    <p class="font-black text-black uppercase tracking-wider text-sm mb-1">PEMINJAMAN</p>
+                    <div class="flex items-center justify-between mb-1">
+                        <p class="font-black text-black uppercase tracking-wider text-sm">PEMINJAMAN</p>
+                        <span class="text-[10px] font-black uppercase bg-black text-white px-2 py-0.5 rounded-md tracking-wider">
+                            {{ $currentMonthName ?? 'BULAN INI' }}
+                        </span>
+                    </div>
                     <div class="flex items-center gap-3">
                         <span class="text-5xl font-black text-black tracking-tight leading-none">
                             {{ number_format($monthlyBorrows) }}
                         </span>
-                        <!-- Pill Badge -->
-                        <div class="bg-white border-[2.5px] border-black rounded-xl px-2.5 py-1 shadow-[3px_3px_0px_#000] flex items-center gap-1 font-black text-xs text-black">
-                            <span class="text-sm">↗</span>
-                            <span>+12%</span>
+                        <!-- Dynamic Pill Badge -->
+                        <div class="border-[2.5px] border-black rounded-xl px-2.5 py-1 shadow-[3px_3px_0px_#000] flex items-center gap-1 font-black text-xs {{ $borrowGrowth['color'] ?? 'bg-white text-black' }}" title="Pertumbuhan peminjaman bulan ini dibanding bulan lalu">
+                            <span class="text-sm font-black">
+                                @if(($borrowGrowth['direction'] ?? '') === 'up') ↗
+                                @elseif(($borrowGrowth['direction'] ?? '') === 'down') ↘
+                                @else •
+                                @endif
+                            </span>
+                            <span>{{ $borrowGrowth['text'] ?? '0.0%' }}</span>
                         </div>
                     </div>
                 </div>

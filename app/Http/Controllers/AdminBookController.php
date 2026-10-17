@@ -24,12 +24,63 @@ class AdminBookController extends Controller
         }
 
         $books = $booksQuery->get();
-        $totalBooks = Book::count();
-        $activeUsers = User::count();
-        $pendingApprovals = \App\Models\Borrowing::where('status', 'pending')->count();
-        $monthlyBorrows = 0; // Mock or calculate
+        $now = now();
+        $startThisMonth = $now->copy()->startOfMonth();
+        $startLastMonth = $now->copy()->subMonth()->startOfMonth();
+        $endLastMonth = $now->copy()->subMonth()->endOfMonth();
 
-        return view('admin_dashboard', compact('books', 'totalBooks', 'activeUsers', 'pendingApprovals', 'monthlyBorrows', 'search'));
+        // 1. Total Buku & Tren Pertumbuhan (Buku baru ditambah bulan ini vs bulan lalu)
+        $totalBooks = Book::count();
+        $booksThisMonth = Book::where('created_at', '>=', $startThisMonth)->count();
+        $booksLastMonth = Book::whereBetween('created_at', [$startLastMonth, $endLastMonth])->count();
+        $bookGrowth = $this->calculateGrowthRate($booksThisMonth, $booksLastMonth, $totalBooks);
+
+        // 2. Akun Aktif & Tren Pertumbuhan (User baru terdaftar bulan ini vs bulan lalu)
+        $activeUsers = User::count();
+        $usersThisMonth = User::where('created_at', '>=', $startThisMonth)->count();
+        $usersLastMonth = User::whereBetween('created_at', [$startLastMonth, $endLastMonth])->count();
+        $userGrowth = $this->calculateGrowthRate($usersThisMonth, $usersLastMonth, $activeUsers);
+
+        // 3. Persetujuan Tertunda
+        $pendingApprovals = \App\Models\Borrowing::where('status', 'pending')->count();
+
+        // 4. Peminjaman Bulanan & Tren Pertumbuhan
+        $monthlyBorrows = \App\Models\Borrowing::whereMonth('borrowed_at', $now->month)
+            ->whereYear('borrowed_at', $now->year)
+            ->count();
+        $lastMonthBorrows = \App\Models\Borrowing::whereMonth('borrowed_at', $startLastMonth->month)
+            ->whereYear('borrowed_at', $startLastMonth->year)
+            ->count();
+        $borrowGrowth = $this->calculateGrowthRate($monthlyBorrows, $lastMonthBorrows, $monthlyBorrows);
+
+        $currentMonthName = $now->translatedFormat('F');
+
+        return view('admin_dashboard', compact(
+            'books', 'totalBooks', 'bookGrowth',
+            'activeUsers', 'userGrowth',
+            'pendingApprovals',
+            'monthlyBorrows', 'borrowGrowth', 'currentMonthName',
+            'search'
+        ));
+    }
+
+    private function calculateGrowthRate($current, $previous, $total = 0)
+    {
+        if ($previous > 0) {
+            $diff = (($current - $previous) / $previous) * 100;
+        } else {
+            // Jika bulan lalu 0 tapi bulan ini ada data baru
+            $diff = $current > 0 ? ($current / max($total, 1)) * 100 : 0;
+        }
+
+        $formatted = number_format(abs($diff), 1);
+        if ($diff > 0) {
+            return ['direction' => 'up', 'text' => "+{$formatted}%", 'color' => 'text-emerald-700 bg-emerald-100'];
+        } elseif ($diff < 0) {
+            return ['direction' => 'down', 'text' => "-{$formatted}%", 'color' => 'text-rose-700 bg-rose-100'];
+        } else {
+            return ['direction' => 'same', 'text' => "0.0%", 'color' => 'text-slate-700 bg-slate-100'];
+        }
     }
 
     public function search(Request $request)
