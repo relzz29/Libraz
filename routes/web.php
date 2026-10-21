@@ -35,17 +35,26 @@ Route::get('/statistik', function () {
     return view('statistik', compact('kunjunganHariIni', 'bukuTerpinjam', 'terlambatKembali', 'stokKoleksiSiap', 'bukuTerpopuler'));
 })->name('statistik');
 
-Route::get('/akun', function () {
-    $user = auth()->user() ?? \App\Models\User::first();
+Route::get('/akun', function (\Illuminate\Http\Request $request) {
+    $tokenUser = null;
+    $bearer = $request->bearerToken();
+    if ($bearer) {
+        $pat = \Laravel\Sanctum\PersonalAccessToken::findToken($bearer);
+        if ($pat) $tokenUser = $pat->tokenable;
+    }
+    
+    $user = $tokenUser ?? auth()->user();
+    
+    // Jika session sedang login sebagai admin perpustakaan, arahkan halaman akun siswa ke data siswa aktif
+    if (!$user || session('is_admin') || in_array(strtolower($user->role ?? ''), ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas'])) {
+        $studentUser = \App\Models\User::whereNotIn('role', ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas'])->latest('updated_at')->first();
+        if ($studentUser) {
+            $user = $studentUser;
+        }
+    }
+
     if (!$user) {
-        $user = \App\Models\User::create([
-            'name' => 'Nama Siswa',
-            'email' => 'siswa@example.com',
-            'password' => bcrypt('password'),
-            'xp' => 120, // initial xp for demo
-            'level' => 2,
-            'read_count' => 1,
-        ]);
+        $user = \App\Models\User::first();
     }
     
     // Fetch real borrowing history
@@ -239,7 +248,12 @@ Route::get('/sirkulasi-sukses', function (\Illuminate\Http\Request $request) {
 })->name('sirkulasi.sukses');
 
 Route::get('/akun-pengaturan', function () {
-    $user = auth()->user() ?? \App\Models\User::first();
+    $user = auth()->user();
+    if (!$user || session('is_admin') || in_array(strtolower($user->role ?? ''), ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas'])) {
+        $studentUser = \App\Models\User::whereNotIn('role', ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas'])->latest('updated_at')->first();
+        if ($studentUser) $user = $studentUser;
+    }
+    $user = $user ?? \App\Models\User::first();
     return view('akun_pengaturan', compact('user'));
 })->name('akun.pengaturan');
 
@@ -363,7 +377,12 @@ use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\AdminAuthController;
 
 Route::get('/edit-profil', function () {
-    $user = auth()->user() ?? \App\Models\User::first();
+    $user = auth()->user();
+    if (!$user || session('is_admin') || in_array(strtolower($user->role ?? ''), ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas'])) {
+        $studentUser = \App\Models\User::whereNotIn('role', ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas'])->latest('updated_at')->first();
+        if ($studentUser) $user = $studentUser;
+    }
+    $user = $user ?? \App\Models\User::first();
     return view('edit_profil', compact('user'));
 })->name('edit.profil');
 

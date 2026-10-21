@@ -334,7 +334,7 @@ html.dark {
               <span class="material-symbols-outlined text-[26px]">auto_stories</span>
             </div>
             <div>
-              <div class="font-black text-3xl text-on-surface group-hover:text-primary transition-colors">{{ $user->read_count }}</div>
+              <div id="profile-read-count" class="font-black text-3xl text-on-surface group-hover:text-primary transition-colors">{{ $user->read_count }}</div>
               <div class="text-[11px] text-on-surface-variant font-black uppercase tracking-widest mt-1">Buku Selesai</div>
             </div>
           </div>
@@ -343,7 +343,7 @@ html.dark {
               <span class="material-symbols-outlined text-[26px]">schedule</span>
             </div>
             <div>
-              <div class="font-black text-3xl text-on-surface group-hover:text-secondary transition-colors">{{ $user->reading_hours }}<span class="text-xl text-on-surface-variant">j</span></div>
+              <div id="profile-reading-hours" class="font-black text-3xl text-on-surface group-hover:text-secondary transition-colors">{{ $user->reading_hours }}<span class="text-xl text-on-surface-variant">j</span></div>
               <div class="text-[11px] text-on-surface-variant font-black uppercase tracking-widest mt-1">Total Baca</div>
             </div>
           </div>
@@ -352,7 +352,7 @@ html.dark {
               <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' {{ $user->reviews_count > 0 ? '1' : '0' }};">star</span>
             </div>
             <div>
-              <div class="font-black text-3xl text-on-surface group-hover:text-amber-500 transition-colors">{{ $user->reviews_count }}</div>
+              <div id="profile-reviews-count" class="font-black text-3xl text-on-surface group-hover:text-amber-500 transition-colors">{{ $user->reviews_count }}</div>
               <div class="text-[11px] text-on-surface-variant font-black uppercase tracking-widest mt-1">Rating Ulasan</div>
             </div>
           </div>
@@ -361,7 +361,7 @@ html.dark {
               <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' {{ $user->favorites_count > 0 ? '1' : '0' }};">favorite</span>
             </div>
             <div>
-              <div class="font-black text-3xl text-on-surface group-hover:text-error transition-colors">{{ $user->favorites_count }}</div>
+              <div id="profile-favorites-count" class="font-black text-3xl text-on-surface group-hover:text-error transition-colors">{{ $user->favorites_count }}</div>
               <div class="text-[11px] text-on-surface-variant font-black uppercase tracking-widest mt-1">Favorit</div>
             </div>
           </div>
@@ -498,22 +498,22 @@ html.dark {
       <div class="lg:col-span-4 flex flex-col gap-8">
         
         <!-- DAILY STREAK WIDGET (Sleek Redesigned) -->
-        <div class="flex flex-col p-8 rounded-[2rem] {{ $isStreakActive ? 'bg-gradient-to-br from-[#ec4899] to-[#8b5cf6] shadow-[0_10px_30px_rgba(236,72,153,0.3)] border border-[#f472b6]' : 'bg-white/60 dark:bg-black/40 border border-white/50 dark:border-white/10' }} gap-5 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
-          @if($isStreakActive)
+        <div id="streak-widget-container" class="flex flex-col p-8 rounded-[2rem] {{ $isStreakActive ? 'bg-gradient-to-br from-[#ec4899] to-[#8b5cf6] shadow-[0_10px_30px_rgba(236,72,153,0.3)] border border-[#f472b6]' : 'bg-white/60 dark:bg-black/40 border border-white/50 dark:border-white/10' }} gap-5 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
+          <div id="streak-glows" class="{{ $isStreakActive ? '' : 'hidden' }}">
             <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 rounded-full blur-[40px] pointer-events-none"></div>
             <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full blur-[30px] pointer-events-none"></div>
-          @endif
+          </div>
           
           <div class="flex items-center gap-5 z-10">
-            <div class="w-16 h-16 rounded-[1.25rem] flex items-center justify-center {{ $isStreakActive ? 'bg-white text-[#ec4899] shadow-inner shadow-[#ec4899]/20' : 'bg-surface-container-highest text-outline grayscale' }}">
+            <div id="streak-icon-box" class="w-16 h-16 rounded-[1.25rem] flex items-center justify-center {{ $isStreakActive ? 'bg-white text-[#ec4899] shadow-inner shadow-[#ec4899]/20' : 'bg-surface-container-highest text-outline grayscale' }}">
               <span class="material-symbols-outlined text-4xl drop-shadow-sm">local_fire_department</span>
             </div>
             <div class="flex flex-col">
-              <span class="text-3xl font-black {{ $isStreakActive ? 'text-white drop-shadow-sm' : 'text-on-surface' }}">{{ $displayStreak }} Hari</span>
-              <span class="text-[11px] uppercase tracking-widest font-black {{ $isStreakActive ? 'text-white/90' : 'text-on-surface-variant' }} mt-1">{{ $isStreakActive ? 'Runtunan Menyala!' : 'Mulai Runtunanmu' }}</span>
+              <span id="streak-days-count" class="text-3xl font-black {{ $isStreakActive ? 'text-white drop-shadow-sm' : 'text-on-surface' }}">{{ $displayStreak }} Hari</span>
+              <span id="streak-subtext" class="text-[11px] uppercase tracking-widest font-black {{ $isStreakActive ? 'text-white/90' : 'text-on-surface-variant' }} mt-1">{{ $isStreakActive ? 'Runtunan Menyala!' : 'Mulai Runtunanmu' }}</span>
             </div>
           </div>
-          <div class="flex items-center justify-between mt-3 px-1 z-10 bg-black/10 p-3 rounded-2xl backdrop-blur-sm">
+          <div id="streak-days-list" class="flex items-center justify-between mt-3 px-1 z-10 bg-black/10 p-3 rounded-2xl backdrop-blur-sm">
             @foreach(['S','S','R','K','J','S','M'] as $index => $day)
             <div class="flex flex-col items-center gap-1.5">
               <span class="w-9 h-9 rounded-xl {{ ($isStreakActive && $index < min(7, $displayStreak)) ? 'bg-white text-[#ec4899] shadow-md shadow-black/10' : ($isStreakActive ? 'bg-white/20 text-white' : 'bg-surface-container-highest text-on-surface-variant') }} flex items-center justify-center text-sm font-black transition-all hover:-translate-y-1">{{ $day }}</span>
@@ -815,6 +815,69 @@ html.dark {
           if (elTopPercent) {
             let percent = Math.max(1, 100 - (userLevel * 2)); // Rumus kasar
             elTopPercent.textContent = `Top ${percent}%`;
+          }
+        }
+
+        // --- Update Bento Stats ---
+        const elReadCount = document.getElementById('profile-read-count');
+        const elReadingHours = document.getElementById('profile-reading-hours');
+        const elReviewsCount = document.getElementById('profile-reviews-count');
+        const elFavoritesCount = document.getElementById('profile-favorites-count');
+
+        if (elReadCount && user.read_count !== undefined) elReadCount.textContent = user.read_count;
+        if (elReadingHours && user.reading_hours !== undefined) elReadingHours.innerHTML = `${user.reading_hours}<span class="text-xl text-on-surface-variant">j</span>`;
+        if (elReviewsCount && user.reviews_count !== undefined) elReviewsCount.textContent = user.reviews_count;
+        if (elFavoritesCount && user.favorites_count !== undefined) elFavoritesCount.textContent = user.favorites_count;
+
+        // --- Update Daily Streak Widget ---
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const yesterdayObj = new Date(Date.now() - 86400000);
+        const yesterdayStr = yesterdayObj.toISOString().slice(0, 10);
+        
+        const streakCount = user.current_streak || 0;
+        const lastRead = user.last_read_date ? user.last_read_date.slice(0, 10) : null;
+        const isStreakActive = streakCount > 0 && (lastRead === todayStr || lastRead === yesterdayStr);
+        const displayStreak = isStreakActive ? streakCount : 0;
+
+        const container = document.getElementById('streak-widget-container');
+        const glows = document.getElementById('streak-glows');
+        const iconBox = document.getElementById('streak-icon-box');
+        const countText = document.getElementById('streak-days-count');
+        const subText = document.getElementById('streak-subtext');
+        const daysList = document.getElementById('streak-days-list');
+
+        if (container) {
+          if (isStreakActive) {
+            container.className = "flex flex-col p-8 rounded-[2rem] bg-gradient-to-br from-[#ec4899] to-[#8b5cf6] shadow-[0_10px_30px_rgba(236,72,153,0.3)] border border-[#f472b6] gap-5 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500";
+            if (glows) glows.classList.remove('hidden');
+            if (iconBox) iconBox.className = "w-16 h-16 rounded-[1.25rem] flex items-center justify-center bg-white text-[#ec4899] shadow-inner shadow-[#ec4899]/20";
+            if (countText) countText.className = "text-3xl font-black text-white drop-shadow-sm";
+            if (subText) {
+              subText.className = "text-[11px] uppercase tracking-widest font-black text-white/90 mt-1";
+              subText.textContent = "Runtunan Menyala!";
+            }
+          } else {
+            container.className = "flex flex-col p-8 rounded-[2rem] bg-white/60 dark:bg-black/40 border border-white/50 dark:border-white/10 gap-5 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500";
+            if (glows) glows.classList.add('hidden');
+            if (iconBox) iconBox.className = "w-16 h-16 rounded-[1.25rem] flex items-center justify-center bg-surface-container-highest text-outline grayscale";
+            if (countText) countText.className = "text-3xl font-black text-on-surface";
+            if (subText) {
+              subText.className = "text-[11px] uppercase tracking-widest font-black text-on-surface-variant mt-1";
+              subText.textContent = "Mulai Runtunanmu";
+            }
+          }
+
+          if (countText) countText.textContent = `${displayStreak} Hari`;
+
+          if (daysList) {
+            const days = ['S','S','R','K','J','S','M'];
+            daysList.innerHTML = days.map((day, idx) => {
+              const active = isStreakActive && idx < Math.min(7, displayStreak);
+              const pillClass = active 
+                ? 'bg-white text-[#ec4899] shadow-md shadow-black/10' 
+                : (isStreakActive ? 'bg-white/20 text-white' : 'bg-surface-container-highest text-on-surface-variant');
+              return `<div class="flex flex-col items-center gap-1.5"><span class="w-9 h-9 rounded-xl ${pillClass} flex items-center justify-center text-sm font-black transition-all hover:-translate-y-1">${day}</span></div>`;
+            }).join('');
           }
         }
       } else {
