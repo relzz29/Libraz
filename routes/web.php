@@ -247,80 +247,113 @@ Route::get('/bantuan', function () {
     return view('bantuan');
 })->name('bantuan');
 
-Route::get('/selesai-baca/{borrow_id}', function ($borrow_id) {
-    $user = auth()->user();
-    if (!$user) return response()->json(['success' => false]);
-
-    // Cari data peminjaman
-    $borrow = \App\Models\Borrowing::where('id', $borrow_id)
-                ->where('user_id', $user->id)
-                ->whereNull('returned_at')
-                ->first();
-
-    if ($borrow) {
-        // Tandai buku sebagai dikembalikan
-        $borrow->update(['returned_at' => now()]);
-        
-        // Kembalikan stok buku
-        \App\Models\Book::where('id', $borrow->book_id)->increment('stock');
-
-        // ==== LOGIKA GAMIFIKASI (TAMBAH XP) ====
-        $xp_tambahan = 50; 
-        $user->increment('xp', $xp_tambahan);
-        $user->increment('read_count', 1);
-
-        // Cek apakah level naik
-        $batas_xp = $user->level * 100;
-        if ($user->xp >= $batas_xp) {
-            $user->increment('level', 1);
-            $user->decrement('xp', $batas_xp);
+Route::get('/selesai-baca/{borrow_id}', function (\Illuminate\Http\Request $request, $borrow_id) {
+    $bearerToken = $request->bearerToken();
+    $tokenUser = null;
+    if ($bearerToken) {
+        $tokenModel = \Laravel\Sanctum\PersonalAccessToken::findToken($bearerToken);
+        if ($tokenModel) {
+            $tokenUser = $tokenModel->tokenable;
         }
-
-        // ==== LOGIKA STREAK ====
-        $today = now()->format('Y-m-d');
-        if ($user->last_read_date !== $today) {
-            if ($user->last_read_date === now()->subDay()->format('Y-m-d')) {
-                $user->current_streak += 1;
-            } else {
-                $user->current_streak = 1;
-            }
-            
-            if ($user->current_streak > $user->highest_streak) {
-                $user->highest_streak = $user->current_streak;
-            }
-            
-            $user->last_read_date = $today;
-            $user->save();
-        }
-        
-        return response()->json(['success' => true, 'message' => 'Buku selesai dibaca, kamu dapat '.$xp_tambahan.' XP!']);
     }
 
-    return response()->json(['success' => false, 'message' => 'Data tidak ditemukan']);
+    $user = $tokenUser ?? auth('sanctum')->user() ?? auth()->user();
+
+    if (!$user) {
+        return response()->json(['success' => false, 'message' => 'Silakan login terlebih dahulu.']);
+    }
+
+    $borrow = \App\Models\Borrowing::where('id', $borrow_id)->whereNull('returned_at')->first();
+
+    if (!$borrow) {
+        return response()->json(['success' => false, 'message' => 'Data peminjaman tidak ditemukan atau buku sudah dikembalikan.']);
+    }
+
+    $isAdmin = session('is_admin') || in_array(strtolower($user->role ?? ''), ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas']);
+
+    if (!$isAdmin && $borrow->user_id != $user->id) {
+        return response()->json(['success' => false, 'message' => 'Anda tidak memiliki hak untuk mengembalikan buku ini.']);
+    }
+
+    // Tandai buku sebagai dikembalikan
+    $borrow->update([
+        'returned_at' => now(),
+        'status' => 'returned'
+    ]);
+    
+    // Kembalikan stok buku
+    \App\Models\Book::where('id', $borrow->book_id)->increment('stock');
+
+    // ==== LOGIKA GAMIFIKASI (TAMBAH XP) ====
+    $borrower = $borrow->user ?? $user;
+    $xp_tambahan = 50; 
+    $borrower->increment('xp', $xp_tambahan);
+    $borrower->increment('read_count', 1);
+
+    // Cek apakah level naik
+    $batas_xp = $borrower->level * 100;
+    if ($borrower->xp >= $batas_xp) {
+        $borrower->increment('level', 1);
+        $borrower->decrement('xp', $batas_xp);
+    }
+
+    // ==== LOGIKA STREAK ====
+    $today = now()->format('Y-m-d');
+    if ($borrower->last_read_date !== $today) {
+        if ($borrower->last_read_date === now()->subDay()->format('Y-m-d')) {
+            $borrower->current_streak += 1;
+        } else {
+            $borrower->current_streak = 1;
+        }
+        
+        if ($borrower->current_streak > $borrower->highest_streak) {
+            $borrower->highest_streak = $borrower->current_streak;
+        }
+        
+        $borrower->last_read_date = $today;
+        $borrower->save();
+    }
+    
+    return response()->json(['success' => true, 'message' => 'Buku selesai dibaca, kamu dapat '.$xp_tambahan.' XP!']);
 });
 
-Route::get('/perpanjang/{borrow_id}', function ($borrow_id) {
-    $user = auth()->user();
-    if (!$user) return response()->json(['success' => false]);
-
-    $borrow = \App\Models\Borrowing::where('id', $borrow_id)
-                ->where('user_id', $user->id)
-                ->whereNull('returned_at')
-                ->first();
-
-    if ($borrow) {
-        if ($borrow->renew_count >= 1) {
-            return response()->json(['success' => false, 'message' => 'Buku ini sudah pernah diperpanjang sebelumnya.']);
+Route::get('/perpanjang/{borrow_id}', function (\Illuminate\Http\Request $request, $borrow_id) {
+    $bearerToken = $request->bearerToken();
+    $tokenUser = null;
+    if ($bearerToken) {
+        $tokenModel = \Laravel\Sanctum\PersonalAccessToken::findToken($bearerToken);
+        if ($tokenModel) {
+            $tokenUser = $tokenModel->tokenable;
         }
-        
-        $borrow->due_date = \Carbon\Carbon::parse($borrow->due_date)->addDays(7);
-        $borrow->increment('renew_count', 1);
-        $borrow->save();
-
-        return response()->json(['success' => true, 'message' => 'Waktu peminjaman berhasil diperpanjang 7 hari!']);
     }
 
-    return response()->json(['success' => false, 'message' => 'Data tidak ditemukan']);
+    $user = $tokenUser ?? auth('sanctum')->user() ?? auth()->user();
+
+    if (!$user) {
+        return response()->json(['success' => false, 'message' => 'Silakan login terlebih dahulu.']);
+    }
+
+    $borrow = \App\Models\Borrowing::where('id', $borrow_id)->whereNull('returned_at')->first();
+
+    if (!$borrow) {
+        return response()->json(['success' => false, 'message' => 'Data peminjaman tidak ditemukan atau buku sudah dikembalikan.']);
+    }
+
+    $isAdmin = session('is_admin') || in_array(strtolower($user->role ?? ''), ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas']);
+
+    if (!$isAdmin && $borrow->user_id != $user->id) {
+        return response()->json(['success' => false, 'message' => 'Anda tidak memiliki hak untuk memperpanjang buku ini.']);
+    }
+
+    if ($borrow->renew_count >= 1) {
+        return response()->json(['success' => false, 'message' => 'Buku ini sudah pernah diperpanjang sebelumnya.']);
+    }
+    
+    $borrow->due_date = \Carbon\Carbon::parse($borrow->due_date)->addDays(7);
+    $borrow->increment('renew_count', 1);
+    $borrow->save();
+
+    return response()->json(['success' => true, 'message' => 'Waktu peminjaman berhasil diperpanjang 7 hari!']);
 });
 
 require __DIR__.'/auth.php';
