@@ -9,7 +9,7 @@ Dokumen ini berfungsi sebagai panduan standar untuk Quality Assurance (QA) dan p
 Gunakan format di bawah ini saat menemukan bug agar pengembang (developer) dapat dengan mudah mereproduksi dan memperbaiki masalah tersebut.
 
 **[ID BUG] - [Judul Singkat Bug]**
-*Contoh: BUG-001 - Tombol Simpan di Pengaturan Akun Tidak Berfungsi*
+_Contoh: BUG-001 - Tombol Simpan di Pengaturan Akun Tidak Berfungsi_
 
 - **Status:** [Open / In Progress / Resolved / Closed]
 - **Dilaporkan Oleh:** [Nama QA]
@@ -18,10 +18,10 @@ Gunakan format di bawah ini saat menemukan bug agar pengembang (developer) dapat
 - **Lingkungan (Environment):** [Local / Staging / Production - Browser/OS]
 - **URL / Halaman:** [Misal: `/akun/pengaturan`]
 - **Langkah untuk Mereproduksi (Steps to Reproduce):**
-  1. Buka halaman ...
-  2. Klik tombol ...
-  3. Masukkan data ...
-  4. ...
+    1. Buka halaman ...
+    2. Klik tombol ...
+    3. Masukkan data ...
+    4. ...
 - **Ekspektasi (Expected Result):** Data berhasil disimpan dan muncul notifikasi sukses.
 - **Hasil Aktual (Actual Result):** Halaman memuat ulang tapi data tidak berubah dan tidak ada pesan error.
 - **Lampiran:** [Link ke Screenshot / Video Screen Record jika ada]
@@ -33,19 +33,24 @@ Gunakan format di bawah ini saat menemukan bug agar pengembang (developer) dapat
 Setiap kali ada fitur baru atau perbaikan yang diunggah (deploy) atau diselesaikan, catat di bagian ini. Format ini mengikuti standar [Keep a Changelog](https://keepachangelog.com/).
 
 ### [Versi / Tanggal Rilis] - YYYY-MM-DD
+
 **[Added] (Fitur Baru)**
+
 - Penambahan fitur X pada halaman Y.
 - Modul laporan baru untuk Z.
 
 **[Changed] (Perubahan pada fitur yang sudah ada)**
+
 - Perubahan alur pada proses peminjaman buku.
 - Optimasi query database untuk pencarian.
 
 **[Fixed] (Perbaikan Bug)**
+
 - Memperbaiki masalah [BUG-001] tombol simpan tidak berfungsi.
 - Memperbaiki tampilan responsive di layar mobile.
 
 **[Removed] (Penghapusan fitur/kode yang tidak dipakai)**
+
 - Menghapus view `temp_akun_pengaturan_old.blade.php` yang sudah usang.
 
 ---
@@ -55,66 +60,79 @@ Setiap kali ada fitur baru atau perbaikan yang diunggah (deploy) atau diselesaik
 Sebelum merilis update baru, QA harus memastikan poin-poin berikut telah terpenuhi:
 
 ### Fungsionalitas
-- [ ] Fitur utama berjalan sesuai *Requirement*.
+
+- [ ] Fitur utama berjalan sesuai _Requirement_.
 - [ ] Validasi form (input kosong, email tidak valid, dsb) berfungsi dengan baik.
 - [ ] Fungsi CRUD (Create, Read, Update, Delete) berjalan tanpa error database.
 - [ ] Hak akses (Role/Permission) user sesuai (Admin vs User biasa).
 
 ### Tampilan & Pengalaman Pengguna (UI/UX)
+
 - [ ] Tampilan responsif di berbagai perangkat (Desktop, Tablet, Mobile).
-- [ ] Tidak ada teks yang terpotong atau desain yang berantakan (*broken layout*).
+- [ ] Tidak ada teks yang terpotong atau desain yang berantakan (_broken layout_).
 - [ ] Pesan error dan sukses (Flash messages) muncul dengan jelas.
 
 ### Performa & Keamanan
-- [ ] Waktu muat halaman (*page load*) wajar dan tidak terlalu lama.
+
+- [ ] Waktu muat halaman (_page load_) wajar dan tidak terlalu lama.
 - [ ] Tidak ada error 500 atau pesan debug Laravel yang muncul di mode Production.
 - [ ] Form terlindungi dari serangan CSRF.
 
 ---
 
 ## 🛠 4. Daftar Bug Aktif (Active Bug Log)
-*(Silakan tambahkan bug yang sedang berlangsung di bawah ini)*
 
-| ID Bug | Deskripsi Singkat | Prioritas | Status | Assignee |
-| :--- | :--- | :--- | :--- | :--- |
-| BUG-001 | *Contoh: Error 500 saat export PDF* | High | Open | - |
-| | | | | |
+_(Silakan tambahkan bug yang sedang berlangsung di bawah ini)_
+
+| ID Bug  | Deskripsi Singkat                   | Prioritas | Status | Assignee |
+| :------ | :---------------------------------- | :-------- | :----- | :------- |
+| BUG-001 | _Contoh: Error 500 saat export PDF_ | High      | Open   | -        |
+|         |                                     |           |        |          |
 
 ---
 
 ## 📝 5. Riwayat Pembaruan (Update Log)
-*(Silakan catat riwayat rilis / update di bawah ini)*
 
-### [v1.1.1] - *2026-10-04*
+_(Silakan catat riwayat rilis / update di bawah ini)_
+
+### [v1.1.1] - _2026-10-04_
+
 **[Changed] (Perubahan pada fitur yang sudah ada)**
-- Melakukan migrasi database penuh dari lokal (Laragon) ke cloud menggunakan **PostgreSQL di Supabase**.
-- Memperbarui konfigurasi `.env` untuk menggunakan *Connection Pooler* (port 5432) milik Supabase guna menghindari masalah kompabilitas IPv4/IPv6 dari sisi provider internet (ISP) lokal saat proses eksekusi migration.
 
-### [v1.1.0] - *2026-10-03*
+- Melakukan migrasi database penuh dari lokal (Laragon) ke cloud menggunakan **PostgreSQL di Supabase**.
+- Memperbarui konfigurasi `.env` untuk menggunakan _Connection Pooler_ (port 5432) milik Supabase guna menghindari masalah kompabilitas IPv4/IPv6 dari sisi provider internet (ISP) lokal saat proses eksekusi migration.
+
+### [v1.1.0] - _2026-10-03_
+
 **[Added] (Fitur Baru)**
+
 - Integrasi CRUD Buku (Admin): Endpoint Store, Update, Destroy di `AdminBookController.php`.
 - Fitur Upload file (Cover Image & PDF E-Book) yang akan disimpan otomatis ke `storage/app/public`.
 - Fitur auto-delete file `storage`: Ketika buku dihapus (destroy) atau diperbarui (update), file lama di dalam `storage` akan ikut dihapus secara otomatis.
-- Form Tambah Buku diubah desainnya menjadi **Modal Popup Mengambang** dengan efek *backdrop-blur*.
+- Form Tambah Buku diubah desainnya menjadi **Modal Popup Mengambang** dengan efek _backdrop-blur_.
 - Data Seeder `RealBooksSeeder.php` ditambahkan untuk mem-populate database dengan buku dan file asli (asset) bawaan.
 - **[Gamifikasi]** Menambahkan kolom XP, Level, Streak, dan statistik riwayat membaca ke tabel `users` (via Migration).
-- **[Gamifikasi]** Halaman `/akun` sekarang menampilkan Peringkat Literasi, Status Streak Harian, Total XP, Jumlah Buku Selesai, Koleksi Favorit, Rating Ulasan dan Jam Membaca menggunakan data *real* (dinamis) berdasarkan aktivitas *user*.
-- **[Fitur Membaca]** Route baru `/baca-ebook/{id}` yang secara otomatis mendeteksi ketika pengguna membaca E-Book, menambahkan poin XP (15 XP), menjaga Streak Harian, menambah Jam Membaca, lalu mengarahkan ulang (*redirect*) ke file PDF.
-- **[Riwayat Sirkulasi]** Fitur membaca E-Book via `/baca-ebook/{id}` sekarang secara otomatis membuat catatan sirkulasi (*Borrowing Record*) untuk E-Book tersebut.
-- **[Riwayat Sirkulasi]** Halaman `/akun` sekarang memuat daftar Riwayat Sirkulasi (History membaca) yang sepenuhnya mengambil data asli (dinamis) dari database (menggantikan HTML *dummy*). 
+- **[Gamifikasi]** Halaman `/akun` sekarang menampilkan Peringkat Literasi, Status Streak Harian, Total XP, Jumlah Buku Selesai, Koleksi Favorit, Rating Ulasan dan Jam Membaca menggunakan data _real_ (dinamis) berdasarkan aktivitas _user_.
+- **[Fitur Membaca]** Route baru `/baca-ebook/{id}` yang secara otomatis mendeteksi ketika pengguna membaca E-Book, menambahkan poin XP (15 XP), menjaga Streak Harian, menambah Jam Membaca, lalu mengarahkan ulang (_redirect_) ke file PDF.
+- **[Riwayat Sirkulasi]** Fitur membaca E-Book via `/baca-ebook/{id}` sekarang secara otomatis membuat catatan sirkulasi (_Borrowing Record_) untuk E-Book tersebut.
+- **[Riwayat Sirkulasi]** Halaman `/akun` sekarang memuat daftar Riwayat Sirkulasi (History membaca) yang sepenuhnya mengambil data asli (dinamis) dari database (menggantikan HTML _dummy_).
 
 **[Changed] (Perubahan pada fitur yang sudah ada)**
+
 - Halaman `admin_tambah_buku.blade.php` sekarang menampilkan tabel daftar buku real dari database.
 - Shortcut form tambah buku di `admin_dashboard.blade.php` telah dihapus agar UI lebih bersih (terpusat di halaman Tambah Buku).
 - Sistem inisialisasi user di `DatabaseSeeder.php` disesuaikan agar user baru selalu memulai dari Level 1 dengan 0 XP.
 
 **[Fixed] (Perbaikan Bug)**
-- **BUG JS Redirect:** Menghapus paksaan pindah halaman ke `/login` (redirect dari `localStorage` Auth) yang tertanam di halaman `akun.blade.php`, `katalog.blade.php`, dan `edit_profil.blade.php` untuk menghindari *infinite loop* saat pengembangan lokal.
 
-### [v1.0.1] - *Draft*
+- **BUG JS Redirect:** Menghapus paksaan pindah halaman ke `/login` (redirect dari `localStorage` Auth) yang tertanam di halaman `akun.blade.php`, `katalog.blade.php`, dan `edit_profil.blade.php` untuk menghindari _infinite loop_ saat pengembangan lokal.
+
+### [v1.0.1] - _Draft_
+
 - **Fixed:** Penyesuaian layout di pengaturan akun.
 
-### [v1.0.0] - *Initial Release*
+### [v1.0.0] - _Initial Release_
+
 - Setup awal proyek Laravel (Libraz).
 - Konfigurasi database perpustakaan.
 
@@ -122,57 +140,57 @@ Sebelum merilis update baru, QA harus memastikan poin-poin berikut telah terpenu
 
 ## 📁 6. Dokumentasi File View (Blade)
 
-Berikut adalah daftar file antarmuka (`resources/views/*.blade.php`) beserta penjelasan fitur, alur kerja (*workflow*), dan status datanya saat ini.
+Berikut adalah daftar file antarmuka (`resources/views/*.blade.php`) beserta penjelasan fitur, alur kerja (_workflow_), dan status datanya saat ini.
 
 **Status Keseluruhan Sistem Saat Ini:** 🟡 **Sebagian Besar DUMMY / Mockup**  
-*(Mayoritas file view masih berisi HTML statis (menggunakan Tailwind) untuk keperluan desain antarmuka, belum terhubung penuh dengan Controller atau Real Database, kecuali halaman login yang sudah memiliki logika penangkap error dasar).*
+_(Mayoritas file view masih berisi HTML statis (menggunakan Tailwind) untuk keperluan desain antarmuka, belum terhubung penuh dengan Controller atau Real Database, kecuali halaman login yang sudah memiliki logika penangkap error dasar)._
 
 ### Daftar File & Keterangan:
 
 1. **`layout.blade.php`**
-   - **Fitur:** Layout utama / kerangka dasar aplikasi (navbar, sidebar, header, footer).
-   - **Workflow:** File ini di-`extend` oleh halaman-halaman lain sebagai kerangka (template).
-   - **Sistem:** Dummy (Struktur UI dasar statis).
+    - **Fitur:** Layout utama / kerangka dasar aplikasi (navbar, sidebar, header, footer).
+    - **Workflow:** File ini di-`extend` oleh halaman-halaman lain sebagai kerangka (template).
+    - **Sistem:** Dummy (Struktur UI dasar statis).
 
 2. **`login.blade.php`**
-   - **Fitur:** Halaman otentikasi/masuk pengguna dan pustakawan.
-   - **Workflow:** Menerima input form (email & password) lalu diproses menuju sistem otentikasi.
-   - **Sistem:** Mengarah ke Real DB (Sudah ada implementasi `{{ $errors->first() }}` untuk validasi error dari server).
+    - **Fitur:** Halaman otentikasi/masuk pengguna dan pustakawan.
+    - **Workflow:** Menerima input form (email & password) lalu diproses menuju sistem otentikasi.
+    - **Sistem:** Mengarah ke Real DB (Sudah ada implementasi `{{ $errors->first() }}` untuk validasi error dari server).
 
 3. **`katalog.blade.php`**
-   - **Fitur:** Halaman pencarian dan daftar buku koleksi perpustakaan.
-   - **Workflow:** User dapat melihat daftar buku, melakukan pencarian, atau filter kategori.
-   - **Sistem:** Dummy (Data kartu buku dan daftar buku masih menggunakan hardcode HTML).
+    - **Fitur:** Halaman pencarian dan daftar buku koleksi perpustakaan.
+    - **Workflow:** User dapat melihat daftar buku, melakukan pencarian, atau filter kategori.
+    - **Sistem:** Dummy (Data kartu buku dan daftar buku masih menggunakan hardcode HTML).
 
 4. **`akun.blade.php`**
-   - **Fitur:** Halaman dashboard akun pengguna.
-   - **Workflow:** Halaman yang diakses setelah login. Menampilkan ringkasan profil, status peminjaman aktif, dan riwayat.
-   - **Sistem:** Dummy (Nama user dan riwayat peminjaman masih berupa teks statis).
+    - **Fitur:** Halaman dashboard akun pengguna.
+    - **Workflow:** Halaman yang diakses setelah login. Menampilkan ringkasan profil, status peminjaman aktif, dan riwayat.
+    - **Sistem:** Dummy (Nama user dan riwayat peminjaman masih berupa teks statis).
 
 5. **`edit_profil.blade.php`**
-   - **Fitur:** Halaman untuk mengubah data profil (Nama, foto, email, kata sandi).
-   - **Workflow:** Form input data profil yang siap dikirim/disimpan.
-   - **Sistem:** Dummy (Hanya antarmuka form, belum ada *Action* form ke database).
+    - **Fitur:** Halaman untuk mengubah data profil (Nama, foto, email, kata sandi).
+    - **Workflow:** Form input data profil yang siap dikirim/disimpan.
+    - **Sistem:** Dummy (Hanya antarmuka form, belum ada _Action_ form ke database).
 
 6. **`akun_pengaturan.blade.php`**
-   - **Fitur:** Halaman pengaturan spesifik akun atau preferensi aplikasi pengguna.
-   - **Workflow:** User mengatur notifikasi, tema warna, atau preferensi keamanan/privasi.
-   - **Sistem:** Dummy.
+    - **Fitur:** Halaman pengaturan spesifik akun atau preferensi aplikasi pengguna.
+    - **Workflow:** User mengatur notifikasi, tema warna, atau preferensi keamanan/privasi.
+    - **Sistem:** Dummy.
 
 7. **`notifikasi.blade.php`**
-   - **Fitur:** Halaman pusat pemberitahuan (Buku jatuh tempo, pesan denda, dll).
-   - **Workflow:** Menampilkan daftar notifikasi berupa list pesan peringatan.
-   - **Sistem:** Dummy (List notifikasi belum dimuat dinamis dari database).
+    - **Fitur:** Halaman pusat pemberitahuan (Buku jatuh tempo, pesan denda, dll).
+    - **Workflow:** Menampilkan daftar notifikasi berupa list pesan peringatan.
+    - **Sistem:** Dummy (List notifikasi belum dimuat dinamis dari database).
 
 8. **`scanner.blade.php`**
-   - **Fitur:** Halaman pemindai Barcode / QR Code.
-   - **Workflow:** Untuk mempercepat pencarian detail buku atau memproses peminjaman secara otomatis melalui input kamera.
-   - **Sistem:** Dummy UI (Antarmuka kamera pemindai sudah ada, namun integrasi *logic Javascript* ke database backend belum selesai diimplementasikan).
+    - **Fitur:** Halaman pemindai Barcode / QR Code.
+    - **Workflow:** Untuk mempercep at pencarian detail buku atau memproses peminjaman secara otomatis melalui input kamera.
+    - **Sistem:** Dummy UI (Antarmuka kamera pemindai sudah ada, namun integrasi _logic Javascript_ ke database backend belum selesai diimplementasikan).
 
 9. **`sirkulasi.blade.php`**
-   - **Fitur:** Halaman proses transaksi sirkulasi (peminjaman atau pengembalian buku).
-   - **Workflow:** Admin/Pustakawan memasukkan data peminjam dan data buku untuk diproses ke sistem.
-   - **Sistem:** Dummy (UI keranjang sirkulasi dan form pengisian).
+    - **Fitur:** Halaman proses transaksi sirkulasi (peminjaman atau pengembalian buku).
+    - **Workflow:** Admin/Pustakawan memasukkan data peminjam dan data buku untuk diproses ke sistem.
+    - **Sistem:** Dummy (UI keranjang sirkulasi dan form pengisian).
 
 10. **`sirkulasi_sukses.blade.php`**
     - **Fitur:** Halaman konfirmasi sukses transaksi.
@@ -194,7 +212,7 @@ Berikut adalah daftar file antarmuka (`resources/views/*.blade.php`) beserta pen
     - **Workflow:** Halaman depan yang dilihat oleh publik tanpa perlu login.
     - **Sistem:** Dummy.
 
-13. **`admin_tambah_buku.blade.php` (Dan file Admin lainnya)**
+14. **`admin_tambah_buku.blade.php` (Dan file Admin lainnya)**
     - **Fitur:** Manajemen katalog perpustakaan oleh admin.
     - **Workflow:** Admin dapat menambah, melihat, mengedit, dan menghapus data buku dari database. UI dilengkapi popup modal untuk input buku.
     - **Sistem:** 🟢 **Real DB** (Terhubung dengan `books` table, CRUD beroperasi penuh).
@@ -202,99 +220,110 @@ Berikut adalah daftar file antarmuka (`resources/views/*.blade.php`) beserta pen
 ---
 
 ## ⚠️ 7. Riwayat Error & Kendala Sistem (Error Logs)
-*(Bagian ini berisi rekam jejak error yang terjadi di server, terminal, atau database. Data lama **JANGAN DIHAPUS**, cukup tambahkan error baru di baris paling atas agar menjadi referensi bagi pengembang dalam mengatasi bug berulang).*
+
+_(Bagian ini berisi rekam jejak error yang terjadi di server, terminal, atau database. Data lama **JANGAN DIHAPUS**, cukup tambahkan error baru di baris paling atas agar menjadi referensi bagi pengembang dalam mengatasi bug berulang)._
 
 ### [2026-10-04] - Browser / Aplikasi Error "relation 'books' does not exist" setelah Migrasi
+
 - **Waktu:** 2026-10-04 (Setelah berhasil migrasi ke Supabase)
 - **Tipe Error:** `Illuminate\Database\QueryException`
 - **Pesan Log:** `SQLSTATE[42P01]: Undefined table: 7 ERROR: relation "books" does not exist`
 - **Catatan Pengembang:**
-  - Meskipun terminal menyatakan migrasi berhasil 100%, server lokal `php artisan serve` yang sudah menyala dalam waktu lama masih menyimpan *cache* status koneksi lama di memori internal PHP.
-  - **Tindakan Lanjutan (Resolved):** Matikan proses `php artisan serve` (Ctrl + C), lalu jalankan ulang perintah tersebut agar server mengambil status koneksi terbaru yang sudah stabil di `public` schema Supabase.
+    - Meskipun terminal menyatakan migrasi berhasil 100%, server lokal `php artisan serve` yang sudah menyala dalam waktu lama masih menyimpan _cache_ status koneksi lama di memori internal PHP.
+    - **Tindakan Lanjutan (Resolved):** Matikan proses `php artisan serve` (Ctrl + C), lalu jalankan ulang perintah tersebut agar server mengambil status koneksi terbaru yang sudah stabil di `public` schema Supabase.
 
 ### [2026-10-04] - Error Connection Supabase (IPv4/IPv6)
+
 - **Waktu:** 2026-10-04 (Saat menjalankan php artisan migrate)
 - **Tipe Error:** `PDOException`
 - **Pesan Log:** `SQLSTATE[08006] [7] connection to server at "db.xxxx.supabase.co" failed: timeout expired`
 - **Catatan Pengembang:**
-  - Terjadi karena string koneksi *direct* bawaan Supabase mengarahkan host ke IPv6, sementara *network* environment lokal (Laragon/Windows) tidak mendukung IPv6 dengan baik, menyebabkan *timeout*.
-  - **Tindakan Lanjutan (Resolved):** Mengubah hostname di `.env` menjadi URL *Connection Pooler* (`aws-0-ap-south-1.pooler.supabase.com`) menggunakan port `5432` dengan user format standard, agar lalu lintas dilewatkan melalui rute IPv4 yang stabil.
+    - Terjadi karena string koneksi _direct_ bawaan Supabase mengarahkan host ke IPv6, sementara _network_ environment lokal (Laragon/Windows) tidak mendukung IPv6 dengan baik, menyebabkan _timeout_.
+    - **Tindakan Lanjutan (Resolved):** Mengubah hostname di `.env` menjadi URL _Connection Pooler_ (`aws-0-ap-south-1.pooler.supabase.com`) menggunakan port `5432` dengan user format standard, agar lalu lintas dilewatkan melalui rute IPv4 yang stabil.
 
 ### [2026-10-04] - Error "could not find driver" (PDO PostgreSQL)
+
 - **Waktu:** 2026-10-04 (Saat awal setting koneksi Supabase)
 - **Tipe Error:** `PDOException`
 - **Pesan Log:** `could not find driver`
 - **Catatan Pengembang:**
-  - Lingkungan PHP lokal (Laragon) belum mengaktifkan ekstensi yang dibutuhkan untuk membaca database PostgreSQL.
-  - **Tindakan Lanjutan (Resolved):** Mengedit file `C:\laragon\bin\php\php-8.3.30-Win32-vs16-x64\php.ini`, lalu menghapus tanda titik koma (`;`) pada `extension=pdo_pgsql` dan `extension=pgsql` untuk mengaktifkan dukungan driver PostgreSQL.
+    - Lingkungan PHP lokal (Laragon) belum mengaktifkan ekstensi yang dibutuhkan untuk membaca database PostgreSQL.
+    - **Tindakan Lanjutan (Resolved):** Mengedit file `C:\laragon\bin\php\php-8.3.30-Win32-vs16-x64\php.ini`, lalu menghapus tanda titik koma (`;`) pada `extension=pdo_pgsql` dan `extension=pgsql` untuk mengaktifkan dukungan driver PostgreSQL.
 
 ### [2026-10-03] - Error 419 Page Expired (CSRF) saat Post Form / Login
+
 - **Waktu:** 2026-10-03 (Ditemukan saat pengujian submit form Login dan Hapus Buku)
 - **Tipe Error:** `419 Page Expired`
 - **Pesan Log:** Laravel menolak permintaan `POST` karena token CSRF dianggap tidak sah atau kedaluwarsa.
 - **Catatan Pengembang:**
-  - Meskipun tag `@csrf` sudah disisipkan dalam form, validasi token gagal karena domain session tidak cocok di local server (`127.0.0.1:8000`).
-  - **Tindakan Lanjutan (Resolved):** 
-    1. Mengosongkan nilai `SESSION_DOMAIN=` (dihapus string isinya) di dalam file `.env`.
-    2. Menjalankan perintah optimasi config (`php artisan optimize:clear`) untuk menyetel ulang cache sesi, sehingga aplikasi di `127.0.0.1` mengenali token CSRF-nya kembali.
+    - Meskipun tag `@csrf` sudah disisipkan dalam form, validasi token gagal karena domain session tidak cocok di local server (`127.0.0.1:8000`).
+    - **Tindakan Lanjutan (Resolved):**
+        1. Mengosongkan nilai `SESSION_DOMAIN=` (dihapus string isinya) di dalam file `.env`.
+        2. Menjalankan perintah optimasi config (`php artisan optimize:clear`) untuk menyetel ulang cache sesi, sehingga aplikasi di `127.0.0.1` mengenali token CSRF-nya kembali.
 
 ### [2026-10-03] - Error 422 & 403 saat Update Profil (API /api/user)
+
 - **Waktu:** 2026-10-03 (Ditemukan saat pengujian edit profil)
 - **Tipe Error:** `422 Unprocessable Content` & `403 Forbidden` (Avatar)
 - **Pesan Log:**
-  - `422`: Respons API mengembalikan JSON validation errors (misal: "The email has already been taken") namun frontend tidak menampilkannya ke user.
-  - `403`: Gambar profil tidak bisa dimuat dari `storage/`.
+    - `422`: Respons API mengembalikan JSON validation errors (misal: "The email has already been taken") namun frontend tidak menampilkannya ke user.
+    - `403`: Gambar profil tidak bisa dimuat dari `storage/`.
 - **Catatan Pengembang:**
-  - Frontend (`edit_profil.blade.php`) awalnya gagal memberikan *feedback* kepada pengguna apabila data yang di-submit ditolak oleh aturan validasi API. Pengguna hanya melihat tombol "Gagal Menyimpan" tanpa tahu penyebabnya.
-  - Gambar profil dari direktori storage juga tidak bisa diakses karena *symbolic link* public belum dikonfigurasi di server lokal.
-  - **Tindakan Lanjutan (Resolved):** 
-    1. Memodifikasi `edit_profil.blade.php` dengan menambahkan elemen HTML `div#validation-error-alert` dan menangkap respons JSON di JavaScript untuk menampilkannya sebagai *alert*.
-    2. Menjalankan perintah `php artisan storage:link` di terminal untuk menyelesaikan masalah akses aset gambar.
+    - Frontend (`edit_profil.blade.php`) awalnya gagal memberikan _feedback_ kepada pengguna apabila data yang di-submit ditolak oleh aturan validasi API. Pengguna hanya melihat tombol "Gagal Menyimpan" tanpa tahu penyebabnya.
+    - Gambar profil dari direktori storage juga tidak bisa diakses karena _symbolic link_ public belum dikonfigurasi di server lokal.
+    - **Tindakan Lanjutan (Resolved):**
+        1. Memodifikasi `edit_profil.blade.php` dengan menambahkan elemen HTML `div#validation-error-alert` dan menangkap respons JSON di JavaScript untuk menampilkannya sebagai _alert_.
+        2. Menjalankan perintah `php artisan storage:link` di terminal untuk menyelesaikan masalah akses aset gambar.
 
 ### [2026-10-02 04:14:38] - Syntax Error di View Pengaturan
+
 - **Waktu:** 04:14:38 (Berulang sejak 04:14:17) (Ditemukan di `storage/logs/laravel.log`)
 - **Tipe Error:** `Illuminate\View\ViewException`
 - **Pesan Log:**
-  ```text
-  syntax error, unexpected token "\" (View: C:\Users\aryan\OneDrive\Documents\Tugas_PPLG\Mapel_pak_didin\Libraz\resources\views\akun_pengaturan.blade.php)
-  ```
+    ```text
+    syntax error, unexpected token "\" (View: C:\Users\aryan\OneDrive\Documents\Tugas_PPLG\Mapel_pak_didin\Libraz\resources\views\akun_pengaturan.blade.php)
+    ```
 - **Catatan Pengembang:**
-  - Terjadi kesalahan *syntax* (salah ketik) berupa karakter backslash `\` yang tidak disengaja atau salah penempatan di dalam file `akun_pengaturan.blade.php`.
-  - **Tindakan Lanjutan:** Cek baris kode yang baru saja diubah di `akun_pengaturan.blade.php` dan hapus karakter `\` yang bermasalah.
+    - Terjadi kesalahan _syntax_ (salah ketik) berupa karakter backslash `\` yang tidak disengaja atau salah penempatan di dalam file `akun_pengaturan.blade.php`.
+    - **Tindakan Lanjutan:** Cek baris kode yang baru saja diubah di `akun_pengaturan.blade.php` dan hapus karakter `\` yang bermasalah.
 
 ### [2026-10-02 03:36:22] - Null Property Access "id"
+
 - **Waktu:** 03:36:22 (Berulang sejak 03:36:11) (Ditemukan di `storage/logs/laravel.log`)
 - **Tipe Error:** `ErrorException`
 - **Pesan Log:**
-  ```text
-  Attempt to read property "id" on null
-  ```
+    ```text
+    Attempt to read property "id" on null
+    ```
 - **Catatan Pengembang:**
-  - Kode mencoba mengakses properti `->id` pada suatu variabel/object yang datanya tidak ditemukan di database atau bernilai `null`. Kemungkinan besar variabel seperti `$user->id` atau `$book->id` dipanggil saat `$user` atau `$book` belum didefinisikan (misal: user belum login atau buku tidak ada).
-  - **Tindakan Lanjutan:** Tambahkan pengecekan null (`if($data) ...` atau optional chaining `$data?->id`) pada baris kode yang bermasalah.
+    - Kode mencoba mengakses properti `->id` pada suatu variabel/object yang datanya tidak ditemukan di database atau bernilai `null`. Kemungkinan besar variabel seperti `$user->id` atau `$book->id` dipanggil saat `$user` atau `$book` belum didefinisikan (misal: user belum login atau buku tidak ada).
+    - **Tindakan Lanjutan:** Tambahkan pengecekan null (`if($data) ...` atau optional chaining `$data?->id`) pada baris kode yang bermasalah.
 
 ### [2026-10-02] - Error PHP CLI & Module
+
 - **Waktu:** ~ (Ditemukan di `last_error.txt`)
 - **Tipe Error:** `Parse error` & `Warning`
 - **Pesan Log:**
-  ```text
-  Warning: Module "openssl" is already loaded in Unknown on line 0
-  Parse error: syntax error, unexpected token "=", expecting end of file in Command line code on line 1
-  ```
+    ```text
+    Warning: Module "openssl" is already loaded in Unknown on line 0
+    Parse error: syntax error, unexpected token "=", expecting end of file in Command line code on line 1
+    ```
 - **Catatan Pengembang:**
-  - Terjadi kesalahan saat menjalankan perintah (command) PHP via terminal/CLI. Terdapat module `openssl` yang bentrok (loaded dua kali) di konfigurasi `php.ini`, serta adanya kesalahan *syntax* pada saat menjalankan `php -r` atau *script inline*.
-  - **Tindakan Lanjutan:** Cek konfigurasi `php.ini` dan perbaiki command CLI yang dieksekusi.
+    - Terjadi kesalahan saat menjalankan perintah (command) PHP via terminal/CLI. Terdapat module `openssl` yang bentrok (loaded dua kali) di konfigurasi `php.ini`, serta adanya kesalahan _syntax_ pada saat menjalankan `php -r` atau _script inline_.
+    - **Tindakan Lanjutan:** Cek konfigurasi `php.ini` dan perbaiki command CLI yang dieksekusi.
 
 ### [2026-09-17 05:55:44] - Missing Application Encryption Key
+
 - **Waktu:** 05:55:44 (Ditemukan di `storage/logs/laravel.log`)
 - **Tipe Error:** `production.ERROR` -> `Illuminate\Encryption\MissingAppKeyException`
 - **Pesan Log:**
-  ```text
-  No application encryption key has been specified.
-  ```
+    ```text
+    No application encryption key has been specified.
+    ```
 - **Catatan Pengembang:**
-  - Aplikasi Laravel dijalankan tanpa `APP_KEY` yang valid di file `.env`. Laravel membutuhkan `APP_KEY` untuk mengamankan sesi (session) dan enkripsi data lainnya.
-  - **Tindakan Lanjutan:** Jalankan perintah `php artisan key:generate` di terminal untuk menghasilkan key baru di file `.env`.
+    - Aplikasi Laravel dijalankan tanpa `APP_KEY` yang valid di file `.env`. Laravel membutuhkan `APP_KEY` untuk mengamankan sesi (session) dan enkripsi data lainnya.
+    - **Tindakan Lanjutan:** Jalankan perintah `php artisan key:generate` di terminal untuk menghasilkan key baru di file `.env`.
 
 ---
+
 > **Catatan untuk Developer/QA:** Dokumen ini harus selalu diperbarui (Update) setiap kali ada sesi pengujian atau rilis baru. Jika diperlukan, buat file terpisah (seperti `BUGS.md` atau `CHANGELOG.md`) jika isi dokumen ini sudah terlalu panjang.
