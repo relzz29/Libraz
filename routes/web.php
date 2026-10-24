@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/landing.html');
 });
 
 Route::get('/login', function () {
@@ -422,4 +422,3 @@ Route::middleware('admin')->group(function () {
 });
 
 Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
-
