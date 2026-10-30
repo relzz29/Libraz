@@ -14,16 +14,16 @@
     <style>
         /* Base styles */
         :root {
-            --primary: #5916f2;
-            --primary-light: #7c4dff;
-            --secondary: #22d3a3;
-            --bg-color: #f8f9fc;
+            --primary: #6354d4;
+            --primary-light: #8577e4;
+            --secondary: #16a378;
+            --bg-color: #fafafc;
             --card-bg: #ffffff;
-            --text-main: #1e1b4b;
-            --text-muted: #6b7280;
-            --border-color: #e5e7eb;
+            --text-main: #1a1920;
+            --text-muted: #646478;
+            --border-color: #dad9e3;
             --danger: #dc2626;
-            --warning: #fbbf24;
+            --warning: #f59e0b;
             --radius-md: 12px;
             --radius-lg: 20px;
             --radius-xl: 24px;

@@ -18,18 +18,18 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 :root {
-  --color-primary: 67 0 187;
-  --color-surface-tint: 101 49 240;
-  --color-surface: 253 248 255;
-  --color-surface-container: 241 236 244;
-  --color-surface-container-high: 235 230 238;
-  --color-surface-container-highest: 229 225 232;
+  --color-primary: 99 84 212;
+  --color-surface-tint: 108 92 222;
+  --color-surface: 250 250 252;
+  --color-surface-container: 241 241 246;
+  --color-surface-container-high: 235 235 241;
+  --color-surface-container-highest: 228 228 235;
   --color-surface-container-lowest: 255 255 255;
-  --color-on-surface: 28 27 32;
-  --color-on-surface-variant: 72 68 86;
+  --color-on-surface: 26 25 32;
+  --color-on-surface-variant: 85 85 98;
   --color-outline: 121 116 136;
   --color-outline-variant: 202 195 217;
-  --color-primary-container: 91 33 230;
+  --color-primary-container: 114 96 220;
   --color-on-primary: 255 255 255;
   --color-secondary-fixed: 77 255 178;
   --color-secondary: 0 108 70;
