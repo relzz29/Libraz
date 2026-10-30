@@ -6,7 +6,7 @@
 <title>Sirkulasi - BiblioZ</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="prefetch" href="{{ route('akun') }}"/><link rel="prefetch" href="{{ route('katalog') }}"/>
 <style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
@@ -129,7 +129,7 @@ html.dark {
 <!-- Desktop Sidebar -->
 <aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-surface-container-high flex-col z-50">
   <div class="h-16 flex items-center px-6 border-b border-surface-container-high gap-3">
-    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
+    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
     <span class="font-title-md text-title-md text-primary font-bold tracking-wider uppercase">BiblioZ</span>
   </div>
   <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
@@ -156,7 +156,7 @@ html.dark {
   <header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
     <div class="h-16 px-margin flex items-center justify-between gap-space-sm">
       <div class="flex items-center gap-space-sm min-w-0">
-        <img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
+        <img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
         <div class="flex flex-col min-w-0">
           <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">BiblioZ</span>
           <span class="font-title-md text-title-md text-on-surface truncate">Sirkulasi Peminjaman</span>
@@ -176,10 +176,10 @@ html.dark {
     <main class="flex flex-col w-full md:w-[calc(100%-16rem)] md:ml-64 pt-20 pb-24 md:pb-8 min-h-screen px-margin relative overflow-hidden bg-slate-50">
     <!-- Super Vibrant Ambient Background -->
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-purple-400 to-indigo-500 mix-blend-multiply filter blur-[100px] opacity-40 animate-[spin_15s_linear_infinite]"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-gradient-to-br from-cyan-300 to-blue-500 mix-blend-multiply filter blur-[120px] opacity-40 animate-[spin_20s_reverse_infinite]"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-fuchsia-400 to-pink-500 mix-blend-multiply filter blur-[130px] opacity-30 animate-[spin_25s_linear_infinite]"></div>
-        <div class="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-purple-400 to-indigo-500 mix-blend-multiply filter blur-[70px] opacity-40"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-gradient-to-br from-cyan-300 to-blue-500 mix-blend-multiply filter blur-[80px] opacity-40"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-fuchsia-400 to-pink-500 mix-blend-multiply filter blur-[80px] opacity-30"></div>
+        <div class="absolute inset-0 bg-white/40"></div>
     </div>
     
         <div class="relative z-10 w-full mb-8 mt-4">

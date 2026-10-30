@@ -264,8 +264,15 @@ class LibraryController extends Controller
 
     public function katalog()
     {
-        $books = Book::all();
-        $total_books = $books->sum('stock');
+        // Gunakan seleksi kolom spesifik dan hitung total stok via database agregat
+        $books = Book::select([
+            'id', 'title', 'author', 'category', 'rack', 'type', 'stock', 'rating', 'cover_image_url', 'popularity_score'
+        ])
+        ->orderByDesc('popularity_score')
+        ->orderByDesc('rating')
+        ->get();
+
+        $total_books = Book::sum('stock');
         return view('katalog', compact('books', 'total_books'));
     }
 
@@ -281,7 +288,12 @@ class LibraryController extends Controller
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'Silakan login terlebih dahulu.'], 401);
         }
-        $borrowings = Borrowing::with('book')
+        $borrowings = Borrowing::select([
+                'id', 'user_id', 'book_id', 'borrowed_at', 'due_date', 'returned_at', 'renew_count', 'fine_amount', 'status'
+            ])
+            ->with(['book' => function ($q) {
+                $q->select(['id', 'title', 'author', 'category', 'cover_image_url', 'stock']);
+            }])
             ->where('user_id', $user->id)
             ->whereNull('returned_at')
             ->orderBy('due_date', 'asc')
@@ -295,8 +307,8 @@ class LibraryController extends Controller
 
     public function statistik()
     {
-        // Basic stats for UI
-        $popular_books = Book::orderBy('popularity_score', 'desc')->take(3)->get();
+        // Gunakan Caching Service untuk buku populer & statistik
+        $popular_books = \App\Services\LibraryCacheService::getPopularBooks(3);
         return view('statistik', compact('popular_books'));
     }
 

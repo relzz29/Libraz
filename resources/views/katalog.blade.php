@@ -95,7 +95,7 @@ html.dark {
 <!-- Desktop Sidebar -->
 <aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-surface-container-high flex-col z-50">
   <div class="h-16 flex items-center px-6 border-b border-surface-container-high gap-3">
-    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
+    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
     <span class="font-title-md text-title-md text-primary font-bold tracking-wider uppercase">BiblioZ</span>
   </div>
   <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
@@ -119,7 +119,7 @@ html.dark {
   </nav>
 </aside>
 
-<header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Katalog Buku</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="/notifikasi" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><a href="/edit-profil" class="w-11 h-11 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer" title="Edit Profil"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></a></div></div></header><main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-16 pb-24 md:pb-8 bg-surface min-h-screen overflow-hidden">
+<header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Katalog Buku</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="/notifikasi" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><a href="/edit-profil" class="w-11 h-11 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer" title="Edit Profil"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></a></div></div></header><main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-16 pb-24 md:pb-8 bg-surface min-h-screen overflow-hidden">
   <!-- Animated Background Orbs -->
   <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0 fixed">
     <div class="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] animate-pulse" style="animation-duration: 8s;"></div>
@@ -199,7 +199,7 @@ html.dark {
 <!-- Thumbnail Cover -->
 <div class="relative w-full h-48 sm:h-56 rounded-lg overflow-hidden flex-shrink-0 shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 bg-surface-container">
 @if($book->cover_image_url)
-<img class="w-full h-full object-cover" alt="{{ $book->title }}" src="{{ asset($book->cover_image_url) }}"/>
+<img class="w-full h-full object-cover" alt="{{ $book->title }}" src="{{ asset($book->cover_image_url) }}" loading="lazy" decoding="async"/>
 @else
 <div class="w-full h-full flex items-center justify-center bg-surface-container-high text-on-surface-variant">
   <span class="material-symbols-outlined text-[32px]">book</span>

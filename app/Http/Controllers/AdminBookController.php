@@ -159,8 +159,8 @@ class AdminBookController extends Controller
 
         $coverImageUrl = null;
         if ($request->hasFile('cover_image')) {
-            $path = $request->file('cover_image')->store('covers', 'public');
-            $coverImageUrl = '/storage/' . $path;
+            $optimizer = app(\App\Services\ImageOptimizerService::class);
+            $coverImageUrl = $optimizer->optimizeAndStoreCover($request->file('cover_image'), 'covers', 600, 80);
         }
 
         $pdfPath = null;
@@ -231,8 +231,8 @@ class AdminBookController extends Controller
                 $oldPath = str_replace('/storage/', '', $book->cover_image_url);
                 Storage::disk('public')->delete($oldPath);
             }
-            $path = $request->file('cover_image')->store('covers', 'public');
-            $book->cover_image_url = '/storage/' . $path;
+            $optimizer = app(\App\Services\ImageOptimizerService::class);
+            $book->cover_image_url = $optimizer->optimizeAndStoreCover($request->file('cover_image'), 'covers', 600, 80);
         }
 
         if ($request->hasFile('pdf_file')) {

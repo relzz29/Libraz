@@ -28,41 +28,16 @@ Route::get('/', function (\Illuminate\Http\Request $request) {
     if ($displayUser) {
         $activeLoans = \App\Models\Borrowing::where('user_id', $displayUser->id)
             ->whereNull('returned_at')
-            ->with('book')
+            ->with(['book:id,title,category,cover_image_url,author'])
             ->orderBy('due_date', 'asc')
             ->take(3)
             ->get();
     }
     
-    $stats = [
-        'total_books' => (int)\App\Models\Book::sum('stock') ?: 14820,
-        'total_titles' => (int)\App\Models\Book::count() ?: 120,
-        'total_members' => (int)\App\Models\User::whereNotIn('role', ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas'])->count() ?: 1250,
-        'active_loans' => (int)\App\Models\Borrowing::whereNull('returned_at')->count() ?: 48,
-    ];
-    
-    $popularBooks = \App\Models\Book::where('stock', '>', 0)
-        ->orderByDesc('popularity_score')
-        ->orderByDesc('rating')
-        ->take(4)
-        ->get();
-    if ($popularBooks->isEmpty()) {
-        $popularBooks = \App\Models\Book::take(4)->get();
-    }
-
-    $realReviews = \App\Models\Review::with(['user:id,name,role,avatar', 'book:id,title,cover_image_url,author'])
-        ->whereNotNull('comment')
-        ->where('comment', '!=', '')
-        ->latest()
-        ->take(6)
-        ->get();
-
-    $avgRating = round((float)\App\Models\Review::avg('rating') ?: 4.8, 1);
-    $totalReviews = (int)\App\Models\Review::count() ?: 128;
-    $ratingStats = [
-        'average' => $avgRating,
-        'total_reviews' => $totalReviews,
-    ];
+    $stats = \App\Services\LibraryCacheService::getGlobalStats();
+    $popularBooks = \App\Services\LibraryCacheService::getPopularBooks(4);
+    $realReviews = \App\Services\LibraryCacheService::getRecentReviews(6);
+    $ratingStats = \App\Services\LibraryCacheService::getRatingSummary();
 
     return view('landing', compact('authUser', 'displayUser', 'isLoggedIn', 'activeLoans', 'stats', 'popularBooks', 'realReviews', 'ratingStats'));
 })->name('landing');
@@ -93,7 +68,7 @@ Route::get('/api/landing-data', function (\Illuminate\Http\Request $request) {
     if ($displayUser) {
         $loans = \App\Models\Borrowing::where('user_id', $displayUser->id)
             ->whereNull('returned_at')
-            ->with('book')
+            ->with(['book:id,title,category,cover_image_url,author'])
             ->orderBy('due_date', 'asc')
             ->take(3)
             ->get();
@@ -114,55 +89,40 @@ Route::get('/api/landing-data', function (\Illuminate\Http\Request $request) {
         });
     }
     
-    $stats = [
-        'total_books' => (int)\App\Models\Book::sum('stock') ?: 14820,
-        'total_titles' => (int)\App\Models\Book::count() ?: 120,
-        'total_members' => (int)\App\Models\User::whereNotIn('role', ['admin', 'pustakawan', 'kepala perpus', 'admin it', 'petugas'])->count() ?: 1250,
-        'active_loans' => (int)\App\Models\Borrowing::whereNull('returned_at')->count() ?: 48,
-    ];
+    $stats = \App\Services\LibraryCacheService::getGlobalStats();
     
-    $popularBooks = \App\Models\Book::where('stock', '>', 0)
-        ->orderByDesc('popularity_score')
-        ->orderByDesc('rating')
-        ->take(4)
-        ->get()
-        ->map(function ($book) {
-            return [
-                'id' => $book->id,
-                'title' => $book->title,
-                'author' => $book->author,
-                'category' => $book->category,
-                'rack' => $book->rack,
-                'type' => $book->type,
-                'stock' => $book->stock,
-                'rating' => (float)($book->rating > 0 ? $book->rating : 4.5),
-                'cover_image_url' => $book->cover_image_url ? asset($book->cover_image_url) : null,
-                'pdf_path' => $book->pdf_path ? asset($book->pdf_path) : null,
-            ];
-        });
+    $popularBooks = \App\Services\LibraryCacheService::getPopularBooks(4)->map(function ($book) {
+        return [
+            'id' => $book->id,
+            'title' => $book->title,
+            'author' => $book->author,
+            'category' => $book->category,
+            'rack' => $book->rack,
+            'type' => $book->type,
+            'stock' => $book->stock,
+            'rating' => (float)($book->rating > 0 ? $book->rating : 4.5),
+            'cover_image_url' => $book->cover_image_url ? asset($book->cover_image_url) : null,
+            'pdf_path' => $book->pdf_path ? asset($book->pdf_path) : null,
+        ];
+    });
 
-    $realReviews = \App\Models\Review::with(['user:id,name,role,avatar', 'book:id,title,cover_image_url,author'])
-        ->whereNotNull('comment')
-        ->where('comment', '!=', '')
-        ->latest()
-        ->take(6)
-        ->get()
-        ->map(function ($r) {
-            return [
-                'id' => $r->id,
-                'user_name' => $r->user->name ?? 'Siswa Libraz',
-                'user_role' => $r->user->role ?? 'Siswa',
-                'user_avatar' => 'https://ui-avatars.com/api/?name=' . urlencode($r->user->name ?? 'Siswa') . '&background=6354d4&color=fff',
-                'rating' => (int)$r->rating,
-                'comment' => $r->comment,
-                'book_title' => $r->book->title ?? 'Buku Perpustakaan',
-                'book_cover' => $r->book && $r->book->cover_image_url ? asset($r->book->cover_image_url) : null,
-                'created_at_human' => $r->created_at ? $r->created_at->diffForHumans() : 'Baru saja',
-            ];
-        });
+    $realReviews = \App\Services\LibraryCacheService::getRecentReviews(6)->map(function ($r) {
+        return [
+            'id' => $r->id,
+            'user_name' => $r->user->name ?? 'Siswa Libraz',
+            'user_role' => $r->user->role ?? 'Siswa',
+            'user_avatar' => 'https://ui-avatars.com/api/?name=' . urlencode($r->user->name ?? 'Siswa') . '&background=6354d4&color=fff',
+            'rating' => (int)$r->rating,
+            'comment' => $r->comment,
+            'book_title' => $r->book->title ?? 'Buku Perpustakaan',
+            'book_cover' => $r->book && $r->book->cover_image_url ? asset($r->book->cover_image_url) : null,
+            'created_at_human' => $r->created_at ? $r->created_at->diffForHumans() : 'Baru saja',
+        ];
+    });
 
-    $avgRating = round((float)\App\Models\Review::avg('rating') ?: 4.8, 1);
-    $totalReviews = (int)\App\Models\Review::count() ?: 128;
+    $ratingSummary = \App\Services\LibraryCacheService::getRatingSummary();
+    $avgRating = $ratingSummary['average'];
+    $totalReviews = $ratingSummary['total_reviews'];
 
     return response()->json([
         'success' => true,
@@ -245,9 +205,9 @@ Route::get('/akun', function (\Illuminate\Http\Request $request) {
         $user = \App\Models\User::first();
     }
     
-    // Fetch real borrowing history
+    // Fetch real borrowing history with lightweight eager columns
     $borrowings = \App\Models\Borrowing::where('user_id', $user->id)
-                    ->with('book')
+                    ->with(['book:id,title,category,cover_image_url,author,type'])
                     ->orderBy('borrowed_at', 'desc')
                     ->get();
 
@@ -594,6 +554,11 @@ Route::middleware('admin')->group(function () {
         Route::get('/admin/books/{id}/edit', [AdminBookController::class, 'edit'])->name('admin.books.edit');
         Route::put('/admin/books/{id}', [AdminBookController::class, 'update'])->name('admin.books.update');
         Route::delete('/admin/books/{id}', [AdminBookController::class, 'destroy'])->name('admin.books.destroy');
+
+        // Bulk Data Import (Excel & CSV)
+        Route::get('/admin/import-buku', [\App\Http\Controllers\AdminBookImportController::class, 'showForm'])->name('admin.books.import');
+        Route::post('/admin/import-buku', [\App\Http\Controllers\AdminBookImportController::class, 'import'])->name('admin.books.import.submit');
+        Route::get('/admin/import-buku/template/{format?}', [\App\Http\Controllers\AdminBookImportController::class, 'downloadTemplate'])->name('admin.books.import.template');
     });
 
     // 2. Modul Persetujuan & Peminjaman (Pustakawan, Kepala Perpus, & Admin IT)

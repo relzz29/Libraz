@@ -467,7 +467,7 @@
                         <!-- Thumbnail Cover -->
                         <div class="relative w-full h-52 rounded-xl overflow-hidden bg-surface-container shrink-0 border border-surface-container-high shadow-xs">
                             @if($book->cover_image_url)
-                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="{{ $book->title }}" src="{{ asset($book->cover_image_url) }}"/>
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="{{ $book->title }}" src="{{ asset($book->cover_image_url) }}" loading="lazy" decoding="async"/>
                             @else
                             <div class="w-full h-full flex items-center justify-center text-on-surface-variant">
                                 <span class="material-symbols-outlined text-[36px]">book</span>
@@ -925,7 +925,7 @@
                     <article class="flex flex-col bg-white/70 dark:bg-black/30 backdrop-blur-xl rounded-[2rem] border border-surface-container-highest dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(100,50,255,0.08)] transition-all p-4 gap-3 group hover:-translate-y-1">
                         <div class="relative w-full h-52 rounded-xl overflow-hidden bg-surface-container shrink-0 border border-surface-container-high shadow-xs">
                             ${book.cover_image_url 
-                                ? `<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${book.title}" src="${book.cover_image_url}"/>` 
+                                ? `<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${book.title}" src="${book.cover_image_url}" loading="lazy" decoding="async"/>` 
                                 : `<div class="w-full h-full flex items-center justify-center text-on-surface-variant"><span class="material-symbols-outlined text-[36px]">book</span></div>`
                             }
                             <div class="absolute top-2 left-2 bg-surface-container-lowest/90 backdrop-blur-md px-2 py-0.5 rounded-lg text-xs font-bold text-on-surface flex items-center gap-1 shadow-xs">

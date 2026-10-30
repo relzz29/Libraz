@@ -9,12 +9,7 @@ Route::post('/qr-login', [App\Http\Controllers\AuthController::class, 'qrLogin']
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
-        $user = $request->user();
-        $user->borrowing_history = \App\Models\Borrowing::where('user_id', $user->id)
-            ->with('book')
-            ->orderBy('borrowed_at', 'desc')
-            ->get();
-        return $user;
+        return response()->json($request->user());
     });
     Route::put('/user', [App\Http\Controllers\AuthController::class, 'updateProfile']);
     Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
