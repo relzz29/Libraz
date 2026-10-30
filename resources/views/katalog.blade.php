@@ -205,9 +205,9 @@ html.dark {
   <span class="material-symbols-outlined text-[32px]">book</span>
 </div>
 @endif
-<div class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded font-label-sm text-label-sm text-primary flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
-          {{ $book->rating ?? '0.0' }}
+<div class="absolute top-1 left-1 bg-surface-container-lowest/90 hover:bg-white px-2 py-0.5 rounded-md font-label-sm text-label-sm text-primary flex items-center gap-1 shadow-sm cursor-pointer transition-transform hover:scale-105" title="Lihat Ulasan & Rating" onclick="openReviewsModal('{{ $book->id }}', '{{ addslashes($book->title) }}', '{{ $book->cover_image_url ? asset($book->cover_image_url) : '' }}', '{{ addslashes($book->author) }}')">
+<span class="material-symbols-outlined text-[13px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="font-bold text-on-surface text-xs">{{ number_format($book->rating ?? 0, 1) }}</span>
         </div>
 </div>
 <!-- Info Details -->
@@ -260,6 +260,10 @@ html.dark {
         Baca E-Book
       </a>
 @endif
+<button type="button" onclick="openReviewsModal('{{ $book->id }}', '{{ addslashes($book->title) }}', '{{ $book->cover_image_url ? asset($book->cover_image_url) : '' }}', '{{ addslashes($book->author) }}')" class="py-1.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-primary font-label-sm text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all border border-surface-container">
+  <span class="material-symbols-outlined text-[15px] text-amber-500" style="font-variation-settings: 'FILL' 1;">rate_review</span>
+  <span>Lihat Ulasan</span>
+</button>
 </div>
 </article>
 @empty
@@ -571,6 +575,122 @@ html.dark {
     
     document.getElementById('borrowConfirmationModal').classList.remove('hidden');
   }
+
+  // --- Modal Lihat Ulasan & Rating Komunitas (Read-Only di Katalog) ---
+  function closeReviewsModal() {
+    document.getElementById('reviewsModal').classList.add('hidden');
+  }
+
+  async function openReviewsModal(id, title, cover, author) {
+    document.getElementById('rev_modal_title').textContent = title;
+    document.getElementById('rev_modal_author').textContent = author || 'Penulis';
+    document.getElementById('reviewsModal').classList.remove('hidden');
+
+    const listContainer = document.getElementById('reviews_list_container');
+    listContainer.innerHTML = '<div class="py-6 text-center text-slate-400 text-xs">Memuat ulasan pembaca...</div>';
+
+    try {
+      const res = await fetch('/api/books/' + id + '/reviews');
+      const data = await res.json();
+      if (data.success) {
+        const avg = data.book.avg_rating || data.book.rating || 0;
+        document.getElementById('rev_summary_rating').textContent = Number(avg).toFixed(1);
+        document.getElementById('rev_summary_count').textContent = data.book.total_reviews + ' Ulasan Komunitas';
+
+        // Stars visual
+        let starIcons = '';
+        for (let i = 1; i <= 5; i++) {
+          starIcons += `<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' ${i <= Math.round(avg) ? '1' : '0'};">star</span>`;
+        }
+        document.getElementById('rev_summary_stars').innerHTML = starIcons;
+
+        // Render reviews
+        if (data.reviews.length === 0) {
+          listContainer.innerHTML = `
+            <div class="py-8 text-center text-slate-400 text-xs flex flex-col items-center gap-1.5">
+              <span class="material-symbols-outlined text-[36px] text-slate-300">chat_bubble_outline</span>
+              <span>Belum ada ulasan untuk buku ini.</span>
+              <span class="text-[11px] text-slate-400">Ulasan dapat diberikan setelah meminjam atau menyelesaikan bacaan di menu Sirkulasi.</span>
+            </div>
+          `;
+        } else {
+          listContainer.innerHTML = data.reviews.map(r => {
+            const userName = r.user ? r.user.name : 'Pembaca';
+            let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(userName) + '&background=random&color=fff';
+            if (r.user && r.user.avatar) {
+              avatarUrl = r.user.avatar.startsWith('http') ? r.user.avatar : '/' + r.user.avatar;
+            }
+            const dateStr = new Date(r.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            return `
+              <div class="p-3.5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-sm flex flex-col gap-1.5">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img src="${avatarUrl}" class="w-7 h-7 rounded-full object-cover border border-slate-200 dark:border-slate-700">
+                    <span class="font-bold text-xs text-slate-800 dark:text-white">${userName}</span>
+                  </div>
+                  <div class="flex items-center text-amber-500">
+                    ${[1,2,3,4,5].map(s => `<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' ${s <= r.rating ? '1' : '0'};">star</span>`).join('')}
+                  </div>
+                </div>
+                ${r.comment ? `<p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-0.5">${r.comment}</p>` : '<p class="text-xs text-slate-400 italic">Hanya memberikan rating bintang.</p>'}
+                <span class="text-[10px] text-slate-400 self-end mt-1">${dateStr}</span>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+    } catch(err) {
+      console.error(err);
+      listContainer.innerHTML = '<div class="py-4 text-center text-red-500 text-xs">Gagal memuat ulasan.</div>';
+    }
+  }
 </script>
+
+<!-- Modal Ulasan & Rating Buku (Read-Only) -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 hidden p-4" id="reviewsModal">
+  <div class="w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-2xl relative border border-slate-100 dark:border-slate-800 flex flex-col max-h-[85vh] overflow-y-auto no-scrollbar">
+    
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+      <div class="flex items-center gap-2 min-w-0 pr-2">
+        <span class="material-symbols-outlined text-amber-500 text-[26px] flex-shrink-0" style="font-variation-settings: 'FILL' 1;">star</span>
+        <div class="min-w-0">
+          <h3 class="font-bold text-base text-slate-900 dark:text-white truncate" id="rev_modal_title">Ulasan & Rating Buku</h3>
+          <p class="text-xs text-slate-500 truncate" id="rev_modal_author"></p>
+        </div>
+      </div>
+      <button type="button" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 flex items-center justify-center transition-colors flex-shrink-0" onclick="closeReviewsModal()">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <!-- Rating Summary Header -->
+    <div class="flex items-center justify-between bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/60 dark:border-amber-900/40 rounded-2xl p-4 my-4">
+      <div class="flex items-center gap-3">
+        <div class="text-3xl font-black text-amber-600" id="rev_summary_rating">0.0</div>
+        <div>
+          <div class="flex text-amber-400" id="rev_summary_stars"></div>
+          <span class="text-xs font-bold text-slate-600 dark:text-slate-400" id="rev_summary_count">0 Ulasan Komunitas</span>
+        </div>
+      </div>
+      <span class="text-xs text-slate-500 dark:text-slate-400 font-medium text-right flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+        Pembaca Terverifikasi
+      </span>
+    </div>
+
+    <!-- Community Reviews List -->
+    <div class="flex flex-col gap-3">
+      <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px]">reviews</span>
+        Ulasan Pembaca Lain
+      </h4>
+      <div id="reviews_list_container" class="flex flex-col gap-2.5">
+        <div class="py-6 text-center text-slate-400 text-xs">Memuat ulasan...</div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </body></html>

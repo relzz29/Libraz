@@ -405,6 +405,12 @@ html.dark {
                 `;
               }
 
+              const coverUrl = book.cover_image_url || 'https://via.placeholder.com/150x200?text=No+Cover';
+              const rack = book.rack || 'RAK UMUM';
+              const escapedTitle = (book.title || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+              const escapedAuthor = (book.author || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+              const escapedCover = coverUrl.replace(/'/g, "\\'");
+
               let footerAction = '';
               if (isLate) {
                 const fine = absDays * 1000;
@@ -420,7 +426,7 @@ html.dark {
                 const isRenewable = borrowing.renew_count === 0;
                 footerAction = `
                   <div class="flex gap-2 w-full">
-                    <button onclick="selesaiBaca(${borrowing.id})" class="flex-1 bg-white/80 hover:bg-white text-slate-700 px-4 py-2.5 rounded-full font-label-md text-label-md shadow-sm border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all flex justify-center items-center gap-1.5">
+                    <button onclick="selesaiBaca(${borrowing.id}, ${borrowing.book_id}, '${escapedTitle}', '${escapedCover}', '${escapedAuthor}')" class="flex-1 bg-white/80 hover:bg-white text-slate-700 px-4 py-2.5 rounded-full font-label-md text-label-md shadow-sm border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all flex justify-center items-center gap-1.5">
                       <span class="material-symbols-outlined text-[18px]">task_alt</span>
                       Selesai
                     </button>
@@ -431,9 +437,6 @@ html.dark {
                   </div>
                 `;
               }
-
-              const coverUrl = book.cover_image_url || 'https://via.placeholder.com/150x200?text=No+Cover';
-              const rack = book.rack || 'RAK UMUM';
 
               const card = document.createElement('article');
               card.className = `bg-white/70 backdrop-blur-xl rounded-[24px] p-6 shadow-xl shadow-indigo-100/50 border border-white/60 flex flex-col gap-space-md transition-all hover:shadow-2xl hover:-translate-y-1 z-10 relative ${isLate ? 'border-2 border-red-500 shadow-red-200/50' : ''}`;
@@ -566,7 +569,167 @@ html.dark {
     }
     // -------------------------
 
-    window.selesaiBaca = function(id) {
+    // --- Review & Rating Modal Logic ---
+    function showReviewModal(info) {
+      const modalHTML = `
+        <div id="review-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity duration-300" id="review-backdrop"></div>
+          <div class="relative bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-[32px] w-full max-w-md p-6 sm:p-8 shadow-[0_20px_60px_rgba(31,38,135,0.2)] transform transition-all duration-300 overflow-hidden" id="review-card">
+            
+            <!-- Header celebration -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+              <div class="flex items-center gap-2">
+                <span class="text-2xl">🎉</span>
+                <div>
+                  <h3 class="font-bold text-base text-slate-800 dark:text-white">Buku Selesai Dibaca!</h3>
+                  <p class="text-xs text-emerald-600 font-bold">${info.xpMessage || '+50 XP Literasi Didapatkan'}</p>
+                </div>
+              </div>
+              <button id="review-skip-top" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined text-[18px]">close</span>
+              </button>
+            </div>
+
+            <!-- Book Mini Preview -->
+            <div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl mt-4 border border-slate-100 dark:border-slate-700/50">
+              <img src="${info.cover}" alt="Cover" class="w-12 h-16 rounded-lg object-cover shadow-sm bg-slate-200">
+              <div class="flex-1 min-w-0">
+                <h4 class="font-bold text-sm text-slate-800 dark:text-white truncate">${info.title}</h4>
+                <p class="text-xs text-slate-500 truncate mt-0.5">${info.author}</p>
+                <span class="text-[10px] font-extrabold text-amber-600 bg-amber-50 dark:bg-amber-900/30 px-2 py-0.5 rounded-md mt-1 inline-block">Beri Ulasan (+20 XP Tambahan)</span>
+              </div>
+            </div>
+
+            <!-- Rating Stars Selector -->
+            <div class="flex flex-col items-center gap-1.5 py-4">
+              <p class="text-xs font-bold text-slate-600 dark:text-slate-300">Bagaimana menurutmu buku ini?</p>
+              <div class="flex items-center gap-2 text-amber-400" id="modal-star-container">
+                <button type="button" class="modal-star-btn hover:scale-125 transition-transform" data-star="1">
+                  <span class="material-symbols-outlined text-[34px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                </button>
+                <button type="button" class="modal-star-btn hover:scale-125 transition-transform" data-star="2">
+                  <span class="material-symbols-outlined text-[34px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                </button>
+                <button type="button" class="modal-star-btn hover:scale-125 transition-transform" data-star="3">
+                  <span class="material-symbols-outlined text-[34px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                </button>
+                <button type="button" class="modal-star-btn hover:scale-125 transition-transform" data-star="4">
+                  <span class="material-symbols-outlined text-[34px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                </button>
+                <button type="button" class="modal-star-btn hover:scale-125 transition-transform" data-star="5">
+                  <span class="material-symbols-outlined text-[34px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                </button>
+              </div>
+              <span class="text-xs font-bold text-amber-600" id="modal-star-label">⭐⭐⭐⭐⭐ 5/5 - Sangat Direkomendasikan!</span>
+            </div>
+
+            <!-- Feedback & Review Form -->
+            <div class="flex flex-col gap-3">
+              <textarea id="modal-review-comment" rows="3" placeholder="Tulis ulasan, ringkasan, atau kesanmu tentang buku ini..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+
+              <div class="flex items-center gap-3">
+                <button id="modal-review-skip" class="flex-1 py-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 transition-colors">
+                  Lewati
+                </button>
+                <button id="modal-review-submit" class="flex-1 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xs shadow-md shadow-indigo-200 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px]">send</span>
+                  <span>Kirim & Ambil XP</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+      let currentRating = 5;
+      const ratingLabels = {
+        1: '⭐ 1/5 - Kurang Menarik',
+        2: '⭐⭐ 2/5 - Biasa Saja',
+        3: '⭐⭐⭐ 3/5 - Cukup Bagus',
+        4: '⭐⭐⭐⭐ 4/5 - Bagus & Seru',
+        5: '⭐⭐⭐⭐⭐ 5/5 - Sangat Direkomendasikan!'
+      };
+
+      const starBtns = document.querySelectorAll('.modal-star-btn');
+      const starLabel = document.getElementById('modal-star-label');
+
+      function setModalRating(val) {
+        currentRating = val;
+        starBtns.forEach(btn => {
+          const starNum = parseInt(btn.dataset.star);
+          const icon = btn.querySelector('.material-symbols-outlined');
+          if (starNum <= val) {
+            icon.style.fontVariationSettings = "'FILL' 1";
+            btn.classList.add('text-amber-500');
+            btn.classList.remove('text-slate-300');
+          } else {
+            icon.style.fontVariationSettings = "'FILL' 0";
+            btn.classList.remove('text-amber-500');
+            btn.classList.add('text-slate-300');
+          }
+        });
+        if (starLabel) starLabel.textContent = ratingLabels[val];
+      }
+
+      starBtns.forEach(btn => {
+        btn.onclick = () => setModalRating(parseInt(btn.dataset.star));
+      });
+
+      const close = () => {
+        const el = document.getElementById('review-modal');
+        if (el) el.remove();
+        window.location.reload();
+      };
+
+      document.getElementById('review-backdrop').onclick = close;
+      document.getElementById('review-skip-top').onclick = close;
+      document.getElementById('modal-review-skip').onclick = close;
+
+      document.getElementById('modal-review-submit').onclick = async () => {
+        const submitBtn = document.getElementById('modal-review-submit');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[16px]">progress_activity</span> Mengirim...';
+
+        const comment = document.getElementById('modal-review-comment').value;
+        const token = localStorage.getItem('auth_token');
+        const headers = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        };
+        if (token) headers['Authorization'] = 'Bearer ' + token;
+
+        try {
+          const res = await fetch('/api/reviews', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+              book_id: info.bookId,
+              borrowing_id: info.borrowingId,
+              rating: currentRating,
+              comment: comment,
+              type: 'peminjaman'
+            })
+          });
+          const data = await res.json();
+          if (data.success) {
+            submitBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> Berhasil! +20 XP';
+            setTimeout(() => close(), 1200);
+          } else {
+            alert(data.message || 'Gagal mengirim ulasan');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Kirim & Ambil XP';
+          }
+        } catch(err) {
+          console.error(err);
+          close();
+        }
+      };
+    }
+
+    window.selesaiBaca = function(id, bookId, title, cover, author) {
         showConfirmModal(
           'Kembalikan Buku?', 
           'Yakin ingin menyelesaikan bacaan dan mengembalikan buku ini sekarang?', 
@@ -581,8 +744,13 @@ html.dark {
                 });
                 const data = await response.json();
                 if(data.success) {
-                    showSuccessModal('Buku Dikembalikan!', data.message, () => {
-                        window.location.reload();
+                    showReviewModal({
+                        borrowingId: id,
+                        bookId: bookId,
+                        title: title || 'Buku',
+                        cover: cover || '',
+                        author: author || 'Penulis',
+                        xpMessage: data.message
                     });
                 } else {
                     alert('Gagal: ' + data.message);

@@ -466,15 +466,21 @@ html.dark {
                       <span class="text-[11px] font-bold text-amber-600/70 uppercase">No Rating</span>
                     @endif
                   </div>
-                  @if($borrow->book->type == 'physical')
-                  <button class="px-5 py-2 rounded-xl bg-surface-container-highest text-on-surface font-bold text-xs hover:bg-primary hover:text-white transition-colors shadow-sm">
-                    Pinjam Lagi
-                  </button>
-                  @else
-                  <a href="{{ route('baca.ebook', $borrow->book->id) }}" class="px-5 py-2 rounded-xl bg-primary-container text-on-primary-container font-bold text-xs hover:bg-primary hover:text-white transition-colors shadow-sm">
-                    Buka File
-                  </a>
-                  @endif
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="openAkunReviewModal('{{ $borrow->book->id ?? 1 }}', '{{ addslashes($borrow->book->title ?? 'Buku') }}', '{{ asset($borrow->book->cover_image_url ?? '') }}', '{{ addslashes($borrow->book->author ?? 'Penulis') }}', '{{ $borrow->id }}')" class="px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500 text-amber-600 hover:text-white font-bold text-xs flex items-center gap-1 transition-all shadow-sm">
+                      <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">rate_review</span>
+                      <span>Beri Ulasan</span>
+                    </button>
+                    @if($borrow->book && $borrow->book->type == 'physical')
+                    <a href="{{ route('katalog') }}" class="px-4 py-2 rounded-xl bg-surface-container-highest text-on-surface font-bold text-xs hover:bg-primary hover:text-white transition-colors shadow-sm">
+                      Pinjam Lagi
+                    </a>
+                    @elseif($borrow->book)
+                    <a href="{{ route('baca.ebook', $borrow->book->id) }}" class="px-4 py-2 rounded-xl bg-primary-container text-on-primary-container font-bold text-xs hover:bg-primary hover:text-white transition-colors shadow-sm">
+                      Buka File
+                    </a>
+                    @endif
+                  </div>
                 </div>
               </div>
             </div>
@@ -918,4 +924,158 @@ html.dark {
       });
     }
   });
+
+  // --- Akun Review Modal Logic ---
+  let akunReviewActive = null;
+
+  function setAkunRating(val) {
+    document.getElementById('akun_rev_form_rating').value = val;
+    const stars = document.querySelectorAll('.akun-rev-star');
+    const labels = {
+      1: '⭐ 1/5 - Sangat Kurang',
+      2: '⭐⭐ 2/5 - Kurang',
+      3: '⭐⭐⭐ 3/5 - Cukup',
+      4: '⭐⭐⭐⭐ 4/5 - Bagus',
+      5: '⭐⭐⭐⭐⭐ 5/5 - Luar Biasa!'
+    };
+    stars.forEach(btn => {
+      const v = parseInt(btn.dataset.val);
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (v <= val) {
+        icon.style.fontVariationSettings = "'FILL' 1";
+        btn.classList.add('text-amber-500');
+        btn.classList.remove('text-slate-300');
+      } else {
+        icon.style.fontVariationSettings = "'FILL' 0";
+        btn.classList.remove('text-amber-500');
+        btn.classList.add('text-slate-300');
+      }
+    });
+    document.getElementById('akun_rev_star_text').textContent = labels[val] || '';
+  }
+
+  document.querySelectorAll('.akun-rev-star').forEach(btn => {
+    btn.onclick = () => setAkunRating(parseInt(btn.dataset.val));
+  });
+
+  function openAkunReviewModal(bookId, title, cover, author, borrowingId) {
+    akunReviewActive = { bookId, title, cover, author, borrowingId };
+    document.getElementById('akun_rev_book_id').value = bookId;
+    document.getElementById('akun_rev_borrowing_id').value = borrowingId || '';
+    document.getElementById('akun_rev_title').textContent = title;
+    document.getElementById('akun_rev_author').textContent = author;
+    if (cover) document.getElementById('akun_rev_cover').src = cover;
+    setAkunRating(5);
+    document.getElementById('akun_rev_comment').value = '';
+    document.getElementById('akunReviewModal').classList.remove('hidden');
+  }
+
+  function closeAkunReviewModal() {
+    document.getElementById('akunReviewModal').classList.add('hidden');
+  }
+
+  document.getElementById('akunReviewForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btn_submit_akun_review');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[16px]">progress_activity</span> Mengirim...';
+
+    const token = localStorage.getItem('auth_token');
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          book_id: document.getElementById('akun_rev_book_id').value,
+          borrowing_id: document.getElementById('akun_rev_borrowing_id').value,
+          rating: document.getElementById('akun_rev_form_rating').value,
+          comment: document.getElementById('akun_rev_comment').value,
+          type: 'peminjaman'
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> Berhasil! +20 XP';
+        setTimeout(() => {
+          closeAkunReviewModal();
+          window.location.reload();
+        }, 1200);
+      } else {
+        alert(data.message || 'Gagal mengirim ulasan');
+        btn.disabled = false;
+        btn.innerHTML = 'Kirim Ulasan & Klaim +20 XP';
+      }
+    } catch(err) {
+      console.error(err);
+      alert('Terjadi kesalahan jaringan.');
+      btn.disabled = false;
+      btn.innerHTML = 'Kirim Ulasan & Klaim +20 XP';
+    }
+  });
+</script>
+
+<!-- Modal Ulasan Akun -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 hidden p-4" id="akunReviewModal">
+  <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-2xl relative border border-slate-100 dark:border-slate-800 flex flex-col">
+    <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-amber-500 text-[24px]" style="font-variation-settings: 'FILL' 1;">rate_review</span>
+        <h3 class="font-bold text-base text-slate-800 dark:text-white">Ulasan & Rating Buku</h3>
+      </div>
+      <button type="button" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 flex items-center justify-center transition-colors" onclick="closeAkunReviewModal()">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+
+    <div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl my-3 border border-slate-100 dark:border-slate-700/50">
+      <img id="akun_rev_cover" src="" alt="Cover" class="w-12 h-16 rounded-lg object-cover shadow-sm bg-slate-200">
+      <div class="flex-1 min-w-0">
+        <h4 class="font-bold text-sm text-slate-800 dark:text-white truncate" id="akun_rev_title">Judul</h4>
+        <p class="text-xs text-slate-500 truncate mt-0.5" id="akun_rev_author">Penulis</p>
+        <span class="text-[10px] font-extrabold text-amber-600 bg-amber-50 dark:bg-amber-900/30 px-2 py-0.5 rounded-md mt-1 inline-block">+20 XP Literasi</span>
+      </div>
+    </div>
+
+    <form id="akunReviewForm" class="flex flex-col gap-3">
+      <input type="hidden" id="akun_rev_book_id" value="">
+      <input type="hidden" id="akun_rev_borrowing_id" value="">
+      <input type="hidden" id="akun_rev_form_rating" value="5">
+
+      <div class="flex flex-col items-center gap-1 py-1">
+        <div class="flex items-center gap-2 text-amber-400">
+          <button type="button" class="akun-rev-star hover:scale-125 transition-transform" data-val="1">
+            <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+          </button>
+          <button type="button" class="akun-rev-star hover:scale-125 transition-transform" data-val="2">
+            <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+          </button>
+          <button type="button" class="akun-rev-star hover:scale-125 transition-transform" data-val="3">
+            <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+          </button>
+          <button type="button" class="akun-rev-star hover:scale-125 transition-transform" data-val="4">
+            <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+          </button>
+          <button type="button" class="akun-rev-star hover:scale-125 transition-transform" data-val="5">
+            <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+          </button>
+        </div>
+        <span class="text-xs font-bold text-amber-600" id="akun_rev_star_text">⭐⭐⭐⭐⭐ 5/5 - Luar Biasa!</span>
+      </div>
+
+      <textarea id="akun_rev_comment" rows="3" placeholder="Tulis ulasan, ringkasan, atau kesanmu setelah membaca buku ini..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+
+      <button type="submit" id="btn_submit_akun_review" class="w-full py-3 rounded-full bg-primary hover:bg-primary-container text-white font-bold text-xs shadow-md shadow-primary/20 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px]">send</span>
+        <span>Kirim Ulasan & Klaim +20 XP</span>
+      </button>
+    </form>
+  </div>
+</div>
 </script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)] md:hidden" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]"><div class="flex items-center justify-around h-16 px-space-xs max-w-md mx-auto"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="katalog-buku" href="{{ route('katalog') }}"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Katalog</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="sirkulasi-peminjaman" href="{{ route('sirkulasi') }}"><span class="material-symbols-outlined text-[22px]">sync_alt</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Sirkulasi</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl transition-all bg-primary-container text-on-primary font-bold shadow-[3px_3px_0px_#1c1b20]" data-path="akun" href="{{ route('akun') }}"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Akun</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-space-sm py-space-xs rounded-xl text-on-surface-variant transition-all hover:text-primary" data-path="akun-pengaturan" href="{{ route('akun.pengaturan') }}"><span class="material-symbols-outlined text-[22px]">settings</span><span class="font-label-sm text-label-sm tracking-tight mt-0.5">Pengaturan</span></a></div></nav></body></html>

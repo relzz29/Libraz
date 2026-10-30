@@ -299,6 +299,67 @@ html.dark {
 </div>
 </div>
 </div>
+<!-- Interactive Feedback & Rating Section -->
+<div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-md border border-surface-container-high flex flex-col gap-3" id="feedback-card">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold">
+        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+      </div>
+      <div>
+        <h3 class="font-title-md text-[15px] font-bold text-on-surface">Feedback & Ulasan Buku</h3>
+        <p class="font-body-sm text-[11px] text-on-surface-variant">Beri rating atau ulasan awal & dapatkan +20 XP!</p>
+      </div>
+    </div>
+    <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm">+20 XP</span>
+  </div>
+
+  <form id="feedback-form" class="flex flex-col gap-3 mt-1">
+    <input type="hidden" name="book_id" id="feedback-book-id" value="{{ $borrowing->book->id ?? 1 }}">
+    <input type="hidden" name="borrowing_id" value="{{ $borrowing->id }}">
+    <input type="hidden" name="type" value="peminjaman">
+    <input type="hidden" name="rating" id="feedback-rating-input" value="5">
+
+    <!-- Star Selector -->
+    <div class="flex flex-col items-center gap-1.5 py-1">
+      <div class="flex items-center gap-2 text-amber-400" id="star-container">
+        <button type="button" class="star-btn hover:scale-125 transition-transform" data-star="1">
+          <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        </button>
+        <button type="button" class="star-btn hover:scale-125 transition-transform" data-star="2">
+          <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        </button>
+        <button type="button" class="star-btn hover:scale-125 transition-transform" data-star="3">
+          <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        </button>
+        <button type="button" class="star-btn hover:scale-125 transition-transform" data-star="4">
+          <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        </button>
+        <button type="button" class="star-btn hover:scale-125 transition-transform" data-star="5">
+          <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        </button>
+      </div>
+      <span class="text-xs font-bold text-on-surface-variant" id="star-label">⭐⭐⭐⭐⭐ 5/5 - Luar Biasa!</span>
+    </div>
+
+    <!-- Review Textarea -->
+    <textarea name="comment" id="feedback-comment" rows="2" placeholder="Bagikan ekspektasi, ulasan singkat, atau feedback peminjaman buku ini..." class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-xs text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/40"></textarea>
+
+    <button type="submit" id="btn-submit-feedback" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-amber-200 hover:brightness-105 active:scale-[0.98] transition-all">
+      <span class="material-symbols-outlined text-[16px]">send</span>
+      <span>Kirim Ulasan & Klaim XP</span>
+    </button>
+  </form>
+
+  <div id="feedback-success-state" class="hidden flex-col items-center justify-center py-4 text-center">
+    <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-2">
+      <span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+    </div>
+    <h4 class="font-title-md text-sm font-bold text-on-surface">Ulasan Berhasil Terkirim!</h4>
+    <p class="font-body-sm text-[12px] text-on-surface-variant mt-0.5" id="feedback-success-msg">Terima kasih atas ulasanmu! Kamu mendapatkan +20 XP literasi.</p>
+  </div>
+</div>
+
 <!-- Auxiliary Assistance Strip -->
 <div class="bg-surface-container-low rounded-2xl p-space-md flex items-center justify-between">
 <div class="flex items-center gap-space-sm">
@@ -415,6 +476,93 @@ html.dark {
     if (btnToCirculation) {
       btnToCirculation.addEventListener('click', function() {
         window.location.href = "{{ route('sirkulasi') }}";
+      });
+    }
+
+    // Feedback Star Rating Interaction
+    const starBtns = document.querySelectorAll('.star-btn');
+    const ratingInput = document.getElementById('feedback-rating-input');
+    const starLabel = document.getElementById('star-label');
+    const labels = {
+      1: '⭐ 1/5 - Sangat Kurang',
+      2: '⭐⭐ 2/5 - Kurang',
+      3: '⭐⭐⭐ 3/5 - Cukup',
+      4: '⭐⭐⭐⭐ 4/5 - Bagus',
+      5: '⭐⭐⭐⭐⭐ 5/5 - Luar Biasa!'
+    };
+
+    function updateStars(val) {
+      if (!ratingInput) return;
+      ratingInput.value = val;
+      starBtns.forEach(btn => {
+        const starNum = parseInt(btn.dataset.star);
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (starNum <= val) {
+          icon.style.fontVariationSettings = "'FILL' 1";
+          btn.classList.add('text-amber-500');
+          btn.classList.remove('text-slate-300');
+        } else {
+          icon.style.fontVariationSettings = "'FILL' 0";
+          btn.classList.remove('text-amber-500');
+          btn.classList.add('text-slate-300');
+        }
+      });
+      if (starLabel && labels[val]) {
+        starLabel.textContent = labels[val];
+      }
+    }
+
+    starBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        updateStars(parseInt(btn.dataset.star));
+      });
+    });
+
+    const feedbackForm = document.getElementById('feedback-form');
+    if (feedbackForm) {
+      feedbackForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btnSubmit = document.getElementById('btn-submit-feedback');
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin text-[16px]">progress_activity</span> Mengirim...';
+
+        const token = localStorage.getItem('auth_token');
+        const headers = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        };
+        if (token) headers['Authorization'] = 'Bearer ' + token;
+
+        try {
+          const res = await fetch('/api/reviews', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+              book_id: document.getElementById('feedback-book-id').value,
+              borrowing_id: '{{ $borrowing->id ?? "" }}',
+              rating: ratingInput.value,
+              comment: document.getElementById('feedback-comment').value,
+              type: 'peminjaman'
+            })
+          });
+          const data = await res.json();
+          if (data.success) {
+            feedbackForm.classList.add('hidden');
+            const successState = document.getElementById('feedback-success-state');
+            successState.classList.remove('hidden');
+            successState.classList.add('flex');
+            document.getElementById('feedback-success-msg').textContent = data.message;
+          } else {
+            alert(data.message || 'Gagal mengirim ulasan.');
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = '<span class="material-symbols-outlined text-[16px]">send</span> Kirim Ulasan & Klaim XP';
+          }
+        } catch (err) {
+          console.error(err);
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = '<span class="material-symbols-outlined text-[16px]">send</span> Kirim Ulasan & Klaim XP';
+        }
       });
     }
   })();

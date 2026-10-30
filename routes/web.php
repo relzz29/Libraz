@@ -422,3 +422,9 @@ Route::middleware('admin')->group(function () {
 });
 
 Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
+
+use App\Http\Controllers\ReviewController;
+
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::get('/books/{id}/reviews', [ReviewController::class, 'getBookReviews'])->name('books.reviews');
+

@@ -31,4 +31,9 @@ class Book extends Model
         $title = $this->title ?? 'Book';
         return 'https://ui-avatars.com/api/?name=' . urlencode($title) . '&background=random&size=400&color=fff';
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class)->latest();
+    }
 }

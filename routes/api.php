@@ -20,6 +20,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
     Route::get('/borrowings', [App\Http\Controllers\LibraryController::class, 'getBorrowings']);
     Route::post('/borrow', [App\Http\Controllers\BorrowController::class, 'storeApi']);
+    Route::post('/reviews', [App\Http\Controllers\ReviewController::class, 'store']);
 });
+
+Route::get('/books/{id}/reviews', [App\Http\Controllers\ReviewController::class, 'getBookReviews']);
+Route::post('/reviews', [App\Http\Controllers\ReviewController::class, 'store']);
 
 Route::apiResource('posts', App\Http\Controllers\PostController::class);
