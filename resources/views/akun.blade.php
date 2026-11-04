@@ -925,9 +925,12 @@ html.dark {
     }
   });
 
-  // --- Akun Review Modal Logic ---
+  // ==============================================================================
+  // LOGIKA POP-UP MODAL ULASAN BUKU DARI RIWAYAT SIRKULASI (HALAMAN AKUN)
+  // ==============================================================================
   let akunReviewActive = null;
 
+  // Fungsi mengatur rating bintang 1 sampai 5 dan mengubah warnanya jadi kuning
   function setAkunRating(val) {
     document.getElementById('akun_rev_form_rating').value = val;
     const stars = document.querySelectorAll('.akun-rev-star');
@@ -942,11 +945,11 @@ html.dark {
       const v = parseInt(btn.dataset.val);
       const icon = btn.querySelector('.material-symbols-outlined');
       if (v <= val) {
-        icon.style.fontVariationSettings = "'FILL' 1";
+        icon.style.fontVariationSettings = "'FILL' 1"; // Bintang terisi penuh
         btn.classList.add('text-amber-500');
         btn.classList.remove('text-slate-300');
       } else {
-        icon.style.fontVariationSettings = "'FILL' 0";
+        icon.style.fontVariationSettings = "'FILL' 0"; // Bintang kosong
         btn.classList.remove('text-amber-500');
         btn.classList.add('text-slate-300');
       }
@@ -954,10 +957,12 @@ html.dark {
     document.getElementById('akun_rev_star_text').textContent = labels[val] || '';
   }
 
+  // Pasang aksi klik bintang
   document.querySelectorAll('.akun-rev-star').forEach(btn => {
     btn.onclick = () => setAkunRating(parseInt(btn.dataset.val));
   });
 
+  // Fungsi membuka modal ulasan dari salah satu riwayat buku
   function openAkunReviewModal(bookId, title, cover, author, borrowingId) {
     akunReviewActive = { bookId, title, cover, author, borrowingId };
     document.getElementById('akun_rev_book_id').value = bookId;
@@ -970,10 +975,12 @@ html.dark {
     document.getElementById('akunReviewModal').classList.remove('hidden');
   }
 
+  // Fungsi menutup modal ulasan
   function closeAkunReviewModal() {
     document.getElementById('akunReviewModal').classList.add('hidden');
   }
 
+  // Submit form ulasan akun ke API server
   document.getElementById('akunReviewForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('btn_submit_akun_review');
@@ -989,6 +996,7 @@ html.dark {
     if (token) headers['Authorization'] = 'Bearer ' + token;
 
     try {
+      // Kirim ulasan ke endpoint /api/reviews
       const res = await fetch('/api/reviews', {
         method: 'POST',
         headers: headers,
@@ -1005,7 +1013,7 @@ html.dark {
         btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> Berhasil! +20 XP';
         setTimeout(() => {
           closeAkunReviewModal();
-          window.location.reload();
+          window.location.reload(); // Refresh halaman agar jumlah review & rating terupdate
         }, 1200);
       } else {
         alert(data.message || 'Gagal mengirim ulasan');
@@ -1021,7 +1029,9 @@ html.dark {
   });
 </script>
 
-<!-- Modal Ulasan Akun -->
+<!-- ============================================================================== -->
+<!-- POP-UP MODAL: FORM BERI ULASAN DARI HALAMAN AKUN                               -->
+<!-- ============================================================================== -->
 <div class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 hidden p-4" id="akunReviewModal">
   <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-2xl relative border border-slate-100 dark:border-slate-800 flex flex-col">
     <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">

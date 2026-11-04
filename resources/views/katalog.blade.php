@@ -576,35 +576,45 @@ html.dark {
     document.getElementById('borrowConfirmationModal').classList.remove('hidden');
   }
 
-  // --- Modal Lihat Ulasan & Rating Komunitas (Read-Only di Katalog) ---
+  // ==============================================================================
+  // LOGIKA MODAL LIHAT ULASAN & RATING KOMUNITAS (KHUSUS TAMPILAN / READ-ONLY)
+  // ==============================================================================
+  
+  // Fungsi untuk menutup modal ulasan
   function closeReviewsModal() {
     document.getElementById('reviewsModal').classList.add('hidden');
   }
 
+  // Fungsi untuk membuka modal dan memuat daftar ulasan dari server
   async function openReviewsModal(id, title, cover, author) {
+    // 1. Tampilkan judul buku dan nama penulis pada header modal
     document.getElementById('rev_modal_title').textContent = title;
     document.getElementById('rev_modal_author').textContent = author || 'Penulis';
     document.getElementById('reviewsModal').classList.remove('hidden');
 
+    // 2. Beri teks loading sementara data sedang diambil dari database
     const listContainer = document.getElementById('reviews_list_container');
     listContainer.innerHTML = '<div class="py-6 text-center text-slate-400 text-xs">Memuat ulasan pembaca...</div>';
 
     try {
+      // 3. Request AJAX ke API backend untuk mengambil ulasan buku berdasarkan ID
       const res = await fetch('/api/books/' + id + '/reviews');
       const data = await res.json();
+      
       if (data.success) {
+        // Ambil nilai rata-rata rating (misal: 4.8) dan jumlah total ulasan
         const avg = data.book.avg_rating || data.book.rating || 0;
         document.getElementById('rev_summary_rating').textContent = Number(avg).toFixed(1);
         document.getElementById('rev_summary_count').textContent = data.book.total_reviews + ' Ulasan Komunitas';
 
-        // Stars visual
+        // 4. Render visual bintang kuning sesuai nilai rata-rata
         let starIcons = '';
         for (let i = 1; i <= 5; i++) {
           starIcons += `<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' ${i <= Math.round(avg) ? '1' : '0'};">star</span>`;
         }
         document.getElementById('rev_summary_stars').innerHTML = starIcons;
 
-        // Render reviews
+        // 5. Jika belum ada yang mengulas, tampilkan pesan informatif
         if (data.reviews.length === 0) {
           listContainer.innerHTML = `
             <div class="py-8 text-center text-slate-400 text-xs flex flex-col items-center gap-1.5">
@@ -614,6 +624,7 @@ html.dark {
             </div>
           `;
         } else {
+          // 6. Jika ada ulasan, susun kartu testimoni pembaca (foto, nama, bintang, komentar, dan tanggal)
           listContainer.innerHTML = data.reviews.map(r => {
             const userName = r.user ? r.user.name : 'Pembaca';
             let avatarUrl = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(userName) + '&background=random&color=fff';
@@ -646,11 +657,13 @@ html.dark {
   }
 </script>
 
-<!-- Modal Ulasan & Rating Buku (Read-Only) -->
+<!-- ============================================================================== -->
+<!-- POP-UP MODAL: DAFTAR ULASAN & RATING PEMBACA (READ-ONLY)                       -->
+<!-- ============================================================================== -->
 <div class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 hidden p-4" id="reviewsModal">
   <div class="w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-2xl relative border border-slate-100 dark:border-slate-800 flex flex-col max-h-[85vh] overflow-y-auto no-scrollbar">
     
-    <!-- Modal Header -->
+    <!-- HEADER MODAL: Judul Buku, Penulis & Tombol Tutup -->
     <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
       <div class="flex items-center gap-2 min-w-0 pr-2">
         <span class="material-symbols-outlined text-amber-500 text-[26px] flex-shrink-0" style="font-variation-settings: 'FILL' 1;">star</span>
@@ -664,7 +677,7 @@ html.dark {
       </button>
     </div>
 
-    <!-- Rating Summary Header -->
+    <!-- KARTU RINGKASAN: Rata-rata Skor Bintang & Total Ulasan Komunitas -->
     <div class="flex items-center justify-between bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/60 dark:border-amber-900/40 rounded-2xl p-4 my-4">
       <div class="flex items-center gap-3">
         <div class="text-3xl font-black text-amber-600" id="rev_summary_rating">0.0</div>
@@ -679,7 +692,7 @@ html.dark {
       </span>
     </div>
 
-    <!-- Community Reviews List -->
+    <!-- DAFTAR KOMENTAR & ULASAN ASLI DARI PARA PEMBACA -->
     <div class="flex flex-col gap-3">
       <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
         <span class="material-symbols-outlined text-[16px]">reviews</span>

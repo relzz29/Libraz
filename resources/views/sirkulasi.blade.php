@@ -569,14 +569,17 @@ html.dark {
     }
     // -------------------------
 
-    // --- Review & Rating Modal Logic ---
+    // ==========================================================================
+    // LOGIKA POP-UP MODAL ULASAN & RATING SETELAH BUKU SELESAI DIBACA
+    // ==========================================================================
     function showReviewModal(info) {
+      // 1. Template tampilan pop-up modal perayaan & ulasan
       const modalHTML = `
         <div id="review-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity duration-300" id="review-backdrop"></div>
           <div class="relative bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-[32px] w-full max-w-md p-6 sm:p-8 shadow-[0_20px_60px_rgba(31,38,135,0.2)] transform transition-all duration-300 overflow-hidden" id="review-card">
             
-            <!-- Header celebration -->
+            <!-- Header Modal: Pesan Sukses & Tombol Tutup -->
             <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div class="flex items-center gap-2">
                 <span class="text-2xl">🎉</span>
@@ -590,7 +593,7 @@ html.dark {
               </button>
             </div>
 
-            <!-- Book Mini Preview -->
+            <!-- Mini Preview Sampul & Judul Buku yang Baru Dikembalikan -->
             <div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl mt-4 border border-slate-100 dark:border-slate-700/50">
               <img src="${info.cover}" alt="Cover" class="w-12 h-16 rounded-lg object-cover shadow-sm bg-slate-200">
               <div class="flex-1 min-w-0">
@@ -600,7 +603,7 @@ html.dark {
               </div>
             </div>
 
-            <!-- Rating Stars Selector -->
+            <!-- Pemilih Rating Bintang Interaktif (1 sampai 5) -->
             <div class="flex flex-col items-center gap-1.5 py-4">
               <p class="text-xs font-bold text-slate-600 dark:text-slate-300">Bagaimana menurutmu buku ini?</p>
               <div class="flex items-center gap-2 text-amber-400" id="modal-star-container">
@@ -623,7 +626,7 @@ html.dark {
               <span class="text-xs font-bold text-amber-600" id="modal-star-label">⭐⭐⭐⭐⭐ 5/5 - Sangat Direkomendasikan!</span>
             </div>
 
-            <!-- Feedback & Review Form -->
+            <!-- Form Input Ulasan & Tombol Aksi -->
             <div class="flex flex-col gap-3">
               <textarea id="modal-review-comment" rows="3" placeholder="Tulis ulasan, ringkasan, atau kesanmu tentang buku ini..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
 
@@ -643,6 +646,7 @@ html.dark {
       `;
       document.body.insertAdjacentHTML('beforeend', modalHTML);
 
+      // Nilai rating awal (default 5 bintang)
       let currentRating = 5;
       const ratingLabels = {
         1: '⭐ 1/5 - Kurang Menarik',
@@ -655,6 +659,7 @@ html.dark {
       const starBtns = document.querySelectorAll('.modal-star-btn');
       const starLabel = document.getElementById('modal-star-label');
 
+      // Fungsi mengubah warna bintang saat dipilih di dalam modal
       function setModalRating(val) {
         currentRating = val;
         starBtns.forEach(btn => {
@@ -677,6 +682,7 @@ html.dark {
         btn.onclick = () => setModalRating(parseInt(btn.dataset.star));
       });
 
+      // Fungsi tutup modal dan refresh halaman
       const close = () => {
         const el = document.getElementById('review-modal');
         if (el) el.remove();
@@ -687,6 +693,7 @@ html.dark {
       document.getElementById('review-skip-top').onclick = close;
       document.getElementById('modal-review-skip').onclick = close;
 
+      // Event saat tombol 'Kirim & Ambil XP' ditekan
       document.getElementById('modal-review-submit').onclick = async () => {
         const submitBtn = document.getElementById('modal-review-submit');
         submitBtn.disabled = true;
@@ -702,6 +709,7 @@ html.dark {
         if (token) headers['Authorization'] = 'Bearer ' + token;
 
         try {
+          // Kirim data ulasan ke API backend
           const res = await fetch('/api/reviews', {
             method: 'POST',
             headers: headers,
@@ -729,12 +737,17 @@ html.dark {
       };
     }
 
+    // ==========================================================================
+    // FUNGSI: selesaiBaca
+    // FUNGSI: Mengembalikan buku ke perpustakaan & membuka modal ulasan
+    // ==========================================================================
     window.selesaiBaca = function(id, bookId, title, cover, author) {
         showConfirmModal(
           'Kembalikan Buku?', 
           'Yakin ingin menyelesaikan bacaan dan mengembalikan buku ini sekarang?', 
           async () => {
             try {
+                // Panggil endpoint selesai-baca untuk menandai status peminjaman jadi returned
                 const response = await fetch('/selesai-baca/' + id, {
                     method: 'GET',
                     headers: {
@@ -744,6 +757,7 @@ html.dark {
                 });
                 const data = await response.json();
                 if(data.success) {
+                    // Jika sukses dikembalikan, langsung munculkan pop-up ulasan & rating
                     showReviewModal({
                         borrowingId: id,
                         bookId: bookId,

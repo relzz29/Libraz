@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "vercel-build": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php artisan config:clear",
+      "@php artisan route:clear",
+      "@php artisan view:clear"
+    ]
+  }
+}
+

@@ -479,7 +479,9 @@ html.dark {
       });
     }
 
-    // Feedback Star Rating Interaction
+    // ==========================================================================
+    // LOGIKA INTERAKTIF RATING BINTANG & FORM FEEDBACK PEMINJAMAN BUKU
+    // ==========================================================================
     const starBtns = document.querySelectorAll('.star-btn');
     const ratingInput = document.getElementById('feedback-rating-input');
     const starLabel = document.getElementById('star-label');
@@ -491,6 +493,7 @@ html.dark {
       5: '⭐⭐⭐⭐⭐ 5/5 - Luar Biasa!'
     };
 
+    // Fungsi memperbarui warna bintang (emas/kuning) saat bintang dipilih
     function updateStars(val) {
       if (!ratingInput) return;
       ratingInput.value = val;
@@ -498,26 +501,28 @@ html.dark {
         const starNum = parseInt(btn.dataset.star);
         const icon = btn.querySelector('.material-symbols-outlined');
         if (starNum <= val) {
-          icon.style.fontVariationSettings = "'FILL' 1";
+          icon.style.fontVariationSettings = "'FILL' 1"; // Bintang terisi penuh
           btn.classList.add('text-amber-500');
           btn.classList.remove('text-slate-300');
         } else {
-          icon.style.fontVariationSettings = "'FILL' 0";
+          icon.style.fontVariationSettings = "'FILL' 0"; // Bintang kosong (garis tepi)
           btn.classList.remove('text-amber-500');
           btn.classList.add('text-slate-300');
         }
       });
       if (starLabel && labels[val]) {
-        starLabel.textContent = labels[val];
+        starLabel.textContent = labels[val]; // Perbarui teks keterangan (misal: Luar Biasa!)
       }
     }
 
+    // Pasang aksi klik ke setiap tombol bintang 1 sampai 5
     starBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         updateStars(parseInt(btn.dataset.star));
       });
     });
 
+    // Kirim ulasan dan rating ke server via AJAX Fetch
     const feedbackForm = document.getElementById('feedback-form');
     if (feedbackForm) {
       feedbackForm.addEventListener('submit', async (e) => {
@@ -535,6 +540,7 @@ html.dark {
         if (token) headers['Authorization'] = 'Bearer ' + token;
 
         try {
+          // Kirim data ke API Review Controller
           const res = await fetch('/api/reviews', {
             method: 'POST',
             headers: headers,
@@ -548,6 +554,7 @@ html.dark {
           });
           const data = await res.json();
           if (data.success) {
+            // Tampilkan pesan sukses dan sembunyikan form
             feedbackForm.classList.add('hidden');
             const successState = document.getElementById('feedback-success-state');
             successState.classList.remove('hidden');
