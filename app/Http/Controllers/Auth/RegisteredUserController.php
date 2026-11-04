@@ -19,24 +19,53 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function store(Request $request): Response
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $idKey = $request->has('nisn') ? 'nisn' : ($request->has('nis') ? 'nis' : 'email');
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ];
+
+        if ($idKey === 'email') {
+            $rules['email'] = ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class];
+        } else {
+            $rules[$idKey] = ['required', 'string', 'max:20', 'unique:users,nis'];
+        }
+
+        $validated = $request->validate($rules);
+
+        $userData = [
+            'name' => $validated['name'],
             'password' => Hash::make($request->string('password')),
-        ]);
+            'role' => 'Siswa',
+            'school_name' => $request->school_name ?? 'Asal Sekolah Default',
+            'level' => 1,
+            'xp' => 0,
+        ];
+
+        if ($idKey === 'email') {
+            $userData['email'] = $validated['email'];
+        } else {
+            $userData['nis'] = $validated[$idKey];
+        }
+
+        $user = User::create($userData);
 
         event(new Registered($user));
 
-        Auth::login($user);
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Registrasi berhasil',
+                'registered_nisn' => $user->nis ?? $user->email,
+            ], 201);
+        }
 
-        return response()->noContent();
+        return redirect()->route('login')->with([
+            'success' => 'Registrasi berhasil! Silakan masukkan kata sandi Anda.',
+            'registered_nisn' => $user->nis ?? $user->email,
+            'registered_nis' => $user->nis ?? $user->email,
+        ]);
     }
 }

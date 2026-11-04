@@ -117,27 +117,41 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $idKey = $request->has('nisn') ? 'nisn' : 'nis';
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'nis' => 'required|string|max:10|unique:users',
-            'school_name' => 'required|string|max:255',
+            $idKey => 'required|string|max:20|unique:users,nis',
+            'school_name' => 'nullable|string|max:255',
             'password' => 'required|string|min:6',
         ]);
 
+        $nisValue = $validated[$idKey];
+
         $user = \App\Models\User::create([
             'name' => $validated['name'],
-            'nis' => $validated['nis'],
-            'school_name' => $validated['school_name'],
+            'nis' => $nisValue,
+            'school_name' => $validated['school_name'] ?? 'Asal Sekolah Default',
             'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
             'role' => 'Siswa',
             'level' => 1,
             'xp' => 0,
         ]);
 
-        return response()->json([
-            'message' => 'Pendaftaran berhasil',
-            'user' => $user,
-        ], 201);
+        if ($request->wantsJson() || $request->is('api/*')) {
+            return response()->json([
+                'message' => 'Pendaftaran berhasil. Silakan masukkan kata sandi Anda.',
+                'user' => $user,
+                'registered_nisn' => $user->nis,
+                'registered_nis' => $user->nis,
+            ], 201);
+        }
+
+        return redirect()->route('login')->with([
+            'success' => 'Registrasi berhasil! Silakan masukkan kata sandi Anda.',
+            'registered_nisn' => $user->nis,
+            'registered_nis' => $user->nis,
+        ]);
     }
 
     public function updateProfile(Request $request)

@@ -470,23 +470,41 @@
     <!-- Divider -->
     <div class="or-divider"><span>Atau Manual ID</span></div>
 
+    @php
+      $prefilledNis = old('nis', old('nisn', session('registered_nisn', session('registered_nis'))));
+    @endphp
+
     <!-- Form -->
     <form id="auth-form" method="POST" action="#" style="display:flex;flex-direction:column;">
       @csrf
       <input type="hidden" name="is_register" id="is-register" value="0">
       <input type="hidden" name="school_name" value="Asal Sekolah Default">
 
+      @if (session('success'))
+        <div style="display:flex;align-items:center;gap:8px;padding:12px 14px;border-radius:12px;background:#dcfce7;color:#166534;font-size:13px;font-weight:600;margin-bottom:16px;">
+          <span class="ms" style="font-size:18px;color:#16a34a">check_circle</span>
+          <span>{{ session('success') }}</span>
+        </div>
+      @endif
+
+      @if (session('error'))
+        <div style="display:flex;align-items:center;gap:8px;padding:12px 14px;border-radius:12px;background:#fee2e2;color:#991b1b;font-size:13px;font-weight:600;margin-bottom:16px;">
+          <span class="ms" style="font-size:18px;color:#dc2626">error</span>
+          <span>{{ session('error') }}</span>
+        </div>
+      @endif
+
       <div id="js-alert-container"></div>
 
       <!-- NIS -->
       <div class="field-group">
         <div class="field-label-row">
-          <label class="field-label" for="input-identifier" id="label-identifier">Nomor Induk Siswa (NIS)</label>
+          <label class="field-label" for="input-identifier" id="label-identifier">Nomor Induk Siswa (NIS / NISN)</label>
           <a href="#" class="field-link"><span class="ms" style="font-size:14px">help</span>Cek NIS Online</a>
         </div>
         <div class="field-input-wrap">
           <span class="ms field-icon-left">badge</span>
-          <input type="text" name="nis" id="input-identifier" inputmode="numeric" class="field-input" placeholder="Contoh: 2024108827" value="{{ old('nis') }}" required>
+          <input type="text" name="nis" id="input-identifier" inputmode="numeric" class="field-input" placeholder="Contoh: 2024108827" value="{{ $prefilledNis }}" required {{ empty($prefilledNis) ? 'autofocus' : '' }}>
           <div class="field-icon-right">
             <button type="button" onclick="openScanner()" class="icon-btn"><span class="ms">qr_code</span></button>
           </div>
@@ -512,7 +530,7 @@
         </div>
         <div class="field-input-wrap">
           <span class="ms field-icon-left">lock</span>
-          <input type="password" name="password" id="input-password" class="field-input" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+          <input type="password" name="password" id="input-password" class="field-input" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required {{ !empty($prefilledNis) ? 'autofocus' : '' }}>
           <div class="field-icon-right">
             <button type="button" id="toggle-password" class="icon-btn"><span class="ms" id="pwd-icon">visibility_off</span></button>
           </div>
@@ -632,7 +650,15 @@ document.getElementById('forgot-pin-modal').addEventListener('click',function(e)
   let mode='login', role='student';
 
   const oldIsReg="{{ old('is_register') }}";
-  if(oldIsReg==="1") switchToReg();
+  if(oldIsReg==="1") {
+    switchToReg();
+  } else {
+    const prefilledNisVal = @json($prefilledNis);
+    if(prefilledNisVal) {
+      switchToLogin();
+      setTimeout(() => { inputPwd.focus(); }, 150);
+    }
+  }
 
   function showAlert(msg,type='error'){
     alertBox.style.display='flex';
@@ -696,8 +722,15 @@ document.getElementById('forgot-pin-modal').addEventListener('click',function(e)
       const data=await res.json();
       if(res.ok){
         if(isReg){
-          showAlert('Akun Berhasil Dibuat. Silakan masuk.','success');
-          setTimeout(()=>{inputId.value='';inputPwd.value='';inputName.value='';switchToLogin();},1500);
+          const registeredId = data.registered_nisn || inputId.value;
+          showAlert('Akun Berhasil Dibuat! Silakan masukkan kata sandi Anda.','success');
+          setTimeout(()=>{
+            inputPwd.value='';
+            inputName.value='';
+            inputId.value=registeredId;
+            switchToLogin();
+            inputPwd.focus();
+          },1200);
         }else{
           localStorage.setItem('auth_token',data.token||data.access_token);
           showAlert('Login berhasil!','success');
