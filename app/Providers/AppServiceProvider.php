@@ -17,7 +17,24 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Di lingkungan Vercel Serverless, arahkan storage ke direktori writable /tmp
+        if (isset($_ENV['VERCEL']) || env('VERCEL') || $this->app->environment('production')) {
+            $storagePath = '/tmp/storage';
+            $this->app->useStoragePath($storagePath);
+
+            $subdirectories = [
+                '/framework/cache/data',
+                '/framework/sessions',
+                '/framework/views',
+                '/logs',
+            ];
+
+            foreach ($subdirectories as $dir) {
+                if (!is_dir($storagePath . $dir)) {
+                    @mkdir($storagePath . $dir, 0755, true);
+                }
+            }
+        }
     }
 
     /**
