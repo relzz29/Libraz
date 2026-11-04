@@ -95,8 +95,8 @@ html.dark {
 <!-- Desktop Sidebar -->
 <aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-surface-container-high flex-col z-50">
   <div class="h-16 flex items-center px-6 border-b border-surface-container-high gap-3">
-    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
-    <span class="font-title-md text-title-md text-primary font-bold tracking-wider uppercase">BiblioZ</span>
+    <img alt="Libraz Logo" class="h-8 w-auto object-contain flex-shrink-0" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
+    <span class="font-title-md text-title-md text-primary font-bold tracking-wider uppercase">Libraz</span>
   </div>
   <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
     <a href="/katalog" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
@@ -119,7 +119,7 @@ html.dark {
   </nav>
 </aside>
   
-  <header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">BiblioZ</span><span class="font-title-md text-title-md text-on-surface truncate">Akun</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="{{ route('notifikasi') }}" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><a href="/edit-profil" class="w-11 h-11 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer" title="Edit Profil"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></a></div></div></header><main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-16 pb-24 md:pb-8 bg-surface min-h-screen overflow-hidden">
+  <header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Libraz App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">Libraz</span><span class="font-title-md text-title-md text-on-surface truncate">Akun</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><a href="{{ route('notifikasi') }}" aria-label="Notifikasi" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-[24px]">notifications</span></a><a href="/edit-profil" class="w-11 h-11 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer" title="Edit Profil"><img id="profile-avatar-small" alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User&amp;background=random&amp;color=fff"/></a></div></div></header><main class="flex flex-col relative w-full md:w-[calc(100%-16rem)] md:ml-64 pt-16 pb-24 md:pb-8 bg-surface min-h-screen overflow-hidden">
   
   <!-- Animated Background Orbs -->
   <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
@@ -382,7 +382,7 @@ html.dark {
                 <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/30">
                   <span class="material-symbols-outlined text-white text-[24px]">bolt</span>
                 </div>
-                <span class="font-black tracking-[0.25em] uppercase text-white/90 text-sm drop-shadow-md">BiblioZ Pass • 26/27</span>
+                <span class="font-black tracking-[0.25em] uppercase text-white/90 text-sm drop-shadow-md">Libraz Pass • 26/27</span>
               </div>
               <span class="px-4 py-2 rounded-full bg-white/10 backdrop-blur-xl text-xs font-black text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] border border-white/20">
                 Master Reader
@@ -416,7 +416,7 @@ html.dark {
                 <div class="w-full h-16 flex items-center justify-between py-1 px-4 rounded-xl">
                   <span class="w-2 h-full bg-black rounded-sm"></span><span class="w-1 h-full bg-black rounded-sm"></span><span class="w-3 h-full bg-black rounded-sm"></span><span class="w-1.5 h-full bg-black rounded-sm"></span><span class="w-1 h-full bg-black rounded-sm"></span><span class="w-4 h-full bg-black rounded-sm"></span><span class="w-2 h-full bg-black rounded-sm"></span><span class="w-2.5 h-full bg-black rounded-sm"></span><span class="w-1 h-full bg-black rounded-sm"></span><span class="w-3.5 h-full bg-black rounded-sm"></span><span class="w-1.5 h-full bg-black rounded-sm"></span><span class="w-1 h-full bg-black rounded-sm"></span><span class="w-2.5 h-full bg-black rounded-sm"></span><span class="w-3 h-full bg-black rounded-sm"></span><span class="w-1 h-full bg-black rounded-sm"></span><span class="w-2 h-full bg-black rounded-sm"></span>
                 </div>
-                <span id="profile-gate-id" class="font-black tracking-[0.25em] text-on-surface-variant mt-3 text-sm">1234567890-BIBLIOZ-GATE</span>
+                <span id="profile-gate-id" class="font-black tracking-[0.25em] text-on-surface-variant mt-3 text-sm">1234567890-LIBRAZ-GATE</span>
               </div>
               <p class="text-xs text-center text-on-surface-variant/80 max-w-[250px] font-medium">Arahkan barcode ke scanner turnstile gerbang perpustakaan</p>
             </div>
@@ -753,7 +753,7 @@ html.dark {
         if (elName) elName.textContent = user.name;
         if (elNis) elNis.innerHTML = `NIS: ${user.nis} &bull; <span class="font-bold text-on-surface">${user.role || 'Siswa'}</span>`;
         if (elSchool) elSchool.textContent = user.school_name || 'SMAN 1 GARUDAPURA';
-        if (elGate) elGate.textContent = `${user.nis}-BIBLIOZ-GATE`;
+        if (elGate) elGate.textContent = `${user.nis}-LIBRAZ-GATE`;
         
         const elAvatarSmall = document.getElementById('profile-avatar-small');
         const elAvatarLarge = document.getElementById('profile-avatar-large');

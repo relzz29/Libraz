@@ -14,6 +14,6 @@ class LibraryPageTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200)
-            ->assertSee('BiblioZ');
+            ->assertSee('Libraz');
     }
 }

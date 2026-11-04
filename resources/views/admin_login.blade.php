@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Masuk Portal Admin - BiblioZ Digital Library</title>
+  <title>Masuk Portal Admin - Libraz Digital Library</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
@@ -33,7 +33,7 @@
         </div>
         <div class="flex flex-col leading-none">
           <div class="flex items-center gap-2">
-            <span class="text-2xl font-black tracking-tight text-black font-['Plus_Jakarta_Sans']">BIBLIOZ</span>
+            <span class="text-2xl font-black tracking-tight text-black font-['Plus_Jakarta_Sans']">LIBRAZ</span>
             <span class="bg-[#ffea79] text-black border-2 border-black font-black text-[11px] px-2 py-0.5 rounded-lg shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] uppercase">
               ADMIN
             </span>

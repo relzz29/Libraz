@@ -216,7 +216,7 @@
             <div class="logo-area">
                 <div class="logo-icon"><i class="fa-solid fa-book-open-reader"></i></div>
                 <div>
-                    <div class="text-xs text-primary font-bold">BIBLIOZ</div>
+                    <div class="text-xs text-primary font-bold">LIBRAZ</div>
                     <div class="font-bold text-lg">@yield('page_title', 'Katalog Buku')</div>
                 </div>
             </div>

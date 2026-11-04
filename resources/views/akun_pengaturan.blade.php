@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
-<title>Pengaturan Pustaka - BiblioZ</title>
+<title>Pengaturan Pustaka - Libraz</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <style>
@@ -88,8 +88,8 @@ html.dark {
 <!-- Desktop Sidebar -->
 <aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-surface-container-high flex-col z-50">
   <div class="h-16 flex items-center px-6 border-b border-surface-container-high gap-3">
-    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
-    <span class="text-base text-primary font-extrabold tracking-wider uppercase">BiblioZ</span>
+    <img alt="Libraz Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
+    <span class="text-base text-primary font-extrabold tracking-wider uppercase">Libraz</span>
   </div>
   <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
     <a href="/katalog" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all font-semibold text-sm">
@@ -115,9 +115,9 @@ html.dark {
 <header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl border-b border-surface-container-high/60 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
   <div class="h-16 px-4 md:px-8 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3 min-w-0">
-      <img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
+      <img alt="Libraz App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2hoVQ9wOeungd-4ubStxt3uW2O2agaLbBXWfGvi50WoxUohQpS1yMGEOWVn3E1FfRDlQjUNIjc8U7kCnkRxZRKb_FmsWrxzUds9I4q7uzTH1WwhU3gP9Ixf3B82RgmnN0hKWT1MbmwIFykWAzRz7Rk0zLiqbGMIAh8vPkB5TkkU3q-_iAdQkfqN0k__yeu90O4L1BBAF2jgxjXZziX8XqXajMJjFWTDTlpqIgIs7jbXrN5InJK2I"/>
       <div class="flex flex-col min-w-0">
-        <span class="text-[10px] text-primary tracking-wider uppercase font-bold md:hidden">BiblioZ Library</span>
+        <span class="text-[10px] text-primary tracking-wider uppercase font-bold md:hidden">Libraz Library</span>
         <span class="text-lg font-extrabold text-on-surface truncate flex items-center gap-1.5">
           <span>Pengaturan Pustaka</span>
           <span class="text-sm">📖</span>
@@ -156,7 +156,7 @@ html.dark {
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
         <div class="flex flex-col max-w-xl">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-extrabold uppercase tracking-wider w-fit mb-3">
-            <span>📚 BiblioZ Smart Library</span>
+            <span>📚 Libraz Smart Library</span>
             <span class="text-amber-500">★</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight leading-tight">
@@ -431,7 +431,7 @@ html.dark {
       <!-- Library Info Footer -->
       <div class="rounded-2xl p-5 bg-surface-container/40 border border-surface-container-high/40 text-center flex flex-col items-center gap-1.5">
         <div class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-on-surface-variant">
-          <span>🏛️ BiblioZ Smart Library v2.4</span>
+          <span>🏛️ Libraz Smart Library v2.4</span>
           <span>•</span>
           <span>{{ $user->school_name ?? 'SMKN 1 CIOMAS' }}</span>
         </div>

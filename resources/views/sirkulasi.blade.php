@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
-<title>Sirkulasi - BiblioZ</title>
+<title>Sirkulasi - Libraz</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <link rel="prefetch" href="{{ route('akun') }}"/><link rel="prefetch" href="{{ route('katalog') }}"/>
@@ -129,8 +129,8 @@ html.dark {
 <!-- Desktop Sidebar -->
 <aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-surface-container-high flex-col z-50">
   <div class="h-16 flex items-center px-6 border-b border-surface-container-high gap-3">
-    <img alt="BiblioZ Logo" class="h-8 w-auto object-contain flex-shrink-0" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
-    <span class="font-title-md text-title-md text-primary font-bold tracking-wider uppercase">BiblioZ</span>
+    <img alt="Libraz Logo" class="h-8 w-auto object-contain flex-shrink-0" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
+    <span class="font-title-md text-title-md text-primary font-bold tracking-wider uppercase">Libraz</span>
   </div>
   <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
     <a href="/katalog" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all">
@@ -156,9 +156,9 @@ html.dark {
   <header class="fixed top-0 w-full md:w-[calc(100%-16rem)] md:left-64 z-40 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
     <div class="h-16 px-margin flex items-center justify-between gap-space-sm">
       <div class="flex items-center gap-space-sm min-w-0">
-        <img alt="BiblioZ App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
+        <img alt="Libraz App Logo" class="h-8 w-auto object-contain flex-shrink-0 md:hidden" src="{{ asset('assets/images/libraz_brand_logo.png') }}"/>
         <div class="flex flex-col min-w-0">
-          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">BiblioZ</span>
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase truncate md:hidden">Libraz</span>
           <span class="font-title-md text-title-md text-on-surface truncate">Sirkulasi Peminjaman</span>
         </div>
       </div>

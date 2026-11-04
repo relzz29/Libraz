@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiblioZ | Perpustakaan SMAN 1 Garudapura</title>
+    <title>Libraz | Perpustakaan SMAN 1 Garudapura</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
                 <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-700 to-indigo-500 text-lg font-black text-white shadow-lg shadow-violet-300/60">B</div>
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-[0.22em] text-violet-600">Perpustakaan</p>
-                    <h1 class="text-xl font-extrabold text-slate-900">BiblioZ</h1>
+                    <h1 class="text-xl font-extrabold text-slate-900">Libraz</h1>
                 </div>
             </div>
             <nav class="hidden items-center gap-7 text-sm font-semibold text-slate-600 md:flex">
