@@ -39,5 +39,5 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Port default
 EXPOSE 80
 
-# Jalankan migrasi dan nyalakan Apache
-CMD ["sh", "-c", "php artisan config:clear && php artisan route:clear && php artisan view:clear && apache2-foreground"]
+# Jalankan adaptasi port untuk cloud hosting (Render/Railway/Koyeb) dan nyalakan Apache
+CMD ["sh", "-c", "sed -i \"s/80/${PORT:-80}/g\" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && php artisan config:clear && php artisan route:clear && php artisan view:clear && apache2-foreground"]

@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: libraz-perpustakaan
+    runtime: docker
+    plan: free
+    region: singapore
+    healthCheckPath: /
+    envVars:
+      - key: APP_NAME
+        value: Libraz
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        value: base64:N8TGYkDq37voyNpCkzleQSf4elBPXtPeKkvfX8BGZPg=
+      - key: APP_DEBUG
+        value: "false"
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: aws-0-ap-south-1.pooler.supabase.com
+      - key: DB_PORT
+        value: "6543"
+      - key: DB_DATABASE
+        value: postgres
+      - key: DB_USERNAME
+        value: postgres.otvrdawzgzqxfqbsfymu
+      - key: DB_PASSWORD
+        value: farelmiripmonyet
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: CACHE_STORE
+        value: file
