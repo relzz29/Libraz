@@ -43,6 +43,20 @@ putenv('VERCEL=1');
 $_ENV['VERCEL'] = '1';
 $_SERVER['VERCEL'] = '1';
 
+// Pastikan SERVER variables lengkap agar Symfony Request tidak crash
+if (empty($_SERVER['REMOTE_ADDR'])) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['HTTP_X_REAL_IP'] ?? '127.0.0.1';
+}
+if (empty($_SERVER['SERVER_NAME'])) {
+    $_SERVER['SERVER_NAME'] = 'librazperpustakaan.vercel.app';
+}
+if (empty($_SERVER['SERVER_PORT'])) {
+    $_SERVER['SERVER_PORT'] = '443';
+}
+if (empty($_SERVER['HTTPS'])) {
+    $_SERVER['HTTPS'] = 'on';
+}
+
 // Siapkan direktori storage sementara di /tmp yang writable
 $tmpStorage = '/tmp/storage';
 $requiredDirs = [

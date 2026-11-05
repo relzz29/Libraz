@@ -17,9 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Di lingkungan Vercel Serverless, arahkan storage ke direktori writable /tmp
+        // Di lingkungan Vercel Serverless, arahkan storage ke direktori writable /tmp/storage
         if (isset($_ENV['VERCEL']) || env('VERCEL') || isset($_SERVER['VERCEL'])) {
-            $this->app->useStoragePath('/tmp');
+            $this->app->useStoragePath('/tmp/storage');
         }
     }
 
