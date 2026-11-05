@@ -1,0 +1,8 @@
+{
+  "name": "perpustakaan29",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": "20.x"
+  }
+}
