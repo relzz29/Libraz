@@ -11,7 +11,7 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 // Health check endpoint: jika URL memiliki ?check=1
-if (isset($_GET['check'])) {
+if (isset($_GET['check']) || str_contains($_SERVER['REQUEST_URI'] ?? '', 'check=1')) {
     header('Content-Type: text/plain; charset=utf-8');
     echo "=== LIBRAZ VERCEL DIAGNOSTICS ===\n\n";
     echo "PHP Version: " . PHP_VERSION . "\n";
