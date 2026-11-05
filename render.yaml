@@ -30,3 +30,4 @@ services:
         value: cookie
       - key: CACHE_STORE
         value: file
+
