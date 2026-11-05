@@ -4,7 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
-return Application::configure(basePath: dirname(__DIR__))
+$app = Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         api: __DIR__.'/../routes/api.php',
@@ -48,4 +48,23 @@ return Application::configure(basePath: dirname(__DIR__))
                     ->with('error', 'Sesi Anda sempat kedaluwarsa. Token keamanan telah diperbarui otomatis, silakan coba Masuk kembali.');
             }
         });
-    })->create();
+    });
+
+// Redirect storage path to writable /tmp in Vercel Serverless environment
+if (isset($_ENV['VERCEL']) || getenv('VERCEL') || isset($_SERVER['VERCEL'])) {
+    $app->useStoragePath('/tmp/storage');
+    $tmpDirs = [
+        '/tmp/storage/framework/views',
+        '/tmp/storage/framework/cache',
+        '/tmp/storage/framework/sessions',
+        '/tmp/storage/logs',
+        '/tmp/storage/app/public',
+    ];
+    foreach ($tmpDirs as $dir) {
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0755, true);
+        }
+    }
+}
+
+return $app->create();

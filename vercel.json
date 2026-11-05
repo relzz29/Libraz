@@ -2,8 +2,9 @@
   "version": 2,
   "framework": null,
   "functions": {
-    "api/*.php": {
-      "runtime": "vercel-php@0.9.0"
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.3",
+      "maxDuration": 30
     }
   },
   "routes": [
@@ -22,8 +23,13 @@
   ],
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "false",
-    "VIEW_COMPILED_PATH": "/tmp",
+    "APP_DEBUG": "true",
+    "APP_CONFIG_CACHE": "/tmp/bootstrap/cache/config.php",
+    "APP_EVENTS_CACHE": "/tmp/bootstrap/cache/events.php",
+    "APP_PACKAGES_CACHE": "/tmp/bootstrap/cache/packages.php",
+    "APP_ROUTES_CACHE": "/tmp/bootstrap/cache/routes.php",
+    "APP_SERVICES_CACHE": "/tmp/bootstrap/cache/services.php",
+    "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
     "CACHE_STORE": "array",
     "CACHE_DRIVER": "array",
     "SESSION_DRIVER": "cookie",
