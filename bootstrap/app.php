@@ -48,7 +48,7 @@ $app = Application::configure(basePath: dirname(__DIR__))
                     ->with('error', 'Sesi Anda sempat kedaluwarsa. Token keamanan telah diperbarui otomatis, silakan coba Masuk kembali.');
             }
         });
-    });
+    })->create();
 
 // Redirect storage path to writable /tmp in Vercel Serverless environment
 if (isset($_ENV['VERCEL']) || getenv('VERCEL') || isset($_SERVER['VERCEL'])) {
@@ -67,4 +67,4 @@ if (isset($_ENV['VERCEL']) || getenv('VERCEL') || isset($_SERVER['VERCEL'])) {
     }
 }
 
-return $app->create();
+return $app;
