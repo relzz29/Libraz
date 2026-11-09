@@ -568,9 +568,13 @@ Route::middleware('admin')->group(function () {
         Route::post('/admin/persetujuan/{id}/reject', [App\Http\Controllers\AdminApprovalController::class, 'reject'])->name('admin.persetujuan.reject');
     });
 
-    // 3. Modul Laporan Eksekutif & Statistik (Kepala Perpus & Admin IT)
-    Route::middleware('role:kepala perpus,admin it')->group(function () {
-        Route::get('/admin/laporan', [AdminBookController::class, 'laporan'])->name('admin.laporan');
+    // 3. Modul Laporan Harian & Bulanan (Kepala Perpus, Admin IT, Pustakawan, Admin)
+    Route::middleware('role:kepala perpus,admin it,pustakawan,admin')->group(function () {
+        Route::get('/admin/laporan', [\App\Http\Controllers\AdminReportController::class, 'index'])->name('admin.laporan');
+        Route::get('/admin/laporan/realtime', [\App\Http\Controllers\AdminReportController::class, 'realtime'])->name('admin.laporan.realtime');
+        Route::get('/admin/laporan/export/harian', [\App\Http\Controllers\AdminReportController::class, 'exportHarian'])->name('admin.laporan.export.harian');
+        Route::get('/admin/laporan/export/bulanan', [\App\Http\Controllers\AdminReportController::class, 'exportBulanan'])->name('admin.laporan.export.bulanan');
+        Route::post('/admin/laporan/status/{id}', [\App\Http\Controllers\AdminReportController::class, 'updateStatus'])->name('admin.laporan.status');
     });
 });
 
