@@ -27,7 +27,8 @@
     <meta name="theme-color" content="#0b1120">
 
     <!-- Deskripsi Singkat untuk SEO: Kalimat ringkasan yang muncul pada hasil pencarian Google dan saat tautan dibagikan ke WhatsApp / media sosial -->
-    <meta name="description" content="Libraz - Ekosistem perpustakaan digital pintar generasi baru. Peminjaman mandiri berbasis QR, pelacakan bacaan real-time, dan akses ribuan koleksi buku berkualitas tanpa antre.">
+    <meta name="description"
+        content="Libraz - Ekosistem perpustakaan digital pintar generasi baru. Peminjaman mandiri berbasis QR, pelacakan bacaan real-time, dan akses ribuan koleksi buku berkualitas tanpa antre.">
 
     <!-- Judul Tab Peramban (Browser Title) -->
     <title>Libraz — Perpustakaan Digital Cerdas & Modern</title>
@@ -36,7 +37,9 @@
     <!-- Mengambil jenis huruf modern: 'Outfit' (untuk judul/headline) & 'Plus Jakarta Sans' (untuk teks isi yang nyaman dibaca) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- ================= TAILWIND CSS (FRAMEWORK DESAIN) ================= -->
     <!-- Memuat library Tailwind CSS melalui CDN agar kita bisa memakai ratusan kelas utilitas desain modern secara instan -->
@@ -93,7 +96,7 @@
         /* Efek Pola Kotak-kotak Halus (Grid Pattern) pada Latar Belakang */
         .bg-grid-pattern {
             background-size: 40px 40px;
-            background-image: 
+            background-image:
                 linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
         }
@@ -137,31 +140,44 @@
 
         /* Kustomisasi Bilah Penggulir Layar (Scrollbar) agar Tampak Elegan dan Ramping */
         ::-webkit-scrollbar {
-            width: 8px; /* Lebar batang gulir */
+            width: 8px;
+            /* Lebar batang gulir */
         }
+
         ::-webkit-scrollbar-track {
-            background: #070b14; /* Warna rel latar scrollbar */
+            background: #070b14;
+            /* Warna rel latar scrollbar */
         }
+
         ::-webkit-scrollbar-thumb {
-            background: #1e293b; /* Warna pegangan penggeser */
-            border-radius: 4px;  /* Membuat sudut pegangan melengkung halus */
+            background: #1e293b;
+            /* Warna pegangan penggeser */
+            border-radius: 4px;
+            /* Membuat sudut pegangan melengkung halus */
         }
+
         ::-webkit-scrollbar-thumb:hover {
-            background: #06b6d4; /* Mengubah warna pegangan jadi cyan saat disentuh kursor */
+            background: #06b6d4;
+            /* Mengubah warna pegangan jadi cyan saat disentuh kursor */
         }
     </style>
 </head>
 
 <!-- Tag <body>: Wadah utama seluruh tampilan visual antarmuka pengguna -->
-<body class="bg-dark-950 text-slate-200 font-sans antialiased selection:bg-brand-cyan selection:text-dark-950 overflow-x-hidden">
+
+<body
+    class="bg-dark-950 text-slate-200 font-sans antialiased selection:bg-brand-cyan selection:text-dark-950 overflow-x-hidden">
 
     <!-- ================= CAHAYA PENDAR LATAR BELAKANG (AMBIENT GLOW) =================
          Elemen dekorasi berupa lingkaran cahaya buram di bagian atas halaman untuk memberikan nuansa kedalaman 3D -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] overflow-hidden pointer-events-none z-0">
+    <div
+        class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] overflow-hidden pointer-events-none z-0">
         <!-- Pendaran Cyan di sebelah kiri atas -->
-        <div class="absolute -top-[160px] left-1/4 w-[500px] h-[500px] bg-brand-cyan/20 rounded-full blur-[140px]"></div>
+        <div class="absolute -top-[160px] left-1/4 w-[500px] h-[500px] bg-brand-cyan/20 rounded-full blur-[140px]">
+        </div>
         <!-- Pendaran Biru di sebelah kanan atas -->
-        <div class="absolute -top-[120px] right-1/4 w-[420px] h-[420px] bg-brand-blue/20 rounded-full blur-[140px]"></div>
+        <div class="absolute -top-[120px] right-1/4 w-[420px] h-[420px] bg-brand-blue/20 rounded-full blur-[140px]">
+        </div>
     </div>
 
     <!-- ==========================================================================
@@ -172,12 +188,15 @@
          responsif untuk perangkat layar HP/ponsel pintar.
     ========================================================================== -->
     <header class="sticky top-0 z-50 glass-nav transition-all duration-300">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between" aria-label="Navigasi Utama">
-            
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
+            aria-label="Navigasi Utama">
+
             <!-- LOGO BRAND LIBRAZ: Ikon buku digital dan nama brand dengan titik cyan bercahaya -->
-            <a href="#" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-cyan rounded-lg p-1">
+            <a href="#"
+                class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-cyan rounded-lg p-1">
                 <!-- Kotak Ikon Buku dengan Bingkai Gradasi -->
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-cyan to-brand-blue p-[1px] shadow-neon-cyan flex items-center justify-center transition-transform group-hover:scale-105">
+                <div
+                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-cyan to-brand-blue p-[1px] shadow-neon-cyan flex items-center justify-center transition-transform group-hover:scale-105">
                     <div class="w-full h-full bg-dark-900 rounded-[11px] flex items-center justify-center">
                         <i data-lucide="book-open" class="w-5 h-5 text-brand-neon"></i>
                     </div>
@@ -187,28 +206,37 @@
                     <span class="font-display font-extrabold text-xl tracking-tight text-white flex items-center gap-1">
                         libraz<span class="text-brand-cyan font-black text-2xl leading-none">.</span>
                     </span>
-                    <span class="text-[9px] uppercase tracking-widest text-slate-400 font-semibold -mt-1">Digital Library</span>
+                    <span class="text-[9px] uppercase tracking-widest text-slate-400 font-semibold -mt-1">Digital
+                        Library</span>
                 </div>
             </a>
 
             <!-- MENU TAUTAN DESKTOP (Tersembunyi di layar kecil HP, muncul di layar komputer/laptop) -->
             <div class="hidden md:flex items-center gap-8">
-                <a href="#fitur" class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">Fitur Unggulan</a>
-                <a href="#katalog" class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">Koleksi Buku</a>
-                <a href="#tentang" class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">Tentang Kami</a>
-                <a href="#testimoni" class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">Ulasan</a>
-                <a href="#faq" class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">FAQ</a>
+                <a href="#fitur"
+                    class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">Fitur
+                    Unggulan</a>
+                <a href="#katalog"
+                    class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">Koleksi Buku</a>
+                <a href="#tentang"
+                    class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">Tentang Kami</a>
+                <a href="#testimoni"
+                    class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">Ulasan</a>
+                <a href="#faq"
+                    class="text-sm font-medium text-slate-300 hover:text-brand-neon transition-colors">FAQ</a>
             </div>
 
             <!-- TOMBOL AKSI CEPAT DESKTOP: Tombol Masuk ke Akun dan Tombol Buka Aplikasi Utama -->
             <div class="hidden sm:flex items-center gap-3.5">
                 <!-- Tombol Masuk: Mengarah ke halaman form login (/login) -->
-                <a href="/login" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white border border-slate-700/70 hover:border-slate-500 bg-dark-850/60 hover:bg-dark-800 transition-all duration-200">
+                <a href="/login"
+                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white border border-slate-700/70 hover:border-slate-500 bg-dark-850/60 hover:bg-dark-800 transition-all duration-200">
                     <i data-lucide="log-in" class="w-4 h-4 text-brand-cyan"></i>
                     <span>Masuk</span>
                 </a>
                 <!-- Tombol Buka Aplikasi: Tombol bercahaya gradasi menuju modul katalog (/katalog) -->
-                <a href="/katalog" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-dark-950 bg-gradient-to-r from-brand-neon via-brand-cyan to-cyan-400 hover:brightness-110 shadow-neon-cyan transition-all duration-200 hover:-translate-y-0.5">
+                <a href="/katalog"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-dark-950 bg-gradient-to-r from-brand-neon via-brand-cyan to-cyan-400 hover:brightness-110 shadow-neon-cyan transition-all duration-200 hover:-translate-y-0.5">
                     <i data-lucide="layout-dashboard" class="w-4 h-4 text-dark-950"></i>
                     <span>Buka Aplikasi</span>
                     <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 -ml-1 text-dark-950"></i>
@@ -216,7 +244,9 @@
             </div>
 
             <!-- TOMBOL TOGGLE MENU PONSEL (HAMBURGER BUTTON): Hanya tampak di layar HP/layar sempit -->
-            <button id="mobile-toggle-btn" class="sm:hidden p-2.5 rounded-xl border border-slate-700/60 bg-dark-850 text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan" aria-label="Buka Menu Navigasi" aria-expanded="false">
+            <button id="mobile-toggle-btn"
+                class="sm:hidden p-2.5 rounded-xl border border-slate-700/60 bg-dark-850 text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                aria-label="Buka Menu Navigasi" aria-expanded="false">
                 <!-- Ikon Garis 3 saat menu tertutup -->
                 <i data-lucide="menu" id="hamburger-icon" class="w-5 h-5"></i>
                 <!-- Ikon Tanda Silang (X) saat menu terbuka -->
@@ -225,21 +255,28 @@
         </nav>
 
         <!-- MENU DROPDOWN PONSEL: Panel menu yang turun ke bawah saat tombol hamburger di klik pengguna HP -->
-        <div id="mobile-menu" class="hidden sm:hidden border-b border-slate-800 bg-dark-900/95 backdrop-blur-xl px-5 pt-3 pb-6 transition-all duration-300">
+        <div id="mobile-menu"
+            class="hidden sm:hidden border-b border-slate-800 bg-dark-900/95 backdrop-blur-xl px-5 pt-3 pb-6 transition-all duration-300">
             <div class="flex flex-col space-y-3.5 text-sm font-medium text-slate-300">
-                <a href="#fitur" class="mobile-nav-link py-2 hover:text-brand-neon border-b border-slate-800/60">Fitur Unggulan</a>
-                <a href="#katalog" class="mobile-nav-link py-2 hover:text-brand-neon border-b border-slate-800/60">Koleksi Buku</a>
-                <a href="#tentang" class="mobile-nav-link py-2 hover:text-brand-neon border-b border-slate-800/60">Tentang Kami</a>
-                <a href="#testimoni" class="mobile-nav-link py-2 hover:text-brand-neon border-b border-slate-800/60">Ulasan</a>
+                <a href="#fitur" class="mobile-nav-link py-2 hover:text-brand-neon border-b border-slate-800/60">Fitur
+                    Unggulan</a>
+                <a href="#katalog"
+                    class="mobile-nav-link py-2 hover:text-brand-neon border-b border-slate-800/60">Koleksi Buku</a>
+                <a href="#tentang"
+                    class="mobile-nav-link py-2 hover:text-brand-neon border-b border-slate-800/60">Tentang Kami</a>
+                <a href="#testimoni"
+                    class="mobile-nav-link py-2 hover:text-brand-neon border-b border-slate-800/60">Ulasan</a>
                 <a href="#faq" class="mobile-nav-link py-2 hover:text-brand-neon">FAQ</a>
             </div>
             <!-- Tombol Pintasan Aksi di Layar Ponsel -->
             <div class="mt-5 grid grid-cols-2 gap-3 pt-4 border-t border-slate-800">
-                <a href="/login" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-200 border border-slate-700 bg-dark-800">
+                <a href="/login"
+                    class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-200 border border-slate-700 bg-dark-800">
                     <i data-lucide="log-in" class="w-4 h-4 text-brand-cyan"></i>
                     Masuk
                 </a>
-                <a href="/katalog" class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold text-dark-950 bg-brand-cyan hover:bg-brand-neon">
+                <a href="/katalog"
+                    class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold text-dark-950 bg-brand-cyan hover:bg-brand-neon">
                     Buka App ↗
                 </a>
             </div>
@@ -253,45 +290,53 @@
          penjelasan singkat, tombol Call-to-Action (CTA), statistik kepercayaan,
          dan pratinjau mockup dashboard interaktif perpustakaan.
     ========================================================================== -->
+
     <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
         <!-- Efek Kotak-kotak Halus Latar Belakang Hero -->
         <div class="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none"></div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-                
+
                 <!-- KOLOM KIRI: Teks Utama, Headline, Tombol Pintasan, dan Indikator Statistik -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    
+
                     <!-- Lencana Informasi / Pill Badge: Menunjukkan identitas inovasi platform -->
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 text-brand-neon text-xs font-semibold tracking-wide shadow-inner">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 text-brand-neon text-xs font-semibold tracking-wide shadow-inner">
                         <!-- Titik hijau berkedip animasi pulse -->
                         <span class="flex h-2 w-2 rounded-full bg-brand-cyan animate-pulse"></span>
                         Revolusi Literasi Digital Kampus & Sekolah
                     </div>
 
                     <!-- Judul Utama (Main Headline): Kalimat kunci yang menonjol dengan efek gradasi -->
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight leading-[1.12]">
-                        Akses Ribuan Buku & Ilmu Tanpa Batas dengan 
+                    <h1
+                        class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight leading-[1.12]">
+                        Akses Ribuan Buku & Ilmu Tanpa Batas dengan
                         <span class="text-gradient-cyan"> Libraz.</span>
                     </h1>
 
                     <!-- Deskripsi Pendukung (Subheadline): Ringkasan keunggulan teknologi Libraz -->
-                    <p class="text-base sm:text-lg text-slate-400 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                        Platform perpustakaan digital terpadu yang memadukan kecepatan katalog pintar, peminjaman mandiri via QR, dan sistem tracking bacaan otomatis. Baca di mana saja, kapan saja, tanpa ribet antre.
+                    <p
+                        class="text-base sm:text-lg text-slate-400 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Platform perpustakaan digital terpadu yang memadukan kecepatan katalog pintar, peminjaman
+                        mandiri via QR, dan sistem tracking bacaan otomatis. Baca di mana saja, kapan saja, tanpa ribet
+                        antre.
                     </p>
 
                     <!-- Tombol Aksi Utama (Call To Action): Pintasan langsung ke katalog dan login -->
                     <div class="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                         <!-- Tombol Buka Aplikasi -->
-                        <a href="/katalog" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl text-base font-bold text-dark-950 bg-gradient-to-r from-brand-neon via-brand-cyan to-blue-400 hover:brightness-110 shadow-neon-cyan transition-all duration-300 hover:-translate-y-1">
+                        <a href="/katalog"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl text-base font-bold text-dark-950 bg-gradient-to-r from-brand-neon via-brand-cyan to-blue-400 hover:brightness-110 shadow-neon-cyan transition-all duration-300 hover:-translate-y-1">
                             <i data-lucide="compass" class="w-5 h-5 text-dark-950"></i>
                             <span>Buka Aplikasi Libraz</span>
                             <i data-lucide="arrow-right" class="w-4 h-4 text-dark-950"></i>
                         </a>
-                        
+
                         <!-- Tombol Masuk Akun Anggota -->
-                        <a href="/login" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-base font-semibold text-slate-200 border border-slate-700 hover:border-brand-cyan/60 bg-dark-850/80 hover:bg-dark-800 transition-all duration-300">
+                        <a href="/login"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-base font-semibold text-slate-200 border border-slate-700 hover:border-brand-cyan/60 bg-dark-850/80 hover:bg-dark-800 transition-all duration-300">
                             <i data-lucide="user-check" class="w-5 h-5 text-brand-cyan"></i>
                             <span>Masuk Akun Anggota</span>
                         </a>
@@ -322,11 +367,15 @@
                      Memberikan gambaran visual nyata bagaimana tampilan aplikasi saat digunakan oleh anggota -->
                 <div class="lg:col-span-5 relative">
                     <!-- Efek Pendaran Cahaya di Belakang Jendela Mockup -->
-                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-cyan/30 to-brand-blue/30 rounded-3xl blur-2xl opacity-70"></div>
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-brand-cyan/30 to-brand-blue/30 rounded-3xl blur-2xl opacity-70">
+                    </div>
 
                     <!-- Lencana Melayang 1 (Floating Badge): Pengingat Bebas Denda dengan animasi naik-turun lembut -->
-                    <div class="absolute -top-5 -left-4 sm:-left-6 z-20 hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl glass-card border border-brand-cyan/30 shadow-glass animate-bounce" style="animation-duration: 4s;">
-                        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                    <div class="absolute -top-5 -left-4 sm:-left-6 z-20 hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl glass-card border border-brand-cyan/30 shadow-glass animate-bounce"
+                        style="animation-duration: 4s;">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
                             <i data-lucide="shield-check" class="w-5 h-5"></i>
                         </div>
                         <div>
@@ -336,8 +385,10 @@
                     </div>
 
                     <!-- Lencana Melayang 2 (Floating Badge): Fitur Scan QR Mandiri Cepat -->
-                    <div class="absolute -bottom-5 -right-2 sm:-right-4 z-20 hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl glass-card border border-brand-cyan/40 shadow-neon-cyan">
-                        <div class="w-8 h-8 rounded-lg bg-brand-cyan/20 text-brand-neon flex items-center justify-center">
+                    <div
+                        class="absolute -bottom-5 -right-2 sm:-right-4 z-20 hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl glass-card border border-brand-cyan/40 shadow-neon-cyan">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-brand-cyan/20 text-brand-neon flex items-center justify-center">
                             <i data-lucide="qr-code" class="w-5 h-5"></i>
                         </div>
                         <div>
@@ -348,9 +399,10 @@
 
                     <!-- Kontainer Jendela Aplikasi Tiruan (Mockup Frame) -->
                     <div class="relative glass-card rounded-2xl overflow-hidden border border-slate-700/70 shadow-2xl">
-                        
+
                         <!-- Bilah Judul Jendela (Window Header): Tiruan titik navigasi browser macOS -->
-                        <div class="bg-dark-900/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                        <div
+                            class="bg-dark-900/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
                                 <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
@@ -358,22 +410,25 @@
                                 <span class="ml-2 text-xs text-slate-400 font-mono">dashboard.libraz.app</span>
                             </div>
                             <!-- Tag Live Preview -->
-                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-brand-cyan/15 text-brand-neon border border-brand-cyan/30">
+                            <span
+                                class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-brand-cyan/15 text-brand-neon border border-brand-cyan/30">
                                 <span class="w-1.5 h-1.5 rounded-full bg-brand-neon"></span> Live Preview
                             </span>
                         </div>
 
                         <!-- Isi Konten Dalam Mockup -->
                         <div class="p-5 space-y-4 bg-dark-900/70">
-                            
+
                             <!-- Salam Anggota & Simulasi Profil Pengguna -->
                             <div class="flex items-center justify-between">
                                 <div>
                                     <h4 class="text-sm font-bold text-white">Halo, Rayan Satria 👋</h4>
-                                    <p class="text-[11px] text-slate-400">Kartu Anggota: <span class="text-brand-cyan font-mono">LIB-2026-904</span></p>
+                                    <p class="text-[11px] text-slate-400">Kartu Anggota: <span
+                                            class="text-brand-cyan font-mono">LIB-2026-904</span></p>
                                 </div>
                                 <!-- Avatar Inisial Anggota -->
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-cyan to-brand-blue flex items-center justify-center text-xs font-bold text-dark-950 font-display">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-cyan to-brand-blue flex items-center justify-center text-xs font-bold text-dark-950 font-display">
                                     RS
                                 </div>
                             </div>
@@ -389,37 +444,49 @@
                                 </div>
                                 <!-- Batang Persentase Keberhasilan Membaca -->
                                 <div class="w-full bg-dark-800 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-gradient-to-r from-brand-cyan to-blue-500 h-2 rounded-full w-4/5 shadow-neon-cyan"></div>
+                                    <div
+                                        class="bg-gradient-to-r from-brand-cyan to-blue-500 h-2 rounded-full w-4/5 shadow-neon-cyan">
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Kartu Buku yang Sedang Dipinjam Saat Ini -->
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between text-xs">
-                                    <span class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Sedang Dipinjam</span>
-                                    <a href="/katalog" class="text-brand-cyan hover:underline text-[11px]">Lihat Semua</a>
+                                    <span
+                                        class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Sedang
+                                        Dipinjam</span>
+                                    <a href="/katalog" class="text-brand-cyan hover:underline text-[11px]">Lihat
+                                        Semua</a>
                                 </div>
 
-                                <div class="p-3 rounded-xl bg-slate-800/40 border border-slate-700/60 flex items-center gap-3.5 hover:border-brand-cyan/40 transition">
+                                <div
+                                    class="p-3 rounded-xl bg-slate-800/40 border border-slate-700/60 flex items-center gap-3.5 hover:border-brand-cyan/40 transition">
                                     <!-- Miniatur Sampul Buku -->
-                                    <div class="w-11 h-14 rounded-lg bg-gradient-to-br from-cyan-900 to-dark-850 border border-brand-cyan/30 flex flex-col justify-between p-1.5 shrink-0 shadow">
+                                    <div
+                                        class="w-11 h-14 rounded-lg bg-gradient-to-br from-cyan-900 to-dark-850 border border-brand-cyan/30 flex flex-col justify-between p-1.5 shrink-0 shadow">
                                         <span class="text-[7px] text-brand-neon font-bold">TEK</span>
                                         <i data-lucide="code-2" class="w-4 h-4 text-brand-cyan mx-auto"></i>
                                         <span class="text-[6px] text-slate-400">v.26</span>
                                     </div>
                                     <!-- Info Buku: Judul, Pengarang, dan Masa Tenggat Kembali -->
                                     <div class="min-w-0 flex-1">
-                                        <h5 class="text-xs font-bold text-white truncate">Clean Code & Arsitektur Modern</h5>
+                                        <h5 class="text-xs font-bold text-white truncate">Clean Code & Arsitektur Modern
+                                        </h5>
                                         <p class="text-[10px] text-slate-400 mt-0.5">Robert C. Martin • Kategori: IT</p>
                                         <div class="mt-1.5 flex items-center gap-2">
-                                            <span class="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-medium">
+                                            <span
+                                                class="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-medium">
                                                 <i data-lucide="clock" class="w-3 h-3"></i> Sisa 4 Hari Lagi
                                             </span>
-                                            <span class="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">Rak 04-B</span>
+                                            <span
+                                                class="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">Rak
+                                                04-B</span>
                                         </div>
                                     </div>
                                     <!-- Status Peminjaman -->
-                                    <span class="px-2 py-1 rounded-md text-[10px] font-bold bg-brand-cyan/10 text-brand-neon border border-brand-cyan/30">
+                                    <span
+                                        class="px-2 py-1 rounded-md text-[10px] font-bold bg-brand-cyan/10 text-brand-neon border border-brand-cyan/30">
                                         Aktif
                                     </span>
                                 </div>
@@ -427,10 +494,12 @@
 
                             <!-- Tombol Aksi Cepat Interaktif di Dalam Mockup -->
                             <div class="grid grid-cols-2 gap-2 pt-1">
-                                <a href="/katalog" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold text-slate-200 bg-dark-800 hover:bg-slate-700 border border-slate-700 transition">
+                                <a href="/katalog"
+                                    class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold text-slate-200 bg-dark-800 hover:bg-slate-700 border border-slate-700 transition">
                                     <i data-lucide="search" class="w-3.5 h-3.5 text-brand-cyan"></i> Cari Katalog
                                 </a>
-                                <a href="/sirkulasi" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold text-slate-200 bg-dark-800 hover:bg-slate-700 border border-slate-700 transition">
+                                <a href="/sirkulasi"
+                                    class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold text-slate-200 bg-dark-800 hover:bg-slate-700 border border-slate-700 transition">
                                     <i data-lucide="history" class="w-3.5 h-3.5 text-brand-cyan"></i> Riwayat Pinjam
                                 </a>
                             </div>
@@ -451,10 +520,11 @@
     ========================================================================== -->
     <section id="fitur" class="py-20 md:py-28 relative border-t border-slate-800/80 bg-dark-900/40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
+
             <!-- Judul & Keterangan Pengantar Bagian Fitur -->
             <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-                <span class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
+                <span
+                    class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
                     Fitur Ekosistem Pintar
                 </span>
                 <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
@@ -462,7 +532,8 @@
                     <span class="text-gradient-cyan">Dirancang untuk Generasi Digital.</span>
                 </h2>
                 <p class="text-slate-400 text-base leading-relaxed">
-                    Tinggalkan kerumitan kartu fisik dan formulir manual. Libraz memperbarui seluruh alur peminjaman perpustakaan menjadi lebih cepat, transparan, dan terotomatisasi.
+                    Tinggalkan kerumitan kartu fisik dan formulir manual. Libraz memperbarui seluruh alur peminjaman
+                    perpustakaan menjadi lebih cepat, transparan, dan terotomatisasi.
                 </p>
             </div>
 
@@ -470,68 +541,92 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
                 <!-- KARTU FITUR 1: Pencarian Kilat & Presisi -->
-                <div class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 text-brand-neon flex items-center justify-center mb-5 group-hover:shadow-neon-cyan transition-all">
+                <div
+                    class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 text-brand-neon flex items-center justify-center mb-5 group-hover:shadow-neon-cyan transition-all">
                         <i data-lucide="search" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">Pencarian Kilat & Presisi</h3>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">
+                        Pencarian Kilat & Presisi</h3>
                     <p class="text-sm text-slate-400 leading-relaxed">
-                        Temukan buku berdasarkan judul, penulis, ISBN, atau topik hanya dalam sepersekian detik dengan filter kategori instan.
+                        Temukan buku berdasarkan judul, penulis, ISBN, atau topik hanya dalam sepersekian detik dengan
+                        filter kategori instan.
                     </p>
                 </div>
 
                 <!-- KARTU FITUR 2: Peminjaman Mandiri via Kode QR -->
-                <div class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-brand-blue/10 border border-brand-blue/30 text-sky-400 flex items-center justify-center mb-5 group-hover:shadow-neon-soft transition-all">
+                <div
+                    class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-brand-blue/10 border border-brand-blue/30 text-sky-400 flex items-center justify-center mb-5 group-hover:shadow-neon-soft transition-all">
                         <i data-lucide="qr-code" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">Peminjaman Mandiri via QR</h3>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">
+                        Peminjaman Mandiri via QR</h3>
                     <p class="text-sm text-slate-400 leading-relaxed">
-                        Cukup pindai kode QR buku langsung dari smartphone Anda di rak perpustakaan. Proses peminjaman terverifikasi otomatis tanpa antre di meja sirkulasi.
+                        Cukup pindai kode QR buku langsung dari smartphone Anda di rak perpustakaan. Proses peminjaman
+                        terverifikasi otomatis tanpa antre di meja sirkulasi.
                     </p>
                 </div>
 
                 <!-- KARTU FITUR 3: Pengingat Cerdas Bebas Denda -->
-                <div class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mb-5 group-hover:shadow-neon-cyan transition-all">
+                <div
+                    class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mb-5 group-hover:shadow-neon-cyan transition-all">
                         <i data-lucide="bell-ring" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">Pengingat Bebas Denda</h3>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">
+                        Pengingat Bebas Denda</h3>
                     <p class="text-sm text-slate-400 leading-relaxed">
-                        Sistem notifikasi pintar secara aktif mengingatkan masa tenggat peminjaman sebelum jatuh tempo, memastikan Anda selalu tenang dan terhindar dari denda.
+                        Sistem notifikasi pintar secara aktif mengingatkan masa tenggat peminjaman sebelum jatuh tempo,
+                        memastikan Anda selalu tenang dan terhindar dari denda.
                     </p>
                 </div>
 
                 <!-- KARTU FITUR 4: Sinkronisasi Lintas Perangkat (Multi-Device Sync) -->
-                <div class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center mb-5 group-hover:shadow-neon-soft transition-all">
+                <div
+                    class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center mb-5 group-hover:shadow-neon-soft transition-all">
                         <i data-lucide="smartphone" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">Sinkronisasi Lintas Perangkat</h3>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">
+                        Sinkronisasi Lintas Perangkat</h3>
                     <p class="text-sm text-slate-400 leading-relaxed">
-                        Buka akun Anda dari laptop, tablet, maupun ponsel pintar. Progres membaca, bookmark buku, dan riwayat tersimpan rapi secara real-time.
+                        Buka akun Anda dari laptop, tablet, maupun ponsel pintar. Progres membaca, bookmark buku, dan
+                        riwayat tersimpan rapi secara real-time.
                     </p>
                 </div>
 
                 <!-- KARTU FITUR 5: Ulasan & Penilaian Bintang Komunitas -->
-                <div class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mb-5 group-hover:shadow-neon-cyan transition-all">
+                <div
+                    class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mb-5 group-hover:shadow-neon-cyan transition-all">
                         <i data-lucide="message-square-quote" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">Ulasan & Rating Komunitas</h3>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">Ulasan &
+                        Rating Komunitas</h3>
                     <p class="text-sm text-slate-400 leading-relaxed">
-                        Dapatkan rekomendasi bacaan terbaik dari sesama pembaca, diskusikan intisari buku, dan berikan penilaian berbobot untuk setiap koleksi.
+                        Dapatkan rekomendasi bacaan terbaik dari sesama pembaca, diskusikan intisari buku, dan berikan
+                        penilaian berbobot untuk setiap koleksi.
                     </p>
                 </div>
 
                 <!-- KARTU FITUR 6: Statistik Minat Baca Pribadi -->
-                <div class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 text-pink-400 flex items-center justify-center mb-5 group-hover:shadow-neon-soft transition-all">
+                <div
+                    class="glass-card p-7 rounded-2xl hover:border-brand-cyan/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 text-pink-400 flex items-center justify-center mb-5 group-hover:shadow-neon-soft transition-all">
                         <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">Statistik Minat Baca Personal</h3>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-neon transition-colors">
+                        Statistik Minat Baca Personal</h3>
                     <p class="text-sm text-slate-400 leading-relaxed">
-                        Pantau grafik kecepatan baca, total halaman yang terselesaikan per bulan, serta tren genre favorit untuk memotivasi kebiasaan literasi Anda.
+                        Pantau grafik kecepatan baca, total halaman yang terselesaikan per bulan, serta tren genre
+                        favorit untuk memotivasi kebiasaan literasi Anda.
                     </p>
                 </div>
 
@@ -548,22 +643,25 @@
     ========================================================================== -->
     <section id="katalog" class="py-20 md:py-28 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
+
             <!-- Judul Bagian Katalog & Tombol Menuju Seluruh Koleksi -->
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
-                    <span class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
+                    <span
+                        class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
                         Katalog Populer
                     </span>
                     <h2 class="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight mt-3">
                         Koleksi Pilihan Pembaca Minggu Ini
                     </h2>
-                    <p class="text-slate-400 text-sm mt-1">Jelajahi sampel buku terpopuler dan periksa ketersediaan stok fisik secara langsung.</p>
+                    <p class="text-slate-400 text-sm mt-1">Jelajahi sampel buku terpopuler dan periksa ketersediaan stok
+                        fisik secara langsung.</p>
                 </div>
 
                 <!-- Tombol Pintasan ke Halaman Katalog Lengkap (/katalog) -->
                 <div class="flex items-center gap-3">
-                    <a href="/katalog" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-dark-800 hover:bg-slate-700 border border-slate-700 transition">
+                    <a href="/katalog"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-dark-800 hover:bg-slate-700 border border-slate-700 transition">
                         <span>Jelajahi Seluruh Katalog</span>
                         <i data-lucide="arrow-right" class="w-4 h-4 text-brand-cyan"></i>
                     </a>
@@ -574,13 +672,18 @@
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
                 <!-- BUKU 1: Kategori Teknologi / IT -->
-                <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-cyan/50 transition-all duration-300 group flex flex-col justify-between">
+                <div
+                    class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-cyan/50 transition-all duration-300 group flex flex-col justify-between">
                     <div>
                         <!-- Cover Tiruan Bergradasi Cyan -->
-                        <div class="h-48 bg-gradient-to-br from-cyan-950 via-dark-850 to-slate-900 p-5 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-brand-cyan/20 rounded-full blur-xl group-hover:bg-brand-cyan/40 transition"></div>
+                        <div
+                            class="h-48 bg-gradient-to-br from-cyan-950 via-dark-850 to-slate-900 p-5 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
+                            <div
+                                class="absolute -right-6 -bottom-6 w-24 h-24 bg-brand-cyan/20 rounded-full blur-xl group-hover:bg-brand-cyan/40 transition">
+                            </div>
                             <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-brand-cyan/20 text-brand-neon border border-brand-cyan/40">
+                                <span
+                                    class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-brand-cyan/20 text-brand-neon border border-brand-cyan/40">
                                     Teknologi
                                 </span>
                                 <span class="flex items-center gap-1 text-[11px] font-bold text-amber-400">
@@ -589,13 +692,16 @@
                             </div>
                             <div>
                                 <i data-lucide="cpu" class="w-8 h-8 text-brand-cyan mb-2"></i>
-                                <h4 class="text-base font-extrabold text-white font-display leading-tight">Mastering AI & Machine Learning</h4>
+                                <h4 class="text-base font-extrabold text-white font-display leading-tight">Mastering AI
+                                    & Machine Learning</h4>
                             </div>
                         </div>
                         <!-- Keterangan Penulis & Letak Rak Buku -->
                         <div class="p-5 space-y-2">
-                            <p class="text-xs text-slate-400">Penulis: <span class="text-slate-200 font-medium">Dr. Andrew Wijaya</span></p>
-                            <p class="text-xs text-slate-400">Lokasi: <span class="text-slate-200 font-medium">Rak IT-01</span></p>
+                            <p class="text-xs text-slate-400">Penulis: <span class="text-slate-200 font-medium">Dr.
+                                    Andrew Wijaya</span></p>
+                            <p class="text-xs text-slate-400">Lokasi: <span class="text-slate-200 font-medium">Rak
+                                    IT-01</span></p>
                         </div>
                     </div>
                     <!-- Status Ketersediaan Eksemplar & Tombol Aksi Pinjam -->
@@ -603,20 +709,26 @@
                         <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
                             <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Tersedia (8 Eks)
                         </span>
-                        <a href="/login" class="text-xs font-bold text-brand-cyan hover:text-white transition flex items-center gap-1">
+                        <a href="/login"
+                            class="text-xs font-bold text-brand-cyan hover:text-white transition flex items-center gap-1">
                             Pinjam <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- BUKU 2: Kategori Sains & Astronomi -->
-                <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-cyan/50 transition-all duration-300 group flex flex-col justify-between">
+                <div
+                    class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-cyan/50 transition-all duration-300 group flex flex-col justify-between">
                     <div>
                         <!-- Cover Tiruan Bergradasi Biru Luar Angkasa -->
-                        <div class="h-48 bg-gradient-to-br from-blue-950 via-dark-850 to-slate-900 p-5 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-brand-blue/20 rounded-full blur-xl group-hover:bg-brand-blue/40 transition"></div>
+                        <div
+                            class="h-48 bg-gradient-to-br from-blue-950 via-dark-850 to-slate-900 p-5 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
+                            <div
+                                class="absolute -right-6 -bottom-6 w-24 h-24 bg-brand-blue/20 rounded-full blur-xl group-hover:bg-brand-blue/40 transition">
+                            </div>
                             <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-blue-500/20 text-sky-400 border border-blue-500/40">
+                                <span
+                                    class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-blue-500/20 text-sky-400 border border-blue-500/40">
                                     Sains
                                 </span>
                                 <span class="flex items-center gap-1 text-[11px] font-bold text-amber-400">
@@ -625,13 +737,16 @@
                             </div>
                             <div>
                                 <i data-lucide="orbit" class="w-8 h-8 text-sky-400 mb-2"></i>
-                                <h4 class="text-base font-extrabold text-white font-display leading-tight">Kosmos: Menembus Batas Alam Semesta</h4>
+                                <h4 class="text-base font-extrabold text-white font-display leading-tight">Kosmos:
+                                    Menembus Batas Alam Semesta</h4>
                             </div>
                         </div>
                         <!-- Keterangan Penulis & Letak Rak Buku -->
                         <div class="p-5 space-y-2">
-                            <p class="text-xs text-slate-400">Penulis: <span class="text-slate-200 font-medium">Prof. Farhan Dirgantara</span></p>
-                            <p class="text-xs text-slate-400">Lokasi: <span class="text-slate-200 font-medium">Rak SN-04</span></p>
+                            <p class="text-xs text-slate-400">Penulis: <span class="text-slate-200 font-medium">Prof.
+                                    Farhan Dirgantara</span></p>
+                            <p class="text-xs text-slate-400">Lokasi: <span class="text-slate-200 font-medium">Rak
+                                    SN-04</span></p>
                         </div>
                     </div>
                     <!-- Status Ketersediaan Eksemplar & Tombol Aksi Pinjam -->
@@ -639,20 +754,26 @@
                         <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
                             <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Tersedia (4 Eks)
                         </span>
-                        <a href="/login" class="text-xs font-bold text-brand-cyan hover:text-white transition flex items-center gap-1">
+                        <a href="/login"
+                            class="text-xs font-bold text-brand-cyan hover:text-white transition flex items-center gap-1">
                             Pinjam <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- BUKU 3: Kategori Sastra Klasik -->
-                <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-cyan/50 transition-all duration-300 group flex flex-col justify-between">
+                <div
+                    class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-cyan/50 transition-all duration-300 group flex flex-col justify-between">
                     <div>
                         <!-- Cover Tiruan Bergradasi Amber Senja -->
-                        <div class="h-48 bg-gradient-to-br from-amber-950 via-dark-850 to-slate-900 p-5 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/20 rounded-full blur-xl group-hover:bg-amber-500/40 transition"></div>
+                        <div
+                            class="h-48 bg-gradient-to-br from-amber-950 via-dark-850 to-slate-900 p-5 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
+                            <div
+                                class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/20 rounded-full blur-xl group-hover:bg-amber-500/40 transition">
+                            </div>
                             <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                                <span
+                                    class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40">
                                     Sastra
                                 </span>
                                 <span class="flex items-center gap-1 text-[11px] font-bold text-amber-400">
@@ -661,13 +782,16 @@
                             </div>
                             <div>
                                 <i data-lucide="feather" class="w-8 h-8 text-amber-400 mb-2"></i>
-                                <h4 class="text-base font-extrabold text-white font-display leading-tight">Jejak Waktu di Ujung Senja</h4>
+                                <h4 class="text-base font-extrabold text-white font-display leading-tight">Jejak Waktu
+                                    di Ujung Senja</h4>
                             </div>
                         </div>
                         <!-- Keterangan Penulis & Letak Rak Buku -->
                         <div class="p-5 space-y-2">
-                            <p class="text-xs text-slate-400">Penulis: <span class="text-slate-200 font-medium">Kinanthi Kirana</span></p>
-                            <p class="text-xs text-slate-400">Lokasi: <span class="text-slate-200 font-medium">Rak SA-02</span></p>
+                            <p class="text-xs text-slate-400">Penulis: <span class="text-slate-200 font-medium">Kinanthi
+                                    Kirana</span></p>
+                            <p class="text-xs text-slate-400">Lokasi: <span class="text-slate-200 font-medium">Rak
+                                    SA-02</span></p>
                         </div>
                     </div>
                     <!-- Simulasi Status: Sedang Dipinjam Habis (Menampilkan opsi Reservasi) -->
@@ -675,20 +799,26 @@
                         <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-400">
                             <span class="w-2 h-2 rounded-full bg-rose-400"></span> Dipinjam Habis
                         </span>
-                        <a href="/login" class="text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-1">
+                        <a href="/login"
+                            class="text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-1">
                             Reservasi <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- BUKU 4: Kategori Psikologi & Pengembangan Diri -->
-                <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-cyan/50 transition-all duration-300 group flex flex-col justify-between">
+                <div
+                    class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-cyan/50 transition-all duration-300 group flex flex-col justify-between">
                     <div>
                         <!-- Cover Tiruan Bergradasi Zamrud Hijau -->
-                        <div class="h-48 bg-gradient-to-br from-emerald-950 via-dark-850 to-slate-900 p-5 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/20 rounded-full blur-xl group-hover:bg-emerald-500/40 transition"></div>
+                        <div
+                            class="h-48 bg-gradient-to-br from-emerald-950 via-dark-850 to-slate-900 p-5 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
+                            <div
+                                class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/20 rounded-full blur-xl group-hover:bg-emerald-500/40 transition">
+                            </div>
                             <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                                <span
+                                    class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
                                     Psikologi
                                 </span>
                                 <span class="flex items-center gap-1 text-[11px] font-bold text-amber-400">
@@ -697,13 +827,16 @@
                             </div>
                             <div>
                                 <i data-lucide="brain-circuit" class="w-8 h-8 text-emerald-400 mb-2"></i>
-                                <h4 class="text-base font-extrabold text-white font-display leading-tight">Fokus Mendalam di Era Distraksi</h4>
+                                <h4 class="text-base font-extrabold text-white font-display leading-tight">Fokus
+                                    Mendalam di Era Distraksi</h4>
                             </div>
                         </div>
                         <!-- Keterangan Penulis & Letak Rak Buku -->
                         <div class="p-5 space-y-2">
-                            <p class="text-xs text-slate-400">Penulis: <span class="text-slate-200 font-medium">Calvin Alamsyah, M.Psi</span></p>
-                            <p class="text-xs text-slate-400">Lokasi: <span class="text-slate-200 font-medium">Rak PS-03</span></p>
+                            <p class="text-xs text-slate-400">Penulis: <span class="text-slate-200 font-medium">Calvin
+                                    Alamsyah, M.Psi</span></p>
+                            <p class="text-xs text-slate-400">Lokasi: <span class="text-slate-200 font-medium">Rak
+                                    PS-03</span></p>
                         </div>
                     </div>
                     <!-- Status Ketersediaan Eksemplar & Tombol Aksi Pinjam -->
@@ -711,7 +844,8 @@
                         <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
                             <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Tersedia (12 Eks)
                         </span>
-                        <a href="/login" class="text-xs font-bold text-brand-cyan hover:text-white transition flex items-center gap-1">
+                        <a href="/login"
+                            class="text-xs font-bold text-brand-cyan hover:text-white transition flex items-center gap-1">
                             Pinjam <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                         </a>
                     </div>
@@ -732,40 +866,49 @@
     <section id="tentang" class="py-20 md:py-28 relative border-t border-slate-800/80 bg-dark-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-12 gap-12 items-center">
-                
+
                 <!-- Kolom Kiri: Narasi Profil Perusahaan & Poin Visi-Misi -->
                 <div class="lg:col-span-6 space-y-6">
-                    <span class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
+                    <span
+                        class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
                         Tentang Libraz
                     </span>
                     <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
                         Menghubungkan Pembaca dengan Gudang Pengetahuan Masa Depan.
                     </h2>
                     <p class="text-slate-300 text-base leading-relaxed">
-                        Libraz lahir dari visi bahwa perpustakaan seharusnya tidak menjadi tempat yang kaku dan lambat. Kami mendemokratisasi akses literasi dengan teknologi cerdas yang ramah pengguna, memudahkan pelajar, dosen, peneliti, dan masyarakat umum untuk membaca lebih banyak buku bermutu setiap hari.
+                        Libraz lahir dari visi bahwa perpustakaan seharusnya tidak menjadi tempat yang kaku dan lambat.
+                        Kami mendemokratisasi akses literasi dengan teknologi cerdas yang ramah pengguna, memudahkan
+                        pelajar, dosen, peneliti, dan masyarakat umum untuk membaca lebih banyak buku bermutu setiap
+                        hari.
                     </p>
 
                     <!-- Poin Visi dan Misi -->
                     <div class="space-y-4 pt-2">
                         <!-- Poin Visi -->
                         <div class="flex items-start gap-4">
-                            <div class="w-9 h-9 rounded-lg bg-brand-cyan/10 text-brand-neon flex items-center justify-center shrink-0 border border-brand-cyan/30 mt-1">
+                            <div
+                                class="w-9 h-9 rounded-lg bg-brand-cyan/10 text-brand-neon flex items-center justify-center shrink-0 border border-brand-cyan/30 mt-1">
                                 <i data-lucide="target" class="w-5 h-5"></i>
                             </div>
                             <div>
                                 <h4 class="text-base font-bold text-white">Visi Kami</h4>
-                                <p class="text-sm text-slate-400 mt-1">Menjadi pionir platform manajemen perpustakaan pintar di Indonesia yang mendorong budaya membaca tanpa sekat birokrasi.</p>
+                                <p class="text-sm text-slate-400 mt-1">Menjadi pionir platform manajemen perpustakaan
+                                    pintar di Indonesia yang mendorong budaya membaca tanpa sekat birokrasi.</p>
                             </div>
                         </div>
 
                         <!-- Poin Misi -->
                         <div class="flex items-start gap-4">
-                            <div class="w-9 h-9 rounded-lg bg-blue-500/10 text-sky-400 flex items-center justify-center shrink-0 border border-blue-500/30 mt-1">
+                            <div
+                                class="w-9 h-9 rounded-lg bg-blue-500/10 text-sky-400 flex items-center justify-center shrink-0 border border-blue-500/30 mt-1">
                                 <i data-lucide="zap" class="w-5 h-5"></i>
                             </div>
                             <div>
                                 <h4 class="text-base font-bold text-white">Misi Kami</h4>
-                                <p class="text-sm text-slate-400 mt-1">Mengotomatisasi sirkulasi buku, menyajikan transparansi stok buku, dan memberdayakan pustakawan dengan sistem inventaris modern berstandar tinggi.</p>
+                                <p class="text-sm text-slate-400 mt-1">Mengotomatisasi sirkulasi buku, menyajikan
+                                    transparansi stok buku, dan memberdayakan pustakawan dengan sistem inventaris modern
+                                    berstandar tinggi.</p>
                             </div>
                         </div>
                     </div>
@@ -780,28 +923,34 @@
                             <div class="glass-card p-6 rounded-2xl border border-slate-700/60">
                                 <div class="text-3xl font-black text-brand-neon font-display">100%</div>
                                 <h5 class="text-sm font-bold text-white mt-1">Digital & Paperless</h5>
-                                <p class="text-xs text-slate-400 mt-1">Mengurangi pemborosan kertas kartu dan formulir peminjaman secara total.</p>
+                                <p class="text-xs text-slate-400 mt-1">Mengurangi pemborosan kertas kartu dan formulir
+                                    peminjaman secara total.</p>
                             </div>
                             <!-- Metrik 2: Akses Kapan Saja 24/7 -->
-                            <div class="glass-card p-6 rounded-2xl border border-slate-700/60 bg-gradient-to-br from-brand-cyan/10 to-transparent">
+                            <div
+                                class="glass-card p-6 rounded-2xl border border-slate-700/60 bg-gradient-to-br from-brand-cyan/10 to-transparent">
                                 <div class="text-3xl font-black text-white font-display">24/7</div>
                                 <h5 class="text-sm font-bold text-white mt-1">Akses Portal Online</h5>
-                                <p class="text-xs text-slate-400 mt-1">Cek ketersediaan buku dan lakukan reservasi kapan pun dari mana saja.</p>
+                                <p class="text-xs text-slate-400 mt-1">Cek ketersediaan buku dan lakukan reservasi kapan
+                                    pun dari mana saja.</p>
                             </div>
                         </div>
                         <!-- Kolom Grid Kedua -->
                         <div class="space-y-4 pt-6">
                             <!-- Metrik 3: Kategori Buku Beragam -->
-                            <div class="glass-card p-6 rounded-2xl border border-slate-700/60 bg-gradient-to-br from-blue-500/10 to-transparent">
+                            <div
+                                class="glass-card p-6 rounded-2xl border border-slate-700/60 bg-gradient-to-br from-blue-500/10 to-transparent">
                                 <div class="text-3xl font-black text-sky-400 font-display">50+</div>
                                 <h5 class="text-sm font-bold text-white mt-1">Kategori Keilmuan</h5>
-                                <p class="text-xs text-slate-400 mt-1">Mulai dari informatika, kedokteran, sastra klasik hingga sains terapan.</p>
+                                <p class="text-xs text-slate-400 mt-1">Mulai dari informatika, kedokteran, sastra klasik
+                                    hingga sains terapan.</p>
                             </div>
                             <!-- Metrik 4: Performa Cepat & Ringan -->
                             <div class="glass-card p-6 rounded-2xl border border-slate-700/60">
                                 <div class="text-3xl font-black text-emerald-400 font-display">Fast</div>
                                 <h5 class="text-sm font-bold text-white mt-1">Responsif & Ringan</h5>
-                                <p class="text-xs text-slate-400 mt-1">Dioptimasi untuk koneksi sekolah maupun jaringan seluler cepat.</p>
+                                <p class="text-xs text-slate-400 mt-1">Dioptimasi untuk koneksi sekolah maupun jaringan
+                                    seluler cepat.</p>
                             </div>
                         </div>
                     </div>
@@ -819,16 +968,18 @@
     ========================================================================== -->
     <section id="testimoni" class="py-20 md:py-28 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
+
             <!-- Judul Bagian Testimoni -->
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                <span class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
+                <span
+                    class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
                     Kata Mereka
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight">
                     Dipercaya Siswa, Mahasiswa, & Pustakawan
                 </h2>
-                <p class="text-slate-400 text-sm">Lihat pengalaman langsung mereka yang telah bermigrasi ke ekosistem pintar Libraz.</p>
+                <p class="text-slate-400 text-sm">Lihat pengalaman langsung mereka yang telah bermigrasi ke ekosistem
+                    pintar Libraz.</p>
             </div>
 
             <!-- Grid 3 Kartu Testimoni -->
@@ -846,12 +997,14 @@
                             <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
                         </div>
                         <p class="text-sm text-slate-300 leading-relaxed italic">
-                            "Sebelum ada Libraz, saya sering lupa tanggal pengembalian buku skripsi dan kena denda. Fitur pengingat H-2 dan scan QR-nya benar-benar menyelamatkan waktu saya!"
+                            "Sebelum ada Libraz, saya sering lupa tanggal pengembalian buku skripsi dan kena denda.
+                            Fitur pengingat H-2 dan scan QR-nya benar-benar menyelamatkan waktu saya!"
                         </p>
                     </div>
                     <!-- Profil Pengulas 1 -->
                     <div class="pt-6 mt-6 border-t border-slate-800/80 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-cyan-900/60 border border-brand-cyan text-brand-neon font-bold flex items-center justify-center font-display">
+                        <div
+                            class="w-10 h-10 rounded-full bg-cyan-900/60 border border-brand-cyan text-brand-neon font-bold flex items-center justify-center font-display">
                             DH
                         </div>
                         <div>
@@ -862,7 +1015,8 @@
                 </div>
 
                 <!-- TESTIMONI 2: Kepala Sirkulasi Perpustakaan (Kartu Unggulan dengan Bayangan Halus) -->
-                <div class="glass-card p-7 rounded-2xl border border-brand-cyan/30 bg-slate-900/80 flex flex-col justify-between relative shadow-neon-soft">
+                <div
+                    class="glass-card p-7 rounded-2xl border border-brand-cyan/30 bg-slate-900/80 flex flex-col justify-between relative shadow-neon-soft">
                     <div class="space-y-4">
                         <!-- Rating 5 Bintang Emas -->
                         <div class="flex items-center gap-1 text-amber-400">
@@ -873,12 +1027,14 @@
                             <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
                         </div>
                         <p class="text-sm text-slate-200 leading-relaxed italic">
-                            "Sebagai pustakawan, pekerjaan inventaris buku jadi 10x lebih efisien. Tidak ada lagi buku hilang tanpa data jelas. Semua sirkulasi tercatat real-time di dashboard."
+                            "Sebagai pustakawan, pekerjaan inventaris buku jadi 10x lebih efisien. Tidak ada lagi buku
+                            hilang tanpa data jelas. Semua sirkulasi tercatat real-time di dashboard."
                         </p>
                     </div>
                     <!-- Profil Pengulas 2 -->
                     <div class="pt-6 mt-6 border-t border-slate-800/80 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-900/60 border border-blue-400 text-sky-300 font-bold flex items-center justify-center font-display">
+                        <div
+                            class="w-10 h-10 rounded-full bg-blue-900/60 border border-blue-400 text-sky-300 font-bold flex items-center justify-center font-display">
                             SR
                         </div>
                         <div>
@@ -900,12 +1056,14 @@
                             <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
                         </div>
                         <p class="text-sm text-slate-300 leading-relaxed italic">
-                            "Tampilan antarmukanya bersih banget, tema dark modenya nyaman di mata saat browsing buku malam hari di asrama. Pencariannya juga cepat tidak loading lama."
+                            "Tampilan antarmukanya bersih banget, tema dark modenya nyaman di mata saat browsing buku
+                            malam hari di asrama. Pencariannya juga cepat tidak loading lama."
                         </p>
                     </div>
                     <!-- Profil Pengulas 3 -->
                     <div class="pt-6 mt-6 border-t border-slate-800/80 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-emerald-900/60 border border-emerald-400 text-emerald-300 font-bold flex items-center justify-center font-display">
+                        <div
+                            class="w-10 h-10 rounded-full bg-emerald-900/60 border border-emerald-400 text-emerald-300 font-bold flex items-center justify-center font-display">
                             AN
                         </div>
                         <div>
@@ -927,16 +1085,18 @@
     ========================================================================== -->
     <section id="faq" class="py-20 md:py-28 relative border-t border-slate-800/80 bg-dark-900/40">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            
+
             <!-- Judul Bagian FAQ -->
             <div class="text-center space-y-3 mb-14">
-                <span class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
+                <span
+                    class="text-xs uppercase tracking-widest font-extrabold text-brand-neon bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
                     Bantuan & Informasi
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight">
                     Pertanyaan yang Sering Diajukan
                 </h2>
-                <p class="text-slate-400 text-sm">Temukan jawaban cepat seputar keanggotaan dan peminjaman buku di Libraz.</p>
+                <p class="text-slate-400 text-sm">Temukan jawaban cepat seputar keanggotaan dan peminjaman buku di
+                    Libraz.</p>
             </div>
 
             <!-- Wadah Accordion (Dikelola oleh kode JavaScript di bawah) -->
@@ -944,64 +1104,88 @@
 
                 <!-- ITEM FAQ 1: Cara Meminjam Buku -->
                 <div class="faq-item glass-card rounded-xl border border-slate-800 overflow-hidden transition-colors">
-                    <button class="faq-toggle w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none" aria-expanded="false">
-                        <span class="text-base font-bold text-white">Bagaimana cara meminjam buku menggunakan aplikasi Libraz?</span>
-                        <div class="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center shrink-0 text-slate-400 faq-icon transition-transform duration-200">
+                    <button
+                        class="faq-toggle w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none"
+                        aria-expanded="false">
+                        <span class="text-base font-bold text-white">Bagaimana cara meminjam buku menggunakan aplikasi
+                            Libraz?</span>
+                        <div
+                            class="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center shrink-0 text-slate-400 faq-icon transition-transform duration-200">
                             <i data-lucide="chevron-down" class="w-5 h-5"></i>
                         </div>
                     </button>
                     <!-- Konten Jawaban Tersembunyi (Akan meluncur saat diklik) -->
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
                         <p class="text-sm text-slate-400 pb-5 leading-relaxed">
-                            Sangat mudah! Anda cukup masuk ke akun Libraz Anda, pilih buku yang diinginkan dari katalog, lalu tekan tombol "Pinjam Mandiri". Saat berada di perpustakaan, arahkan kamera ke barcode/QR buku fisik untuk mencocokkan stok dan konfirmasi peminjaman seketika.
+                            Sangat mudah! Anda cukup masuk ke akun Libraz Anda, pilih buku yang diinginkan dari katalog,
+                            lalu tekan tombol "Pinjam Mandiri". Saat berada di perpustakaan, arahkan kamera ke
+                            barcode/QR buku fisik untuk mencocokkan stok dan konfirmasi peminjaman seketika.
                         </p>
                     </div>
                 </div>
 
                 <!-- ITEM FAQ 2: Biaya Keanggotaan -->
                 <div class="faq-item glass-card rounded-xl border border-slate-800 overflow-hidden transition-colors">
-                    <button class="faq-toggle w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none" aria-expanded="false">
-                        <span class="text-base font-bold text-white">Berapa biaya pendaftaran keanggotaan di Libraz?</span>
-                        <div class="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center shrink-0 text-slate-400 faq-icon transition-transform duration-200">
+                    <button
+                        class="faq-toggle w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none"
+                        aria-expanded="false">
+                        <span class="text-base font-bold text-white">Berapa biaya pendaftaran keanggotaan di
+                            Libraz?</span>
+                        <div
+                            class="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center shrink-0 text-slate-400 faq-icon transition-transform duration-200">
                             <i data-lucide="chevron-down" class="w-5 h-5"></i>
                         </div>
                     </button>
                     <!-- Konten Jawaban Tersembunyi -->
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
                         <p class="text-sm text-slate-400 pb-5 leading-relaxed">
-                            Pendaftaran dan keanggotaan dasar di Libraz 100% gratis bagi seluruh siswa, mahasiswa, dan staf terafiliasi. Anda langsung mendapatkan kuota peminjaman aktif hingga 3 buku secara bersamaan tanpa biaya sepeser pun.
+                            Pendaftaran dan keanggotaan dasar di Libraz 100% gratis bagi seluruh siswa, mahasiswa, dan
+                            staf terafiliasi. Anda langsung mendapatkan kuota peminjaman aktif hingga 3 buku secara
+                            bersamaan tanpa biaya sepeser pun.
                         </p>
                     </div>
                 </div>
 
                 <!-- ITEM FAQ 3: Batas Waktu Pinjam & Perpanjangan -->
                 <div class="faq-item glass-card rounded-xl border border-slate-800 overflow-hidden transition-colors">
-                    <button class="faq-toggle w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none" aria-expanded="false">
-                        <span class="text-base font-bold text-white">Berapa batas waktu peminjaman dan bagaimana perpanjangannya?</span>
-                        <div class="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center shrink-0 text-slate-400 faq-icon transition-transform duration-200">
+                    <button
+                        class="faq-toggle w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none"
+                        aria-expanded="false">
+                        <span class="text-base font-bold text-white">Berapa batas waktu peminjaman dan bagaimana
+                            perpanjangannya?</span>
+                        <div
+                            class="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center shrink-0 text-slate-400 faq-icon transition-transform duration-200">
                             <i data-lucide="chevron-down" class="w-5 h-5"></i>
                         </div>
                     </button>
                     <!-- Konten Jawaban Tersembunyi -->
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
                         <p class="text-sm text-slate-400 pb-5 leading-relaxed">
-                            Masa pinjam standar adalah 7 hari. Anda dapat memperpanjang masa peminjaman sebanyak 1 kali (tambahan 7 hari) langsung melalui tombol "Perpanjang" di dashboard sebelum tanggal jatuh tempo, asalkan buku tersebut tidak sedang direservasi oleh anggota lain.
+                            Masa pinjam standar adalah 7 hari. Anda dapat memperpanjang masa peminjaman sebanyak 1 kali
+                            (tambahan 7 hari) langsung melalui tombol "Perpanjang" di dashboard sebelum tanggal jatuh
+                            tempo, asalkan buku tersebut tidak sedang direservasi oleh anggota lain.
                         </p>
                     </div>
                 </div>
 
                 <!-- ITEM FAQ 4: Akses Smartphone -->
                 <div class="faq-item glass-card rounded-xl border border-slate-800 overflow-hidden transition-colors">
-                    <button class="faq-toggle w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none" aria-expanded="false">
-                        <span class="text-base font-bold text-white">Apakah Libraz dapat diakses melalui browser smartphone?</span>
-                        <div class="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center shrink-0 text-slate-400 faq-icon transition-transform duration-200">
+                    <button
+                        class="faq-toggle w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none"
+                        aria-expanded="false">
+                        <span class="text-base font-bold text-white">Apakah Libraz dapat diakses melalui browser
+                            smartphone?</span>
+                        <div
+                            class="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center shrink-0 text-slate-400 faq-icon transition-transform duration-200">
                             <i data-lucide="chevron-down" class="w-5 h-5"></i>
                         </div>
                     </button>
                     <!-- Konten Jawaban Tersembunyi -->
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
                         <p class="text-sm text-slate-400 pb-5 leading-relaxed">
-                            Tentu saja! Libraz dibangun dengan arsitektur web modern yang sepenuhnya responsif. Anda dapat mengakses seluruh fitur tanpa perlu mengunduh aplikasi tambahan yang memberatkan penyimpanan ponsel Anda.
+                            Tentu saja! Libraz dibangun dengan arsitektur web modern yang sepenuhnya responsif. Anda
+                            dapat mengakses seluruh fitur tanpa perlu mengunduh aplikasi tambahan yang memberatkan
+                            penyimpanan ponsel Anda.
                         </p>
                     </div>
                 </div>
@@ -1018,31 +1202,39 @@
     ========================================================================== -->
     <section class="py-20 relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative rounded-3xl p-8 sm:p-14 overflow-hidden border border-brand-cyan/40 bg-gradient-to-br from-dark-900 via-dark-850 to-slate-900 text-center shadow-2xl">
-                
+            <div
+                class="relative rounded-3xl p-8 sm:p-14 overflow-hidden border border-brand-cyan/40 bg-gradient-to-br from-dark-900 via-dark-850 to-slate-900 text-center shadow-2xl">
+
                 <!-- Efek Pendaran Cyan Dalam Banner -->
-                <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div
+                    class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-cyan/20 rounded-full blur-3xl pointer-events-none">
+                </div>
 
                 <div class="relative z-10 space-y-6 max-w-2xl mx-auto">
                     <!-- Label Ajakan Membaca -->
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-brand-neon bg-brand-cyan/15 border border-brand-cyan/30">
+                    <span
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-brand-neon bg-brand-cyan/15 border border-brand-cyan/30">
                         <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Mulai Petualangan Membaca Anda
                     </span>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
+                    <h2
+                        class="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
                         Siap Membuka Pintu ke Ribuan Koleksi Buku Terbaik?
                     </h2>
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                        Bergabunglah bersama ribuan pembaca cerdas lainnya. Akses katalog sekarang, pinjam buku idaman, dan tingkatkan wawasan Anda setiap hari.
+                        Bergabunglah bersama ribuan pembaca cerdas lainnya. Akses katalog sekarang, pinjam buku idaman,
+                        dan tingkatkan wawasan Anda setiap hari.
                     </p>
 
                     <!-- Tombol Aksi Cepat Penutup -->
                     <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href="/katalog" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-base font-bold text-dark-950 bg-gradient-to-r from-brand-neon to-brand-cyan hover:brightness-110 shadow-neon-cyan transition-all duration-300 hover:scale-105">
+                        <a href="/katalog"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-base font-bold text-dark-950 bg-gradient-to-r from-brand-neon to-brand-cyan hover:brightness-110 shadow-neon-cyan transition-all duration-300 hover:scale-105">
                             <i data-lucide="layout-dashboard" class="w-5 h-5 text-dark-950"></i>
                             <span>Buka Aplikasi Sekarang</span>
                             <i data-lucide="arrow-right" class="w-4 h-4 text-dark-950"></i>
                         </a>
-                        <a href="/login" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-base font-semibold text-white border border-slate-700 hover:border-slate-500 bg-dark-800/80 transition-all duration-300">
+                        <a href="/login"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-base font-semibold text-white border border-slate-700 hover:border-slate-500 bg-dark-800/80 transition-all duration-300">
                             <i data-lucide="user" class="w-5 h-5 text-brand-cyan"></i>
                             <span>Masuk ke Akun Saya</span>
                         </a>
@@ -1062,27 +1254,36 @@
     <footer class="border-t border-slate-800/80 bg-dark-950 py-14 text-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-                
+
                 <!-- Kolom 1: Profil Brand Libraz & Ikon Sosial Media (Lebar 2 Kolom) -->
                 <div class="col-span-2 space-y-4">
                     <a href="#" class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-cyan to-brand-blue flex items-center justify-center text-dark-950 font-bold shadow-neon-cyan">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-cyan to-brand-blue flex items-center justify-center text-dark-950 font-bold shadow-neon-cyan">
                             <i data-lucide="book-open" class="w-5 h-5 text-dark-950"></i>
                         </div>
-                        <span class="font-display font-extrabold text-xl tracking-tight text-white">libraz<span class="text-brand-cyan">.</span></span>
+                        <span class="font-display font-extrabold text-xl tracking-tight text-white">libraz<span
+                                class="text-brand-cyan">.</span></span>
                     </a>
                     <p class="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
-                        Solusi digitalisasi perpustakaan modern yang memudahkan sirkulasi buku, pencarian katalog cerdas, dan peningkatan minat literasi generasi muda.
+                        Solusi digitalisasi perpustakaan modern yang memudahkan sirkulasi buku, pencarian katalog
+                        cerdas, dan peningkatan minat literasi generasi muda.
                     </p>
                     <!-- Ikon Sosial Media (Website, GitHub, Instagram) -->
                     <div class="flex items-center gap-3 pt-2 text-slate-400">
-                        <a href="#" class="w-8 h-8 rounded-lg bg-dark-850 hover:bg-dark-800 hover:text-brand-cyan flex items-center justify-center border border-slate-800 transition" aria-label="Website">
+                        <a href="#"
+                            class="w-8 h-8 rounded-lg bg-dark-850 hover:bg-dark-800 hover:text-brand-cyan flex items-center justify-center border border-slate-800 transition"
+                            aria-label="Website">
                             <i data-lucide="globe" class="w-4 h-4"></i>
                         </a>
-                        <a href="#" class="w-8 h-8 rounded-lg bg-dark-850 hover:bg-dark-800 hover:text-brand-cyan flex items-center justify-center border border-slate-800 transition" aria-label="GitHub">
+                        <a href="#"
+                            class="w-8 h-8 rounded-lg bg-dark-850 hover:bg-dark-800 hover:text-brand-cyan flex items-center justify-center border border-slate-800 transition"
+                            aria-label="GitHub">
                             <i data-lucide="github" class="w-4 h-4"></i>
                         </a>
-                        <a href="#" class="w-8 h-8 rounded-lg bg-dark-850 hover:bg-dark-800 hover:text-brand-cyan flex items-center justify-center border border-slate-800 transition" aria-label="Instagram">
+                        <a href="#"
+                            class="w-8 h-8 rounded-lg bg-dark-850 hover:bg-dark-800 hover:text-brand-cyan flex items-center justify-center border border-slate-800 transition"
+                            aria-label="Instagram">
                             <i data-lucide="instagram" class="w-4 h-4"></i>
                         </a>
                     </div>
@@ -1092,16 +1293,24 @@
                 <div class="space-y-3">
                     <h5 class="text-xs font-bold uppercase tracking-wider text-white font-display">Pintasan Utama</h5>
                     <ul class="space-y-2 text-xs text-slate-400">
-                        <li><a href="/katalog" class="hover:text-brand-cyan transition flex items-center gap-1.5"><i data-lucide="chevron-right" class="w-3 h-3 text-brand-cyan"></i> Buka Aplikasi</a></li>
-                        <li><a href="/login" class="hover:text-brand-cyan transition flex items-center gap-1.5"><i data-lucide="chevron-right" class="w-3 h-3 text-brand-cyan"></i> Masuk Akun</a></li>
-                        <li><a href="/katalog" class="hover:text-brand-cyan transition flex items-center gap-1.5"><i data-lucide="chevron-right" class="w-3 h-3 text-brand-cyan"></i> Katalog Buku</a></li>
-                        <li><a href="/statistik" class="hover:text-brand-cyan transition flex items-center gap-1.5"><i data-lucide="chevron-right" class="w-3 h-3 text-brand-cyan"></i> Statistik Publik</a></li>
+                        <li><a href="/katalog" class="hover:text-brand-cyan transition flex items-center gap-1.5"><i
+                                    data-lucide="chevron-right" class="w-3 h-3 text-brand-cyan"></i> Buka Aplikasi</a>
+                        </li>
+                        <li><a href="/login" class="hover:text-brand-cyan transition flex items-center gap-1.5"><i
+                                    data-lucide="chevron-right" class="w-3 h-3 text-brand-cyan"></i> Masuk Akun</a></li>
+                        <li><a href="/katalog" class="hover:text-brand-cyan transition flex items-center gap-1.5"><i
+                                    data-lucide="chevron-right" class="w-3 h-3 text-brand-cyan"></i> Katalog Buku</a>
+                        </li>
+                        <li><a href="/statistik" class="hover:text-brand-cyan transition flex items-center gap-1.5"><i
+                                    data-lucide="chevron-right" class="w-3 h-3 text-brand-cyan"></i> Statistik
+                                Publik</a></li>
                     </ul>
                 </div>
 
                 <!-- Kolom 3: Tautan Menu Bagian Landing Page -->
                 <div class="space-y-3">
-                    <h5 class="text-xs font-bold uppercase tracking-wider text-white font-display">Fitur & Informasi</h5>
+                    <h5 class="text-xs font-bold uppercase tracking-wider text-white font-display">Fitur & Informasi
+                    </h5>
                     <ul class="space-y-2 text-xs text-slate-400">
                         <li><a href="#fitur" class="hover:text-brand-cyan transition">Fitur Unggulan</a></li>
                         <li><a href="#katalog" class="hover:text-brand-cyan transition">Koleksi Terpopuler</a></li>
@@ -1132,7 +1341,8 @@
             </div>
 
             <!-- Bagian Hak Cipta (Copyright) dan Kebijakan Legalitas di Paling Bawah -->
-            <div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <div
+                class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
                 <p>&copy; 2026 Libraz Digital Library. Seluruh hak cipta dilindungi undang-undang.</p>
                 <div class="flex items-center gap-6">
                     <a href="#" class="hover:text-slate-400 transition">Kebijakan Privasi</a>
@@ -1232,4 +1442,5 @@
         });
     </script>
 </body>
+
 </html>
