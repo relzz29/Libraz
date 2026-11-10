@@ -380,26 +380,31 @@ class AdminReportController extends Controller
      */
     public function exportHarian(Request $request)
     {
-        $date = $request->input('date', now()->format('Y-m-d'));
         try {
-            $date = Carbon::parse($date)->format('Y-m-d');
+            $date = $request->input('date', now()->format('Y-m-d'));
+            try {
+                $date = Carbon::parse($date)->format('Y-m-d');
+            } catch (\Throwable $e) {
+                $date = now()->format('Y-m-d');
+            }
+
+            $adminName = Auth::user()->name ?? session('admin_role', 'Administrator IT');
+            $fileName = 'Laporan_Harian_Peminjaman_' . $date . '.xlsx';
+
+            if (ob_get_level() > 0) {
+                ob_end_clean();
+            }
+
+            $headers = [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Cache-Control' => 'no-cache, private',
+            ];
+
+            return Excel::download(new LaporanHarianExport($date, $adminName), $fileName, \Maatwebsite\Excel\Excel::XLSX, $headers);
         } catch (\Throwable $e) {
-            $date = now()->format('Y-m-d');
+            Log::error('Export Harian Error: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return redirect()->back()->with('error', 'Gagal mengunduh Excel Laporan Harian: ' . $e->getMessage());
         }
-
-        $adminName = Auth::user()->name ?? session('admin_role', 'Administrator IT');
-        $fileName = 'Laporan_Harian_Peminjaman_' . $date . '.xlsx';
-
-        if (ob_get_level() > 0) {
-            ob_end_clean();
-        }
-
-        $headers = [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Cache-Control' => 'no-cache, private',
-        ];
-
-        return Excel::download(new LaporanHarianExport($date, $adminName), $fileName, \Maatwebsite\Excel\Excel::XLSX, $headers);
     }
 
     /**
@@ -407,27 +412,32 @@ class AdminReportController extends Controller
      */
     public function exportBulanan(Request $request)
     {
-        Carbon::setLocale('id');
-        $month = (int)$request->input('month', now()->month);
-        $year = (int)$request->input('year', now()->year);
+        try {
+            Carbon::setLocale('id');
+            $month = (int)$request->input('month', now()->month);
+            $year = (int)$request->input('year', now()->year);
 
-        if ($month < 1 || $month > 12) $month = (int)now()->month;
-        if ($year < 2020 || $year > 2035) $year = (int)now()->year;
+            if ($month < 1 || $month > 12) $month = (int)now()->month;
+            if ($year < 2020 || $year > 2035) $year = (int)now()->year;
 
-        $monthName = Carbon::createFromDate($year, $month, 1)->translatedFormat('F');
-        $adminName = Auth::user()->name ?? session('admin_role', 'Administrator IT');
-        $fileName = 'Laporan_Bulanan_Libraz_' . $monthName . '_' . $year . '.xlsx';
+            $monthName = Carbon::createFromDate($year, $month, 1)->translatedFormat('F');
+            $adminName = Auth::user()->name ?? session('admin_role', 'Administrator IT');
+            $fileName = 'Laporan_Bulanan_Libraz_' . $monthName . '_' . $year . '.xlsx';
 
-        if (ob_get_level() > 0) {
-            ob_end_clean();
+            if (ob_get_level() > 0) {
+                ob_end_clean();
+            }
+
+            $headers = [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Cache-Control' => 'no-cache, private',
+            ];
+
+            return Excel::download(new LaporanBulananExport($month, $year, $adminName), $fileName, \Maatwebsite\Excel\Excel::XLSX, $headers);
+        } catch (\Throwable $e) {
+            Log::error('Export Bulanan Error: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return redirect()->back()->with('error', 'Gagal mengunduh Excel Laporan Bulanan: ' . $e->getMessage());
         }
-
-        $headers = [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Cache-Control' => 'no-cache, private',
-        ];
-
-        return Excel::download(new LaporanBulananExport($month, $year, $adminName), $fileName, \Maatwebsite\Excel\Excel::XLSX, $headers);
     }
 
     /**

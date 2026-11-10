@@ -342,21 +342,21 @@
             <!-- Single Action Button on Right (Excel Only - Soft Brutalism) -->
             <div class="flex items-center gap-3">
                 @if($activeTab === 'harian')
-                <a id="btnExportHarian" href="{{ route('admin.laporan.export.harian', ['date' => $selectedDate]) }}"
-                   download="Laporan_Harian_Peminjaman_{{ $selectedDate }}.xlsx"
+                <button type="button" id="btnExportHarian"
                    onclick="handleDownloadExcel(event, 'harian')"
-                   class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm uppercase border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] soft-btn-hover flex items-center justify-center gap-2 cursor-pointer">
+                   title="Unduh Berkas Excel Laporan Harian Siap Cetak (.xlsx)"
+                   class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm uppercase border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] soft-btn-hover flex items-center justify-center gap-2 cursor-pointer transition-all active:translate-y-0.5">
                     <span id="exportIconHarian" class="material-symbols-outlined text-[20px]">file_download</span>
                     <span id="exportTextHarian">Unduh Excel Harian (.xlsx)</span>
-                </a>
+                </button>
                 @else
-                <a id="btnExportBulanan" href="{{ route('admin.laporan.export.bulanan', ['month' => $selectedMonth, 'year' => $selectedYear]) }}"
-                   download="Laporan_Bulanan_Libraz_{{ $selectedMonth }}_{{ $selectedYear }}.xlsx"
+                <button type="button" id="btnExportBulanan"
                    onclick="handleDownloadExcel(event, 'bulanan')"
-                   class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm uppercase border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] soft-btn-hover flex items-center justify-center gap-2 cursor-pointer">
+                   title="Unduh Berkas Excel Laporan Bulanan 2-Sheet Siap Cetak (.xlsx)"
+                   class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm uppercase border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] soft-btn-hover flex items-center justify-center gap-2 cursor-pointer transition-all active:translate-y-0.5">
                     <span id="exportIconBulanan" class="material-symbols-outlined text-[20px]">file_download</span>
                     <span id="exportTextBulanan">Unduh Excel Bulanan (.xlsx)</span>
-                </a>
+                </button>
                 @endif
             </div>
         </div>
@@ -1353,59 +1353,72 @@ function triggerManualSync() {
 
 // 9. Robust Excel Download with Dynamic Input Sync & Instant Feedback
 function handleDownloadExcel(e, type) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    let exportUrl = '';
+    let fileName = '';
+    let toastTitle = '';
+    let toastDesc = '';
+    let btnTextId = (type === 'harian') ? 'exportTextHarian' : 'exportTextBulanan';
+    let btnIconId = (type === 'harian') ? 'exportIconHarian' : 'exportIconBulanan';
+    let defaultText = (type === 'harian') ? 'Unduh Excel Harian (.xlsx)' : 'Unduh Excel Bulanan (.xlsx)';
+
     if (type === 'harian') {
         const dateInput = document.getElementById('inputDateHarian');
         const pickedDate = dateInput ? dateInput.value : '{{ $selectedDate }}';
-        const exportBtn = document.getElementById('btnExportHarian');
-        const exportIcon = document.getElementById('exportIconHarian');
-        const exportText = document.getElementById('exportTextHarian');
-
-        const exportUrl = `{{ route('admin.laporan.export.harian') }}?date=${encodeURIComponent(pickedDate)}`;
-        if (exportBtn) {
-            exportBtn.href = exportUrl;
-            exportBtn.setAttribute('download', `Laporan_Harian_Peminjaman_${pickedDate}.xlsx`);
-        }
-
-        showToast("Menyiapkan Excel Siap Cetak", `Laporan harian tanggal ${pickedDate} sedang diunduh...`);
-        
-        if (exportIcon && exportText) {
-            exportIcon.innerText = "sync";
-            exportIcon.classList.add("animate-spin");
-            exportText.innerText = "MENGUNDUH...";
-            setTimeout(() => {
-                exportIcon.innerText = "file_download";
-                exportIcon.classList.remove("animate-spin");
-                exportText.innerText = "Unduh Excel Harian (.xlsx)";
-            }, 2500);
-        }
+        exportUrl = `{{ route('admin.laporan.export.harian') }}?date=${encodeURIComponent(pickedDate)}`;
+        fileName = `Laporan_Harian_Peminjaman_${pickedDate}.xlsx`;
+        toastTitle = "Menyiapkan Excel Harian";
+        toastDesc = `Laporan tanggal ${pickedDate} sedang diunduh...`;
     } else {
         const monthSelect = document.getElementById('selectMonthBulanan');
         const yearSelect = document.getElementById('selectYearBulanan');
         const pickedMonth = monthSelect ? monthSelect.value : '{{ $selectedMonth }}';
         const pickedYear = yearSelect ? yearSelect.value : '{{ $selectedYear }}';
-        const exportBtn = document.getElementById('btnExportBulanan');
-        const exportIcon = document.getElementById('exportIconBulanan');
-        const exportText = document.getElementById('exportTextBulanan');
-
-        const exportUrl = `{{ route('admin.laporan.export.bulanan') }}?month=${encodeURIComponent(pickedMonth)}&year=${encodeURIComponent(pickedYear)}`;
-        if (exportBtn) {
-            exportBtn.href = exportUrl;
-            exportBtn.setAttribute('download', `Laporan_Bulanan_Libraz_${pickedMonth}_${pickedYear}.xlsx`);
-        }
-
-        showToast("Menyiapkan Excel Bulanan", `Laporan 2 sheet bulan ${pickedMonth}/${pickedYear} sedang diunduh...`);
-
-        if (exportIcon && exportText) {
-            exportIcon.innerText = "sync";
-            exportIcon.classList.add("animate-spin");
-            exportText.innerText = "MENGUNDUH...";
-            setTimeout(() => {
-                exportIcon.innerText = "file_download";
-                exportIcon.classList.remove("animate-spin");
-                exportText.innerText = "Unduh Excel Bulanan (.xlsx)";
-            }, 2500);
-        }
+        exportUrl = `{{ route('admin.laporan.export.bulanan') }}?month=${encodeURIComponent(pickedMonth)}&year=${encodeURIComponent(pickedYear)}`;
+        fileName = `Laporan_Bulanan_Libraz_${pickedMonth}_${pickedYear}.xlsx`;
+        toastTitle = "Menyiapkan Excel Bulanan";
+        toastDesc = `Laporan 2 sheet bulan ${pickedMonth}/${pickedYear} sedang diunduh...`;
     }
+
+    const exportText = document.getElementById(btnTextId);
+    const exportIcon = document.getElementById(btnIconId);
+
+    if (exportIcon && exportText) {
+        exportIcon.innerText = "sync";
+        exportIcon.classList.add("animate-spin");
+        exportText.innerText = "MENGUNDUH...";
+    }
+
+    showToast(toastTitle, toastDesc);
+
+    // Reliable client-side download: Create invisible link & click
+    try {
+        const link = document.createElement('a');
+        link.href = exportUrl;
+        link.setAttribute('download', fileName);
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => {
+            if (link.parentNode) {
+                link.parentNode.removeChild(link);
+            }
+        }, 1000);
+    } catch (err) {
+        window.location.href = exportUrl;
+    }
+
+    setTimeout(() => {
+        if (exportIcon && exportText) {
+            exportIcon.innerText = "file_download";
+            exportIcon.classList.remove("animate-spin");
+            exportText.innerText = defaultText;
+        }
+    }, 3000);
 }
 
 function startPolling() {
