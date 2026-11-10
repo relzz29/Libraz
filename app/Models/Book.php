@@ -36,4 +36,9 @@ class Book extends Model
     {
         return $this->hasMany(Review::class)->latest();
     }
+
+    public function borrowings()
+    {
+        return $this->hasMany(Borrowing::class);
+    }
 }

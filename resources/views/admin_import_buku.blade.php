@@ -8,97 +8,91 @@
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .comic-page-rays {
-            background-color: #faf6ee;
-            background-image: repeating-conic-gradient(
-                from 0deg at 50% -12%,
-                rgba(0, 0, 0, 0.038) 0deg 2.2deg,
-                transparent 2.2deg 8.5deg
-            );
+        .soft-page {
+            background-color: #f8fafc;
+            background-image: radial-gradient(rgba(148, 163, 184, 0.25) 1.2px, transparent 1.2px);
+            background-size: 22px 22px;
         }
-        .comic-sidebar-rays {
-            background-color: #fcf9f2;
-            background-image: repeating-conic-gradient(
-                from 135deg at 20% 12%,
-                rgba(0, 0, 0, 0.04) 0deg 2deg,
-                transparent 2deg 8.5deg
-            );
+        .soft-title {
+            font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.025em;
         }
-        .comic-title {
-            font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #7c3aed 0%, #c026d3 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            -webkit-text-stroke: 2px #000;
-            filter: drop-shadow(3px 3px 0px #000);
-            letter-spacing: -0.02em;
+        .soft-btn-hover {
+            transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
         }
-        .comic-btn-hover {
-            transition: transform 0.12s ease, box-shadow 0.12s ease;
-        }
-        .comic-btn-hover:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px #000 !important;
+        .soft-btn-hover:hover {
+            transform: translate(1.5px, 1.5px);
+            box-shadow: 1.5px 1.5px 0px #0f172a !important;
         }
     </style>
 </head>
-<body class="comic-page-rays font-['Plus_Jakarta_Sans'] text-black min-h-screen flex antialiased selection:bg-[#ffde59] selection:text-black">
+<body class="soft-page font-['Plus_Jakarta_Sans'] text-slate-900 min-h-screen flex antialiased selection:bg-amber-200 selection:text-slate-900">
 
     <!-- ================= SIDEBAR ================= -->
-    <aside class="w-64 comic-sidebar-rays border-r-[3px] border-black flex flex-col shrink-0 min-h-screen hidden md:flex">
+    <aside class="w-64 bg-white border-r-2 border-slate-900 flex flex-col shrink-0 min-h-screen hidden md:flex">
         <!-- Logo -->
-        <div class="p-6 border-b-[3px] border-black bg-[#ffde59]">
-            <a href="{{ route('admin') }}" class="flex items-center gap-2">
-                <span class="text-3xl font-black comic-title">LIBRAZ</span>
-                <span class="text-[10px] font-black bg-black text-white px-2 py-0.5 rounded-full border border-black uppercase tracking-wider">ADMIN</span>
-            </a>
-            <p class="text-[11px] font-black tracking-wider text-black/70 mt-1 uppercase">Sistem Perpustakaan Cerdas</p>
+        <div class="h-20 flex items-center px-6 border-b-2 border-slate-900 gap-3 bg-white">
+            <div class="relative flex-shrink-0">
+                <svg class="w-10 h-10 filter drop-shadow-[1.5px_1.5px_0px_#0f172a]" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 11 C15 8 8 9 5 11 L5 33 C8 31 15 30 22 32 Z" fill="#6ee7b7" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round" />
+                    <path d="M22 11 C29 8 36 9 39 11 L39 33 C36 31 29 30 22 32 Z" fill="#fde047" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round" />
+                    <path d="M22 10 L22 32" stroke="#0f172a" stroke-width="2.2" />
+                    <path d="M12 10 C15 8 20 9 22 10 C24 9 29 8 32 10" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" fill="none" />
+                </svg>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-extrabold text-2xl tracking-tight text-slate-900 leading-none font-['Space_Grotesk',sans-serif]">LIBRAZ</span>
+                <span class="text-[9px] font-bold tracking-[0.2em] text-slate-500 uppercase leading-tight mt-1">PERPUSTAKAAN</span>
+            </div>
         </div>
 
         <!-- Navigation Links -->
-        <nav class="p-4 space-y-2 flex-1">
-            <a href="{{ route('admin') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-transparent hover:border-black hover:bg-white hover:shadow-[3px_3px_0px_#000] font-bold text-sm transition-all">
+        <nav class="p-4 space-y-1.5 flex-1">
+            <div class="px-3 pt-2 pb-1">
+                <span class="font-bold text-[11px] tracking-wider text-slate-400 uppercase">ADMIN PANEL</span>
+            </div>
+            <a href="{{ route('admin') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-700 font-bold hover:bg-slate-100 hover:text-slate-900 transition-all">
                 <span class="material-symbols-outlined text-[20px]">dashboard</span>
                 <span>Dashboard</span>
             </a>
-            <a href="{{ route('admin.books.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-transparent hover:border-black hover:bg-white hover:shadow-[3px_3px_0px_#000] font-bold text-sm transition-all">
+            <a href="{{ route('admin.books.create') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-700 font-bold hover:bg-slate-100 hover:text-slate-900 transition-all">
                 <span class="material-symbols-outlined text-[20px]">add_circle</span>
-                <span>Tambah Buku Manual</span>
+                <span>Tambah Manual</span>
             </a>
-            <a href="{{ route('admin.books.import') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-black bg-[#38b6ff] text-black shadow-[3px_3px_0px_#000] font-black text-sm">
+            <a href="{{ route('admin.books.import') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-indigo-600 text-white font-extrabold border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a]">
                 <span class="material-symbols-outlined text-[20px]">upload_file</span>
-                <span>Bulk Import (Excel/CSV)</span>
+                <span>Bulk Import</span>
             </a>
-            <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-transparent hover:border-black hover:bg-white hover:shadow-[3px_3px_0px_#000] font-bold text-sm transition-all">
+            <a href="{{ route('admin.persetujuan') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-700 font-bold hover:bg-slate-100 hover:text-slate-900 transition-all">
                 <span class="material-symbols-outlined text-[20px]">verified</span>
-                <span>Persetujuan Pinjam</span>
+                <span>Persetujuan</span>
             </a>
-            <a href="{{ route('admin.laporan') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-transparent hover:border-black hover:bg-white hover:shadow-[3px_3px_0px_#000] font-bold text-sm transition-all">
+            <a href="{{ route('admin.laporan') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-700 font-bold hover:bg-slate-100 hover:text-slate-900 transition-all">
                 <span class="material-symbols-outlined text-[20px]">description</span>
-                <span>Laporan Sirkulasi</span>
+                <span>Laporan</span>
             </a>
-            <a href="{{ route('katalog') }}" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-transparent hover:border-black hover:bg-[#a78bfa]/20 font-bold text-sm transition-all">
+            <a href="{{ route('katalog') }}" target="_blank" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-700 font-bold hover:bg-slate-100 hover:text-slate-900 transition-all">
                 <span class="material-symbols-outlined text-[20px]">menu_book</span>
-                <span>Lihat Katalog Publik</span>
+                <span>Tampilan User</span>
             </a>
         </nav>
 
         <!-- User Info / Logout -->
-        <div class="p-4 border-t-[3px] border-black bg-white">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-xs font-black truncate">{{ session('admin_name', 'Pustakawan Libraz') }}</p>
-                    <span class="text-[10px] font-bold bg-[#70e000] px-2 py-0.5 rounded border border-black">ONLINE</span>
-                </div>
-                <a href="{{ route('admin.logout') }}" class="p-2 bg-[#ff595e] border-2 border-black rounded-lg hover:bg-red-500 shadow-[2px_2px_0px_#000] transition-all" title="Logout">
-                    <span class="material-symbols-outlined text-[18px]">logout</span>
-                </a>
-            </div>
+        <div class="p-4 border-t-2 border-slate-900 bg-white">
+            <form action="{{ route('admin.logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-rose-50 text-slate-800 font-extrabold border-2 border-slate-900 shadow-[2px_2px_0px_#0f172a] soft-btn-hover text-sm">
+                    <span class="material-symbols-outlined text-[18px] text-rose-600 font-bold">logout</span>
+                    <span>Keluar</span>
+                </button>
+            </form>
         </div>
     </aside>
 
@@ -106,13 +100,13 @@
     <main class="flex-1 flex flex-col min-w-0 pb-12">
         
         <!-- Top Mobile Header -->
-        <header class="p-4 bg-white border-b-[3px] border-black flex items-center justify-between md:hidden">
-            <a href="{{ route('admin') }}" class="text-2xl font-black comic-title">LIBRAZ</a>
+        <header class="p-4 bg-white border-b-2 border-slate-900 flex items-center justify-between md:hidden">
+            <a href="{{ route('admin') }}" class="text-2xl font-extrabold text-slate-900 font-['Space_Grotesk',sans-serif]">LIBRAZ</a>
             <div class="flex items-center gap-2">
-                <a href="{{ route('admin.books.create') }}" class="p-2 border-2 border-black rounded-lg bg-[#38b6ff] text-xs font-bold shadow-[2px_2px_0px_#000]">
+                <a href="{{ route('admin.books.create') }}" class="px-3 py-1.5 border-2 border-slate-900 rounded-lg bg-sky-100 text-xs font-bold shadow-[2px_2px_0px_#0f172a]">
                     Manual
                 </a>
-                <a href="{{ route('admin') }}" class="p-2 border-2 border-black rounded-lg bg-[#ffde59] text-xs font-bold shadow-[2px_2px_0px_#000]">
+                <a href="{{ route('admin') }}" class="px-3 py-1.5 border-2 border-slate-900 rounded-lg bg-amber-100 text-xs font-bold shadow-[2px_2px_0px_#0f172a]">
                     Dashboard
                 </a>
             </div>
@@ -123,20 +117,20 @@
             <!-- Breadcrumbs & Title Section -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <div class="flex items-center gap-2 text-xs font-black text-black/60 uppercase mb-1">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase mb-1">
                         <a href="{{ route('admin') }}" class="hover:underline">Admin</a>
                         <span>/</span>
                         <span>Manajemen Buku</span>
                         <span>/</span>
-                        <span class="text-black">Bulk Data Import</span>
+                        <span class="text-slate-900 font-extrabold">Bulk Data Import</span>
                     </div>
-                    <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-black flex items-center gap-2">
-                        <span class="p-2 rounded-xl bg-[#38b6ff] border-2 border-black shadow-[3px_3px_0px_#000] inline-flex">
-                            <span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2.5 font-['Space_Grotesk',sans-serif]">
+                        <span class="p-2 rounded-xl bg-sky-100 border-2 border-slate-900 shadow-[2px_2px_0px_#0f172a] inline-flex">
+                            <span class="material-symbols-outlined text-[24px] text-sky-800">cloud_upload</span>
                         </span>
                         <span>Import Massal Koleksi Buku</span>
                     </h1>
-                    <p class="text-sm font-semibold text-black/70 mt-1">
+                    <p class="text-sm font-medium text-slate-600 mt-1">
                         Unggah berkas Excel (.xlsx) atau CSV untuk memasukkan ratusan koleksi buku sekaligus secara instan dan efisien.
                     </p>
                 </div>
@@ -144,13 +138,13 @@
                 <!-- Template Download Buttons -->
                 <div class="flex items-center gap-2 shrink-0">
                     <a href="{{ route('admin.books.import.template', 'xlsx') }}" 
-                       class="px-4 py-2.5 rounded-xl bg-[#70e000] border-2 border-black font-black text-xs shadow-[3px_3px_0px_#000] comic-btn-hover flex items-center gap-1.5"
+                       class="px-4 py-2 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-950 border-2 border-slate-900 font-extrabold text-xs shadow-[2px_2px_0px_#0f172a] soft-btn-hover flex items-center gap-1.5"
                        title="Download format Excel">
-                        <span class="material-symbols-outlined text-[18px]">table_view</span>
-                        <span>Download Template .XLSX</span>
+                        <span class="material-symbols-outlined text-[18px] text-emerald-800">table_view</span>
+                        <span>Template .XLSX</span>
                     </a>
                     <a href="{{ route('admin.books.import.template', 'csv') }}" 
-                       class="px-3.5 py-2.5 rounded-xl bg-white border-2 border-black font-black text-xs shadow-[3px_3px_0px_#000] comic-btn-hover flex items-center gap-1.5"
+                       class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-900 font-extrabold text-xs shadow-[2px_2px_0px_#0f172a] soft-btn-hover flex items-center gap-1.5"
                        title="Download format CSV">
                         <span class="material-symbols-outlined text-[18px]">csv</span>
                         <span>.CSV</span>
@@ -160,50 +154,50 @@
 
             <!-- ================= FLASH FEEDBACK ALERTS ================= -->
             @if(session('success'))
-            <div class="p-4 rounded-2xl bg-[#70e000]/25 border-[2.5px] border-black shadow-[4px_4px_0px_#000] flex items-start gap-3">
+            <div class="p-4 rounded-xl bg-emerald-100 border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] flex items-start gap-3">
                 <span class="material-symbols-outlined text-emerald-800 text-[24px] mt-0.5">check_circle</span>
                 <div>
-                    <h3 class="font-black text-sm text-emerald-950">Berhasil!</h3>
-                    <p class="text-xs font-bold text-emerald-900 mt-0.5 leading-relaxed">{{ session('success') }}</p>
+                    <h3 class="font-extrabold text-sm text-emerald-950">Berhasil!</h3>
+                    <p class="text-xs font-semibold text-emerald-900 mt-0.5 leading-relaxed">{{ session('success') }}</p>
                 </div>
             </div>
             @endif
 
             @if(session('warning'))
-            <div class="p-4 rounded-2xl bg-[#ffde59]/40 border-[2.5px] border-black shadow-[4px_4px_0px_#000] space-y-3">
+            <div class="p-4 rounded-xl bg-amber-100 border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] space-y-3">
                 <div class="flex items-start gap-3">
                     <span class="material-symbols-outlined text-amber-900 text-[24px] mt-0.5">warning</span>
                     <div>
-                        <h3 class="font-black text-sm text-amber-950">Perhatian: Ada Data Gagal Validasi</h3>
-                        <p class="text-xs font-bold text-amber-900 mt-0.5 leading-relaxed">{{ session('warning') }}</p>
+                        <h3 class="font-extrabold text-sm text-amber-950">Perhatian: Ada Data Gagal Validasi</h3>
+                        <p class="text-xs font-semibold text-amber-900 mt-0.5 leading-relaxed">{{ session('warning') }}</p>
                     </div>
                 </div>
 
                 @if(session('failures') && count(session('failures')) > 0)
-                <div class="mt-3 border-2 border-black rounded-xl overflow-hidden bg-white shadow-[2px_2px_0px_#000]">
-                    <div class="bg-black text-white px-3 py-1.5 text-xs font-black uppercase tracking-wider flex items-center justify-between">
+                <div class="mt-3 border-2 border-slate-900 rounded-xl overflow-hidden bg-white shadow-[2px_2px_0px_#0f172a]">
+                    <div class="bg-slate-900 text-white px-3 py-1.5 text-xs font-extrabold uppercase tracking-wider flex items-center justify-between">
                         <span>Daftar Baris yang Gagal Diimpor ({{ count(session('failures')) }} Baris)</span>
                         <span class="text-[10px] text-amber-300">Baris valid lainnya tetap berhasil disimpan</span>
                     </div>
                     <div class="max-h-60 overflow-y-auto">
                         <table class="w-full text-left text-xs border-collapse">
-                            <thead class="bg-slate-100 border-b border-black text-black font-black uppercase text-[10px]">
+                            <thead class="bg-slate-100 border-b border-slate-900 text-slate-800 font-extrabold uppercase text-[10px]">
                                 <tr>
-                                    <th class="p-2 border-r border-black w-16 text-center">Baris</th>
-                                    <th class="p-2 border-r border-black w-32">Kolom</th>
-                                    <th class="p-2 border-r border-black">Pesan Kesalahan</th>
+                                    <th class="p-2 border-r border-slate-300 w-16 text-center">Baris</th>
+                                    <th class="p-2 border-r border-slate-300 w-32">Kolom</th>
+                                    <th class="p-2 border-r border-slate-300">Pesan Kesalahan</th>
                                     <th class="p-2">Data Terinput</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-black/20 font-semibold">
+                            <tbody class="divide-y divide-slate-200 font-medium">
                                 @foreach(session('failures') as $fail)
-                                <tr class="hover:bg-red-50/50">
-                                    <td class="p-2 border-r border-black font-black text-center bg-slate-50">#{{ $fail['row'] }}</td>
-                                    <td class="p-2 border-r border-black font-mono text-[11px] text-purple-700">{{ $fail['attribute'] }}</td>
-                                    <td class="p-2 border-r border-black text-red-600 font-bold">
+                                <tr class="hover:bg-rose-50/50">
+                                    <td class="p-2 border-r border-slate-200 font-extrabold text-center bg-slate-50">#{{ $fail['row'] }}</td>
+                                    <td class="p-2 border-r border-slate-200 font-mono text-[11px] text-indigo-700 font-bold">{{ $fail['attribute'] }}</td>
+                                    <td class="p-2 border-r border-slate-200 text-rose-600 font-bold">
                                         {{ implode(', ', $fail['errors']) }}
                                     </td>
-                                    <td class="p-2 text-black/70 truncate max-w-xs font-mono text-[10px]">
+                                    <td class="p-2 text-slate-600 truncate max-w-xs font-mono text-[10px]">
                                         {{ json_encode($fail['values']) }}
                                     </td>
                                 </tr>
@@ -217,21 +211,21 @@
             @endif
 
             @if(session('error'))
-            <div class="p-4 rounded-2xl bg-[#ff595e]/20 border-[2.5px] border-black shadow-[4px_4px_0px_#000] flex items-start gap-3">
-                <span class="material-symbols-outlined text-red-800 text-[24px] mt-0.5">error</span>
+            <div class="p-4 rounded-xl bg-rose-100 border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-800 text-[24px] mt-0.5">error</span>
                 <div>
-                    <h3 class="font-black text-sm text-red-950">Gagal Mengimpor Berkas</h3>
-                    <p class="text-xs font-bold text-red-900 mt-0.5 leading-relaxed">{{ session('error') }}</p>
+                    <h3 class="font-extrabold text-sm text-rose-950">Gagal Mengimpor Berkas</h3>
+                    <p class="text-xs font-semibold text-rose-900 mt-0.5 leading-relaxed">{{ session('error') }}</p>
                 </div>
             </div>
             @endif
 
-            @if($errors->any())
-            <div class="p-4 rounded-2xl bg-[#ff595e]/20 border-[2.5px] border-black shadow-[4px_4px_0px_#000] flex items-start gap-3">
-                <span class="material-symbols-outlined text-red-800 text-[24px] mt-0.5">error</span>
+            @if(isset($errors) && $errors->any())
+            <div class="p-4 rounded-xl bg-rose-100 border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-800 text-[24px] mt-0.5">error</span>
                 <div>
-                    <h3 class="font-black text-sm text-red-950">Kesalahan Validasi Berkas:</h3>
-                    <ul class="list-disc list-inside text-xs font-bold text-red-900 mt-1 space-y-0.5">
+                    <h3 class="font-extrabold text-sm text-rose-950">Kesalahan Validasi Berkas:</h3>
+                    <ul class="list-disc list-inside text-xs font-semibold text-rose-900 mt-1 space-y-0.5">
                         @foreach($errors->all() as $err)
                         <li>{{ $err }}</li>
                         @endforeach
@@ -241,14 +235,14 @@
             @endif
 
             <!-- ================= UPLOAD CARD ================= -->
-            <div class="bg-white rounded-2xl border-[3px] border-black shadow-[6px_6px_0px_#000] p-6 sm:p-8">
+            <div class="bg-white rounded-2xl border-2 border-slate-900 shadow-[4px_4px_0px_#0f172a] p-6 sm:p-8">
                 
                 <form action="{{ route('admin.books.import.submit') }}" method="POST" enctype="multipart/form-data" id="import-form">
                     @csrf
 
                     <!-- Drag & Drop Zone -->
                     <div id="drop-zone" 
-                         class="relative rounded-2xl border-[3px] border-dashed border-black/40 hover:border-black bg-[#faf6ee] p-8 sm:p-12 text-center transition-all cursor-pointer group flex flex-col items-center justify-center">
+                         class="relative rounded-2xl border-2 border-dashed border-slate-400 hover:border-slate-900 bg-slate-50 p-8 sm:p-12 text-center transition-all cursor-pointer group flex flex-col items-center justify-center">
                         
                         <input type="file" 
                                name="file" 
@@ -259,48 +253,48 @@
 
                         <!-- Default Empty State -->
                         <div id="drop-zone-prompt" class="flex flex-col items-center space-y-3">
-                            <div class="w-16 h-16 rounded-2xl bg-[#38b6ff] border-2 border-black shadow-[3px_3px_0px_#000] flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-[36px] text-black">upload_file</span>
+                            <div class="w-14 h-14 rounded-2xl bg-indigo-100 border-2 border-slate-900 shadow-[2px_2px_0px_#0f172a] flex items-center justify-center group-hover:scale-105 transition-transform">
+                                <span class="material-symbols-outlined text-[32px] text-indigo-700">upload_file</span>
                             </div>
                             <div>
-                                <p class="text-base font-black text-black">
+                                <p class="text-base font-extrabold text-slate-900">
                                     Tarik & Letakkan file Excel atau CSV ke sini
                                 </p>
-                                <p class="text-xs font-bold text-black/60 mt-1">
-                                    atau <span class="text-purple-600 underline">klik untuk memilih berkas dari komputer</span>
+                                <p class="text-xs font-semibold text-slate-500 mt-1">
+                                    atau <span class="text-indigo-600 underline font-bold">klik untuk memilih berkas dari komputer</span>
                                 </p>
                             </div>
                             <div class="flex items-center gap-2 pt-2">
-                                <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-400 text-[10px] font-black uppercase">.XLSX</span>
-                                <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-blue-800 border border-blue-400 text-[10px] font-black uppercase">.XLS</span>
-                                <span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 border border-amber-400 text-[10px] font-black uppercase">.CSV</span>
-                                <span class="text-[11px] font-bold text-black/50 ml-1">Maksimal 10 MB</span>
+                                <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-extrabold uppercase">.XLSX</span>
+                                <span class="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 border border-sky-300 text-[10px] font-extrabold uppercase">.XLS</span>
+                                <span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 border border-amber-300 text-[10px] font-extrabold uppercase">.CSV</span>
+                                <span class="text-[11px] font-semibold text-slate-500 ml-1">Maksimal 10 MB</span>
                             </div>
                         </div>
 
                         <!-- Selected File Preview State -->
-                        <div id="file-preview-card" class="hidden flex items-center gap-3 bg-white px-5 py-3.5 rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] z-20">
-                            <span class="material-symbols-outlined text-[28px] text-[#38b6ff]">description</span>
+                        <div id="file-preview-card" class="hidden flex items-center gap-3 bg-white px-5 py-3.5 rounded-xl border-2 border-slate-900 shadow-[2px_2px_0px_#0f172a] z-20">
+                            <span class="material-symbols-outlined text-[28px] text-indigo-600">description</span>
                             <div class="text-left">
-                                <p id="file-name" class="text-xs font-black text-black truncate max-w-xs">nama_file.xlsx</p>
-                                <p id="file-size" class="text-[10px] font-bold text-black/60">0 KB</p>
+                                <p id="file-name" class="text-xs font-extrabold text-slate-900 truncate max-w-xs">nama_file.xlsx</p>
+                                <p id="file-size" class="text-[10px] font-bold text-slate-500">0 KB</p>
                             </div>
-                            <button type="button" id="btn-remove-file" class="ml-2 text-black/40 hover:text-red-500 font-black" title="Batalkan pilihan">
+                            <button type="button" id="btn-remove-file" class="ml-2 text-slate-400 hover:text-rose-600 font-extrabold" title="Batalkan pilihan">
                                 <span class="material-symbols-outlined text-[20px]">cancel</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- Submit Actions -->
-                    <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t-2 border-black/10">
-                        <div class="text-xs font-bold text-black/60 flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-[16px] text-purple-600">memory</span>
+                    <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200">
+                        <div class="text-xs font-semibold text-slate-500 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[16px] text-indigo-600">memory</span>
                             <span>Didukung efisiensi memori (Chunk Reading 500 baris per putaran).</span>
                         </div>
 
                         <button type="submit" 
                                 id="btn-submit-import"
-                                class="w-full sm:w-auto px-8 py-3 rounded-xl bg-[#ffde59] border-2 border-black font-black text-sm shadow-[4px_4px_0px_#000] comic-btn-hover flex items-center justify-center gap-2 cursor-pointer">
+                                class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm border-2 border-slate-900 shadow-[2px_2px_0px_#0f172a] soft-btn-hover flex items-center justify-center gap-2 cursor-pointer">
                             <span class="material-symbols-outlined text-[20px]">play_arrow</span>
                             <span>Mulai Proses Import Sekarang</span>
                         </button>
@@ -311,73 +305,61 @@
             </div>
 
             <!-- ================= FORMAT SPESIFIKASI KOLOM ================= -->
-            <div class="bg-white rounded-2xl border-[3px] border-black shadow-[4px_4px_0px_#000] p-6 space-y-4">
+            <div class="bg-white rounded-2xl border-2 border-slate-900 shadow-[4px_4px_0px_#0f172a] p-6 space-y-4">
                 <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[22px] text-purple-600">tune</span>
-                    <h2 class="text-base font-black text-black">Panduan Format Kolom Spreadsheet</h2>
+                    <span class="material-symbols-outlined text-[22px] text-indigo-600">tune</span>
+                    <h2 class="text-base font-extrabold text-slate-900 font-['Space_Grotesk',sans-serif]">Panduan Format Kolom Spreadsheet</h2>
                 </div>
-                <p class="text-xs font-bold text-black/70">
+                <p class="text-xs font-medium text-slate-600">
                     Pastikan baris pertama (header) spreadsheet Anda memuat nama kolom yang sesuai. Anda dapat menggunakan nama kolom dalam Bahasa Inggris maupun Bahasa Indonesia:
                 </p>
 
-                <div class="border-2 border-black rounded-xl overflow-hidden shadow-[2px_2px_0px_#000]">
+                <div class="border-2 border-slate-900 rounded-xl overflow-hidden shadow-[2px_2px_0px_#0f172a]">
                     <table class="w-full text-left text-xs border-collapse">
-                        <thead class="bg-[#faf6ee] border-b-2 border-black font-black uppercase text-[10px]">
+                        <thead class="bg-slate-100 border-b-2 border-slate-900 font-extrabold uppercase text-[10px] text-slate-700">
                             <tr>
-                                <th class="p-2.5 border-r border-black">Nama Kolom (Header)</th>
-                                <th class="p-2.5 border-r border-black w-24 text-center">Status</th>
-                                <th class="p-2.5 border-r border-black">Tipe Data</th>
+                                <th class="p-2.5 border-r border-slate-200">Nama Kolom (Header)</th>
+                                <th class="p-2.5 border-r border-slate-200 w-24 text-center">Status</th>
+                                <th class="p-2.5 border-r border-slate-200">Tipe Data</th>
                                 <th class="p-2.5">Keterangan & Nilai Bawaan</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-black/20 font-semibold">
+                        <tbody class="divide-y divide-slate-200 font-medium text-slate-800">
                             <tr>
-                                <td class="p-2.5 border-r border-black font-mono font-bold text-purple-700">title / judul</td>
-                                <td class="p-2.5 border-r border-black text-center"><span class="px-2 py-0.5 rounded bg-red-100 text-red-800 font-black text-[10px] border border-red-300">Wajib</span></td>
-                                <td class="p-2.5 border-r border-black text-black/70">Teks (Maks 255)</td>
-                                <td class="p-2.5 text-black/80">Judul lengkap buku atau modul ajar.</td>
+                                <td class="p-2.5 border-r border-slate-200 font-mono font-bold text-indigo-700">title / judul</td>
+                                <td class="p-2.5 border-r border-slate-200 text-center"><span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-extrabold text-[10px] border border-rose-300">Wajib</span></td>
+                                <td class="p-2.5 border-r border-slate-200 text-slate-600">Teks (Maks 255)</td>
+                                <td class="p-2.5 text-slate-700">Judul buku lengkap.</td>
                             </tr>
                             <tr class="bg-slate-50/50">
-                                <td class="p-2.5 border-r border-black font-mono font-bold text-purple-700">author / penulis</td>
-                                <td class="p-2.5 border-r border-black text-center"><span class="px-2 py-0.5 rounded bg-red-100 text-red-800 font-black text-[10px] border border-red-300">Wajib</span></td>
-                                <td class="p-2.5 border-r border-black text-black/70">Teks (Maks 255)</td>
-                                <td class="p-2.5 text-black/80">Nama penulis, penyusun, atau penerbit resmi.</td>
+                                <td class="p-2.5 border-r border-slate-200 font-mono font-bold text-indigo-700">author / penulis</td>
+                                <td class="p-2.5 border-r border-slate-200 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-300">Opsional</span></td>
+                                <td class="p-2.5 border-r border-slate-200 text-slate-600">Teks (Maks 255)</td>
+                                <td class="p-2.5 text-slate-700">Nama penulis. Default: <code>Anonim</code></td>
                             </tr>
                             <tr>
-                                <td class="p-2.5 border-r border-black font-mono font-bold text-purple-700">category / kategori</td>
-                                <td class="p-2.5 border-r border-black text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] border border-slate-300">Opsional</span></td>
-                                <td class="p-2.5 border-r border-black text-black/70">Teks</td>
-                                <td class="p-2.5 text-black/80">Contoh: <em>Teknik & Rekayasa</em>, <em>Seni & Animasi</em>. Default: <code>Umum</code></td>
+                                <td class="p-2.5 border-r border-slate-200 font-mono font-bold text-indigo-700">category / kategori</td>
+                                <td class="p-2.5 border-r border-slate-200 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-300">Opsional</span></td>
+                                <td class="p-2.5 border-r border-slate-200 text-slate-600">Teks (Maks 100)</td>
+                                <td class="p-2.5 text-slate-700">Kategori buku. Default: <code>Umum</code></td>
                             </tr>
                             <tr class="bg-slate-50/50">
-                                <td class="p-2.5 border-r border-black font-mono font-bold text-purple-700">stock / stok</td>
-                                <td class="p-2.5 border-r border-black text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] border border-slate-300">Opsional</span></td>
-                                <td class="p-2.5 border-r border-black text-black/70">Angka Bulat</td>
-                                <td class="p-2.5 text-black/80">Jumlah eksemplar buku fisik. Default: <code>50</code></td>
+                                <td class="p-2.5 border-r border-slate-200 font-mono font-bold text-indigo-700">stock / stok</td>
+                                <td class="p-2.5 border-r border-slate-200 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-300">Opsional</span></td>
+                                <td class="p-2.5 border-r border-slate-200 text-slate-600">Angka Bulat (&ge; 0)</td>
+                                <td class="p-2.5 text-slate-700">Jumlah eksemplar fisik. Default: <code>1</code></td>
                             </tr>
                             <tr>
-                                <td class="p-2.5 border-r border-black font-mono font-bold text-purple-700">rack / rak</td>
-                                <td class="p-2.5 border-r border-black text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] border border-slate-300">Opsional</span></td>
-                                <td class="p-2.5 border-r border-black text-black/70">Teks</td>
-                                <td class="p-2.5 text-black/80">Posisi rak di perpustakaan. Default: <code>Rak 1</code></td>
+                                <td class="p-2.5 border-r border-slate-200 font-mono font-bold text-indigo-700">type / tipe</td>
+                                <td class="p-2.5 border-r border-slate-200 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-300">Opsional</span></td>
+                                <td class="p-2.5 border-r border-slate-200 text-slate-600">physical / ebook / both</td>
+                                <td class="p-2.5 text-slate-700">Tipe ketersediaan koleksi. Default: <code>physical</code></td>
                             </tr>
                             <tr class="bg-slate-50/50">
-                                <td class="p-2.5 border-r border-black font-mono font-bold text-purple-700">isbn</td>
-                                <td class="p-2.5 border-r border-black text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] border border-slate-300">Opsional</span></td>
-                                <td class="p-2.5 border-r border-black text-black/70">Teks</td>
-                                <td class="p-2.5 text-black/80">Nomor ISBN resmi berstandar nasional.</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2.5 border-r border-black font-mono font-bold text-purple-700">type / tipe</td>
-                                <td class="p-2.5 border-r border-black text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] border border-slate-300">Opsional</span></td>
-                                <td class="p-2.5 border-r border-black text-black/70">physical / ebook / both</td>
-                                <td class="p-2.5 text-black/80">Tipe ketersediaan koleksi. Default: <code>physical</code></td>
-                            </tr>
-                            <tr class="bg-slate-50/50">
-                                <td class="p-2.5 border-r border-black font-mono font-bold text-purple-700">description / deskripsi</td>
-                                <td class="p-2.5 border-r border-black text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] border border-slate-300">Opsional</span></td>
-                                <td class="p-2.5 border-r border-black text-black/70">Teks Panjang</td>
-                                <td class="p-2.5 text-black/80">Sinopsis ringkas isi buku.</td>
+                                <td class="p-2.5 border-r border-slate-200 font-mono font-bold text-indigo-700">description / deskripsi</td>
+                                <td class="p-2.5 border-r border-slate-200 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-300">Opsional</span></td>
+                                <td class="p-2.5 border-r border-slate-200 text-slate-600">Teks Panjang</td>
+                                <td class="p-2.5 text-slate-700">Sinopsis ringkas isi buku.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -413,12 +395,12 @@
                 fileSizeEl.textContent = formatBytes(file.size);
                 promptState.classList.add('hidden');
                 previewCard.classList.remove('hidden');
-                dropZone.classList.add('bg-purple-50', 'border-purple-500');
+                dropZone.classList.add('bg-indigo-50', 'border-indigo-500');
             } else {
                 fileInput.value = '';
                 promptState.classList.remove('hidden');
                 previewCard.classList.add('hidden');
-                dropZone.classList.remove('bg-purple-50', 'border-purple-500');
+                dropZone.classList.remove('bg-indigo-50', 'border-indigo-500');
             }
         }
 
@@ -433,7 +415,7 @@
             dropZone.addEventListener(eventName, (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                dropZone.classList.add('bg-amber-100', 'border-black', 'scale-[1.01]');
+                dropZone.classList.add('bg-amber-100', 'border-slate-900', 'scale-[1.01]');
             }, false);
         });
 
@@ -465,11 +447,10 @@
             submitBtn.disabled = true;
             submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
             submitBtn.innerHTML = `
-                <div class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 <span>Sedang Memproses Data (Chunk Reading)...</span>
             `;
         });
     </script>
 </body>
 </html>
-
